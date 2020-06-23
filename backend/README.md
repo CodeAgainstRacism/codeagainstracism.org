@@ -2,6 +2,11 @@
 
 Built with [NestJS](https://nestjs.com/)
 
+## Dependencies
+
+- NodeJS
+- mysql
+
 ## Installation
 
 ```bash
@@ -9,6 +14,15 @@ npm install
 ```
 
 ## Running the app
+
+### Setup the database
+
+You'll need to setup the mysql database in order to run the app
+
+1. Create the mysql database
+2. Set the `DATABASE_URL` environment variable with the db's connection url (see the [variable's description](#environment-variables)) in `.env`
+
+### Run
 
 ```bash
 # development

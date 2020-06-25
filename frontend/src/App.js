@@ -2,6 +2,10 @@ import React from "react";
 import axios from "axios";
 
 import { BACKEND_URL } from "./config";
+import "normalize.css/normalize.css"
+import "./styles/styles.scss";
+
+import LandingPage from "./components/LandingPage/LandingPage";
 
 export default class App extends React.Component {
   state = {
@@ -14,7 +18,11 @@ export default class App extends React.Component {
     });
   }
 
+
   render() {
-    return <div>{this.state.helloWord}</div>;
+    return (
+        <LandingPage />
+
+    )
   }
 }

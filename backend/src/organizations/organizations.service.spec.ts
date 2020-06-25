@@ -46,9 +46,9 @@ describe('OrganizationsService', () => {
 
             findOne: jest
               .fn()
-              .mockImplementation((id: String) =>
+              .mockImplementation((id: number) =>
                 mockDatabase.find(
-                  organization => organization.id === Number(id),
+                  organization => organization.id === id,
                 ),
               ),
 
@@ -77,7 +77,7 @@ describe('OrganizationsService', () => {
               .mockImplementation(
                 (id: number, organizationData: OrganizationDto) => {
                   const organizationToUpdate = mockDatabase.find(
-                    organization => organization.id === Number(id),
+                    organization => organization.id === id,
                   );
                   if (organizationData.password) {
                     organizationToUpdate.encryptedPassword = OrganizationsService.encrypt(
@@ -95,9 +95,9 @@ describe('OrganizationsService', () => {
                 },
               ),
 
-            delete: jest.fn().mockImplementation((id: String) => {
+            delete: jest.fn().mockImplementation((id: number) => {
               mockDatabase = mockDatabase.filter(
-                organization => organization.id !== Number(id),
+                organization => organization.id !== id,
               );
             }),
           },
@@ -146,7 +146,7 @@ describe('OrganizationsService', () => {
 
   describe('findOne', () => {
     it('should get a single organization', () => {
-      expect(service.findOne('0')).toEqual(mockDatabase[0]);
+      expect(service.findOne(0)).toEqual(mockDatabase[0]);
     });
   });
 
@@ -167,7 +167,7 @@ describe('OrganizationsService', () => {
       await service.create(newOrganization);
       expect(mockDatabase.length).toEqual(beforeCount + 1);
 
-      const createdOrganization = await service.findOne(String(beforeCount));
+      const createdOrganization = await service.findOne(beforeCount);
       expect(createdOrganization.EIN).toEqual(newOrganization.EIN);
       expect(createdOrganization.name).toEqual(newOrganization.name);
       expect(createdOrganization.description).toEqual(
@@ -248,7 +248,7 @@ describe('OrganizationsService', () => {
   describe('remove', () => {
     it('should delete an organization', async () => {
       const beforeCount = mockDatabase.length;
-      await service.remove('0');
+      await service.remove(0);
       expect(mockDatabase.length).toEqual(beforeCount - 1);
     });
   });

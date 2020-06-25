@@ -45,11 +45,9 @@ describe('Organization Controller', () => {
 
             findOne: jest
               .fn()
-              .mockImplementation((id: String) =>
+              .mockImplementation((id: number) =>
                 Promise.resolve(
-                  mockDatabase.find(
-                    organization => organization.id === Number(id),
-                  ),
+                  mockDatabase.find(organization => organization.id === id),
                 ),
               ),
 
@@ -65,7 +63,7 @@ describe('Organization Controller', () => {
               .mockImplementation(
                 (id: number, organizationData: OrganizationDto) => {
                   const organizationToUpdate = mockDatabase.find(
-                    organization => organization.id === Number(id),
+                    organization => organization.id === id,
                   );
                   delete organizationData.password;
 

@@ -27,7 +27,7 @@ export class OrganizationsService {
     return this.organizationsRepository.find();
   }
 
-  findOne(id: string): Promise<Organization> {
+  async findOne(id: number): Promise<Organization> {
     return this.organizationsRepository.findOne(id);
   }
 
@@ -46,7 +46,7 @@ export class OrganizationsService {
     return this.organizationsRepository.findOne(id);
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     await this.organizationsRepository.delete(id);
   }
 

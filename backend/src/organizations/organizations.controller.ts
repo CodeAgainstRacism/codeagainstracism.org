@@ -29,7 +29,7 @@ export class OrganizationsController {
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Organization> {
-    return this.OrganizationsService.findOne(id);
+    return this.OrganizationsService.findOne(Number(id));
   }
 
   @Put(':id')
@@ -39,6 +39,6 @@ export class OrganizationsController {
 
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
-    return this.OrganizationsService.remove(id);
+    return this.OrganizationsService.remove(Number(id));
   }
 }

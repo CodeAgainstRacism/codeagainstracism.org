@@ -1,3 +1,4 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
@@ -5,6 +6,8 @@ import { Repository } from 'typeorm';
 import { OrganizationsService } from './organizations.service';
 import { Organization } from './organization.entity';
 import { OrganizationDto } from './organization.dto';
+
+const INVALID_ID = -1;
 
 const mockData = [
   new Organization(
@@ -47,9 +50,7 @@ describe('OrganizationsService', () => {
             findOne: jest
               .fn()
               .mockImplementation((id: number) =>
-                mockDatabase.find(
-                  organization => organization.id === id,
-                ),
+                mockDatabase.find(organization => organization.id === id),
               ),
 
             create: jest
@@ -146,7 +147,25 @@ describe('OrganizationsService', () => {
 
   describe('findOne', () => {
     it('should get a single organization', () => {
-      expect(service.findOne(0)).toEqual(mockDatabase[0]);
+      expect(service.findOne(0)).resolves.toEqual(mockDatabase[0]);
+    });
+    it('should throw an exception with a non existing id', async () => {
+      let error;
+      try {
+        await service.findOne(INVALID_ID);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toEqual(
+        new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: `Organization with id:${INVALID_ID} not found`,
+          },
+          HttpStatus.NOT_FOUND,
+        ),
+      );
     });
   });
 
@@ -162,6 +181,16 @@ describe('OrganizationsService', () => {
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
       };
+
+      jest
+        .spyOn(repo, 'find')
+        .mockImplementation(() =>
+          Promise.resolve(
+            mockDatabase.filter(
+              organization => organization.email === newOrganization.email,
+            ),
+          ),
+        );
 
       const beforeCount = mockDatabase.length;
       await service.create(newOrganization);
@@ -182,6 +211,46 @@ describe('OrganizationsService', () => {
       );
       expect(createdOrganization.contactLastName).toEqual(
         newOrganization.contactLastName,
+      );
+    });
+
+    it('should throw an exception with an already used email', async () => {
+      const newOrganizationWithSameEmail: OrganizationDto = {
+        EIN: '12-3456789',
+        name: 'Apple',
+        description: 'The apple company',
+        phoneNumber: '+001 (012) 012-0123',
+        email: 'johndoe@email.com',
+        password: 'strongpassword',
+        contactFirstName: 'Steve',
+        contactLastName: 'Jobs',
+      };
+      jest
+        .spyOn(repo, 'find')
+        .mockImplementation(() =>
+          Promise.resolve(
+            mockDatabase.filter(
+              organization =>
+                organization.email === newOrganizationWithSameEmail.email,
+            ),
+          ),
+        );
+
+      let error;
+      try {
+        await service.create(newOrganizationWithSameEmail);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toEqual(
+        new HttpException(
+          {
+            status: HttpStatus.CONFLICT,
+            error: 'Email already used',
+          },
+          HttpStatus.CONFLICT,
+        ),
       );
     });
   });
@@ -243,6 +312,36 @@ describe('OrganizationsService', () => {
       );
       expect(mockDatabase[0].contactLastName).toEqual(newData.contactLastName);
     });
+
+    it('should throw an exception with a non existing id', async () => {
+      const newData = {
+        EIN: undefined,
+        name: undefined,
+        description: undefined,
+        phoneNumber: undefined,
+        email: undefined,
+        password: 'new password',
+        contactFirstName: 'Steve',
+        contactLastName: 'Jobs',
+      };
+
+      let error;
+      try {
+        await service.update(INVALID_ID, newData);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toEqual(
+        new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: `Organization with id:${INVALID_ID} not found`,
+          },
+          HttpStatus.NOT_FOUND,
+        ),
+      );
+    });
   });
 
   describe('remove', () => {
@@ -250,6 +349,25 @@ describe('OrganizationsService', () => {
       const beforeCount = mockDatabase.length;
       await service.remove(0);
       expect(mockDatabase.length).toEqual(beforeCount - 1);
+    });
+
+    it('should throw an exception with a non existing id', async () => {
+      let error;
+      try {
+        await service.remove(INVALID_ID);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toEqual(
+        new HttpException(
+          {
+            status: HttpStatus.NOT_FOUND,
+            error: `Organization with id:${INVALID_ID} not found`,
+          },
+          HttpStatus.NOT_FOUND,
+        ),
+      );
     });
   });
 });

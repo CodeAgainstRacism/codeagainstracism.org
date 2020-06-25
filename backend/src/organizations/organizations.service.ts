@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -12,12 +12,26 @@ export class OrganizationsService {
     private readonly organizationsRepository: Repository<Organization>,
   ) {}
 
-  create(createOrganizationDto: OrganizationDto): Promise<Organization> {
-    const organization = this.organizationsRepository.create(
-      createOrganizationDto,
-    );
+  async create(organizationDto: OrganizationDto): Promise<Organization> {
+    const sameEmailOrganizations = await this.organizationsRepository.find({
+      where: {
+        email: organizationDto.email,
+      },
+    });
+
+    if (sameEmailOrganizations.length !== 0) {
+      throw new HttpException(
+        {
+          status: HttpStatus.CONFLICT,
+          error: 'Email already used',
+        },
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    const organization = this.organizationsRepository.create(organizationDto);
     organization.encryptedPassword = OrganizationsService.encrypt(
-      createOrganizationDto.password,
+      organizationDto.password,
     );
 
     return this.organizationsRepository.save(organization);
@@ -28,13 +42,24 @@ export class OrganizationsService {
   }
 
   async findOne(id: number): Promise<Organization> {
-    return this.organizationsRepository.findOne(id);
+    const organization = await this.organizationsRepository.findOne(id);
+    if (organization === undefined) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `Organization with id:${id} not found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return organization;
   }
 
   public async update(
     id: number,
     organization: OrganizationDto,
   ): Promise<Organization> {
+    await this.findOne(id); // checks if the organization exists
     if (organization.password) {
       await this.organizationsRepository.update(id, {
         encryptedPassword: OrganizationsService.encrypt(organization.password),
@@ -47,6 +72,7 @@ export class OrganizationsService {
   }
 
   async remove(id: number): Promise<void> {
+    await this.findOne(id); // checks if the organization exists
     await this.organizationsRepository.delete(id);
   }
 

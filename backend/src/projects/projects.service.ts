@@ -36,7 +36,7 @@ export class ProjectsService {
   }
 
   public async update(id: number, project: ProjectDto): Promise<Project> {
-    await this.findOne(id); // checks if the organization exists
+    await this.findOne(id); // checks if the project exists
     await this.projectsRepository.update(id, project);
     return this.projectsRepository.findOne(id);
   }

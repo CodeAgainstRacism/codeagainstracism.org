@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProjectsController } from './projects.controller';
 import { ProjectDto } from './project.dto';
 import { ProjectsService } from './projects.service';
-import { Project } from './Project.entity';
+import { Project } from './project.entity';
 
 const mockData = [
   new Project(

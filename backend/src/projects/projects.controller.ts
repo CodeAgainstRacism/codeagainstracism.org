@@ -8,8 +8,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { ProjectDto } from './project.dto';
-import { Project } from './Project.entity';
-import { ProjectsService } from './Projects.service';
+import { Project } from './project.entity';
+import { ProjectsService } from './projects.service';
 
 @Controller('projects')
 export class ProjectsController {

@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsString,
   IsDate,
+  IsOptional,
   MaxLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -22,7 +23,7 @@ export class ProjectDto {
   @Type(() => Date)
   startDate: Date;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDate()
   @Type(() => Date)
   endDate: Date;

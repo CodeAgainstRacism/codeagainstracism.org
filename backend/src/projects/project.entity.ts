@@ -20,7 +20,7 @@ export class Project {
   @Column()
   startDate: Date;
 
-  @Column()
+  @Column({ default: null })
   endDate: Date;
 
   @Column()
@@ -30,7 +30,7 @@ export class Project {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
-  
+
   constructor(
     id?: number,
     name?: string,

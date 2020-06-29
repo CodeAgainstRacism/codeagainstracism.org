@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { OrganizationsController } from './organizations.controller';
 import { OrganizationDto } from './organization.dto';
 import { OrganizationsService } from './organizations.service';
-import { Organization } from './Organization.entity';
+import { Organization } from './organization.entity';
 
 const mockData = [
   new Organization(

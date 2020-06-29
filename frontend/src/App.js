@@ -1,13 +1,14 @@
 import React from "react";
-import { BrowserRouter, Route, Link, Switch, NavLink } from "react-router-dom";
 import axios from "axios";
-
+import { BrowserRouter, Route, Link, Switch, NavLink } from "react-router-dom";
 import { BACKEND_URL } from "./config";
 import "normalize.css/normalize.css"
 import "./styles/styles.scss";
 
 import LandingPage from "./components/LandingPage/LandingPage";
 import NotFoundPage from "./components/NotFound";
+import NewProjectForm from "./components/Forms/NewProjectForm";
+import NewOrganizationForm from "./components/Forms/NewOrganizationForm";
 
 const HelpPage = () => (
   <div>
@@ -16,12 +17,14 @@ const HelpPage = () => (
 )
 
 const Header = () => (    // Functional Component 
-  <header>
-    <h1>Code Against Racism</h1>
-    <NavLink to="/" activeClassName="is-active" exact={true}>Home</NavLink>     {/*activeClassName is only going to get applied to the link when we're on that page. */}
-    {/* <NavLink to="/create" activeClassName="is-active" exact={true}>Add </NavLink> */}
-    {/* <NavLink to="/edit" activeClassName="is-active" exact={true}>Edit </NavLink> */}
-    <NavLink to="/help" activeClassName="is-active" exact={true}>Help</NavLink>
+  <header className="navbar">
+    <h1 className="nav__brand">Code Against Racism</h1>
+    <div className="nav__links">
+      <NavLink to="/" activeClassName="is-active" exact={true} className="nav__item">Home</NavLink>     {/*activeClassName is only going to get applied to the link when we're on that page. */}
+      <NavLink to="/project/new" activeClassName="is-active" exact={true} className="nav__item">Create a New Project</NavLink>
+      <NavLink to="/organization/new" activeClassName="is-active" exact={true} className="nav__item">Create a New Organization</NavLink>
+      <NavLink to="/help" activeClassName="is-active" exact={true} className="nav__item">Help</NavLink>
+    </div>
   </header>
 )
 
@@ -44,8 +47,8 @@ class App extends React.Component {
           <Header />      { /* <Header /> outside of <Switch /> will show up on every page */}
           <Switch>
             <Route exact={true} path="/" component={LandingPage}  />
-            {/* <Route path="/create" component={} exact={true} />   */}
-            {/* <Route path="/edit/:id" component={} exact={true} />     id is URL parameter. id of a transaction */}
+            <Route path="/project/new" component={NewProjectForm} exact={true} /> 
+            <Route path="/organization/new" component={NewOrganizationForm} exact={true} />     
             <Route exact={true} path="/help" component={HelpPage} />
             <Route component={NotFoundPage} />
           </Switch>

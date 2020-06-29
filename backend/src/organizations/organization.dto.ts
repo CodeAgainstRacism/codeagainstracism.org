@@ -1,4 +1,4 @@
-import { IsEmail, IsMobilePhone, IsNotEmpty, IsString, Length, MaxLength } from 'class-validator';
+import { IsEmail, IsMobilePhone, IsNotEmpty, IsString, Length, MaxLength, IsOptional } from 'class-validator';
 
 export class OrganizationDto {
   @Length(10, 10)
@@ -20,6 +20,7 @@ export class OrganizationDto {
   @IsEmail()
   email: string;
   
+  @IsOptional()
   @Length(8, 128)
   @IsString()
   password: string;

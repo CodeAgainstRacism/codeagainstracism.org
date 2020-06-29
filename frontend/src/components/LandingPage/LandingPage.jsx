@@ -8,8 +8,6 @@ class LandingPage extends React.Component {
         this.state = {
             showSignUp: true
         }
-        
-        this.toggleLoginForm = this.toggleLoginForm.bind(this);
     }
 
     toggleLoginForm(){

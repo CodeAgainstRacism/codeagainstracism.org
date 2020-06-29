@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { OrganizationsModule } from './organizations/organizations.module';
 
 @Module({
   imports: [
@@ -10,10 +11,10 @@ import { AppService } from './app.service';
     TypeOrmModule.forRoot({
       type: 'mysql',
       url: process.env.DATABASE_URL,
-      entities: [],
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV !== 'production',
     }),
+    OrganizationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

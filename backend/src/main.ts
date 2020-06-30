@@ -11,8 +11,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const options = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Code Against Racism')
+    .setDescription('The code against racism API description')
     .setVersion('1.0')
     .addTag('organizations')
     .build();

@@ -181,7 +181,7 @@ describe('OrganizationsService', () => {
           ),
         );
     });
-    
+
     it('should get a single organization with a valid email', async () => {
       const expectedOrganization = mockDatabase[0];
       const organization = await service.findByEmail(
@@ -211,6 +211,17 @@ describe('OrganizationsService', () => {
   });
 
   describe('create', () => {
+
+    beforeEach(() => {
+      jest
+        .spyOn(repo, 'find')
+        .mockImplementationOnce(({ email }) =>
+          Promise.resolve(
+            mockDatabase.filter(organization => organization.email === email),
+          ),
+        );
+    });
+
     it('should successfully create an organization', async () => {
       const newOrganization: OrganizationDto = {
         EIN: '12-3456789',
@@ -222,16 +233,6 @@ describe('OrganizationsService', () => {
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
       };
-
-      jest
-        .spyOn(repo, 'find')
-        .mockImplementation(() =>
-          Promise.resolve(
-            mockDatabase.filter(
-              organization => organization.email === newOrganization.email,
-            ),
-          ),
-        );
 
       const beforeCount = mockDatabase.length;
       await service.create(newOrganization);
@@ -266,17 +267,7 @@ describe('OrganizationsService', () => {
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
       };
-      jest
-        .spyOn(repo, 'find')
-        .mockImplementation(() =>
-          Promise.resolve(
-            mockDatabase.filter(
-              organization =>
-                organization.email === newOrganizationWithSameEmail.email,
-            ),
-          ),
-        );
-
+      
       let error;
       try {
         await service.create(newOrganizationWithSameEmail);

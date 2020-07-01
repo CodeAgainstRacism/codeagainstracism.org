@@ -13,8 +13,6 @@ import { AuthController } from './auth.controller';
     ConfigModule,
     OrganizationsModule,
     PassportModule,
-    TypeOrmModule.forFeature([AuthService]),
-    forwardRef(() => OrganizationsModule),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({

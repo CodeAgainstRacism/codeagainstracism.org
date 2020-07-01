@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OrganizationsModule } from './organizations/organizations.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { OrganizationsModule } from './organizations/organizations.module';
       synchronize: process.env.NODE_ENV !== 'production',
     }),
     OrganizationsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

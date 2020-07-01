@@ -52,8 +52,10 @@ npm run test:cov
 
 The following environment variables are used in this project. You can set them by creating a `.env` file in the project root directory.
 
-| Name         | Description                                                                                          |
-| ------------ | ---------------------------------------------------------------------------------------------------- |
-| PORT         | Port on with the app will run. Defaults to 4000                                                      |
-| NODE_ENV     | (optionnal) Current environement. Any value that is not production will be considered as development |
-| DATABASE_URL | Database's url. Has the syntax `mysql://username:password@host:database_port/database_name`          |
+| Name                | Description                                                                                                                                                                                                    |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PORT                | Port on with the app will run. Defaults to 4000                                                                                                                                                                |
+| NODE_ENV            | (optionnal) Current environement. Any value that is not production will be considered as development                                                                                                           |
+| DATABASE_URL        | Database's url. Has the syntax `mysql://username:password@host:database_port/database_name`                                                                                                                    |
+| JWT_SECRET_KEY      | Secret key used for JWT                                                                                                                                                                                        |
+| JWT_EXPIRATION_TIME | Time before the JWT expires (example: `10d`, `2h`). Can be expressed in seconds or a string describing a time span. More information on how to set it's value [here](https://github.com/auth0/node-jsonwebtoken#usage) |

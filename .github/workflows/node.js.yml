@@ -19,3 +19,5 @@ jobs:
         working-directory: backend
       - run: npm test
         working-directory: backend
+      - run: npm run test:2e2
+        working-directory: backend

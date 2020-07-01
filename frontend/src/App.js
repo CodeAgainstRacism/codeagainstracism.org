@@ -7,7 +7,8 @@ import "./styles/styles.scss";
 
 import LandingPage from "./components/LandingPage/LandingPage";
 import NotFoundPage from "./components/NotFound";
-import NewProjectForm from "./components/Forms/NewProjectForm";
+//import NewProjectForm from "./components/Forms/NewProjectForm";
+import Create_Project from "./components/Forms/create_proj";
 import NewOrganizationForm from "./components/Forms/NewOrganizationForm";
 
 const HelpPage = () => (
@@ -43,19 +44,22 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
+        <div> 
           <Header />      { /* <Header /> outside of <Switch /> will show up on every page */}
+          <div className = "container"> 
           <Switch>
             <Route exact={true} path="/" component={LandingPage}  />
-            <Route path="/project/new" component={NewProjectForm} exact={true} /> 
-            <Route path="/organization/new" component={NewOrganizationForm} exact={true} />     
+            <Route path="/project/new" component={Create_Project} exact={true} /> 
+            <Route path="/organization/new" component={NewOrganizationForm} exact={true} />
             <Route exact={true} path="/help" component={HelpPage} />
             <Route component={NotFoundPage} />
           </Switch>
+          </div>
         </div>
     </BrowserRouter>
     )
   }
 }
-
+//<Route path="/project/new" component={NewProjectForm} exact={true} /> 
+//line 47 original was just div
 export default App;

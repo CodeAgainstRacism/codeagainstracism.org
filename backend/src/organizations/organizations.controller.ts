@@ -6,12 +6,15 @@ import {
   Param,
   Post,
   Put,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { OrganizationDto } from './organization.dto';
 import { Organization } from './organization.entity';
 import { OrganizationsService } from './organizations.service';
 
 @Controller('organizations')
+@UseInterceptors(ClassSerializerInterceptor)
 export class OrganizationsController {
   constructor(private readonly OrganizationsService: OrganizationsService) {}
 

@@ -15,6 +15,7 @@ async function bootstrap() {
     .setDescription('The code against racism API description')
     .setVersion('1.0')
     .addTag('organizations')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);

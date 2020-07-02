@@ -14,9 +14,7 @@ export class OrganizationsService {
 
   async create(organizationDto: OrganizationDto): Promise<Organization> {
     const sameEmailOrganizations = await this.organizationsRepository.find({
-      where: {
-        email: organizationDto.email,
-      },
+      email: organizationDto.email,
     });
 
     if (sameEmailOrganizations.length !== 0) {
@@ -53,6 +51,24 @@ export class OrganizationsService {
       );
     }
     return organization;
+  }
+
+  async findByEmail(email: string): Promise<Organization> {
+    const organizationsFound = await this.organizationsRepository.find({
+      email,
+    });
+
+    if (organizationsFound.length === 0) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `Organization with email:${email} not found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    } else {
+      return await this.findOne(organizationsFound[0].id);
+    }
   }
 
   public async update(

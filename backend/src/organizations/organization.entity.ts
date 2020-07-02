@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Organization {
@@ -32,7 +33,8 @@ export class Organization {
   @Column()
   contactLastName: string;
 
-  @Column({ nullable: false, select: false })
+  @Column()
+  @Exclude({ toPlainOnly: true })
   encryptedPassword: string;
 
   @Column()

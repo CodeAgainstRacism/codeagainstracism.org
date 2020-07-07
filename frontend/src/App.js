@@ -1,7 +1,5 @@
 import React from "react";
 import axios from "axios";
-<<<<<<< Updated upstream
-=======
 import { BrowserRouter, Route, Link, Switch, NavLink } from "react-router-dom";
 import { BACKEND_URL } from "./config";
 import "normalize.css/normalize.css"
@@ -11,13 +9,27 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import NotFoundPage from "./components/NotFound";
 //import NewProjectForm from "./components/Forms/NewProjectForm";
 import Create_Project from "./components/Forms/create_proj";
-//import NewOrganizationForm from "./components/Forms/NewOrganizationForm";
-import Project_overview from "./components/Forms/Project_overview";
->>>>>>> Stashed changes
+import NewOrganizationForm from "./components/Forms/NewOrganizationForm";
 
-import { BACKEND_URL } from "./config";
+const HelpPage = () => (
+  <div>
+    Help Page
+  </div>
+)
 
-export default class App extends React.Component {
+const Header = () => (    // Functional Component 
+  <header className="navbar">
+    <h1 className="nav__brand">Code Against Racism</h1>
+    <div className="nav__links">
+      <NavLink to="/" activeClassName="is-active" exact={true} className="nav__item">Home</NavLink>     {/*activeClassName is only going to get applied to the link when we're on that page. */}
+      <NavLink to="/project/new" activeClassName="is-active" exact={true} className="nav__item">Create a New Project</NavLink>
+      <NavLink to="/organization/new" activeClassName="is-active" exact={true} className="nav__item">Create a New Organization</NavLink>
+      <NavLink to="/help" activeClassName="is-active" exact={true} className="nav__item">Help</NavLink>
+    </div>
+  </header>
+)
+
+class App extends React.Component {
   state = {
     helloWord: undefined,
   };
@@ -28,12 +40,8 @@ export default class App extends React.Component {
     });
   }
 
+  
   render() {
-<<<<<<< Updated upstream
-    return <div>{this.state.helloWord}</div>;
-  }
-}
-=======
     return (
       <BrowserRouter>
         <div> 
@@ -42,7 +50,7 @@ export default class App extends React.Component {
           <Switch>
             <Route exact={true} path="/" component={LandingPage}  />
             <Route path="/project/new" component={Create_Project} exact={true} /> 
-            <Route path="/organization/new" component={Project_overview} exact={true} />
+            <Route path="/organization/new" component={NewOrganizationForm} exact={true} />
             <Route exact={true} path="/help" component={HelpPage} />
             <Route component={NotFoundPage} />
           </Switch>
@@ -54,6 +62,4 @@ export default class App extends React.Component {
 }
 //<Route path="/project/new" component={NewProjectForm} exact={true} /> 
 //line 47 original was just div
-//<Route path="/organization/new" component={NewOrganizationForm} exact={true} />
 export default App;
->>>>>>> Stashed changes

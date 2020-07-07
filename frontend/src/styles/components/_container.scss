@@ -1,25 +1,23 @@
 .container {
-    max-width: 70rem;
-    margin: 0 auto;
-    text-align: center;
-    // background: purple;
+  max-width: 70rem;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .form-container {
-    background-color: $form-background;
-    border: 0.1rem solid black;
-    margin: 0 auto;
-    width: 30rem;
-    padding: 1rem 0;
-    
+  background-color: $form-background;
+  border: 0.1rem solid black;
+  margin: 0 auto;
+  width: 30rem;
+  padding: 1rem 0;
 }
 
 .buttons-container {
-    width: 30.2rem;
-    padding: 1rem 0;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    background: black;
+  width: 30.2rem;
+  padding: 1rem 0;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background: black;
 }

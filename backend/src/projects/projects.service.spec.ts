@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { ProjectsService } from './projects.service';
 import { Project } from './project.entity';
 import { ProjectDto } from './project.dto';
+import { OrganizationsService } from '../organizations/organizations.service';
+import { Organization } from '../organizations/organization.entity';
 
 const INVALID_ID = -1;
 
@@ -35,6 +37,11 @@ describe('ProjectsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ProjectsService,
+        OrganizationsService,
+        {
+          provide: getRepositoryToken(Organization),
+          useValue: {},
+        },
         {
           provide: getRepositoryToken(Project),
           useValue: {
@@ -132,6 +139,7 @@ describe('ProjectsService', () => {
         description: 'Top secret new phone',
         startDate: new Date('2004/01/01'),
         endDate: new Date('2007/06/29'),
+        organizationId: undefined,
       };
 
       const beforeCount = mockDatabase.length;
@@ -151,6 +159,7 @@ describe('ProjectsService', () => {
         description: 'Top secret new phone',
         startDate: new Date('2004/01/01'),
         endDate: undefined,
+        organizationId: undefined,
       };
 
       const beforeCount = mockDatabase.length;
@@ -170,6 +179,7 @@ describe('ProjectsService', () => {
         description: 'Top secret new phone',
         startDate: new Date('2004/01/01'),
         endDate: undefined,
+        organizationId: undefined,
       };
 
       const beforeCount = mockDatabase.length;
@@ -191,6 +201,7 @@ describe('ProjectsService', () => {
         description: 'A new description',
         startDate: undefined,
         endDate: undefined,
+        organizationId: undefined,
       };
       const beforeUpdate = mockDatabase[0];
       await service.update(0, newData);
@@ -211,6 +222,7 @@ describe('ProjectsService', () => {
         description: 'A new description',
         startDate: undefined,
         endDate: undefined,
+        organizationId: undefined,
       };
 
       let error;

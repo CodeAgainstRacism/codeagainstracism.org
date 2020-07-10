@@ -1,18 +1,28 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProjectDto } from './project.dto';
 import { Project } from './project.entity';
+import { OrganizationsService } from '../organizations/organizations.service';
 
 @Injectable()
 export class ProjectsService {
   constructor(
     @InjectRepository(Project)
     private readonly projectsRepository: Repository<Project>,
+    @Inject(OrganizationsService)
+    private readonly organizationsService: OrganizationsService,
   ) {}
 
-  create(projectDto: ProjectDto): Promise<Project> {
-    const project = this.projectsRepository.create(projectDto);
+  async create(projectDto: ProjectDto): Promise<Project> {
+    const project = await this.projectsRepository.create(projectDto);
+
+    if (projectDto.organizationId !== undefined) {
+      project.organization = await this.organizationsService.findOne(
+        projectDto.organizationId,
+      );
+    }
+
     return this.projectsRepository.save(project);
   }
 

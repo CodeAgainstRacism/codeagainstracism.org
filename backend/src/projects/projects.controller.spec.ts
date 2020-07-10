@@ -103,6 +103,7 @@ describe('Project Controller', () => {
         description: 'Top secret new phone',
         startDate: new Date('2004/01/01'),
         endDate: new Date('2007/06/29'),
+        organizationId: undefined,
       };
       const beforeCount = mockDatabase.length;
       expect(controller.create(newProject)).resolves.toEqual({
@@ -119,6 +120,7 @@ describe('Project Controller', () => {
         description: 'A new description',
         startDate: undefined,
         endDate: undefined,
+        organizationId: undefined,
       };
 
       const beforeUpdate = mockDatabase[0];

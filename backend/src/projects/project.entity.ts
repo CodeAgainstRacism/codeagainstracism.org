@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
+import { Organization } from '../organizations/organization.entity';
 
 @Entity()
 export class Project {
@@ -30,6 +32,12 @@ export class Project {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(
+    () => Organization,
+    author => author.name,
+  )
+  organization: Organization;
 
   constructor(
     id?: number,

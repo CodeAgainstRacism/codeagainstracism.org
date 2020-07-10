@@ -8,7 +8,6 @@ import {
 import { Type } from 'class-transformer';
 
 export class ProjectDto {
-  
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -27,4 +26,6 @@ export class ProjectDto {
   @IsDate()
   @Type(() => Date)
   endDate: Date;
+
+  organizationId: number;
 }

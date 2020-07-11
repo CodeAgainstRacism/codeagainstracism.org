@@ -18,7 +18,7 @@ class LandingPage extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1 className="website-name">Code Against Racism</h1>
+        <h1 className="page-title">Code Against Racism</h1>
         <div className="description">
           <h4>~ Description of our organization ~</h4>
           <p>

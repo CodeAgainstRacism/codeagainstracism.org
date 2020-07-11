@@ -37,14 +37,6 @@ const Header = () => (
       >
         Create a New Organization
       </NavLink>
-      <NavLink
-        to="/help"
-        activeClassName="is-active"
-        exact={true}
-        className="nav__item"
-      >
-        Help
-      </NavLink>
     </div>
   </header>
 );
@@ -55,20 +47,22 @@ class App extends React.Component {
       <BrowserRouter>
         <div>
           <Header />
-          <Switch>
-            <Route exact={true} path="/" component={LandingPage} />
-            <Route
-              path="/project/new"
-              component={NewProjectForm}
-              exact={true}
-            />
-            <Route
-              path="/organization/new"
-              component={NewOrganizationForm}
-              exact={true}
-            />
-            <Route component={NotFoundPage} />
-          </Switch>
+          <div className="container">
+            <Switch>
+              <Route exact={true} path="/" component={LandingPage} />
+              <Route
+                path="/project/new"
+                component={NewProjectForm}
+                exact={true}
+              />
+              <Route
+                path="/organization/new"
+                component={NewOrganizationForm}
+                exact={true}
+              />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </div>
         </div>
       </BrowserRouter>
     );

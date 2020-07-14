@@ -11,15 +11,15 @@ import NewOrganizationForm from "./components/Forms/NewOrganizationForm";
 const Header = () => (
   <header className="navbar">
     {/* <h1 className="nav__brand">Code Against Racism</h1> */}
+    <NavLink
+      to="/"
+      activeClassName="is-active"
+      exact={true}
+      className="nav__logo"
+    >
+      <h1>Code Against Racism</h1>
+    </NavLink>{" "}
     <div className="nav__links">
-      <NavLink
-        to="/"
-        activeClassName="is-active"
-        exact={true}
-        className="nav__item"
-      >
-        <h1 className="nav__brand">Code Against Racism</h1>
-      </NavLink>{" "}
       {/*activeClassName is only going to get applied to the link when we're on that page. */}
       <NavLink
         to="/project/new"

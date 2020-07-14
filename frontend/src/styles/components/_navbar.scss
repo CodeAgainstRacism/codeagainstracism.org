@@ -3,28 +3,32 @@
   color: white;
   margin: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
 }
 
-.nav__brand {
+.nav__logo {
   display: inline;
+  order: 0;
+  justify-content: flex-start;
+  text-decoration: none;
 }
 
 .nav__links {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
-  width: 60%;
+  width: 70%;
 }
 
 .nav__item {
   font-size: 1.3rem;
-  order: 1;
   position: relative;
   display: block;
   width: auto;
   text-decoration: none;
+  margin: 1.5rem;
 }
 
 .nav__item:hover {

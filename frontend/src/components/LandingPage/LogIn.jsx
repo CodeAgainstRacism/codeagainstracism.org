@@ -7,11 +7,11 @@ class LogIn extends React.Component {
         <form className="auth-form-container">
           <div>
             <label htmlFor="email">Email</label>
-            <input type="string" name="email"></input>
+            <input type="email" name="email"></input>
           </div>
           <div>
             <label htmlFor="password">Password</label>
-            <input type="string" name="password"></input>
+            <input type="password" name="password"></input>
           </div>
           <button className="submit-button">Submit</button>
         </form>

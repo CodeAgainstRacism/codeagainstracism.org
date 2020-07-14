@@ -11,23 +11,23 @@ class SignUp extends React.Component {
           </div>
           <div>
             <label htmlFor="EIN">EIN (Employer Identification Number):</label>
-            <input type="string" name="EIN"></input>
+            <input type="text" name="EIN"></input>
           </div>
           <div>
             <label htmlFor="phoneNumber">Phone Number:</label>
-            <input type="string" name="phoneNumber"></input>
+            <input type="text" name="phoneNumber"></input>
           </div>
           <div>
             <label htmlFor="email">Email</label>
-            <input type="string" name="email"></input>
+            <input type="email" name="email"></input>
           </div>
           <div>
             <label htmlFor="password">Password</label>
-            <input type="string" name="password"></input>
+            <input type="password" name="password"></input>
           </div>
           <div>
             <label htmlFor="confirm-password">Confirm Password</label>
-            <input type="string" name="confirm-password"></input>
+            <input type="password" name="confirm-password"></input>
           </div>
           <div>
             <label htmlFor="description">Description of Organization:</label>

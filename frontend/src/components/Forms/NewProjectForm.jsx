@@ -1,9 +1,8 @@
 import React, { Fragment } from "react";
 
 const programmingLanguages = [
-  "HTML",
-  "CSS",
-  "Javascript",
+  "HTML/CSS",
+  "JavaScript",
   "TypeScript",
   "C",
   "C++",
@@ -41,13 +40,13 @@ class NewProjectForm extends React.Component {
             <div className="checkbox-container">
               {programmingLanguages.map((language) => (
                 <div key={language} className="checkbox">
-                  <label htmlFor="chk_aliens">{language}</label>
+                  <label htmlFor={"checkbox_" + language}>{language}</label>
                   <input
-                    key={language}
-                    id="chk_aliens"
+                    // key={language}
+                    id={"checkbox_" + language}
                     type="checkbox"
-                    name="wpuf_post_tags[]"
-                    value="Aliens"
+                    name={"checkbox_" + language}
+                    value={language}
                   />
                 </div>
               ))}
@@ -63,16 +62,16 @@ class NewProjectForm extends React.Component {
           </div>
           <div>
             <label htmlFor="description"> Description of Project:</label>
-            <textarea name="description" id="description" rows="5" cols="33" />
+            <textarea name="description" id="description" rows="5" />
           </div>
           <div>
             <h4> Point of Contact</h4>
-            <label htmlFor="personName">Name:</label>
-            <input type="text" className="personName" />
-            <label htmlFor="personPhoneNumber">Phone (optional):</label>
-            <input type="text" className="personPhoneNumber" />
-            <label htmlFor="personEmail">Email:</label>
-            <input type="text" className="personEmail" />
+            <label htmlFor="contactName">Name:</label>
+            <input type="text" className="contactName" />
+            <label htmlFor="contactPhoneNumber">Phone (optional):</label>
+            <input type="text" className="contactPhoneNumber" />
+            <label htmlFor="contactEmail">Email:</label>
+            <input type="email" className="contactEmail" />
           </div>
           <button className="submit-button">Submit</button>
         </form>

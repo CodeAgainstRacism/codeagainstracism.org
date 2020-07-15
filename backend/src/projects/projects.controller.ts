@@ -13,32 +13,32 @@ import { ProjectsService } from './projects.service';
 
 @Controller('projects')
 export class ProjectsController {
-  constructor(private readonly ProjectsService: ProjectsService) {}
+  constructor(private readonly projectsService: ProjectsService) {}
 
   @Post()
   create(
     @Body() createProjectDto: ProjectDto,
   ): Promise<Project> {
-    return this.ProjectsService.create(createProjectDto);
+    return this.projectsService.create(createProjectDto);
   }
 
   @Get()
   findAll(): Promise<Project[]> {
-    return this.ProjectsService.findAll();
+    return this.projectsService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Project> {
-    return this.ProjectsService.findOne(Number(id));
+    return this.projectsService.findOne(Number(id));
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() project: ProjectDto) {
-    return this.ProjectsService.update(Number(id), project);
+    return this.projectsService.update(Number(id), project);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
-    return this.ProjectsService.remove(Number(id));
+    return this.projectsService.remove(Number(id));
   }
 }

@@ -32,22 +32,22 @@ export class ProjectsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Project> {
-    return this.projectsService.findOne(Number(id));
+  findOne(@Param('id') id: number): Promise<Project> {
+    return this.projectsService.findOne(id);
   }
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
   async update(
     @Req() req: Request,
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() newProjectInfo: ProjectDto,
   ) {
-    const project = await this.projectsService.findOne(Number(id));
+    const project = await this.projectsService.findOne(id);
 
     if (
       project.organization === null ||
-      req['user'].id != project.organization.id
+      req['user'].id !== project.organization.id
     ) {
       throw new HttpException(
         {
@@ -57,17 +57,17 @@ export class ProjectsController {
         HttpStatus.FORBIDDEN,
       );
     }
-    return this.projectsService.update(Number(id), newProjectInfo);
+    return this.projectsService.update(id, newProjectInfo);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  async remove(@Req() req: Request, @Param('id') id: string): Promise<void> {
-    const project = await this.projectsService.findOne(Number(id));
+  async remove(@Req() req: Request, @Param('id') id: number): Promise<void> {
+    const project = await this.projectsService.findOne(id);
 
     if (
       project.organization === null ||
-      req['user'].id != project.organization.id
+      req['user'].id !== project.organization.id
     ) {
       throw new HttpException(
         {
@@ -78,6 +78,6 @@ export class ProjectsController {
       );
     }
 
-    return this.projectsService.remove(Number(id));
+    return this.projectsService.remove(id);
   }
 }

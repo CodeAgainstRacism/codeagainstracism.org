@@ -26,12 +26,25 @@ export class ProjectsService {
     return this.projectsRepository.save(project);
   }
 
-  findAll(): Promise<Project[]> {
-    return this.projectsRepository.find();
+  async findAll(): Promise<Project[]> {
+    const projects = await this.projectsRepository.find();
+    
+    projects.forEach(function(project) {
+      // removes the password on the response
+      if (project.organization) {
+        delete project.organization.encryptedPassword;
+      }
+    });
+    
+    return projects;
   }
 
   async findOne(id: number): Promise<Project> {
     const project = await this.projectsRepository.findOne(id);
+
+    if (project.organization) {
+      delete project.organization.encryptedPassword;
+    }
 
     if (project === undefined) {
       throw new HttpException(

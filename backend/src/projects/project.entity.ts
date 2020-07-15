@@ -33,10 +33,7 @@ export class Project {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(
-    () => Organization,
-    author => author.name,
-  )
+  @ManyToOne(() => Organization, { eager: true })
   organization: Organization;
 
   constructor(
@@ -45,11 +42,13 @@ export class Project {
     description?: string,
     startDate?: Date,
     endDate?: Date,
+    organization?: Organization,
   ) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.organization = organization;
   }
 }

@@ -1,20 +1,72 @@
 import React from "react";
-import axios from "axios";
+import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
+import "normalize.css/normalize.css";
+import "./styles/styles.scss";
 
-import { BACKEND_URL } from "./config";
+import LandingPage from "./components/LandingPage/LandingPage";
+import NotFoundPage from "./components/NotFound";
+import NewProjectForm from "./components/Forms/NewProjectForm";
+import NewOrganizationForm from "./components/Forms/NewOrganizationForm";
 
-export default class App extends React.Component {
-  state = {
-    helloWord: undefined,
-  };
+const Header = () => (
+  <header className="navbar">
+    {/* <h1 className="nav__brand">Code Against Racism</h1> */}
+    <NavLink
+      to="/"
+      activeClassName="is-active"
+      exact={true}
+      className="nav__logo"
+    >
+      <h1>Code Against Racism</h1>
+    </NavLink>{" "}
+    <div className="nav__links">
+      {/*activeClassName is only going to get applied to the link when we're on that page. */}
+      <NavLink
+        to="/project/new"
+        activeClassName="is-active"
+        exact={true}
+        className="nav__item"
+      >
+        Create a New Project
+      </NavLink>
+      <NavLink
+        to="/organization/new"
+        activeClassName="is-active"
+        exact={true}
+        className="nav__item"
+      >
+        Create a New Organization
+      </NavLink>
+    </div>
+  </header>
+);
 
-  componentDidMount() {
-    axios.get(BACKEND_URL).then((res) => {
-      this.setState({ helloWord: res.data });
-    });
-  }
-
+class App extends React.Component {
   render() {
-    return <div>{this.state.helloWord}</div>;
+    return (
+      <BrowserRouter>
+        <div>
+          <Header />
+          <div className="container">
+            <Switch>
+              <Route exact={true} path="/" component={LandingPage} />
+              <Route
+                path="/project/new"
+                component={NewProjectForm}
+                exact={true}
+              />
+              <Route
+                path="/organization/new"
+                component={NewOrganizationForm}
+                exact={true}
+              />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </div>
+        </div>
+      </BrowserRouter>
+    );
   }
 }
+
+export default App;

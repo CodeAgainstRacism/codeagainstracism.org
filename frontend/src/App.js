@@ -3,10 +3,10 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "normalize.css/normalize.css";
 import "./styles/styles.scss";
 
-import LandingPage from "./components/LandingPage/LandingPage";
-import NotFoundPage from "./components/NotFound";
-import NewProjectForm from "./components/Forms/NewProjectForm";
-import NewOrganizationForm from "./components/Forms/NewOrganizationForm";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import NotFoundPage from "./pages/NotFound";
+import NewProjectForm from "./pages/Forms/NewProjectForm";
+import NewOrganizationForm from "./pages/Forms/NewOrganizationForm";
 import NavBar from "./components/NavBar";
 
 class App extends React.Component {
@@ -15,7 +15,7 @@ class App extends React.Component {
       <BrowserRouter>
         <div>
           <NavBar />
-          <div className="container">
+          <div>
             <Switch>
               <Route exact={true} path="/" component={LandingPage} />
               <Route

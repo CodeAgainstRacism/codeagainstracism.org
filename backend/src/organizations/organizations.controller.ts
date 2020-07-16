@@ -71,7 +71,6 @@ export class OrganizationsController {
     description: "The organization's projects",
     type: Organization,
   })
-  @ApiResponse({ status: 200 })
   @ApiResponse({
     status: 404,
     description: 'Organization with id:${id} not found',

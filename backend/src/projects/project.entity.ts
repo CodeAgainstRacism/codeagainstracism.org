@@ -43,16 +43,7 @@ export class Project {
 
   @ManyToOne(() => Organization, { eager: true })
   @ApiProperty({
-    example: new Organization(
-      1,
-      '12-3456789',
-      'Hack Your Own',
-      'Due to COVID-19, tens of thousands of Computer Science internships have been canceled, leaving students stranded.',
-      '(123) 456-7890',
-      'email@email.com',
-      'John',
-      'Doe',
-    ),
+    example: Organization,
   })
   organization: Organization;
 

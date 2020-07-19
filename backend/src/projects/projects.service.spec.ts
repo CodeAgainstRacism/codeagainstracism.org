@@ -8,6 +8,8 @@ import { ProjectDto } from './project.dto';
 import { OrganizationsService } from '../organizations/organizations.service';
 import { Organization } from '../organizations/organization.entity';
 
+import { mockOrganizationEntities } from '../utils/organization.constant';
+
 const INVALID_ID = -1;
 
 const mockData = [
@@ -24,30 +26,7 @@ const mockData = [
     'A simple cli to input and store your ideas directly with git and without a text editor',
     new Date('2020/06/05'),
     new Date('2020/06/15'),
-    new Organization(1),
-  ),
-];
-
-const mockOrganizationData = [
-  new Organization(
-    0,
-    '12-3456789',
-    'organization name',
-    'organization description',
-    '+001 (012) 012-0123',
-    'johndoe@email.com',
-    'John',
-    'Doe',
-  ),
-  new Organization(
-    1,
-    '34-5678901',
-    'organization name 2',
-    'organization description 2',
-    '+002 (123) 456-7890',
-    'janedoe@email.com',
-    'Jane',
-    'Doe',
+    mockOrganizationEntities[1],
   ),
 ];
 
@@ -130,7 +109,7 @@ describe('ProjectsService', () => {
     }).compile();
 
     mockDatabase = mockData.map(project => ({ ...project }));
-    mockOrganizationDatabase = mockOrganizationData.map(organization => ({
+    mockOrganizationDatabase = mockOrganizationEntities.map(organization => ({
       ...organization,
     }));
     service = module.get<ProjectsService>(ProjectsService);

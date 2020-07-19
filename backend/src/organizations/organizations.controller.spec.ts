@@ -7,28 +7,11 @@ import { Organization } from './organization.entity';
 import { ProjectsService } from '../projects/projects.service';
 import { Project } from '../projects/project.entity';
 
-const mockData = [
-  new Organization(
-    0,
-    '12-3456789',
-    'organization name',
-    'organization description',
-    '+001 (012) 012-0123',
-    'johndoe@email.com',
-    'John',
-    'Doe',
-  ),
-  new Organization(
-    1,
-    '34-5678901',
-    'organization name 2',
-    'organization description 2',
-    '+002 (123) 456-7890',
-    'janedoe@email.com',
-    'Jane',
-    'Doe',
-  ),
-];
+import {
+  mockOrganizationEntities,
+  newOrganizationDto,
+  updateOrganizationDtoWithoutPassword
+} from '../utils/organization.constant';
 
 const mockProjectsData = [
   new Project(
@@ -45,7 +28,7 @@ const mockProjectsData = [
     'A simple cli to input and store your ideas directly with git and without a text editor',
     new Date('2020/06/05'),
     new Date('2020/06/15'),
-    new Organization(1),
+    mockOrganizationEntities[1],
   ),
   new Project(
     2,
@@ -53,7 +36,7 @@ const mockProjectsData = [
     'A cool project !',
     new Date('2020/06/15'),
     undefined,
-    new Organization(1),
+    mockOrganizationEntities[1],
   ),
 ];
 
@@ -119,7 +102,10 @@ describe('Organization Controller', () => {
       ],
     }).compile();
 
-    mockDatabase = mockData.map(organization => ({ ...organization }));
+    //mockDatabase = mockOrganizationEntities.map(organization => ({ ...organization }));
+    mockDatabase = mockOrganizationEntities.map(organization => ({
+      ...organization,
+    }));
     mockProjectDatabase = mockProjectsData.map(project => ({ ...project }));
     controller = module.get<OrganizationsController>(OrganizationsController);
     service = module.get<OrganizationsService>(OrganizationsService);
@@ -156,43 +142,27 @@ describe('Organization Controller', () => {
 
   describe('create', () => {
     it('should create an organization', () => {
-      const newOrganization: OrganizationDto = {
-        EIN: '12-3456789',
-        name: 'Apple',
-        description: 'The apple company',
-        phoneNumber: '+001 (012) 012-0123',
-        email: 'stevejobs@apple.com',
-        password: 'strongpassword',
-        contactFirstName: 'Steve',
-        contactLastName: 'Jobs',
-      };
-      expect(controller.create(newOrganization)).resolves.toEqual({
+      expect(controller.create(newOrganizationDto)).resolves.toEqual({
         id: 2,
-        ...newOrganization,
+        ...newOrganizationDto,
       });
     });
   });
 
   describe('update', () => {
     it('should update an organization', async () => {
-      const newData = {
-        EIN: undefined,
-        name: 'new name',
-        description: undefined,
-        phoneNumber: undefined,
-        email: 'newemail@email.com',
-        password: undefined,
-        contactFirstName: undefined,
-        contactLastName: undefined,
-      };
+      updateOrganizationDtoWithoutPassword;
       const beforeUpdate = mockDatabase[0];
-      const updatedOrganization = await controller.update('0', newData);
+      const updatedOrganization = await controller.update(
+        '0',
+        updateOrganizationDtoWithoutPassword,
+      );
       expect(beforeUpdate.id).toEqual(updatedOrganization.id);
       expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
-      expect(newData.name).toEqual(updatedOrganization.name);
+      expect(updateOrganizationDtoWithoutPassword.name).toEqual(updatedOrganization.name);
       expect(beforeUpdate.description).toEqual(updatedOrganization.description);
       expect(beforeUpdate.phoneNumber).toEqual(updatedOrganization.phoneNumber);
-      expect(newData.email).toEqual(updatedOrganization.email);
+      expect(updateOrganizationDtoWithoutPassword.email).toEqual(updatedOrganization.email);
       expect(beforeUpdate.contactFirstName).toEqual(
         updatedOrganization.contactFirstName,
       );

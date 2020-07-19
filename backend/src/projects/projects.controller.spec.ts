@@ -6,6 +6,8 @@ import { ProjectsService } from './projects.service';
 import { Project } from './project.entity';
 import { Organization } from '../organizations/organization.entity';
 
+import { mockOrganizationEntities } from '../utils/organization.constant';
+
 const mockData = [
   new Project(
     0,
@@ -13,16 +15,7 @@ const mockData = [
     'A cool project !',
     new Date('2020/06/15'),
     undefined,
-    new Organization(
-      0,
-      '12-3456789',
-      'organization name',
-      'organization description',
-      '+001 (012) 012-0123',
-      'johndoe@email.com',
-      'John',
-      'Doe',
-    ),
+    mockOrganizationEntities[0],
   ),
   new Project(
     1,

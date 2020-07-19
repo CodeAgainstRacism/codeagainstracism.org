@@ -6,26 +6,11 @@ import { ProjectsService } from './projects.service';
 import { Project } from './project.entity';
 import { Organization } from '../organizations/organization.entity';
 
-import { mockOrganizationEntities } from '../utils/organization.constant';
-
-const mockData = [
-  new Project(
-    0,
-    'Code Against Racism',
-    'A cool project !',
-    new Date('2020/06/15'),
-    undefined,
-    mockOrganizationEntities[0],
-  ),
-  new Project(
-    1,
-    'spark',
-    'A simple cli to input and store your ideas directly with git and without a text editor',
-    new Date('2020/06/05'),
-    new Date('2020/06/15'),
-    null,
-  ),
-];
+import {
+  mockProjectEntities,
+  newProjectDto,
+  updateProjectDto,
+} from '../utils/project.constant';
 
 let mockDatabase: Project[] = [];
 
@@ -54,7 +39,7 @@ describe('Project Controller', () => {
             create: jest
               .fn()
               .mockImplementation((project: ProjectDto) =>
-                Promise.resolve({ id: 2, ...project }),
+                Promise.resolve({ id: mockDatabase.length, ...project }),
               ),
 
             update: jest
@@ -83,7 +68,7 @@ describe('Project Controller', () => {
       ],
     }).compile();
 
-    mockDatabase = mockData.map(project => ({ ...project }));
+    mockDatabase = mockProjectEntities.map(project => ({ ...project }));
     controller = module.get<ProjectsController>(ProjectsController);
     service = module.get<ProjectsService>(ProjectsService);
   });
@@ -107,40 +92,25 @@ describe('Project Controller', () => {
 
   describe('create', () => {
     it('should create an project', () => {
-      const newProject: ProjectDto = {
-        name: 'The iPhone',
-        description: 'Top secret new phone',
-        startDate: new Date('2004/01/01'),
-        endDate: new Date('2007/06/29'),
-        organizationId: null,
-      };
       const beforeCount = mockDatabase.length;
-      expect(controller.create(newProject)).resolves.toEqual({
+      expect(controller.create({ ...newProjectDto })).resolves.toEqual({
         id: beforeCount,
-        ...newProject,
+        ...newProjectDto,
       });
     });
   });
 
   describe('update', () => {
     it('should update an project', async () => {
-      const newData: ProjectDto = {
-        name: 'A new name !',
-        description: 'A new description',
-        startDate: undefined,
-        endDate: undefined,
-        organizationId: null,
-      };
-
-      const beforeUpdate = mockDatabase[0];
+      const beforeUpdate = mockDatabase[1];
       const updatedProject = await controller.update(
-        { user: mockDatabase[0].organization },
-        0,
-        newData,
+        { user: mockDatabase[1].organization },
+        1,
+        { ...updateProjectDto },
       );
       expect(beforeUpdate.id).toEqual(updatedProject.id);
-      expect(newData.name).toEqual(updatedProject.name);
-      expect(newData.description).toEqual(updatedProject.description);
+      expect(updateProjectDto.name).toEqual(updatedProject.name);
+      expect(updateProjectDto.description).toEqual(updatedProject.description);
       expect(beforeUpdate.startDate).toEqual(updatedProject.startDate);
       expect(beforeUpdate.endDate).toEqual(updatedProject.endDate);
     });
@@ -184,7 +154,7 @@ describe('Project Controller', () => {
   describe('delete', () => {
     it('should delete an project', async () => {
       const beforeCount = mockDatabase.length;
-      await controller.remove({ user: mockDatabase[0].organization }, 0);
+      await controller.remove({ user: mockDatabase[1].organization }, 1);
       expect(mockDatabase.length).toEqual(beforeCount - 1);
     });
 

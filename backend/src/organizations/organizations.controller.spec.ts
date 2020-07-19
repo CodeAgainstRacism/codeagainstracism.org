@@ -10,35 +10,11 @@ import { Project } from '../projects/project.entity';
 import {
   mockOrganizationEntities,
   newOrganizationDto,
-  updateOrganizationDtoWithoutPassword
+  updateOrganizationDtoWithoutPassword,
 } from '../utils/organization.constant';
-
-const mockProjectsData = [
-  new Project(
-    0,
-    'Code Against Racism',
-    'A cool project !',
-    new Date('2020/06/15'),
-    undefined,
-    null,
-  ),
-  new Project(
-    1,
-    'spark',
-    'A simple cli to input and store your ideas directly with git and without a text editor',
-    new Date('2020/06/05'),
-    new Date('2020/06/15'),
-    mockOrganizationEntities[1],
-  ),
-  new Project(
-    2,
-    'Code Against Racism',
-    'A cool project !',
-    new Date('2020/06/15'),
-    undefined,
-    mockOrganizationEntities[1],
-  ),
-];
+import {
+  mockProjectEntities,
+} from '../utils/project.constant';
 
 let mockProjectDatabase: Project[] = [];
 let mockDatabase: Organization[] = [];
@@ -102,11 +78,10 @@ describe('Organization Controller', () => {
       ],
     }).compile();
 
-    //mockDatabase = mockOrganizationEntities.map(organization => ({ ...organization }));
     mockDatabase = mockOrganizationEntities.map(organization => ({
       ...organization,
     }));
-    mockProjectDatabase = mockProjectsData.map(project => ({ ...project }));
+    mockProjectDatabase = mockProjectEntities.map(project => ({ ...project }));
     controller = module.get<OrganizationsController>(OrganizationsController);
     service = module.get<OrganizationsService>(OrganizationsService);
   });
@@ -142,27 +117,33 @@ describe('Organization Controller', () => {
 
   describe('create', () => {
     it('should create an organization', () => {
-      expect(controller.create(newOrganizationDto)).resolves.toEqual({
-        id: 2,
-        ...newOrganizationDto,
+      const beforeCount = mockDatabase.length
+      const expected = {...newOrganizationDto}
+      delete expected.password;
+      expect(controller.create({...newOrganizationDto})).resolves.toEqual({
+        id: beforeCount,
+        ...expected,
       });
     });
   });
 
   describe('update', () => {
     it('should update an organization', async () => {
-      updateOrganizationDtoWithoutPassword;
       const beforeUpdate = mockDatabase[0];
       const updatedOrganization = await controller.update(
         '0',
-        updateOrganizationDtoWithoutPassword,
+        {...updateOrganizationDtoWithoutPassword},
       );
       expect(beforeUpdate.id).toEqual(updatedOrganization.id);
       expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
-      expect(updateOrganizationDtoWithoutPassword.name).toEqual(updatedOrganization.name);
+      expect(updateOrganizationDtoWithoutPassword.name).toEqual(
+        updatedOrganization.name,
+      );
       expect(beforeUpdate.description).toEqual(updatedOrganization.description);
       expect(beforeUpdate.phoneNumber).toEqual(updatedOrganization.phoneNumber);
-      expect(updateOrganizationDtoWithoutPassword.email).toEqual(updatedOrganization.email);
+      expect(updateOrganizationDtoWithoutPassword.email).toEqual(
+        updatedOrganization.email,
+      );
       expect(beforeUpdate.contactFirstName).toEqual(
         updatedOrganization.contactFirstName,
       );

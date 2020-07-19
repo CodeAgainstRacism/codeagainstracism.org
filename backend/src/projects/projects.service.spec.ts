@@ -9,28 +9,15 @@ import { OrganizationsService } from '../organizations/organizations.service';
 import { Organization } from '../organizations/organization.entity';
 
 import { mockOrganizationEntities } from '../utils/organization.constant';
+import {
+  mockProjectEntities,
+  newProjectDto,
+  updateProjectDto,
+} from '../utils/project.constant';
 
 const INVALID_ID = -1;
 
-const mockData = [
-  new Project(
-    0,
-    'Code Against Racism',
-    'A cool project !',
-    new Date('2020/06/15'),
-    null,
-  ),
-  new Project(
-    1,
-    'spark',
-    'A simple cli to input and store your ideas directly with git and without a text editor',
-    new Date('2020/06/05'),
-    new Date('2020/06/15'),
-    mockOrganizationEntities[1],
-  ),
-];
-
-let mockDatabase: Project[] = [];
+let mockProjectDatabase: Project[] = [];
 let mockOrganizationDatabase: Organization[] = [];
 
 describe('ProjectsService', () => {
@@ -53,32 +40,27 @@ describe('ProjectsService', () => {
               ),
           },
         },
-        //OrganizationsService,
-        //{
-        //  provide: getRepositoryToken(Organization),
-        //  useValue: {},
-        //},
         {
           provide: getRepositoryToken(Project),
           useValue: {
-            find: jest.fn().mockResolvedValue(mockDatabase),
+            find: jest.fn().mockResolvedValue(mockProjectDatabase),
 
             findOne: jest
               .fn()
               .mockImplementation((id: number) =>
-                mockDatabase.find(project => project.id === id),
+                mockProjectDatabase.find(project => project.id === id),
               ),
 
             create: jest.fn().mockImplementation((project: ProjectDto) => {
               const newProject = new Project(
-                mockDatabase.length,
+                mockProjectDatabase.length,
                 project.name,
                 project.description,
                 project.startDate,
                 project.endDate,
               );
 
-              mockDatabase.push(newProject);
+              mockProjectDatabase.push(newProject);
               return newProject;
             }),
 
@@ -87,7 +69,7 @@ describe('ProjectsService', () => {
             update: jest
               .fn()
               .mockImplementation((id: number, projectData: ProjectDto) => {
-                const projectToUpdate = mockDatabase.find(
+                const projectToUpdate = mockProjectDatabase.find(
                   project => project.id === id,
                 );
 
@@ -101,14 +83,16 @@ describe('ProjectsService', () => {
               }),
 
             delete: jest.fn().mockImplementation((id: number) => {
-              mockDatabase = mockDatabase.filter(project => project.id !== id);
+              mockProjectDatabase = mockProjectDatabase.filter(
+                project => project.id !== id,
+              );
             }),
           },
         },
       ],
     }).compile();
 
-    mockDatabase = mockData.map(project => ({ ...project }));
+    mockProjectDatabase = mockProjectEntities.map(project => ({ ...project }));
     mockOrganizationDatabase = mockOrganizationEntities.map(organization => ({
       ...organization,
     }));
@@ -122,13 +106,17 @@ describe('ProjectsService', () => {
 
   describe('find', () => {
     it('should get all the projects', () => {
-      expect(service.findAll()).resolves.toEqual(mockDatabase);
+      service.findAll().then(data => {
+        expect(data).toEqual(mockProjectDatabase);
+      });
     });
   });
 
   describe('findOne', () => {
     it('should get a single project', () => {
-      expect(service.findOne(0)).resolves.toEqual(mockDatabase[0]);
+      service.findOne(0).then(data => {
+        expect(data).toEqual(mockProjectDatabase[0]);
+      });
     });
 
     it('should throw an exception with a non existing id', async () => {
@@ -153,77 +141,43 @@ describe('ProjectsService', () => {
 
   describe('create', () => {
     it('should successfully create a project', async () => {
-      const newProject: ProjectDto = {
-        name: 'The iPhone',
-        description: 'Top secret new phone',
-        startDate: new Date('2004/01/01'),
-        endDate: new Date('2007/06/29'),
-        organizationId: undefined,
-      };
-
-      const beforeCount = mockDatabase.length;
-      await service.create(newProject);
-      expect(mockDatabase.length).toEqual(beforeCount + 1);
+      const beforeCount = mockProjectDatabase.length;
+      await service.create(newProjectDto);
+      expect(mockProjectDatabase.length).toEqual(beforeCount + 1);
 
       const createdProject = await service.findOne(beforeCount);
-      expect(createdProject.name).toEqual(newProject.name);
-      expect(createdProject.description).toEqual(newProject.description);
-      expect(createdProject.startDate).toEqual(newProject.startDate);
-      expect(createdProject.endDate).toEqual(newProject.endDate);
+      expect(createdProject.name).toEqual(newProjectDto.name);
+      expect(createdProject.description).toEqual(newProjectDto.description);
+      expect(createdProject.startDate).toEqual(newProjectDto.startDate);
+      expect(createdProject.endDate).toEqual(newProjectDto.endDate);
     });
 
     it('should successfully create a project without a end date', async () => {
-      const newProject: ProjectDto = {
-        name: 'The iPhone',
-        description: 'Top secret new phone',
-        startDate: new Date('2004/01/01'),
-        endDate: undefined,
-        organizationId: undefined,
-      };
+      const newProjectWithoutEndDate: ProjectDto = { ...newProjectDto };
+      delete newProjectWithoutEndDate.endDate;
 
-      const beforeCount = mockDatabase.length;
-      await service.create(newProject);
-      expect(mockDatabase.length).toEqual(beforeCount + 1);
+      const beforeCount = mockProjectDatabase.length;
+      await service.create(newProjectWithoutEndDate);
+      expect(mockProjectDatabase.length).toEqual(beforeCount + 1);
 
       const createdProject = await service.findOne(beforeCount);
-      expect(createdProject.name).toEqual(newProject.name);
-      expect(createdProject.description).toEqual(newProject.description);
-      expect(createdProject.startDate).toEqual(newProject.startDate);
-      expect(createdProject.endDate).toEqual(newProject.endDate);
-    });
-
-    it('should successfully create a project without a different date format', async () => {
-      const newProject: ProjectDto = {
-        name: 'The iPhone',
-        description: 'Top secret new phone',
-        startDate: new Date('2004/01/01'),
-        endDate: undefined,
-        organizationId: undefined,
-      };
-
-      const beforeCount = mockDatabase.length;
-      await service.create(newProject);
-      expect(mockDatabase.length).toEqual(beforeCount + 1);
-
-      const createdProject = await service.findOne(beforeCount);
-      expect(createdProject.name).toEqual(newProject.name);
-      expect(createdProject.description).toEqual(newProject.description);
-      expect(createdProject.startDate).toEqual(newProject.startDate);
-      expect(createdProject.endDate).toEqual(newProject.endDate);
+      expect(createdProject.name).toEqual(newProjectWithoutEndDate.name);
+      expect(createdProject.description).toEqual(
+        newProjectWithoutEndDate.description,
+      );
+      expect(createdProject.startDate).toEqual(
+        newProjectWithoutEndDate.startDate,
+      );
+      expect(createdProject.endDate).toEqual(newProjectWithoutEndDate.endDate);
     });
 
     it('should successfully create a project with an organization', async () => {
-      const newProject: ProjectDto = {
-        name: 'The iPhone',
-        description: 'Top secret new phone',
-        startDate: new Date('2004/01/01'),
-        endDate: new Date('2007/06/29'),
-        organizationId: 0,
-      };
+      const newProject: ProjectDto = { ...newProjectDto };
+      newProject.organizationId = 0;
 
-      const beforeCount = mockDatabase.length;
+      const beforeCount = mockProjectDatabase.length;
       await service.create(newProject);
-      expect(mockDatabase.length).toEqual(beforeCount + 1);
+      expect(mockProjectDatabase.length).toEqual(beforeCount + 1);
 
       const createdProject = await service.findOne(beforeCount);
       expect(createdProject.name).toEqual(newProject.name);
@@ -236,38 +190,27 @@ describe('ProjectsService', () => {
 
   describe('update', () => {
     it('should update a project', async () => {
-      const newData: ProjectDto = {
-        name: 'A new name !',
-        description: 'A new description',
-        startDate: undefined,
-        endDate: undefined,
-        organizationId: undefined,
-      };
-      const beforeUpdate = mockDatabase[0];
-      await service.update(0, newData);
+      const beforeUpdate = mockProjectDatabase[0];
+      await service.update(0, updateProjectDto);
 
       const updatedProject = await service.findOne(0);
 
-      expect(mockDatabase[0].name).toEqual(updatedProject.name);
-      expect(mockDatabase[0].description).toEqual(updatedProject.description);
-      expect(mockDatabase[0].startDate).toEqual(updatedProject.startDate);
+      expect(mockProjectDatabase[0].name).toEqual(updatedProject.name);
+      expect(mockProjectDatabase[0].description).toEqual(
+        updatedProject.description,
+      );
+      expect(mockProjectDatabase[0].startDate).toEqual(
+        updatedProject.startDate,
+      );
       expect(beforeUpdate.startDate).toEqual(updatedProject.startDate);
-      expect(mockDatabase[0].endDate).toEqual(updatedProject.endDate);
+      expect(mockProjectDatabase[0].endDate).toEqual(updatedProject.endDate);
       expect(beforeUpdate.endDate).toEqual(updatedProject.endDate);
     });
 
     it('should throw an exception with a non existing id', async () => {
-      const newData: ProjectDto = {
-        name: 'A new name !',
-        description: 'A new description',
-        startDate: undefined,
-        endDate: undefined,
-        organizationId: undefined,
-      };
-
       let error;
       try {
-        await service.update(INVALID_ID, newData);
+        await service.update(INVALID_ID, updateProjectDto);
       } catch (e) {
         error = e;
       }
@@ -286,9 +229,9 @@ describe('ProjectsService', () => {
 
   describe('remove', () => {
     it('should delete a project', async () => {
-      const beforeCount = mockDatabase.length;
+      const beforeCount = mockProjectDatabase.length;
       await service.remove(0);
-      expect(mockDatabase.length).toEqual(beforeCount - 1);
+      expect(mockProjectDatabase.length).toEqual(beforeCount - 1);
     });
 
     it('should throw an exception with a non existing id', async () => {

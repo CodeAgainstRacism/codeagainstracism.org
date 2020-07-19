@@ -261,14 +261,10 @@ describe('OrganizationsService', () => {
       await service.update(0, updateOrganizationDtoWithoutPassword);
 
       expect(mockDatabase[0].EIN).toEqual(beforeUpdate.EIN);
-      expect(mockDatabase[0].name).toEqual(
-        updateOrganizationDtoWithoutPassword.name,
-      );
+      expect(mockDatabase[0].name).toEqual(updateOrganizationDtoWithoutPassword.name);
       expect(mockDatabase[0].description).toEqual(beforeUpdate.description);
       expect(mockDatabase[0].phoneNumber).toEqual(beforeUpdate.phoneNumber);
-      expect(mockDatabase[0].email).toEqual(
-        updateOrganizationDtoWithoutPassword.email,
-      );
+      expect(mockDatabase[0].email).toEqual(updateOrganizationDtoWithoutPassword.email);
       expect(mockDatabase[0].contactFirstName).toEqual(
         beforeUpdate.contactFirstName,
       );

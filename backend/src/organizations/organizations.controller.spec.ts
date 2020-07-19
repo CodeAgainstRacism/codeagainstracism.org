@@ -162,7 +162,7 @@ describe('Organization Controller', () => {
     });
   });
 
-  describe('update', () => {
+  describe('remove', () => {
     it('should delete an organization', async () => {
       //! nothing is returns so it only tests if it crashes
       await controller.remove('0');

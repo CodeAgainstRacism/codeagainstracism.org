@@ -127,13 +127,17 @@ describe('OrganizationsService', () => {
 
   describe('find', () => {
     it('should get all the organizations', () => {
-      expect(service.findAll()).resolves.toEqual(mockDatabase);
+      service.findAll().then(data => {
+        expect(data).toEqual(mockDatabase);
+      });
     });
   });
 
   describe('findOne', () => {
     it('should get a single organization', () => {
-      expect(service.findOne(0)).resolves.toEqual(mockDatabase[0]);
+      service.findOne(0).then(data => {
+        expect(data).toEqual(mockDatabase[0]);
+      });
     });
     it('should throw an exception with a non existing id', async () => {
       let error;
@@ -168,12 +172,11 @@ describe('OrganizationsService', () => {
         );
     });
 
-    it('should get a single organization with a valid email', async () => {
+    it('should get a single organization with a valid email', () => {
       const expectedOrganization = mockDatabase[0];
-      const organization = await service.findByEmail(
-        expectedOrganization.email,
-      );
-      expect(organization.id).toEqual(expectedOrganization.id);
+      service.findByEmail(expectedOrganization.email).then(organization => {
+        expect(organization.id).toEqual(expectedOrganization.id);
+      });
     });
 
     it('should throw error with an invalid email', async () => {
@@ -261,10 +264,14 @@ describe('OrganizationsService', () => {
       await service.update(0, updateOrganizationDtoWithoutPassword);
 
       expect(mockDatabase[0].EIN).toEqual(beforeUpdate.EIN);
-      expect(mockDatabase[0].name).toEqual(updateOrganizationDtoWithoutPassword.name);
+      expect(mockDatabase[0].name).toEqual(
+        updateOrganizationDtoWithoutPassword.name,
+      );
       expect(mockDatabase[0].description).toEqual(beforeUpdate.description);
       expect(mockDatabase[0].phoneNumber).toEqual(beforeUpdate.phoneNumber);
-      expect(mockDatabase[0].email).toEqual(updateOrganizationDtoWithoutPassword.email);
+      expect(mockDatabase[0].email).toEqual(
+        updateOrganizationDtoWithoutPassword.email,
+      );
       expect(mockDatabase[0].contactFirstName).toEqual(
         beforeUpdate.contactFirstName,
       );

@@ -79,40 +79,51 @@ describe('Project Controller', () => {
 
   describe('findAll', () => {
     it('should get an array of projects', () => {
-      expect(controller.findAll()).resolves.toEqual(mockDatabase);
+      controller.findAll().then(data => {
+        expect(data).toEqual(mockDatabase);
+      });
     });
   });
 
   describe('findOne', () => {
     it('should get an project', () => {
-      expect(controller.findOne(0)).resolves.toEqual(mockDatabase[0]);
-      expect(controller.findOne(1)).resolves.toEqual(mockDatabase[1]);
+      controller.findOne(0).then(data => {
+        expect(data).toEqual(mockDatabase[0]);
+      });
+      controller.findOne(1).then(data => {
+        expect(data).toEqual(mockDatabase[1]);
+      });
     });
   });
 
   describe('create', () => {
     it('should create an project', () => {
       const beforeCount = mockDatabase.length;
-      expect(controller.create({ ...newProjectDto })).resolves.toEqual({
-        id: beforeCount,
-        ...newProjectDto,
+      controller.create({ ...newProjectDto }).then(data => {
+        expect(data).toEqual({
+          id: beforeCount,
+          ...newProjectDto,
+        });
       });
     });
   });
 
   describe('update', () => {
-    it('should update an project', async () => {
+    it('should update an project', () => {
       const beforeUpdate = mockDatabase[1];
-      const updatedProject = await controller.update(
-        { user: mockDatabase[1].organization },
-        1,
-        { ...updateProjectDto },
-      );
-      expect(beforeUpdate.id).toEqual(updatedProject.id);
-      expect(updateProjectDto.name).toEqual(updatedProject.name);
-      expect(updateProjectDto.description).toEqual(updatedProject.description);
-      expect(beforeUpdate.startDate).toEqual(updatedProject.startDate);
-      expect(beforeUpdate.endDate).toEqual(updatedProject.endDate);
+      controller
+        .update({ user: mockDatabase[1].organization }, 1, {
+          ...updateProjectDto,
+        })
+        .then(updatedProject => {
+          expect(beforeUpdate.id).toEqual(updatedProject.id);
+          expect(updateProjectDto.name).toEqual(updatedProject.name);
+          expect(updateProjectDto.description).toEqual(
+            updatedProject.description,
+          );
+          expect(beforeUpdate.startDate).toEqual(updatedProject.startDate);
+          expect(beforeUpdate.endDate).toEqual(updatedProject.endDate);
+        });
     });
 
     it('should throw a forbidden http exception and not update the project', async () => {

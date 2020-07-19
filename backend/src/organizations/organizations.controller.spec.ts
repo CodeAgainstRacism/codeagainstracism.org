@@ -12,9 +12,7 @@ import {
   newOrganizationDto,
   updateOrganizationDtoWithoutPassword,
 } from '../utils/organization.constant';
-import {
-  mockProjectEntities,
-} from '../utils/project.constant';
+import { mockProjectEntities } from '../utils/project.constant';
 
 let mockProjectDatabase: Project[] = [];
 let mockDatabase: Organization[] = [];
@@ -92,14 +90,17 @@ describe('Organization Controller', () => {
 
   describe('findAll', () => {
     it('should get an array of organizations', () => {
-      expect(controller.findAll()).resolves.toEqual(mockDatabase);
+      controller.findAll().then(data => {
+        expect(data).toEqual(mockDatabase);
+      });
     });
   });
 
   describe('findOne', () => {
     it('should get an organization', () => {
-      expect(controller.findOne('0')).resolves.toEqual(mockDatabase[0]);
-      expect(controller.findOne('1')).resolves.toEqual(mockDatabase[1]);
+      controller.findOne('0').then(data => {
+        expect(data).toEqual(mockDatabase[0]);
+      });
     });
   });
 
@@ -108,21 +109,27 @@ describe('Organization Controller', () => {
       const projects = mockProjectDatabase.filter(
         project => project.organization?.id === 1,
       );
-      expect(controller.findProjects('1')).resolves.toEqual(projects);
+      controller.findProjects('1').then(data => {
+        expect(data).toEqual(projects);
+      });
     });
     it('should return an empty list of projects', async () => {
-      expect(controller.findProjects('0')).resolves.toEqual([]);
+      controller.findProjects('0').then(data => {
+        expect(data).toEqual([]);
+      });
     });
   });
 
   describe('create', () => {
     it('should create an organization', () => {
-      const beforeCount = mockDatabase.length
-      const expected = {...newOrganizationDto}
+      const beforeCount = mockDatabase.length;
+      const expected = { ...newOrganizationDto };
       delete expected.password;
-      expect(controller.create({...newOrganizationDto})).resolves.toEqual({
-        id: beforeCount,
-        ...expected,
+      controller.create({ ...newOrganizationDto }).then(data => {
+        expect(data).toEqual({
+          id: beforeCount,
+          ...expected,
+        });
       });
     });
   });
@@ -130,10 +137,9 @@ describe('Organization Controller', () => {
   describe('update', () => {
     it('should update an organization', async () => {
       const beforeUpdate = mockDatabase[0];
-      const updatedOrganization = await controller.update(
-        '0',
-        {...updateOrganizationDtoWithoutPassword},
-      );
+      const updatedOrganization = await controller.update('0', {
+        ...updateOrganizationDtoWithoutPassword,
+      });
       expect(beforeUpdate.id).toEqual(updatedOrganization.id);
       expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
       expect(updateOrganizationDtoWithoutPassword.name).toEqual(

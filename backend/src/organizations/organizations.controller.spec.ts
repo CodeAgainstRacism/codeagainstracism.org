@@ -1,8 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { OrganizationsController } from './organizations.controller';
 import { OrganizationDto } from './organization.dto';
 import { OrganizationsService } from './organizations.service';
 import { Organization } from './organization.entity';
+import { ProjectsService } from '../projects/projects.service';
+import { Project } from '../projects/project.entity';
 
 const mockData = [
   new Organization(
@@ -27,6 +30,34 @@ const mockData = [
   ),
 ];
 
+const mockProjectsData = [
+  new Project(
+    0,
+    'Code Against Racism',
+    'A cool project !',
+    new Date('2020/06/15'),
+    undefined,
+    null,
+  ),
+  new Project(
+    1,
+    'spark',
+    'A simple cli to input and store your ideas directly with git and without a text editor',
+    new Date('2020/06/05'),
+    new Date('2020/06/15'),
+    new Organization(1),
+  ),
+  new Project(
+    2,
+    'Code Against Racism',
+    'A cool project !',
+    new Date('2020/06/15'),
+    undefined,
+    new Organization(1),
+  ),
+];
+
+let mockProjectDatabase: Project[] = [];
 let mockDatabase: Organization[] = [];
 
 describe('Organization Controller', () => {
@@ -36,8 +67,12 @@ describe('Organization Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [OrganizationsController],
-
       providers: [
+        ProjectsService,
+        {
+          provide: getRepositoryToken(Project),
+          useValue: { find: jest.fn().mockResolvedValue(mockProjectDatabase) },
+        },
         {
           provide: OrganizationsService,
           useValue: {
@@ -85,6 +120,7 @@ describe('Organization Controller', () => {
     }).compile();
 
     mockDatabase = mockData.map(organization => ({ ...organization }));
+    mockProjectDatabase = mockProjectsData.map(project => ({ ...project }));
     controller = module.get<OrganizationsController>(OrganizationsController);
     service = module.get<OrganizationsService>(OrganizationsService);
   });
@@ -103,6 +139,18 @@ describe('Organization Controller', () => {
     it('should get an organization', () => {
       expect(controller.findOne('0')).resolves.toEqual(mockDatabase[0]);
       expect(controller.findOne('1')).resolves.toEqual(mockDatabase[1]);
+    });
+  });
+
+  describe('findProjects', () => {
+    it('should return a list of projects', async () => {
+      const projects = mockProjectDatabase.filter(
+        project => project.organization?.id === 1,
+      );
+      expect(controller.findProjects('1')).resolves.toEqual(projects);
+    });
+    it('should return an empty list of projects', async () => {
+      expect(controller.findProjects('0')).resolves.toEqual([]);
     });
   });
 

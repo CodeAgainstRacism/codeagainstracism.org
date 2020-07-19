@@ -16,7 +16,7 @@ const mockData = [
     'Code Against Racism',
     'A cool project !',
     new Date('2020/06/15'),
-    undefined,
+    null,
   ),
   new Project(
     1,
@@ -24,10 +24,35 @@ const mockData = [
     'A simple cli to input and store your ideas directly with git and without a text editor',
     new Date('2020/06/05'),
     new Date('2020/06/15'),
+    new Organization(1),
+  ),
+];
+
+const mockOrganizationData = [
+  new Organization(
+    0,
+    '12-3456789',
+    'organization name',
+    'organization description',
+    '+001 (012) 012-0123',
+    'johndoe@email.com',
+    'John',
+    'Doe',
+  ),
+  new Organization(
+    1,
+    '34-5678901',
+    'organization name 2',
+    'organization description 2',
+    '+002 (123) 456-7890',
+    'janedoe@email.com',
+    'Jane',
+    'Doe',
   ),
 ];
 
 let mockDatabase: Project[] = [];
+let mockOrganizationDatabase: Organization[] = [];
 
 describe('ProjectsService', () => {
   let service: ProjectsService;
@@ -37,11 +62,23 @@ describe('ProjectsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ProjectsService,
-        OrganizationsService,
         {
-          provide: getRepositoryToken(Organization),
-          useValue: {},
+          provide: OrganizationsService,
+          useValue: {
+            findOne: jest
+              .fn()
+              .mockImplementation((id: number) =>
+                mockOrganizationDatabase.find(
+                  organization => organization.id === id,
+                ),
+              ),
+          },
         },
+        //OrganizationsService,
+        //{
+        //  provide: getRepositoryToken(Organization),
+        //  useValue: {},
+        //},
         {
           provide: getRepositoryToken(Project),
           useValue: {
@@ -93,6 +130,9 @@ describe('ProjectsService', () => {
     }).compile();
 
     mockDatabase = mockData.map(project => ({ ...project }));
+    mockOrganizationDatabase = mockOrganizationData.map(organization => ({
+      ...organization,
+    }));
     service = module.get<ProjectsService>(ProjectsService);
     repo = module.get<Repository<Project>>(getRepositoryToken(Project));
   });
@@ -192,10 +232,31 @@ describe('ProjectsService', () => {
       expect(createdProject.startDate).toEqual(newProject.startDate);
       expect(createdProject.endDate).toEqual(newProject.endDate);
     });
+
+    it('should successfully create a project with an organization', async () => {
+      const newProject: ProjectDto = {
+        name: 'The iPhone',
+        description: 'Top secret new phone',
+        startDate: new Date('2004/01/01'),
+        endDate: new Date('2007/06/29'),
+        organizationId: 0,
+      };
+
+      const beforeCount = mockDatabase.length;
+      await service.create(newProject);
+      expect(mockDatabase.length).toEqual(beforeCount + 1);
+
+      const createdProject = await service.findOne(beforeCount);
+      expect(createdProject.name).toEqual(newProject.name);
+      expect(createdProject.description).toEqual(newProject.description);
+      expect(createdProject.startDate).toEqual(newProject.startDate);
+      expect(createdProject.endDate).toEqual(newProject.endDate);
+      expect(createdProject.organization).toEqual(mockOrganizationDatabase[0]);
+    });
   });
 
   describe('update', () => {
-    it('should update a project without password', async () => {
+    it('should update a project', async () => {
       const newData: ProjectDto = {
         name: 'A new name !',
         description: 'A new description',

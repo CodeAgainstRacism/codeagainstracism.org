@@ -1,4 +1,5 @@
 import { Project } from './project.entity';
+import { Organization } from '../organizations/organization.entity';
 
 describe('Project entity', () => {
   it('should make an project with no fields', () => {
@@ -35,6 +36,7 @@ describe('Project entity', () => {
       'A simple cli to input and store your ideas directly with git and without a text editor',
       new Date('2020/06/05'),
       new Date('2020/06/15'),
+      new Organization(0),
     );
 
     expect(project).toBeDefined();
@@ -43,7 +45,12 @@ describe('Project entity', () => {
     expect(project.description).toBe(
       'A simple cli to input and store your ideas directly with git and without a text editor',
     );
-    expect(project.startDate.toDateString()).toBe(new Date('2020/06/05').toDateString());
-    expect(project.endDate.toDateString()).toBe(new Date('2020/06/15').toDateString());
+    expect(project.startDate.toDateString()).toBe(
+      new Date('2020/06/05').toDateString(),
+    );
+    expect(project.endDate.toDateString()).toBe(
+      new Date('2020/06/15').toDateString(),
+    );
+    expect(project.organization.id).toBe(0);
   });
 });

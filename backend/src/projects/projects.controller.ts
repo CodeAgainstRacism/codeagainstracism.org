@@ -17,6 +17,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ProjectDto } from './project.dto';
 import { Project } from './project.entity';
 import { ProjectsService } from './projects.service';
+import { Organization } from '../organizations/organization.entity';
 
 @ApiTags('projects')
 @Controller('projects')
@@ -71,14 +72,15 @@ export class ProjectsController {
     description: 'Project with id:${id} not found',
   })
   async update(
-    @Req() req: Request,
+    @Req() req: { user: Organization },
     @Param('id') id: number,
     @Body() newProjectInfo: ProjectDto,
   ) {
     const project = await this.projectsService.findOne(id);
-
     if (
       project.organization === null ||
+      req['user'] === null ||
+      req['user'] === undefined ||
       req['user'].id !== project.organization.id
     ) {
       throw new HttpException(
@@ -105,11 +107,16 @@ export class ProjectsController {
     status: 404,
     description: 'Project with id:${id} not found',
   })
-  async remove(@Req() req: Request, @Param('id') id: number): Promise<void> {
+  async remove(
+    @Req() req: { user: Organization },
+    @Param('id') id: number,
+  ): Promise<void> {
     const project = await this.projectsService.findOne(id);
 
     if (
       project.organization === null ||
+      req['user'] === null ||
+      req['user'] === undefined ||
       req['user'].id !== project.organization.id
     ) {
       throw new HttpException(

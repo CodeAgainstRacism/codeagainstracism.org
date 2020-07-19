@@ -12,7 +12,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ProjectDto } from './project.dto';
 import { Project } from './project.entity';
@@ -60,6 +60,7 @@ export class ProjectsController {
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Updates a project' })
   @ApiResponse({ status: 200 })
   @ApiResponse({
@@ -96,6 +97,7 @@ export class ProjectsController {
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Deletes a project' })
   @ApiResponse({ status: 200 })
   @ApiResponse({

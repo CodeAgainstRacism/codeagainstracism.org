@@ -1,16 +1,27 @@
 .container {
-    max-width: 70rem;
+    //max-width: 70rem;
+    width: 1920px;
+    //height: 1080px;
+    height: 1080px;
     margin: 0 auto;
     text-align: center;
-    // background: purple;
+    background: #F2F2F2;
+    overflow: hidden; 
+    
 }
 
 .form-container {
     background-color: $form-background;
     border: 0.1rem solid black;
     margin: 0 auto;
-    width: 30rem;
-    padding: 1rem 0;
+    text-align: left;
+    width: 55rem;
+    //display: block;
+    //width: 40%;
+    padding: 1rem 0 ;
+   
+    
+    padding-left: 20px;
     
 }
 
@@ -23,3 +34,4 @@
     justify-content: space-evenly;
     background: black;
 }
+

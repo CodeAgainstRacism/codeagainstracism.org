@@ -1,0 +1,67 @@
+.signContainer{
+    position: relative;
+    max-width: 100%;
+    display: inline-block;
+    border: 1px solid #292929;
+    box-sizing: border-box;
+    border-radius: 7px;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 10%;
+    
+    overflow: auto;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+.textContainer{
+    position: relative;
+    width: 30%;
+    float:left;
+    margin-left: 17%;
+    padding: 1rem 0;
+}
+
+.Header{
+    width: 100%;
+    padding: 1rem 0;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background: white;
+}
+
+.Footer{
+    width: 100%;
+    padding: 1rem 0;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background: white;
+}
+
+.Body{
+    margin-top: 5%;
+    width: 621.12px;
+    min-width: 30%;
+    overflow: auto;
+    padding: 20px;
+}
+
+/*This was used only in new project form along with signContainer above*/
+.labelCon{
+    width: 30%;
+    float: left;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.textRight{
+    width: 65%;
+    text-align: left;
+    float:left;
+}
+
+
+

@@ -1,0 +1,140 @@
+import React, { Fragment } from "react";
+import {Button} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
+import { FormLabel } from '@material-ui/core';
+const programmingLanguages = [
+  "HTML/CSS",
+  "JavaScript",
+  "TypeScript",
+  "C",
+  "C++",
+  "Java",
+  "Python",
+  "C#",
+  "R",
+  "PHP",
+  "Swift",
+  "Objective-C",
+  "SQL",
+  "Go",
+  "Ruby",
+  "Shell",
+];
+
+
+
+
+class NewProjectForm extends React.Component {
+  render() {
+    return (
+      <div className="container">
+        <h1 className="form-title">Create A New Project</h1>
+        <form className="form-container">
+          
+          <div className = "formAlign">
+          <div className = "labelCon">
+            <label htmlFor="projectName">Name of Project: </label>
+          </div>
+          <div className = "checkCon">
+            <TextField id = "outlined-basic" variant = "outlined" size = "small"/>
+          </div>
+          </div>
+          <div className="flex-box">
+          <div className = "formAlign">
+          <div className = "labelCon">
+            <label htmlFor="projectStartDate"> Start Date:</label>
+          </div>
+          <div className = "checkCon">
+            <TextField id = "outlined-basic" type = "date" variant = "outlined" size = "small"/>
+          </div>
+          </div>
+          <div className = "formAlign">
+          <div className = "labelCon"> 
+            <label htmlFor="projectEndDate"> End Date: </label>
+          </div>
+          <div className = "checkCon">
+            <TextField id = "outlined-basic" type = "date" variant = "outlined" size = "small"/>
+          </div>
+          </div>
+          </div>
+          <div className = "formAlign">
+          <div className = "labelCon">
+            <label htmlFor="languages"> Type of Language:</label>
+          </div>
+          <div className = "checkCon">
+            <div className = "checkCont">
+            <div className="checkbox-container">
+              {programmingLanguages.map((language) => (
+                <div className = "CheckboxAlign">
+                <div key={language} className="checkbox">
+                  
+                  <label htmlFor={"checkbox_" + language}>{language}</label>
+                  <input
+                    // key={language}
+                    id={"checkbox_" + language}
+                    type="checkbox"
+                    name={"checkbox_" + language}
+                    value={language}
+                  />
+                  
+                </div>
+                </div>
+              ))}
+              </div>
+            </div>
+            
+         
+          <div>
+          <TextField id = "outlined-basic" variant = "outlined" size = "small"
+              placeholder="Enter new languages"
+            />
+            <Button color ="primary" variant = "contained">Submit</Button>
+            </div>
+            </div>
+          </div>
+          <div className = "formAlign">
+          <div className = "labelCon">
+            <label htmlFor="description"> Description of Project: </label> 
+          </div>
+          <div className = "checkCon">
+            <TextField id = "outlined-basic" rows = "5" columns = "33" variant = "outlined" multiline = {true}/>
+          </div>
+          </div>
+          <div>
+            <div className = "formAlign">
+            
+            <div className = "labelCon">
+            <label htmlFor="contactName">Name: </label>
+            </div>
+            <div className = "checkCon">
+            <TextField id = "outlined-basic" variant = "outlined" size = "small"/>
+            </div>
+            </div>
+            <div className = "formAlign">
+            <div className = "labelCon">
+            <label htmlFor="contactPhoneNumber">Phone(optional): </label>
+            </div>
+            <div className = "checkCon">
+            <TextField id = "outlined-basic" variant = "outlined" size = "small"/>
+            </div>
+            </div>
+            <div className = "formAlign">
+            <div className = "labelCon">
+            <label htmlFor="contactEmail">Email:</label>
+            </div>
+            <div className = "checkCon">
+            <TextField id = "outlined-basic" variant = "outlined" size = "small"/>
+            </div>
+            </div>
+          </div>
+          <Button color ="primary" variant = "contained">Submit</Button>
+        </form>
+      </div>
+    );
+  }
+}
+{/* <div className = "labelCon">
+            <h4> Point of Contact</h4>
+            
+            </div> */}
+export default NewProjectForm;

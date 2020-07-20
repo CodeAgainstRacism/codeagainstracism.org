@@ -1,24 +1,41 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import HeroImage from "./Landing_Hero.svg";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
+  flexBox: {
+    display: "flex",
+  },
+
   icon: {
     marginRight: theme.spacing(2),
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    padding: theme.spacing(6),
+  },
+  /**** TITLE *******/
+
+  /***** PARAGRAPH */
+  heroParagraph: {
+    padding: theme.spacing(2, 0),
+    color: theme.palette.text.primary,
+  },
+  heroMedia: {
+    backgroundImage: `url(${HeroImage})`,
+    backgroundSize: "cover",
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -32,9 +49,58 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#DB5375",
     padding: "1rem",
   },
+
+  /* Projects Title */
+  dividerContainer: {
+    display: "flex",
+    marginBottom: "3rem",
+  },
+  projectTitle: {
+    alignText: "center",
+    display: "inline",
+    padding: "0 3rem",
+  },
+  line: {
+    border: "none",
+    borderTop: "3px solid #333",
+    color: "#000",
+    overflow: "visible",
+    textAlign: "center",
+    width: "50%",
+    paddingTop: "40px",
+    position: "relative",
+    top: "0.8rem",
+  },
+
+  /* Feature Project */
+  featuredContainer: {
+    marginBottom: theme.spacing(8),
+    display: "flex",
+  },
+  card: {
+    display: "flex",
+  },
+  cardDetails: {
+    flex: 1,
+    padding: "1.5rem 0.5rem 0rem",
+  },
+  featuredParagraph: {
+    margin: "2rem 0",
+  },
+  featuredMedia: {
+    height: "25rem",
+    objectFit: "cover",
+    maxWidth: "100%",
+    maxHeight: "100%",
+  },
+  featuredButton: {
+    justifyContent: "center",
+  },
+  /* 6 cards */
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
+    marginBottom: theme.spacing(8),
   },
   card: {
     height: "100%",
@@ -47,9 +113,14 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  moreProjects: {
+    justifyContent: "center",
+    marginTop: "4rem",
+  },
   footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
+    backgroundColor: theme.navbar.default,
+    color: theme.palette.text.secondary,
+    padding: theme.spacing(2),
   },
 }));
 
@@ -61,46 +132,126 @@ const LandingPage = (props) => {
       <CssBaseline />
       <main>
         {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="lg">
-            <Typography component="h1" variant="h4" align="left" gutterBottom>
-              Help Fight For Diversity In Tech
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              color="textSecondary"
-              paragraph
-              align="left"
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus, rerum. Nam doloremque atque tempora, omnis cumque
-              officia amet alias molestias nobis quidem obcaecati commodi
-              consectetur vitae excepturi rerum aperiam esse?
-            </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={7} justify="left">
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    className={classes.heroLeftCTAButton}
-                  >
-                    Join A Project
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    className={classes.heroRightCTAButton}
-                  >
-                    Create A Project
-                  </Button>
-                </Grid>
+
+        <Container maxWidth="lg">
+          <Box className={classes.heroContent} boxShadow={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={8}>
+                <Typography
+                  component="h1"
+                  variant="h4"
+                  align="left"
+                  gutterBottom
+                >
+                  Help Fight For Diversity In Tech
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  paragraph
+                  align="left"
+                  className={classes.heroParagraph}
+                >
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Temporibus, rerum. Nam doloremque atque tempora, omnis cumque
+                  officia amet alias molestias nobis quidem obcaecati commodi
+                  consectetur vitae excepturi rerum aperiam esse?
+                </Typography>
+                <div className={classes.heroButtons}>
+                  <Grid container spacing={7} justify="left">
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        className={classes.heroLeftCTAButton}
+                      >
+                        <Typography
+                          variant="button"
+                          fontWeight="fontWeightBold"
+                        >
+                          Join A Project
+                        </Typography>
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        className={classes.heroRightCTAButton}
+                      >
+                        <Typography variant="button">
+                          Create A Project
+                        </Typography>
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </div>
               </Grid>
-            </div>
-          </Container>
-        </div>
+              <Grid item xs={4} className={classes.heroMedia}></Grid>
+            </Grid>
+          </Box>
+        </Container>
+
+        {/* End hero unit */}
         <Container className={classes.cardGrid} maxWidth="lg">
-          {/* End hero unit */}
+          <Box className={classes.dividerContainer}>
+            {/* <div> */}
+            <hr className={classes.line} />
+            {/* </div> */}
+
+            <Typography variant="h4" className={classes.projectTitle}>
+              PROJECTS
+            </Typography>
+            {/* <div> */}
+            <hr className={classes.line} />
+            {/* </div> */}
+          </Box>
+
+          {/* Featured Project */}
+          <Card className={classes.featuredContainer}>
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <CardMedia
+                  className={classes.featuredMedia}
+                  image="https://source.unsplash.com/random"
+                  title="Image title"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <div className={classes.cardDetails}>
+                  <CardContent>
+                    <Typography component="h6" variant="h5" gutterBottom>
+                      Featured
+                    </Typography>
+                    <Typography variant="h4" color="textPrimary" gutterBottom>
+                      Black Girls Code
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      paragraph
+                      className={classes.featuredParagraph}
+                    >
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ut, rem. Saepe nesciunt, cumque voluptate tenetur deserunt
+                      voluptatum numquam modi. Provident error nihil molestiae
+                      iusto dolorem qui repellat ducimus at ratione! Lorem ipsum
+                      dolor sit amet consectetur adipisicing elit. Ut, rem.
+                      Saepe nesciunt.
+                    </Typography>
+                    <CardActions className={classes.featuredButton}>
+                      <Button
+                        padding="1rem"
+                        size="large"
+                        color="primary"
+                        variant="contained"
+                      >
+                        Learn More
+                      </Button>
+                    </CardActions>
+                  </CardContent>
+                </div>
+              </Grid>
+            </Grid>
+          </Card>
+
+          {/* 6 projects */}
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -133,12 +284,37 @@ const LandingPage = (props) => {
               </Grid>
             ))}
           </Grid>
+          <Grid container className={classes.moreProjects}>
+            <Button size="large" color="secondary" variant="contained">
+              More Projects
+            </Button>
+          </Grid>
+          {/* Insert Statistic */}
+          {/* Insert Sponsors */}
         </Container>
       </main>
+      {/* Footer */}
+      <footer className={classes.footer}>
+        <Copyright />
+      </footer>
+      {/* End footer */}
     </React.Fragment>
   );
 };
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [1, 2, 3, 4, 5, 6];
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://material-ui.com/">
+        Code Against Racism. All Rights Reserved
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
 export default LandingPage;

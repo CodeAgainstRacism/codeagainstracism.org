@@ -1,8 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
@@ -10,40 +13,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 
-// export default function NavBar() {
-//   return (
-//     <header className="navbar">
-//       {/* <h1 className="nav__brand">Code Against Racism</h1> */}
-//       <NavLink
-//         to="/"
-//         activeClassName="is-active"
-//         exact={true}
-//         className="nav__logo"
-//       >
-//         <h1>Code Against Racism</h1>
-//       </NavLink>{" "}
-//       <div className="nav__links">
-//         {/*activeClassName is only going to get applied to the link when we're on that page. */}
-//         <NavLink
-//           to="/project/new"
-//           activeClassName="is-active"
-//           exact={true}
-//           className="nav__item"
-//         >
-//           Create a New Project
-//         </NavLink>
-//         <NavLink
-//           to="/organization/new"
-//           activeClassName="is-active"
-//           exact={true}
-//           className="nav__item"
-//         >
-//           Create a New Organization
-//         </NavLink>
-//       </div>
-//     </header>
-//   );
-// }
 const useStyles = makeStyles((theme) => ({
   "@global": {
     ul: {
@@ -54,14 +23,16 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundColor: "#222831",
-    color: "#ffffff",
+    backgroundColor: theme.navbar.default,
+    color: theme.palette.text.secondary,
   },
   toolbar: {
+    display: "flex",
     flexWrap: "wrap",
   },
-  toolbarTitle: {
-    flexGrow: 1,
+  toolbarRight: {
+    justifyContent: "right",
+    marginLeft: "auto",
   },
   link: {
     margin: theme.spacing(1, 1.5),
@@ -81,20 +52,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "baseline",
     marginBottom: theme.spacing(2),
   },
-  footer: {
-    borderTop: `1px solid ${theme.palette.divider}`,
-    marginTop: theme.spacing(8),
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    [theme.breakpoints.up("sm")]: {
-      paddingTop: theme.spacing(6),
-      paddingBottom: theme.spacing(6),
-    },
-  },
 }));
 
-export default function NavBar() {
+const NavBar = (props) => {
+  const { history } = props;
   const classes = useStyles();
+
+  const changeRoute = (pageURL) => {
+    history.push(pageURL);
+  };
 
   return (
     <React.Fragment>
@@ -106,34 +72,91 @@ export default function NavBar() {
         className={classes.appBar}
       >
         <Toolbar className={classes.toolbar}>
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            Logo
-          </Typography>
-          <nav>
+          <Link variant="title" onClick={() => changeRoute("/")}>
+            <Typography variant="h6" color="inherit" noWrap>
+              Logo
+            </Typography>
+          </Link>
+          <List>
+            <ListItem component="div">
+              <ListItemText inset>
+                <Link
+                  variant="title"
+                  onClick={() => changeRoute("/about")}
+                  color="inherit"
+                  underline="none"
+                >
+                  <Typography color="inherit" variant="title">
+                    ABOUT
+                  </Typography>
+                </Link>
+              </ListItemText>
+              <ListItemText inset>
+                <Link
+                  variant="title"
+                  onClick={() => changeRoute("/projects")}
+                  color="inherit"
+                  underline="none"
+                >
+                  <Typography color="inherit" variant="title">
+                    PROJECTS
+                  </Typography>
+                </Link>
+              </ListItemText>
+              <ListItemText inset>
+                <Link
+                  variant="title"
+                  onClick={() => changeRoute("/news")}
+                  color="inherit"
+                  underline="none"
+                >
+                  <Typography color="inherit" variant="title">
+                    NEWS
+                  </Typography>
+                </Link>
+              </ListItemText>
+              <ListItemText inset>
+                <Link
+                  variant="title"
+                  onClick={() => changeRoute("/faq")}
+                  color="inherit"
+                  underline="none"
+                >
+                  <Typography color="inherit" variant="title">
+                    FAQ
+                  </Typography>
+                </Link>
+              </ListItemText>
+            </ListItem>
+          </List>
+          <Box className={classes.toolbarRight}>
             <Link
               variant="button"
               color="inherit"
+              underline="none"
+              onClick={() => changeRoute("/signup")}
               href="#"
               className={classes.link}
             >
-              Sign up
+              <Typography color="inherit" variant="title">
+                LOGIN
+              </Typography>
             </Link>
-          </nav>
-          <Button
-            href="#"
-            color="secondary"
-            variant="contained"
-            className={classes.link}
-          >
-            Login
-          </Button>
+
+            <Button
+              href="#"
+              color="secondary"
+              variant="contained"
+              className={classes.link}
+              onClick={() => changeRoute("/login")}
+            >
+              SIGN UP
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
     </React.Fragment>
   );
-}
+};
+
+export default withRouter(NavBar);

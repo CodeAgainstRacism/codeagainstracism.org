@@ -8,6 +8,16 @@ const theme = createMuiTheme({
     secondary: {
       main: "#F96D00", // accent buttons, orange
     },
+    background: {
+      default: "#F2F2F2", // light gray in background
+    },
+    text: {
+      primary: "#000", // black
+      secondary: "#fff", // white
+    },
+  },
+  navbar: {
+    default: "#222831",
   },
 });
 

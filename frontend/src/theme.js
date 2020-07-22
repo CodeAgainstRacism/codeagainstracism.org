@@ -19,8 +19,17 @@ const theme = createMuiTheme({
   navbar: {
     default: "#222831",
   },
+  heroCTAButton: {
+    left: "#205D67",
+    right: "#DB5375",
+  },
+  overrides: {
+    MuiLink: {
+      root: {
+        cursor: "pointer",
+      },
+    },
+  },
 });
 
 export default theme;
-
-// "#222831"      dark blue

@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme) => ({
   flexBox: {
     display: "flex",
   },
-
+  flexBoxCenter: {
+    display: "flex",
+    justifyContent: "center",
+  },
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -41,35 +44,33 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   heroLeftCTAButton: {
-    backgroundColor: "#205D67",
-    color: "#ffffff",
-    padding: "1rem",
+    backgroundColor: theme.heroCTAButton.left,
+    color: theme.palette.text.secondary,
+    padding: theme.spacing(1.5, 4),
   },
   heroRightCTAButton: {
-    backgroundColor: "#DB5375",
-    padding: "1rem",
+    backgroundColor: theme.heroCTAButton.right,
+    padding: theme.spacing(1.5, 4),
   },
 
   /* Projects Title */
   dividerContainer: {
     display: "flex",
-    marginBottom: "3rem",
+    alignItems: "center",
+    marginBottom: theme.spacing(5),
   },
   projectTitle: {
     alignText: "center",
     display: "inline",
-    padding: "0 3rem",
+    padding: theme.spacing(0, 5),
   },
   line: {
     border: "none",
-    borderTop: "3px solid #333",
-    color: "#000",
+    borderTop: `3px solid ${theme.palette.text.primary}`,
+    color: theme.palette.text.secondary,
     overflow: "visible",
     textAlign: "center",
     width: "50%",
-    paddingTop: "40px",
-    position: "relative",
-    top: "0.8rem",
   },
 
   /* Feature Project */
@@ -82,19 +83,20 @@ const useStyles = makeStyles((theme) => ({
   },
   cardDetails: {
     flex: 1,
-    padding: "1.5rem 0.5rem 0rem",
+    padding: theme.spacing(3, 1, 0),
   },
   featuredParagraph: {
-    margin: "2rem 0",
+    margin: theme.spacing(1, 0),
   },
   featuredMedia: {
-    height: "25rem",
+    height: theme.spacing(3),
     objectFit: "cover",
     maxWidth: "100%",
     maxHeight: "100%",
   },
-  featuredButton: {
+  learnMoreButton: {
     justifyContent: "center",
+    padding: theme.spacing(1, 6),
   },
   /* 6 cards */
   cardGrid: {
@@ -115,8 +117,9 @@ const useStyles = makeStyles((theme) => ({
   },
   moreProjects: {
     justifyContent: "center",
-    marginTop: "4rem",
+    marginTop: theme.spacing(7),
   },
+  /* footer */
   footer: {
     backgroundColor: theme.navbar.default,
     color: theme.palette.text.secondary,
@@ -131,18 +134,12 @@ const LandingPage = (props) => {
     <React.Fragment>
       <CssBaseline />
       <main>
-        {/* Hero unit */}
-
+        {/* Hero Box */}
         <Container maxWidth="lg">
           <Box className={classes.heroContent} boxShadow={3}>
             <Grid container spacing={3}>
               <Grid item xs={8}>
-                <Typography
-                  component="h1"
-                  variant="h4"
-                  align="left"
-                  gutterBottom
-                >
+                <Typography variant="h4" align="left" gutterBottom>
                   Help Fight For Diversity In Tech
                 </Typography>
                 <Typography
@@ -160,6 +157,7 @@ const LandingPage = (props) => {
                   <Grid container spacing={7} justify="left">
                     <Grid item>
                       <Button
+                        size="large"
                         variant="contained"
                         className={classes.heroLeftCTAButton}
                       >
@@ -176,9 +174,9 @@ const LandingPage = (props) => {
                         variant="contained"
                         className={classes.heroRightCTAButton}
                       >
-                        <Typography variant="button">
-                          Create A Project
-                        </Typography>
+                        {/* <Typography variant="button"> */}
+                        Create A Project
+                        {/* </Typography> */}
                       </Button>
                     </Grid>
                   </Grid>
@@ -188,20 +186,14 @@ const LandingPage = (props) => {
             </Grid>
           </Box>
         </Container>
-
-        {/* End hero unit */}
+        {/* End hero Box */}
         <Container className={classes.cardGrid} maxWidth="lg">
           <Box className={classes.dividerContainer}>
-            {/* <div> */}
             <hr className={classes.line} />
-            {/* </div> */}
-
             <Typography variant="h4" className={classes.projectTitle}>
               PROJECTS
             </Typography>
-            {/* <div> */}
             <hr className={classes.line} />
-            {/* </div> */}
           </Box>
 
           {/* Featured Project */}
@@ -217,7 +209,7 @@ const LandingPage = (props) => {
               <Grid item xs={6}>
                 <div className={classes.cardDetails}>
                   <CardContent>
-                    <Typography component="h6" variant="h5" gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                       Featured
                     </Typography>
                     <Typography variant="h4" color="textPrimary" gutterBottom>
@@ -235,12 +227,12 @@ const LandingPage = (props) => {
                       dolor sit amet consectetur adipisicing elit. Ut, rem.
                       Saepe nesciunt.
                     </Typography>
-                    <CardActions className={classes.featuredButton}>
+                    <CardActions className={classes.flexBoxCenter}>
                       <Button
-                        padding="1rem"
                         size="large"
                         color="primary"
                         variant="contained"
+                        className={classes.learnMoreButton}
                       >
                         Learn More
                       </Button>
@@ -262,7 +254,7 @@ const LandingPage = (props) => {
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h5">
                       Title
                     </Typography>
                     <Typography align="left">
@@ -270,11 +262,11 @@ const LandingPage = (props) => {
                       Voluptate impedit magnam culpa
                     </Typography>
                   </CardContent>
-                  <CardActions>
+                  <CardActions className={classes.flexBoxCenter}>
                     <Button
-                      size="small"
+                      size="medium"
                       color="primary"
-                      fullWidth
+                      className={classes.learnMoreButton}
                       variant="contained"
                     >
                       Learn More

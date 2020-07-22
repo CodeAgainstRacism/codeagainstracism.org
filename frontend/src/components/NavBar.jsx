@@ -1,16 +1,15 @@
 import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter, Link as RouterLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "right",
     marginLeft: "auto",
   },
-  link: {
-    margin: theme.spacing(1, 1.5),
+  rightButton: {
+    margin: theme.spacing(1, 3),
   },
   heroContent: {
     padding: theme.spacing(8, 0, 6),
@@ -58,10 +57,6 @@ const NavBar = (props) => {
   const { history } = props;
   const classes = useStyles();
 
-  const changeRoute = (pageURL) => {
-    history.push(pageURL);
-  };
-
   return (
     <React.Fragment>
       <CssBaseline />
@@ -72,83 +67,78 @@ const NavBar = (props) => {
         className={classes.appBar}
       >
         <Toolbar className={classes.toolbar}>
-          <Link variant="title" onClick={() => changeRoute("/")}>
-            <Typography variant="h6" color="inherit" noWrap>
+          <IconButton>
+            <Link variant="title" component={RouterLink} to="/">
               Logo
-            </Typography>
-          </Link>
+            </Link>
+          </IconButton>
           <List>
             <ListItem component="div">
               <ListItemText inset>
                 <Link
                   variant="title"
-                  onClick={() => changeRoute("/about")}
+                  component={RouterLink}
+                  to="/about"
                   color="inherit"
                   underline="none"
                 >
-                  <Typography color="inherit" variant="title">
-                    ABOUT
-                  </Typography>
+                  ABOUT
                 </Link>
               </ListItemText>
               <ListItemText inset>
                 <Link
                   variant="title"
-                  onClick={() => changeRoute("/projects")}
+                  component={RouterLink}
+                  to="/projects"
                   color="inherit"
                   underline="none"
                 >
-                  <Typography color="inherit" variant="title">
-                    PROJECTS
-                  </Typography>
+                  PROJECTS
                 </Link>
               </ListItemText>
               <ListItemText inset>
                 <Link
                   variant="title"
-                  onClick={() => changeRoute("/news")}
+                  component={RouterLink}
+                  to="/news"
                   color="inherit"
                   underline="none"
                 >
-                  <Typography color="inherit" variant="title">
-                    NEWS
-                  </Typography>
+                  NEWS
                 </Link>
               </ListItemText>
               <ListItemText inset>
                 <Link
                   variant="title"
-                  onClick={() => changeRoute("/faq")}
+                  component={RouterLink}
+                  to="/faq"
                   color="inherit"
                   underline="none"
                 >
-                  <Typography color="inherit" variant="title">
-                    FAQ
-                  </Typography>
+                  FAQ
                 </Link>
               </ListItemText>
             </ListItem>
           </List>
           <Box className={classes.toolbarRight}>
             <Link
-              variant="button"
+              variant="title"
               color="inherit"
               underline="none"
-              onClick={() => changeRoute("/signup")}
-              href="#"
-              className={classes.link}
+              component={RouterLink}
+              to="/login"
+              className={classes.rightButton}
             >
-              <Typography color="inherit" variant="title">
-                LOGIN
-              </Typography>
+              LOGIN
             </Link>
 
             <Button
               href="#"
               color="secondary"
               variant="contained"
-              className={classes.link}
-              onClick={() => changeRoute("/login")}
+              className={classes.rightButton}
+              component={RouterLink}
+              to="/signup"
             >
               SIGN UP
             </Button>

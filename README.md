@@ -26,12 +26,15 @@
 
  Code against racism is part of <a href="http://www.hackyourown.org/">Hack Your Own</a>. You may find more information of HYO in <a href="https://www.reddit.com/r/csMajors/comments/gl0841/no_summer_internship_lined_up_yet_hack_your_own/">this reddit post</a>.
  
+## Introduction
+Code Against Racism is a web portal created to connect anti-racism organizations with developers. It is intended to provide a platform for smaller sized organizations to publish and commission tech projects, but any and all anti-racism organizations are welcome to participate.
+
 ## Tech Stack
 - Frontend: <a href="https://reactjs.org/">React</a>.
 - Backend: <a href="https://nodejs.org/en/">Node.js</a>, <a href="https://nestjs.com/">NestJS</a>
 - Database: <a href="https://www.mysql.com/">MySQL (TypeORM)</a>.
 
-refer to the respective README on <a href="https://github.com/CodeAgainstRacism/codeagainstracism.org/tree/develop/frontend">Frontend</a> and <a href="https://github.com/CodeAgainstRacism/codeagainstracism.org/tree/develop/backend">Backend</a> for more detail.
+refer to the respective README on <a href="https://github.com/CodeAgainstRacism/codeagainstracism.org/tree/develop/frontend">frontend/</a> and <a href="https://github.com/CodeAgainstRacism/codeagainstracism.org/tree/develop/backend">backend/</a> for more details.
 
 ## Join Us
 Code Against Racism is a 9-week project under the supervision of HYO.

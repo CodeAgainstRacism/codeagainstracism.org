@@ -49,9 +49,9 @@ export class Organization {
 
   @OneToMany(
     () => Project,
-    project => project.name,
+    (project: Project) => project.organization,
   )
-  projects: string[];
+  projects: Project[];
 
   constructor(
     id?: number,

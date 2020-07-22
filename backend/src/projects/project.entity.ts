@@ -41,7 +41,11 @@ export class Project {
   @ApiProperty({ example: new Date('2020-07-15T22:50:43.000Z') })
   updatedAt: Date;
 
-  @ManyToOne(() => Organization, { eager: true, onDelete: 'CASCADE' })
+  @ManyToOne(
+    () => Organization,
+    (organization: Organization) => organization.projects,
+    { eager: true, onDelete: 'CASCADE' },
+  )
   @ApiProperty({
     example: Organization,
   })

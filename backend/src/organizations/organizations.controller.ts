@@ -16,17 +16,12 @@ import { OrganizationDto } from './organization.dto';
 import { Organization } from './organization.entity';
 import { OrganizationsService } from './organizations.service';
 import { ProjectsService } from '../projects/projects.service';
-import { Project } from '../projects/project.entity';
 
 @ApiTags('organizations')
 @Controller('organizations')
 @UseInterceptors(ClassSerializerInterceptor)
 export class OrganizationsController {
-  constructor(
-    private readonly OrganizationsService: OrganizationsService,
-    @Inject(forwardRef(() => ProjectsService))
-    private readonly projectsService: ProjectsService,
-  ) {}
+  constructor(private readonly OrganizationsService: OrganizationsService) {}
 
   @Post()
   @ApiOperation({ summary: 'Creates an organization' })
@@ -62,25 +57,6 @@ export class OrganizationsController {
   })
   findOne(@Param('id') id: string): Promise<Organization> {
     return this.OrganizationsService.findOne(Number(id));
-  }
-
-  @Get(':id/projects')
-  @ApiOperation({ summary: "Fetches an organization's projects" })
-  @ApiResponse({
-    status: 200,
-    description: "The organization's projects",
-    type: Organization,
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Organization with id:${id} not found',
-  })
-  async findProjects(@Param('id') id: string): Promise<Project[]> {
-    const organization = await this.OrganizationsService.findOne(Number(id));
-    const projects = await this.projectsService.findAll();
-    return projects.filter(
-      project => project.organization?.id === organization.id,
-    );
   }
 
   @Put(':id')

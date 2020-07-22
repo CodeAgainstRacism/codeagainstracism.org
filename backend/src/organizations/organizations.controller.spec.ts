@@ -104,22 +104,6 @@ describe('Organization Controller', () => {
     });
   });
 
-  describe('findProjects', () => {
-    it('should return a list of projects', async () => {
-      const projects = mockProjectDatabase.filter(
-        project => project.organization?.id === 1,
-      );
-      controller.findProjects('1').then(data => {
-        expect(data).toEqual(projects);
-      });
-    });
-    it('should return an empty list of projects', async () => {
-      controller.findProjects('0').then(data => {
-        expect(data).toEqual([]);
-      });
-    });
-  });
-
   describe('create', () => {
     it('should create an organization', () => {
       const beforeCount = mockDatabase.length;

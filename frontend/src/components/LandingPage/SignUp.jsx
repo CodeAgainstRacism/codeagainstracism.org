@@ -9,7 +9,7 @@ const StyledField = withStyles({
   },
 })(TextField);
 
-export default function IconLabelButtons() {
+export default function SignUp() {
   
     return (
       <div className="container"> 

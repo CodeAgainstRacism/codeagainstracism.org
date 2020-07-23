@@ -79,9 +79,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(8),
     display: "flex",
   },
-  card: {
-    display: "flex",
-  },
   cardDetails: {
     flex: 1,
     padding: theme.spacing(3, 1, 0),
@@ -287,4 +284,4 @@ const LandingPage = (props) => {
 
 const cards = [1, 2, 3, 4, 5, 6];
 
-export default LandingPage;
+export { LandingPage };

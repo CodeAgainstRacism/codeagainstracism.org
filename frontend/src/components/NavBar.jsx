@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, withRouter, Link as RouterLink } from "react-router-dom";
+import { withRouter, Link as RouterLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -54,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavBar = (props) => {
-  const { history } = props;
   const classes = useStyles();
 
   return (

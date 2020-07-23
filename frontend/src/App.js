@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "normalize.css/normalize.css";
 import "./styles/styles.scss";
 
-import LandingPage from "./pages/LandingPage/LandingPage";
+import { LandingPage } from "./pages/LandingPage/LandingPage";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import Projects from "./pages/Projects";
@@ -13,7 +13,6 @@ import About from "./pages/About";
 import NotFoundPage from "./pages/NotFound";
 import NewProjectForm from "./pages/Forms/NewProjectForm";
 import NewOrganizationForm from "./pages/Forms/NewOrganizationForm";
-
 import NavBar from "./components/NavBar";
 
 class App extends React.Component {

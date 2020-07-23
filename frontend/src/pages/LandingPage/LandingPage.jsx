@@ -1,17 +1,16 @@
 import React from "react";
+import Footer from "../../components/Footer";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import HeroImage from "../../images/Landing_Hero.svg";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,11 +45,13 @@ const useStyles = makeStyles((theme) => ({
   heroLeftCTAButton: {
     backgroundColor: theme.heroCTAButton.left,
     color: theme.palette.text.secondary,
-    padding: theme.spacing(1.5, 4),
+    width: "14rem",
+    padding: theme.spacing(2, 0),
   },
   heroRightCTAButton: {
     backgroundColor: theme.heroCTAButton.right,
-    padding: theme.spacing(1.5, 4),
+    width: "14rem",
+    padding: theme.spacing(2, 0),
   },
 
   /* Projects Title */
@@ -88,8 +89,8 @@ const useStyles = makeStyles((theme) => ({
   featuredParagraph: {
     margin: theme.spacing(1, 0),
   },
-  featuredMedia: {
-    height: theme.spacing(3),
+  featuredImage: {
+    height: "100%",
     objectFit: "cover",
     maxWidth: "100%",
     maxHeight: "100%",
@@ -118,12 +119,6 @@ const useStyles = makeStyles((theme) => ({
   moreProjects: {
     justifyContent: "center",
     marginTop: theme.spacing(7),
-  },
-  /* footer */
-  footer: {
-    backgroundColor: theme.navbar.default,
-    color: theme.palette.text.secondary,
-    padding: theme.spacing(2),
   },
 }));
 
@@ -154,7 +149,7 @@ const LandingPage = (props) => {
                   consectetur vitae excepturi rerum aperiam esse?
                 </Typography>
                 <div className={classes.heroButtons}>
-                  <Grid container spacing={7} justify="left">
+                  <Grid container spacing={7}>
                     <Grid item>
                       <Button
                         size="large"
@@ -174,9 +169,7 @@ const LandingPage = (props) => {
                         variant="contained"
                         className={classes.heroRightCTAButton}
                       >
-                        {/* <Typography variant="button"> */}
                         Create A Project
-                        {/* </Typography> */}
                       </Button>
                     </Grid>
                   </Grid>
@@ -201,7 +194,7 @@ const LandingPage = (props) => {
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <CardMedia
-                  className={classes.featuredMedia}
+                  className={classes.featuredImage}
                   image="https://source.unsplash.com/random"
                   title="Image title"
                 />
@@ -286,27 +279,12 @@ const LandingPage = (props) => {
         </Container>
       </main>
       {/* Footer */}
-      <footer className={classes.footer}>
-        <Copyright />
-      </footer>
+      <Footer />
       {/* End footer */}
     </React.Fragment>
   );
 };
 
 const cards = [1, 2, 3, 4, 5, 6];
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Code Against Racism. All Rights Reserved
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 export default LandingPage;

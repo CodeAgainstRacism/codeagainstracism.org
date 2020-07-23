@@ -68,7 +68,7 @@ const NavBar = (props) => {
       >
         <Toolbar className={classes.toolbar}>
           <IconButton>
-            <Link variant="title" component={RouterLink} to="/">
+            <Link variant="subtitle1" component={RouterLink} to="/">
               Logo
             </Link>
           </IconButton>
@@ -76,7 +76,7 @@ const NavBar = (props) => {
             <ListItem component="div">
               <ListItemText inset>
                 <Link
-                  variant="title"
+                  variant="subtitle1"
                   component={RouterLink}
                   to="/about"
                   color="inherit"
@@ -87,7 +87,7 @@ const NavBar = (props) => {
               </ListItemText>
               <ListItemText inset>
                 <Link
-                  variant="title"
+                  variant="subtitle1"
                   component={RouterLink}
                   to="/projects"
                   color="inherit"
@@ -98,7 +98,7 @@ const NavBar = (props) => {
               </ListItemText>
               <ListItemText inset>
                 <Link
-                  variant="title"
+                  variant="subtitle1"
                   component={RouterLink}
                   to="/news"
                   color="inherit"
@@ -109,7 +109,7 @@ const NavBar = (props) => {
               </ListItemText>
               <ListItemText inset>
                 <Link
-                  variant="title"
+                  variant="subtitle1"
                   component={RouterLink}
                   to="/faq"
                   color="inherit"
@@ -122,7 +122,7 @@ const NavBar = (props) => {
           </List>
           <Box className={classes.toolbarRight}>
             <Link
-              variant="title"
+              variant="subtitle1"
               color="inherit"
               underline="none"
               component={RouterLink}

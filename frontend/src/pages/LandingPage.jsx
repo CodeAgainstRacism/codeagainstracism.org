@@ -1,17 +1,19 @@
 import React from "react";
-import Footer from "../../components/Footer";
-import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import HeroImage from "../../images/Landing_Hero.svg";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import Footer from "../components/Footer";
+import {
+  makeStyles,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Container,
+  CssBaseline,
+  Grid,
+  Typography,
+} from "@material-ui/core";
+import HeroImage from "../images/Landing_Hero.svg";
 
 const useStyles = makeStyles((theme) => ({
   flexBox: {
@@ -118,6 +120,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(7),
   },
 }));
+
+const cards = [1, 2, 3, 4, 5, 6];
 
 const LandingPage = (props) => {
   const classes = useStyles();
@@ -282,6 +286,4 @@ const LandingPage = (props) => {
   );
 };
 
-const cards = [1, 2, 3, 4, 5, 6];
-
-export { LandingPage };
+export default LandingPage;

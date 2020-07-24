@@ -1,10 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+import { makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  /* footer */
   footer: {
     backgroundColor: theme.navbar.default,
     color: theme.palette.text.secondary,

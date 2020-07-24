@@ -12,7 +12,7 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-import HeroImage from "../images/Landing_Hero.svg";
+import HeroImage from "../assets/Landing_Hero.svg";
 import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({

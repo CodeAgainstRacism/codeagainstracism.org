@@ -1,4 +1,5 @@
 .container {
+<<<<<<< HEAD
     //max-width: 70rem;
     width: 1920px;
     //height: 1080px;
@@ -35,3 +36,47 @@
     background: black;
 }
 
+=======
+  max-width: 70vw;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.auth-form-container {
+  background-color: $form-background;
+  border: 0.1rem solid black;
+  margin: 0 auto;
+  padding: 1rem 0;
+  max-width: 30rem;
+}
+
+.form-container {
+  background-color: $form-background;
+  border: 0.1rem solid black;
+  margin: 1rem auto;
+  padding-bottom: 1rem;
+  max-width: 40rem;
+}
+
+.buttons-container {
+  width: 30rem;
+  border: 0.1rem solid black;
+  padding: 1rem 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: black;
+}
+
+.checkbox-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 1rem 4rem;
+}
+
+.flex-box {
+  display: flex;
+  justify-content: space-around;
+}
+>>>>>>> a53ff1dee3614355503f2e36f50cd12cfa71aa2e

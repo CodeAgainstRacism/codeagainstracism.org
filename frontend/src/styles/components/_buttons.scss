@@ -1,4 +1,5 @@
 .medium-glowing-button {
+<<<<<<< HEAD
     // background: $button-color;
     width: 8rem;
     height: 3rem;
@@ -43,3 +44,39 @@
 }
 
 
+=======
+  width: 8rem;
+  height: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  color: #000;
+  background-color: white;
+  border: none;
+  border-radius: 2.8rem;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.medium-glowing-button:hover {
+  background-color: #2ee59d;
+}
+
+.medium-glowing-button:disabled {
+  background-color: #2ee59d;
+}
+
+.submit-button {
+  color: black;
+  background-color: #2ee59d;
+  width: 8rem;
+  height: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  border: none;
+  border-radius: 2.8rem;
+  cursor: pointer;
+  outline: none;
+  margin-top: 1rem;
+}
+>>>>>>> a53ff1dee3614355503f2e36f50cd12cfa71aa2e

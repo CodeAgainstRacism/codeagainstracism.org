@@ -1,4 +1,5 @@
 .navbar {
+<<<<<<< HEAD
     background: black;
     color: white;
     margin: 0;
@@ -36,3 +37,44 @@
 .nav__item:visited{
     color: grey;
 }
+=======
+  background: black;
+  color: white;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+.nav__logo {
+  display: inline;
+  order: 0;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.nav__links {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  width: 70%;
+}
+
+.nav__item {
+  font-size: 1.3rem;
+  position: relative;
+  display: block;
+  width: auto;
+  text-decoration: none;
+  margin: 1.5rem;
+}
+
+.nav__item:hover {
+  cursor: pointer;
+}
+
+.nav__item:visited {
+  color: grey;
+}
+>>>>>>> a53ff1dee3614355503f2e36f50cd12cfa71aa2e

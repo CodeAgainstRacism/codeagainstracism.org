@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import {Button} from "@material-ui/core";
 import {TextField} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
@@ -95,3 +96,27 @@ export default function LogIn(props) {
       );
     }
   
+=======
+
+class LogIn extends React.Component {
+  render() {
+    return (
+      <div>
+        <form className="auth-form-container">
+          <div>
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email"></input>
+          </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password"></input>
+          </div>
+          <button className="submit-button">Submit</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+export default LogIn;
+>>>>>>> a53ff1dee3614355503f2e36f50cd12cfa71aa2e

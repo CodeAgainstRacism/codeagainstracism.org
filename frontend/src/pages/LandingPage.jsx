@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "../components/Footer";
 import {
   makeStyles,
   Box,
@@ -14,6 +13,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import HeroImage from "../images/Landing_Hero.svg";
+import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   flexBox: {

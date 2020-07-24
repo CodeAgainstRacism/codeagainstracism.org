@@ -7,13 +7,9 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import NotFoundPage from "./components/NotFound";
 import NewProjectForm from "./components/Forms/NewProjectForm";
 import NewOrganizationForm from "./components/Forms/NewOrganizationForm";
-<<<<<<< HEAD
 //import create_proj from "./components/Forms/create_proj";
 
 
-=======
-
->>>>>>> a53ff1dee3614355503f2e36f50cd12cfa71aa2e
 const Header = () => (
   <header className="navbar">
     {/* <h1 className="nav__brand">Code Against Racism</h1> */}

@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "name": "The iPhone",
+    "description": "Top secret new phone",
+    "startDate": "2004/01/01",
+    "endDate": "2004/01/01",
+    "organization": {
+      "id": 1,
+      "EIN": "12-3456789",
+      "name": "Apple",
+      "description": "Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services. It is considered one of the Big Tech technology companies, alongside Amazon, Google, Microsoft and Facebook.",
+      "phoneNumber": "+001 (012) 012-0123",
+      "email": "stevejobs@apple.com",
+      "contactFirstName": "Steve",
+      "contactLastName": "Jobs"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Kuiper Systems",
+    "description": "Amazon announced in April 2019 that they would fund and deploy a large broadband satellite internet constellation called \"Project Kuiper\". It is expected to take up to a decade to fully deploy all 3,236 satellites planned for the full constellation in order to provide internet to \"tens of millions of people who lack basic access to broadband internet.\"",
+    "startDate": "2019/04/01",
+    "endDate": null,
+    "organization": {
+      "id": 3,
+      "EIN": "34-5678901",
+      "name": "Amazon",
+      "description": "Amazon.com, Inc. is an American multinational technology company based in Seattle that focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. It has been referred to as one of the top four or five technology companies by share price. It has been referred to as \"one of the most influential economic and cultural forces in the world\" as well as the world's most valuable brand.",
+      "phoneNumber": "+002 (123) 456-7890",
+      "email": "janedoe@email.com",
+      "contactFirstName": "Jane",
+      "contactLastName": "Doe"
+    }
+  },
+  {
+    "id": 3,
+    "name": "The iPod",
+    "description": "The iPod is a line of portable media players and multi-purpose pocket computers designed and marketed by Apple Inc. The first version was released on October 23, 2001, about ​8 1⁄2 months after the Macintosh version of iTunes was released.",
+    "startDate": "1999/10/23",
+    "endDate": "2001/10/23",
+    "organization": {
+      "id": 1,
+      "EIN": "12-3456789",
+      "name": "Apple",
+      "description": "Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services. It is considered one of the Big Tech technology companies, alongside Amazon, Google, Microsoft and Facebook.",
+      "phoneNumber": "+001 (012) 012-0123",
+      "email": "stevejobs@apple.com",
+      "contactFirstName": "Steve",
+      "contactLastName": "Jobs"
+    }
+  }
+]

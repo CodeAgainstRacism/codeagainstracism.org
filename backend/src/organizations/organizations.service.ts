@@ -27,9 +27,8 @@ export class OrganizationsService {
       );
     }
 
-    const organization = this.organizationsRepository.create(organizationDto);
-    organization.encryptedPassword = OrganizationsService.encrypt(
-      organizationDto.password,
+    const organization = await this.organizationsRepository.create(
+      organizationDto,
     );
 
     return this.organizationsRepository.save(organization);
@@ -76,12 +75,6 @@ export class OrganizationsService {
     organization: OrganizationDto,
   ): Promise<Organization> {
     await this.findOne(id); // checks if the organization exists
-    if (organization.password) {
-      await this.organizationsRepository.update(id, {
-        encryptedPassword: OrganizationsService.encrypt(organization.password),
-      });
-      delete organization.password;
-    }
     await this.organizationsRepository.update(id, organization);
 
     return this.organizationsRepository.findOne(id);
@@ -90,13 +83,5 @@ export class OrganizationsService {
   async remove(id: number): Promise<void> {
     await this.findOne(id); // checks if the organization exists
     await this.organizationsRepository.delete(id);
-  }
-
-  /**
-   * Returns the encrypted password using bcrypt
-   * @param password password to encrypt
-   */
-  public static encrypt(password: string): string {
-    return bcrypt.hashSync(password, 10);
   }
 }

@@ -8,4 +8,14 @@ function encryptPassword(password: string): string {
   return bcrypt.hashSync(password, 10);
 }
 
-export { encryptPassword };
+/**
+ * Compares a password with it's hashed value.
+ * Return true if the password correspond; false if not
+ * @param plainPassword password to test
+ * @param hash hashed password
+ */
+function isValidPassword(plainPassword: string, hash: string): boolean {
+  return bcrypt.compareSync(plainPassword, hash);
+}
+
+export { encryptPassword, isValidPassword };

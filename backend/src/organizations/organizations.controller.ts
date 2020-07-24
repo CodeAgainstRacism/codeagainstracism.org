@@ -6,8 +6,6 @@ import {
   Param,
   Post,
   Put,
-  UseInterceptors,
-  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrganizationDto } from './organization.dto';
@@ -16,7 +14,6 @@ import { OrganizationsService } from './organizations.service';
 
 @ApiTags('organizations')
 @Controller('organizations')
-@UseInterceptors(ClassSerializerInterceptor)
 export class OrganizationsController {
   constructor(private readonly OrganizationsService: OrganizationsService) {}
 

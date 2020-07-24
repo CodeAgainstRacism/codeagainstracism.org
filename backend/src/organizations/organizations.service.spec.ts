@@ -80,12 +80,6 @@ describe('OrganizationsService', () => {
                   const organizationToUpdate = mockDatabase.find(
                     organization => organization.id === id,
                   );
-                  if (organizationData.password) {
-                    organizationToUpdate.encryptedPassword = OrganizationsService.encrypt(
-                      organizationData.password,
-                    );
-                    delete organizationData.password;
-                  }
                   // like Object.assign, but for defined properties
                   for (const key of Object.keys(organizationData)) {
                     const value = organizationData[key];
@@ -115,28 +109,6 @@ describe('OrganizationsService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-  });
-
-  describe('util functions', () => {
-    it('should encrypt the password', () => {
-      expect(
-        bcrypt.compareSync(
-          'password',
-          OrganizationsService.encrypt('password'),
-        ),
-      ).toBeTruthy();
-      expect(
-        bcrypt.compareSync('', OrganizationsService.encrypt('')),
-      ).toBeTruthy();
-    });
-    it('should detect that its the wrong password', () => {
-      expect(
-        bcrypt.compareSync(
-          'not same password',
-          OrganizationsService.encrypt('password'),
-        ),
-      ).toBeFalsy();
-    });
   });
 
   describe('find', () => {
@@ -211,7 +183,6 @@ describe('OrganizationsService', () => {
   });
 
   describe('create', () => {
-
     beforeEach(() => {
       jest
         .spyOn(repo, 'find')
@@ -229,7 +200,6 @@ describe('OrganizationsService', () => {
         description: 'The apple company',
         phoneNumber: '+001 (012) 012-0123',
         email: 'stevejobs@apple.com',
-        password: 'strongpassword',
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
       };
@@ -263,11 +233,10 @@ describe('OrganizationsService', () => {
         description: 'The apple company',
         phoneNumber: '+001 (012) 012-0123',
         email: 'johndoe@email.com',
-        password: 'strongpassword',
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
       };
-      
+
       let error;
       try {
         await service.create(newOrganizationWithSameEmail);
@@ -288,25 +257,24 @@ describe('OrganizationsService', () => {
   });
 
   describe('update', () => {
-    it('should update an organization without password', async () => {
+    it('should update an organization', async () => {
       const newData = {
-        EIN: undefined,
+        EIN: '00-0000000',
         name: 'new name',
-        description: undefined,
-        phoneNumber: undefined,
-        email: 'newemail@email.com',
-        password: undefined,
+        description: 'new description',
+        phoneNumber: '+001 (000) 000-0000',
+        email: undefined,
         contactFirstName: undefined,
         contactLastName: undefined,
       };
       const beforeUpdate = mockDatabase[0];
       await service.update(0, newData);
 
-      expect(mockDatabase[0].EIN).toEqual(beforeUpdate.EIN);
+      expect(mockDatabase[0].EIN).toEqual(newData.EIN);
       expect(mockDatabase[0].name).toEqual(newData.name);
-      expect(mockDatabase[0].description).toEqual(beforeUpdate.description);
-      expect(mockDatabase[0].phoneNumber).toEqual(beforeUpdate.phoneNumber);
-      expect(mockDatabase[0].email).toEqual(newData.email);
+      expect(mockDatabase[0].description).toEqual(newData.description);
+      expect(mockDatabase[0].phoneNumber).toEqual(newData.phoneNumber);
+      expect(mockDatabase[0].email).toEqual(beforeUpdate.email);
       expect(mockDatabase[0].contactFirstName).toEqual(
         beforeUpdate.contactFirstName,
       );
@@ -315,30 +283,24 @@ describe('OrganizationsService', () => {
       );
     });
 
-    it('should update an organization with password', async () => {
+    it('should update an organization', async () => {
       const newData = {
         EIN: undefined,
         name: undefined,
         description: undefined,
         phoneNumber: undefined,
-        email: undefined,
-        password: 'new password',
+        email: 'newemail@email.com',
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
       };
-      const password = newData.password;
       const beforeUpdate = mockDatabase[0];
       await service.update(0, newData);
-
-      expect(
-        bcrypt.compareSync(password, mockDatabase[0].encryptedPassword),
-      ).toBeTruthy();
 
       expect(mockDatabase[0].EIN).toEqual(beforeUpdate.EIN);
       expect(mockDatabase[0].name).toEqual(beforeUpdate.name);
       expect(mockDatabase[0].description).toEqual(beforeUpdate.description);
       expect(mockDatabase[0].phoneNumber).toEqual(beforeUpdate.phoneNumber);
-      expect(mockDatabase[0].email).toEqual(beforeUpdate.email);
+      expect(mockDatabase[0].email).toEqual(newData.email);
       expect(mockDatabase[0].contactFirstName).toEqual(
         newData.contactFirstName,
       );
@@ -352,7 +314,6 @@ describe('OrganizationsService', () => {
         description: undefined,
         phoneNumber: undefined,
         email: undefined,
-        password: 'new password',
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
       };

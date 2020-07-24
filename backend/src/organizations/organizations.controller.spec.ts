@@ -54,7 +54,6 @@ describe('Organization Controller', () => {
             create: jest
               .fn()
               .mockImplementation((organization: OrganizationDto) => {
-                delete organization.password;
                 return Promise.resolve({ id: 2, ...organization });
               }),
 
@@ -65,7 +64,6 @@ describe('Organization Controller', () => {
                   const organizationToUpdate = mockDatabase.find(
                     organization => organization.id === id,
                   );
-                  delete organizationData.password;
 
                   // like Object.assign, but for defined properties
                   for (const key of Object.keys(organizationData)) {
@@ -114,7 +112,6 @@ describe('Organization Controller', () => {
         description: 'The apple company',
         phoneNumber: '+001 (012) 012-0123',
         email: 'stevejobs@apple.com',
-        password: 'strongpassword',
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
       };
@@ -133,7 +130,6 @@ describe('Organization Controller', () => {
         description: undefined,
         phoneNumber: undefined,
         email: 'newemail@email.com',
-        password: undefined,
         contactFirstName: undefined,
         contactLastName: undefined,
       };

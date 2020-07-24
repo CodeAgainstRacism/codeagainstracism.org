@@ -34,10 +34,6 @@ export class Organization {
   contactLastName: string;
 
   @Column()
-  @Exclude({ toPlainOnly: true })
-  encryptedPassword: string;
-
-  @Column()
   @CreateDateColumn()
   createdAt: Date;
 
@@ -54,7 +50,6 @@ export class Organization {
     email?: string,
     contactFirstName?: string,
     contactLastName?: string,
-    encryptedPassword?: string,
   ) {
     this.id = id;
     this.EIN = EIN;
@@ -64,6 +59,5 @@ export class Organization {
     this.email = email;
     this.contactFirstName = contactFirstName;
     this.contactLastName = contactLastName;
-    this.encryptedPassword = encryptedPassword;
   }
 }

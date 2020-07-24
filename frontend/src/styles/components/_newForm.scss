@@ -1,0 +1,52 @@
+/*This was used only in new project form */
+.labelCon{
+    width: 30%;
+    float: left;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.textRight{
+    width: 65%;
+    text-align: left;
+    float:left;
+}
+
+.inner-container{
+    //max-width: 70rem;
+    width: 1500px;
+    //height: 1080px;
+    
+    height: 1080px;
+    margin: 0 auto;
+    border: 1px solid #292929;
+    align-items: stretch;
+    box-sizing: border-box;
+    background: #f2f2f2;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    
+}
+
+.headingCon{
+    //border: 1px solid #292929;
+    //box-sizing: border-box;
+    text-align: left;
+}
+.rightCon{
+    //border: 1px solid #292929;
+    //box-sizing: border-box;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 200px;
+}
+
+.navCon{
+    border: 1px solid #292929;
+    box-sizing: border-box;
+    margin-left: 200px;
+    display: inline;
+}
+
+

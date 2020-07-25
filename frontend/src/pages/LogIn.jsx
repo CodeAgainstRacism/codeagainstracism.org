@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LogIn(props) {
   const classes = useStyles();
-
   const history = useHistory();
 
   const routeChange = () =>{ 
@@ -26,7 +25,7 @@ export default function LogIn(props) {
     
     history.push(path);
   }
-
+    
   return (
     <div>
          <form className="container">

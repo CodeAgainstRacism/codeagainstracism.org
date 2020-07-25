@@ -1,12 +1,20 @@
 import React from "react"
 
 class Create_Project extends React.Component{
+    //features needed: skills needed- just list html, css
+    //type of project needed: website, databases, other
+    //project description
+    //date of submission
+    //date needed by
+    //after landingpage submit button is hit it should lead here
+    //if other clicked then create text box?
+    //submit click event that toggles between landingpage and create_proj
+    //create own button style in styles folder for HTML, CSS, etc buttons
     render(){
         return (
             <div>
                 <form className="form-container">
                     <div>
-                        <h1>Create Project</h1>
                         <label>Name of Project:</label>
                         <input type = "string" clasName = "name"/>
                     </div>
@@ -20,22 +28,12 @@ class Create_Project extends React.Component{
                     </div>
                     <div>
                         <label> Type of Language:</label>
-                        <input type = "checkbox"/> <label>HTML/CSS </label>
-                        <input type = "checkbox"/> <label>Javascript </label>
-                        <input type = "checkbox"/> <label>Typescript</label>
-                        <input type = "checkbox"/> <label>C</label> 
-                        <input type = "checkbox"/> <label>C++</label>
-                        <input type = "checkbox"/> <label>Java</label>
-                        <input type = "checkbox"/> <label>Python</label>
-                        <input type = "checkbox"/> <label>C#</label> 
-                        <input type = "checkbox"/> <label>R</label> 
-                        <input type = "checkbox"/> <label>PHP</label> 
-                        <input type = "checkbox"/> <label>Swift</label>
-                        <input type = "checkbox"/> <label>Objective-C</label>
-                        <input type = "checkbox"/> <label>SQL</label> 
-                        <input type = "checkbox"/> <label>Go</label> 
-                        <input type = "checkbox"/> <label>Ruby</label>
-                        <input type = "checkbox"/> <label>Shell</label>   
+                        
+                        <button className = "skill-button"> HTML </button>
+                        <button className = "skill-button"> CSS  </button>
+                        <button className = "skill-button"> Java  </button>
+                        <button className = "skill-button"> Python  </button>
+                        <button onClick = {makeText} className = "skill-button"> Other  </button> 
                     </div>
                     <div>
                         <label> Description of Project:</label>

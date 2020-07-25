@@ -1,67 +1,33 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "normalize.css/normalize.css";
 import "./styles/styles.scss";
 
-import LandingPage from "./components/LandingPage/LandingPage";
-import NotFoundPage from "./components/NotFound";
-import NewProjectForm from "./components/Forms/NewProjectForm";
-import NewOrganizationForm from "./components/Forms/NewOrganizationForm";
-//import create_proj from "./components/Forms/create_proj";
-
-
-const Header = () => (
-  <header className="navbar">
-    {/* <h1 className="nav__brand">Code Against Racism</h1> */}
-    <NavLink
-      to="/"
-      activeClassName="is-active"
-      exact={true}
-      className="nav__logo"
-    >
-      <h1>Code Against Racism</h1>
-    </NavLink>{" "}
-    <div className="nav__links">
-      {/*activeClassName is only going to get applied to the link when we're on that page. */}
-      <NavLink
-        to="/project/new"
-        activeClassName="is-active"
-        exact={true}
-        className="nav__item"
-      >
-        Create a New Project
-      </NavLink>
-      <NavLink
-        to="/organization/new"
-        activeClassName="is-active"
-        exact={true}
-        className="nav__item"
-      >
-        Create a New Organization
-      </NavLink>
-    </div>
-  </header>
-);
+import LandingPage from "./pages/LandingPage";
+import SignUp from "./pages/SignUp";
+import LogIn from "./pages/LogIn";
+import Projects from "./pages/Projects";
+import News from "./pages/News";
+import FAQ from "./pages/FAQ";
+import About from "./pages/About";
+import NotFoundPage from "./pages/NotFound";
+import NavBar from "./components/NavBar";
 
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Header />
-          <div className="container">
+          <NavBar />
+          <div>
             <Switch>
               <Route exact={true} path="/" component={LandingPage} />
-              <Route
-                path="/project/new"
-                component={NewProjectForm}
-                exact={true}
-              />
-              <Route
-                path="/organization/new"
-                component={NewOrganizationForm}
-                exact={true}
-              />
+              <Route path="/about" component={About} exact={true} />
+              <Route path="/projects" component={Projects} exact={true} />
+              <Route path="/news" component={News} exact={true} />
+              <Route path="/faq" component={FAQ} exact={true} />
+              <Route path="/signup" component={SignUp} exact={true} />
+              <Route path="/login" component={LogIn} exact={true} />
               <Route component={NotFoundPage} />
             </Switch>
           </div>

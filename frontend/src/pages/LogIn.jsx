@@ -4,9 +4,6 @@ import {TextField} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
-import SignUp from "./SignUp";
-import { useHistory } from "react-router-dom";
-import {Redirect} from 'react-router-dom';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,14 +15,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LogIn(props) {
   const classes = useStyles();
-
-  const history = useHistory();
-
-  const routeChange = () =>{ 
-    let path = 'route path'; ////////////////////////////////////////////////////
-    
-    history.push(path);
-  }
 
   return (
     <div>

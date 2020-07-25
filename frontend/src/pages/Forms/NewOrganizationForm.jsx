@@ -7,4 +7,3 @@ const NewOrganizationForm = () => (
 )
 
 export default NewOrganizationForm;
-

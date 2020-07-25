@@ -1,8 +1,10 @@
 .signContainer{
     position: relative;
-    max-width: 100%;
-    display: inline-block;
+    max-width: 450px;
     border: 1px solid #292929;
+    font-size: 12px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    align-items: center;
     box-sizing: border-box;
     border-radius: 7px;
     margin-top: 2%;
@@ -13,9 +15,13 @@
 
 .textContainer{
     position: relative;
-    width: 30%;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    width: 450px;
     float:left;
     padding: 1rem 0;
+    margin-right: 20px;
 }
 
 .Header{
@@ -39,14 +45,13 @@
 }
 
 .Body{
-    margin-top: 5%;
-    width: 621.12px;
-    min-width: 30%;
+    margin-top: 1px;
+    width: 100%;
     overflow: auto;
     padding: 20px;
 }
 
-/*This was used only in new project form along with signContainer above*/
+/*This was used only in new project form*/
 .labelCon{
     width: 30%;
     float: left;

@@ -3,30 +3,38 @@ import {Button} from "@material-ui/core";
 import {TextField} from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 
+/*1366 x 768 */
+
 const StyledField = withStyles({
   root: {
-    width: '400px',
+    width: '300px',
   },
 })(TextField);
+
+
+
+
 
 export default function SignUp() {
   
     return (
       <div className="container"> 
       <div className = "textContainer">
-       <h1 className="website-name">Create Your Team</h1>
+       <h1>Create Your Team</h1>
                 <div className="description">
                     <h4>~ Description of our organization ~</h4>
                     <img src = {process.env.PUBLIC_URL + './login_signup 1.png'} alt = "hand"/>
+                    
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, tempora 
                         eligendi! Nisi provident quidem ex. Eligendi blanditiis consequatur reiciendis ullam
                         autem ducimus in nulla modi, tenetur doloremque nemo voluptas delectus. Lorem ipsum dolor sit 
                         amet consectetur adipisicing elit. Culpa provident incidunt quia.
                         Eligendi incidunt possimus, cum omnis facere voluptatibus atque! Autem maxime sequi numquam quod quibusdam ratione quasi, nesciunt consequuntur?</p>
+                    
                 </div> 
       </div>
       <div className = "signContainer">
-          <form className="auth-form-container"> 
+          
             <div>
               <h1 className = "Header">Sign Up</h1>
               <div className = "Body">
@@ -52,6 +60,7 @@ export default function SignUp() {
                     <TextField id = "outlined-basic" label = "password" variant = "outlined" size = "small"/>
                   </div>
                   <div>
+                    <label>----</label>
                     <TextField id = "outlined-basic" label = "reenter password" variant = "outlined" size = "small"/>
                   </div>
                   <div>
@@ -63,7 +72,7 @@ export default function SignUp() {
                   <Button color ="primary" variant = "contained">Submit</Button>
                 </div>
               </div>
-            </form>
+           
         </div>
       </div>
     );

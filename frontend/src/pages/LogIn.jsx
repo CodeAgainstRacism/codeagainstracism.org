@@ -30,7 +30,7 @@ export default function LogIn(props) {
     <div>
          <form className="container">
            <div className = "textContainer">
-             <h1 className="website-name">Welcome Back! </h1>
+             <h1>Welcome Back! </h1>
                <div className="description">
                    <h4>~ Description of our organization ~</h4>
                      <img src = {process.env.PUBLIC_URL + './Hand waving.png'} alt = "hand"/>
@@ -72,11 +72,11 @@ export default function LogIn(props) {
               </div>
              <label style={{ color: 'gray' }}>──────────────── or ────────────────</label>
              <div>
-             <label htmlFor="email">Username</label>
+             <label htmlFor="email">Username:</label>
              <TextField id = "outlined-basic" label = "Your Username" variant = "outlined" size = "small"/>
            </div>
            <div>
-             <label htmlFor="password">Password</label>
+             <label htmlFor="password">Password:</label>
              <TextField id = "outlined-basic" label = "Enter Password" variant = "outlined" size = "small"/>
           </div>
             <div>

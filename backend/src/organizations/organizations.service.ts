@@ -40,7 +40,9 @@ export class OrganizationsService {
   }
 
   async findOne(id: number): Promise<Organization> {
-    const organization = await this.organizationsRepository.findOne(id);
+    const organization = await this.organizationsRepository.findOne(id, {
+      relations: ['projects'],
+    });
     if (organization === undefined) {
       throw new HttpException(
         {

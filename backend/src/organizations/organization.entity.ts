@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { Project } from '../projects/project.entity';
 
 @Entity()
 export class Organization {
@@ -44,6 +46,12 @@ export class Organization {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(
+    () => Project,
+    (project: Project) => project.organization,
+  )
+  projects: Project[];
 
   constructor(
     id?: number,

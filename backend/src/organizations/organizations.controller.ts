@@ -8,11 +8,14 @@ import {
   Put,
   UseInterceptors,
   ClassSerializerInterceptor,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrganizationDto } from './organization.dto';
 import { Organization } from './organization.entity';
 import { OrganizationsService } from './organizations.service';
+import { ProjectsService } from '../projects/projects.service';
 
 @ApiTags('organizations')
 @Controller('organizations')

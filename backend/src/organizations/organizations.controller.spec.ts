@@ -106,7 +106,6 @@ describe('Organization Controller', () => {
     it('should create an organization', () => {
       const beforeCount = mockDatabase.length;
       const expected = { ...newOrganizationDto };
-
       controller.create({ ...newOrganizationDto }).then(data => {
         expect(data).toEqual({
           id: beforeCount,

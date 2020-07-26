@@ -147,7 +147,7 @@ describe('Project Controller', () => {
         new HttpException(
           {
             status: HttpStatus.FORBIDDEN,
-            error: `Unsuffisiant permissions. Only the project's owner can delete it`,
+            error: `Insufficient permissions. Only the project's owner can delete it`,
           },
           HttpStatus.FORBIDDEN,
         ),
@@ -169,7 +169,7 @@ describe('Project Controller', () => {
       expect(mockDatabase.length).toEqual(beforeCount - 1);
     });
 
-    it('should not delete an project due to missing permissions', async () => {
+    it('should not delete a project due to missing permissions', async () => {
       const beforeCount = mockDatabase.length;
       let error;
       try {
@@ -182,7 +182,7 @@ describe('Project Controller', () => {
         new HttpException(
           {
             status: HttpStatus.FORBIDDEN,
-            error: `Unsuffisiant permissions. Only the project's owner can delete it`,
+            error: `Insufficient permissions. Only the project's owner can delete it`,
           },
           HttpStatus.FORBIDDEN,
         ),

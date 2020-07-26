@@ -86,7 +86,7 @@ export class ProjectsController {
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
-          error: `Unsuffisiant permissions. Only the project's owner can modify it`,
+          error: `Insufficient permissions. Only the project's owner can modify it`,
         },
         HttpStatus.FORBIDDEN,
       );
@@ -123,7 +123,7 @@ export class ProjectsController {
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
-          error: `Unsuffisiant permissions. Only the project's owner can delete it`,
+          error: `Insufficient permissions. Only the project's owner can delete it`,
         },
         HttpStatus.FORBIDDEN,
       );

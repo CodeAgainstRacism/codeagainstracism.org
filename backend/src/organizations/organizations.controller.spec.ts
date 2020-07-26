@@ -114,6 +114,7 @@ describe('Organization Controller', () => {
         email: 'stevejobs@apple.com',
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
+        adminUserId: 1,
       };
       expect(controller.create(newOrganization)).resolves.toEqual({
         id: 2,
@@ -132,6 +133,7 @@ describe('Organization Controller', () => {
         email: 'newemail@email.com',
         contactFirstName: undefined,
         contactLastName: undefined,
+        adminUserId: 1,
       };
       const beforeUpdate = mockDatabase[0];
       const updatedOrganization = await controller.update('0', newData);

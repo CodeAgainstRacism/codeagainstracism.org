@@ -1,15 +1,17 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 import { OrganizationDto } from './organization.dto';
 import { Organization } from './organization.entity';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class OrganizationsService {
   constructor(
     @InjectRepository(Organization)
     private readonly organizationsRepository: Repository<Organization>,
+    @Inject(UsersService)
+    private readonly userService: UsersService,
   ) {}
 
   async create(organizationDto: OrganizationDto): Promise<Organization> {
@@ -31,6 +33,12 @@ export class OrganizationsService {
       organizationDto,
     );
 
+    if (organizationDto.adminUserId !== undefined) {
+      organization.adminUser = await this.userService.findOne(
+        organizationDto.adminUserId,
+      );
+    }
+
     return this.organizationsRepository.save(organization);
   }
 
@@ -39,7 +47,9 @@ export class OrganizationsService {
   }
 
   async findOne(id: number): Promise<Organization> {
-    const organization = await this.organizationsRepository.findOne(id);
+    const organization = await this.organizationsRepository.findOne(id, {
+      relations: ['adminUser'],
+    });
     if (organization === undefined) {
       throw new HttpException(
         {

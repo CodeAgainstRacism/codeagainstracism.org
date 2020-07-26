@@ -1,11 +1,12 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { OrganizationsService } from './organizations.service';
 import { Organization } from './organization.entity';
 import { OrganizationDto } from './organization.dto';
+import { UsersService } from '../users/users.service';
+import { User } from '../users/user.entity';
 
 const INVALID_ID = -1;
 
@@ -34,6 +35,11 @@ const mockData = [
 
 let mockDatabase: Organization[] = [];
 
+const mockUsers = [
+  new User(1, 'John', 'Doe', 'johndoe@email.com'),
+  new User(2, 'Jane', 'Doe', 'janedoe@email.com'),
+];
+
 describe('OrganizationsService', () => {
   let service: OrganizationsService;
   let repo: Repository<Organization>;
@@ -42,6 +48,16 @@ describe('OrganizationsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         OrganizationsService,
+        {
+          provide: UsersService,
+          useValue: {
+            findOne: jest
+              .fn()
+              .mockImplementation((id: number) =>
+                mockUsers.find(user => user.id === id),
+              ),
+          },
+        },
         {
           provide: getRepositoryToken(Organization),
           useValue: {
@@ -202,6 +218,7 @@ describe('OrganizationsService', () => {
         email: 'stevejobs@apple.com',
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
+        adminUserId: 1,
       };
 
       const beforeCount = mockDatabase.length;
@@ -235,6 +252,7 @@ describe('OrganizationsService', () => {
         email: 'johndoe@email.com',
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
+        adminUserId: 1,
       };
 
       let error;
@@ -266,6 +284,7 @@ describe('OrganizationsService', () => {
         email: undefined,
         contactFirstName: undefined,
         contactLastName: undefined,
+        adminUserId: 1,
       };
       const beforeUpdate = mockDatabase[0];
       await service.update(0, newData);
@@ -292,6 +311,7 @@ describe('OrganizationsService', () => {
         email: 'newemail@email.com',
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
+        adminUserId: 1,
       };
       const beforeUpdate = mockDatabase[0];
       await service.update(0, newData);
@@ -316,6 +336,7 @@ describe('OrganizationsService', () => {
         email: undefined,
         contactFirstName: 'Steve',
         contactLastName: 'Jobs',
+        adminUserId: 1,
       };
 
       let error;

@@ -4,8 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { User } from '../users/user.entity';
 
 @Entity()
 export class Organization {
@@ -32,6 +33,12 @@ export class Organization {
 
   @Column()
   contactLastName: string;
+
+  @OneToOne(
+    () => User,
+    (user: User) => user.ownedOrganization,
+  )
+  adminUser: User;
 
   @Column()
   @CreateDateColumn()

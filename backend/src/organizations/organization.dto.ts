@@ -48,4 +48,7 @@ export class OrganizationDto {
   @IsString()
   @ApiProperty({ example: 'Doe' })
   contactLastName: string;
+
+  @IsOptional()
+  adminUserId: number;
 }

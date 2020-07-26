@@ -1,32 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { OrganizationsController } from './organizations.controller';
 import { OrganizationDto } from './organization.dto';
 import { OrganizationsService } from './organizations.service';
 import { Organization } from './organization.entity';
+import { ProjectsService } from '../projects/projects.service';
+import { Project } from '../projects/project.entity';
 
-const mockData = [
-  new Organization(
-    0,
-    '12-3456789',
-    'organization name',
-    'organization description',
-    '+001 (012) 012-0123',
-    'johndoe@email.com',
-    'John',
-    'Doe',
-  ),
-  new Organization(
-    1,
-    '34-5678901',
-    'organization name 2',
-    'organization description 2',
-    '+002 (123) 456-7890',
-    'janedoe@email.com',
-    'Jane',
-    'Doe',
-  ),
-];
+import {
+  mockOrganizationEntities,
+  newOrganizationDto,
+  updateOrganizationDto,
+} from '../utils/organization.constant';
+import { mockProjectEntities } from '../utils/project.constant';
 
+let mockProjectDatabase: Project[] = [];
 let mockDatabase: Organization[] = [];
 
 describe('Organization Controller', () => {
@@ -36,8 +24,12 @@ describe('Organization Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [OrganizationsController],
-
       providers: [
+        ProjectsService,
+        {
+          provide: getRepositoryToken(Project),
+          useValue: { find: jest.fn().mockResolvedValue(mockProjectDatabase) },
+        },
         {
           provide: OrganizationsService,
           useValue: {
@@ -82,7 +74,10 @@ describe('Organization Controller', () => {
       ],
     }).compile();
 
-    mockDatabase = mockData.map(organization => ({ ...organization }));
+    mockDatabase = mockOrganizationEntities.map(organization => ({
+      ...organization,
+    }));
+    mockProjectDatabase = mockProjectEntities.map(project => ({ ...project }));
     controller = module.get<OrganizationsController>(OrganizationsController);
     service = module.get<OrganizationsService>(OrganizationsService);
   });
@@ -93,69 +88,63 @@ describe('Organization Controller', () => {
 
   describe('findAll', () => {
     it('should get an array of organizations', () => {
-      expect(controller.findAll()).resolves.toEqual(mockDatabase);
+      controller.findAll().then(data => {
+        expect(data).toEqual(mockDatabase);
+      });
     });
   });
 
   describe('findOne', () => {
     it('should get an organization', () => {
-      expect(controller.findOne('0')).resolves.toEqual(mockDatabase[0]);
-      expect(controller.findOne('1')).resolves.toEqual(mockDatabase[1]);
+      controller.findOne('0').then(data => {
+        expect(data).toEqual(mockDatabase[0]);
+      });
     });
   });
 
   describe('create', () => {
     it('should create an organization', () => {
-      const newOrganization: OrganizationDto = {
-        EIN: '12-3456789',
-        name: 'Apple',
-        description: 'The apple company',
-        phoneNumber: '+001 (012) 012-0123',
-        email: 'stevejobs@apple.com',
-        contactFirstName: 'Steve',
-        contactLastName: 'Jobs',
-        adminUserId: 1,
-      };
-      expect(controller.create(newOrganization)).resolves.toEqual({
-        id: 2,
-        ...newOrganization,
+      const beforeCount = mockDatabase.length;
+      const expected = { ...newOrganizationDto };
+
+      controller.create({ ...newOrganizationDto }).then(data => {
+        expect(data).toEqual({
+          id: beforeCount,
+          ...expected,
+        });
       });
     });
   });
 
   describe('update', () => {
     it('should update an organization', async () => {
-      const newData = {
-        EIN: undefined,
-        name: 'new name',
-        description: undefined,
-        phoneNumber: undefined,
-        email: 'newemail@email.com',
-        contactFirstName: undefined,
-        contactLastName: undefined,
-        adminUserId: 1,
-      };
       const beforeUpdate = mockDatabase[0];
-      const updatedOrganization = await controller.update('0', newData);
+      const updatedOrganization = await controller.update('0', {
+        ...updateOrganizationDto,
+      });
       expect(beforeUpdate.id).toEqual(updatedOrganization.id);
-      expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
-      expect(newData.name).toEqual(updatedOrganization.name);
-      expect(beforeUpdate.description).toEqual(updatedOrganization.description);
-      expect(beforeUpdate.phoneNumber).toEqual(updatedOrganization.phoneNumber);
-      expect(newData.email).toEqual(updatedOrganization.email);
+      expect(beforeUpdate.EIN).toEqual(updateOrganizationDto.EIN);
+      expect(updateOrganizationDto.name).toEqual(
+        updatedOrganization.name,
+      );
+      expect(beforeUpdate.description).toEqual(updateOrganizationDto.description);
+      expect(beforeUpdate.phoneNumber).toEqual(updateOrganizationDto.phoneNumber);
+      expect(updateOrganizationDto.email).toEqual(
+        updatedOrganization.email,
+      );
       expect(beforeUpdate.contactFirstName).toEqual(
-        updatedOrganization.contactFirstName,
+        updateOrganizationDto.contactFirstName,
       );
       expect(beforeUpdate.contactLastName).toEqual(
-        updatedOrganization.contactLastName,
+        updateOrganizationDto.contactLastName,
       );
-      expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
-      expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
-      expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
+      expect(beforeUpdate.EIN).toEqual(updateOrganizationDto.EIN);
+      expect(beforeUpdate.EIN).toEqual(updateOrganizationDto.EIN);
+      expect(beforeUpdate.EIN).toEqual(updateOrganizationDto.EIN);
     });
   });
 
-  describe('update', () => {
+  describe('remove', () => {
     it('should delete an organization', async () => {
       //! nothing is returns so it only tests if it crashes
       await controller.remove('0');

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "EIN": "12-3456789",
+    "name": "Apple",
+    "description": "Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services. It is considered one of the Big Tech technology companies, alongside Amazon, Google, Microsoft and Facebook.",
+    "phoneNumber": "+001 (012) 012-0123",
+    "email": "stevejobs@apple.com",
+    "contactFirstName": "Steve",
+    "contactLastName": "Jobs"
+  },
+  {
+    "id": 2,
+    "EIN": "12-3456789",
+    "name": "Google",
+    "description": "Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware. It is considered one of the Big Four technology companies alongside Amazon, Apple and Microsoft",
+    "phoneNumber": "+001 (012) 012-0123",
+    "email": "johndoe@email.com",
+    "contactFirstName": "John",
+    "contactLastName": "Doe"
+  },
+  {
+    "id": 3,
+    "EIN": "34-5678901",
+    "name": "Amazon",
+    "description": "Amazon.com, Inc. is an American multinational technology company based in Seattle that focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. It has been referred to as one of the top four or five technology companies by share price. It has been referred to as \"one of the most influential economic and cultural forces in the world\" as well as the world's most valuable brand.",
+    "phoneNumber": "+002 (123) 456-7890",
+    "email": "janedoe@email.com",
+    "contactFirstName": "Jane",
+    "contactLastName": "Doe"
+  }
+]

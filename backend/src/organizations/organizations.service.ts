@@ -48,7 +48,7 @@ export class OrganizationsService {
 
   async findOne(id: number): Promise<Organization> {
     const organization = await this.organizationsRepository.findOne(id, {
-      relations: ['adminUser'],
+      relations: ['adminUser', 'projects'],
     });
     if (organization === undefined) {
       throw new HttpException(

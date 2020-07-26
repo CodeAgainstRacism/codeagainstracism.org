@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
   OneToOne,
 } from 'typeorm';
 import { User } from '../users/user.entity';
+import { Project } from '../projects/project.entity';
 
 @Entity()
 export class Organization {
@@ -34,12 +36,6 @@ export class Organization {
   @Column()
   contactLastName: string;
 
-  @OneToOne(
-    () => User,
-    (user: User) => user.ownedOrganization,
-  )
-  adminUser: User;
-
   @Column()
   @CreateDateColumn()
   createdAt: Date;
@@ -47,6 +43,19 @@ export class Organization {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne(
+    () => User,
+    (user: User) => user.ownedOrganization,
+    { eager: true },
+  )
+  adminUser: User;
+
+  @OneToMany(
+    () => Project,
+    (project: Project) => project.organization,
+  )
+  projects: Project[];
 
   constructor(
     id?: number,
@@ -57,6 +66,7 @@ export class Organization {
     email?: string,
     contactFirstName?: string,
     contactLastName?: string,
+    adminUser?: User,
   ) {
     this.id = id;
     this.EIN = EIN;
@@ -66,5 +76,6 @@ export class Organization {
     this.email = email;
     this.contactFirstName = contactFirstName;
     this.contactLastName = contactLastName;
+    this.adminUser = adminUser;
   }
 }

@@ -15,7 +15,7 @@ class SignUp extends React.Component {
           </div>
           <div>
             <label htmlFor="phoneNumber">Phone Number:</label>
-            <input type="text" name="phoneNumber"></input>
+            <input type="tel" name="phoneNumber"></input>
           </div>
           <div>
             <label htmlFor="email">Email</label>

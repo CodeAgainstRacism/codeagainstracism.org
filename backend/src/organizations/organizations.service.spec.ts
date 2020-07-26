@@ -8,30 +8,13 @@ import { OrganizationDto } from './organization.dto';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/user.entity';
 
-const INVALID_ID = -1;
+import {
+  mockOrganizationEntities,
+  newOrganizationDto,
+  updateOrganizationDto,
+} from '../utils/organization.constant';
 
-const mockData = [
-  new Organization(
-    0,
-    '12-3456789',
-    'organization name',
-    'organization description',
-    '+001 (012) 012-0123',
-    'johndoe@email.com',
-    'John',
-    'Doe',
-  ),
-  new Organization(
-    1,
-    '34-5678901',
-    'organization name 2',
-    'organization description 2',
-    '+002 (123) 456-7890',
-    'janedoe@email.com',
-    'Jane',
-    'Doe',
-  ),
-];
+const INVALID_ID = -1;
 
 let mockDatabase: Organization[] = [];
 
@@ -116,7 +99,9 @@ describe('OrganizationsService', () => {
       ],
     }).compile();
 
-    mockDatabase = mockData.map(organization => ({ ...organization }));
+    mockDatabase = mockOrganizationEntities.map(organization => ({
+      ...organization,
+    }));
     service = module.get<OrganizationsService>(OrganizationsService);
     repo = module.get<Repository<Organization>>(
       getRepositoryToken(Organization),
@@ -129,13 +114,17 @@ describe('OrganizationsService', () => {
 
   describe('find', () => {
     it('should get all the organizations', () => {
-      expect(service.findAll()).resolves.toEqual(mockDatabase);
+      service.findAll().then(data => {
+        expect(data).toEqual(mockDatabase);
+      });
     });
   });
 
   describe('findOne', () => {
     it('should get a single organization', () => {
-      expect(service.findOne(0)).resolves.toEqual(mockDatabase[0]);
+      service.findOne(0).then(data => {
+        expect(data).toEqual(mockDatabase[0]);
+      });
     });
     it('should throw an exception with a non existing id', async () => {
       let error;
@@ -170,12 +159,11 @@ describe('OrganizationsService', () => {
         );
     });
 
-    it('should get a single organization with a valid email', async () => {
+    it('should get a single organization with a valid email', () => {
       const expectedOrganization = mockDatabase[0];
-      const organization = await service.findByEmail(
-        expectedOrganization.email,
-      );
-      expect(organization.id).toEqual(expectedOrganization.id);
+      service.findByEmail(expectedOrganization.email).then(organization => {
+        expect(organization.id).toEqual(expectedOrganization.id);
+      });
     });
 
     it('should throw error with an invalid email', async () => {
@@ -210,50 +198,33 @@ describe('OrganizationsService', () => {
     });
 
     it('should successfully create an organization', async () => {
-      const newOrganization: OrganizationDto = {
-        EIN: '12-3456789',
-        name: 'Apple',
-        description: 'The apple company',
-        phoneNumber: '+001 (012) 012-0123',
-        email: 'stevejobs@apple.com',
-        contactFirstName: 'Steve',
-        contactLastName: 'Jobs',
-        adminUserId: 1,
-      };
-
       const beforeCount = mockDatabase.length;
-      await service.create(newOrganization);
+      await service.create(newOrganizationDto);
       expect(mockDatabase.length).toEqual(beforeCount + 1);
 
       const createdOrganization = await service.findOne(beforeCount);
-      expect(createdOrganization.EIN).toEqual(newOrganization.EIN);
-      expect(createdOrganization.name).toEqual(newOrganization.name);
+      expect(createdOrganization.EIN).toEqual(newOrganizationDto.EIN);
+      expect(createdOrganization.name).toEqual(newOrganizationDto.name);
       expect(createdOrganization.description).toEqual(
-        newOrganization.description,
+        newOrganizationDto.description,
       );
       expect(createdOrganization.phoneNumber).toEqual(
-        newOrganization.phoneNumber,
+        newOrganizationDto.phoneNumber,
       );
-      expect(createdOrganization.email).toEqual(newOrganization.email);
+      expect(createdOrganization.email).toEqual(newOrganizationDto.email);
       expect(createdOrganization.contactFirstName).toEqual(
-        newOrganization.contactFirstName,
+        newOrganizationDto.contactFirstName,
       );
       expect(createdOrganization.contactLastName).toEqual(
-        newOrganization.contactLastName,
+        newOrganizationDto.contactLastName,
       );
     });
 
     it('should throw an exception with an already used email', async () => {
       const newOrganizationWithSameEmail: OrganizationDto = {
-        EIN: '12-3456789',
-        name: 'Apple',
-        description: 'The apple company',
-        phoneNumber: '+001 (012) 012-0123',
-        email: 'johndoe@email.com',
-        contactFirstName: 'Steve',
-        contactLastName: 'Jobs',
-        adminUserId: 1,
+        ...newOrganizationDto,
       };
+      newOrganizationWithSameEmail.email = mockOrganizationEntities[0].email;
 
       let error;
       try {
@@ -275,73 +246,31 @@ describe('OrganizationsService', () => {
   });
 
   describe('update', () => {
-    it('should update an organization', async () => {
-      const newData = {
-        EIN: '00-0000000',
-        name: 'new name',
-        description: 'new description',
-        phoneNumber: '+001 (000) 000-0000',
-        email: undefined,
-        contactFirstName: undefined,
-        contactLastName: undefined,
-        adminUserId: 1,
-      };
+    it('should update an organization with password', async () => {
       const beforeUpdate = mockDatabase[0];
-      await service.update(0, newData);
+      await service.update(0, updateOrganizationDto);
 
-      expect(mockDatabase[0].EIN).toEqual(newData.EIN);
-      expect(mockDatabase[0].name).toEqual(newData.name);
-      expect(mockDatabase[0].description).toEqual(newData.description);
-      expect(mockDatabase[0].phoneNumber).toEqual(newData.phoneNumber);
-      expect(mockDatabase[0].email).toEqual(beforeUpdate.email);
+      expect(mockDatabase[0].EIN).toEqual(updateOrganizationDto.EIN);
+      expect(mockDatabase[0].name).toEqual(updateOrganizationDto.name);
+      expect(mockDatabase[0].description).toEqual(
+        updateOrganizationDto.description,
+      );
+      expect(mockDatabase[0].phoneNumber).toEqual(
+        updateOrganizationDto.phoneNumber,
+      );
+      expect(mockDatabase[0].email).toEqual(updateOrganizationDto.email);
       expect(mockDatabase[0].contactFirstName).toEqual(
-        beforeUpdate.contactFirstName,
+        updateOrganizationDto.contactFirstName,
       );
       expect(mockDatabase[0].contactLastName).toEqual(
-        beforeUpdate.contactLastName,
+        updateOrganizationDto.contactLastName,
       );
-    });
-
-    it('should update an organization', async () => {
-      const newData = {
-        EIN: undefined,
-        name: undefined,
-        description: undefined,
-        phoneNumber: undefined,
-        email: 'newemail@email.com',
-        contactFirstName: 'Steve',
-        contactLastName: 'Jobs',
-        adminUserId: 1,
-      };
-      const beforeUpdate = mockDatabase[0];
-      await service.update(0, newData);
-
-      expect(mockDatabase[0].EIN).toEqual(beforeUpdate.EIN);
-      expect(mockDatabase[0].name).toEqual(beforeUpdate.name);
-      expect(mockDatabase[0].description).toEqual(beforeUpdate.description);
-      expect(mockDatabase[0].phoneNumber).toEqual(beforeUpdate.phoneNumber);
-      expect(mockDatabase[0].email).toEqual(newData.email);
-      expect(mockDatabase[0].contactFirstName).toEqual(
-        newData.contactFirstName,
-      );
-      expect(mockDatabase[0].contactLastName).toEqual(newData.contactLastName);
     });
 
     it('should throw an exception with a non existing id', async () => {
-      const newData = {
-        EIN: undefined,
-        name: undefined,
-        description: undefined,
-        phoneNumber: undefined,
-        email: undefined,
-        contactFirstName: 'Steve',
-        contactLastName: 'Jobs',
-        adminUserId: 1,
-      };
-
       let error;
       try {
-        await service.update(INVALID_ID, newData);
+        await service.update(INVALID_ID, updateOrganizationDto);
       } catch (e) {
         error = e;
       }

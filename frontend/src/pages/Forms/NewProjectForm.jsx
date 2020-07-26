@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 const programmingLanguages = [
   "HTML/CSS",
@@ -42,7 +42,6 @@ class NewProjectForm extends React.Component {
                 <div key={language} className="checkbox">
                   <label htmlFor={"checkbox_" + language}>{language}</label>
                   <input
-                    // key={language}
                     id={"checkbox_" + language}
                     type="checkbox"
                     name={"checkbox_" + language}

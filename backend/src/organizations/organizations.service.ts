@@ -82,12 +82,18 @@ export class OrganizationsService {
 
   public async update(
     id: number,
-    organization: OrganizationDto,
+    organizationDto: OrganizationDto,
   ): Promise<Organization> {
-    await this.findOne(id); // checks if the organization exists
-    await this.organizationsRepository.update(id, organization);
+    const organization = await this.findOne(id); // checks if the organization exists
 
-    return this.organizationsRepository.findOne(id);
+    if (organizationDto.adminUserId) {
+      const user = await this.userService.findOne(organizationDto.adminUserId);
+      delete organizationDto.adminUserId;
+      organization.adminUser = user;
+    }
+    Object.assign(organization, organizationDto);
+
+    return this.organizationsRepository.save(organization);
   }
 
   async remove(id: number): Promise<void> {

@@ -47,7 +47,6 @@ export class Organization {
   @OneToOne(
     () => User,
     (user: User) => user.ownedOrganization,
-    { eager: true },
   )
   adminUser: User;
 

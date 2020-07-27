@@ -56,7 +56,8 @@ export class UsersService {
 
   async findByEmail(email: string): Promise<User> {
     const usersFound = await this.usersRepository.find({
-      email,
+      where: { email },
+      select: ['id', 'firstName', 'lastName', 'email', 'encryptedPassword'],
     });
 
     if (usersFound.length === 0) {

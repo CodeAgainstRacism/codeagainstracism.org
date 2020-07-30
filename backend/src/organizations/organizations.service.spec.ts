@@ -246,7 +246,7 @@ describe('OrganizationsService', () => {
   });
 
   describe('update', () => {
-    it('should update an organization with password', async () => {
+    it('should update an organization', async () => {
       const beforeUpdate = mockDatabase[0];
       await service.update(0, updateOrganizationDto);
 

@@ -8,20 +8,25 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 import { Organization } from '../organizations/organization.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
+  @ApiProperty({ example: 1 })
   id: number;
 
   @Column()
+  @ApiProperty({ example: 'Jane' })
   firstName: string;
 
   @Column()
+  @ApiProperty({ example: 'Doe' })
   lastName: string;
 
   @Column({ unique: true })
+  @ApiProperty({ example: 'email@email.com' })
   email: string;
 
   @Column({ select: false })
@@ -36,6 +41,9 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @ApiProperty({
+    type: () => Organization,
+  })
   @OneToOne(
     () => Organization,
     (organization: Organization) => organization.adminUser,

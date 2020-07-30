@@ -97,7 +97,12 @@ export class OrganizationsService {
   }
 
   async remove(id: number): Promise<void> {
-    await this.findOne(id); // checks if the organization exists
+    const organization = await this.findOne(id); // checks if the organization exists
+
+    // unlinks admin user relation to avoid cascade deletion
+    organization.adminUser = null;
+    await this.organizationsRepository.save(organization);
+
     await this.organizationsRepository.delete(id);
   }
 }

@@ -122,6 +122,7 @@ export default function LogIn(props) {
           <Container disableGutters = {true} className = {classes.pageContainer}>
           <div className={classes.root}>
             <Grid container spacing={0}>
+              {/**Text and Image */}
               <Grid item xs={6}>
                 <Paper elevation = {0} className={classes.paper}>
                     <Container className = {classes.textContainer}>
@@ -134,6 +135,7 @@ export default function LogIn(props) {
                     </Container>
                 </Paper>
               </Grid>
+              {/**Login Page */}
               <Grid item xs={6}>
                 <Paper elevation = {0} className={classes.paper}>
                     <Container disableGutters = {true} className={classes.loginContainer}>

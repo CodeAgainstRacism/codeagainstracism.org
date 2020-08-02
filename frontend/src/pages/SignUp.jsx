@@ -1,82 +1,223 @@
 import React from "react";
-import {Button} from "@material-ui/core";
-import {TextField} from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import {Container, CssBaseline, Grid, Paper, Button, TextField} from '@material-ui/core';
+import Footer from "../components/Footer";
 
-/*1366 x 768 */
+const signStyles = makeStyles((theme) => ({
 
-const StyledField = withStyles({
   root: {
-    width: '300px',
+    flexGrow: 1,
   },
-})(TextField);
+  /*grid papers*/
+  paper: {
+    padding: theme.spacing(6, 2), 
+    textAlign: 'center',
+    color: theme.palette.text.primary,
+    background: theme.palette.background.default,
+  },
 
+  signupInfoPaper: {
+    padding: theme.spacing(.5, 0),
+    textAlign: 'left',
+    color: theme.palette.text.primary,
+    background: theme.palette.background.default,
+  },
 
+  /*containers*/
 
+  innerContainer: {
+   // border: "1px solid #292929",
+    alignItems: "stretch",
+   // boxSizing: "border-box",
+    background: "#f2f2f2",
+    overflow: "hidden", 
+    display: "flex",
+    justifyContent: "center",
+  },
 
+  signContainer: {
+    width: '100%',
+    border: '1px solid #292929', 
+    alignItems: "center", 
+    boxSizing: "border-box", 
+    borderRadius: '7px', 
+    transform: "matrix(1, 0, 0, 1, 0, 0)"
+  },
+
+  signHeader:{
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    borderRadius: '7px',
+    background: "white",
+  },
+
+  signFooter: {
+    width: "100%",
+    paddingLeft: "10%",
+    paddingRight: "10%",
+    paddingTop: "2%",
+    paddingBottom: "2%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    background: "white",
+    borderRadius: '7px',
+  },
+
+  signBody: {
+    marginTop: "1px",
+    fontSize : "12 px",
+    width: "100%",
+    overflow: "auto",
+    paddingLeft: "10%",
+    paddingRight: "10%",
+    paddingBottom: "5%",
+  },
+
+  textContainer: {
+    position: "relative",
+    fontSize: "12px",
+    width: "450px",
+    padding: "1rem 0",
+    alignItems: "center",
+  },
+
+  pageContainer: {
+    //maxheight: "120vmax",
+    //minHeight: "100vmin",
+    height: "60 vmax",
+    margin: "0 auto",
+    textAlign: "center",
+    background: "#f2f2f2",
+    overflow: "hidden",
+    maxWidth: "70vw", //TODO check if needed
+  },
+
+  /*label color in textfield*/
+  labelColor:{
+    color:'#808080'
+}
+}));
 
 export default function SignUp() {
-  
-    return (
-      <div className="container"> 
-      <div className = "textContainer">
-       <h1>Create Your Team</h1>
-                <div className="description">
-                    <h4>~ Description of our organization ~</h4>
-                    <img src = {process.env.PUBLIC_URL + './login_signup 1.png'} alt = "hand"/>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, tempora 
-                        eligendi! Nisi provident quidem ex. Eligendi blanditiis consequatur reiciendis ullam
-                        autem ducimus in nulla modi, tenetur doloremque nemo voluptas delectus. Lorem ipsum dolor sit 
-                        amet consectetur adipisicing elit. Culpa provident incidunt quia.
-                        Eligendi incidunt possimus, cum omnis facere voluptatibus atque! Autem maxime sequi numquam quod quibusdam ratione quasi, nesciunt consequuntur?</p>
-                    
-                </div> 
-      </div>
-      <div className = "signContainer">
-          
-            <div>
-              <h1 className = "Header">Sign Up</h1>
-              <div className = "Body">
-                 <div>
-                    <label htmlFor="name">Organization Name: </label>
-                    <TextField id = "outlined-basic" label = "Code Against Racism" variant = "outlined" size = "small"/>
-                  </div>
-                  <div>
-                    <label htmlFor="EIN">EIN (Employer Identification Number):</label>
-                    <TextField id = "outlined-basic" label = "55-4123567" variant = "outlined" size = "small"/>
+  const classes = signStyles();
 
-                  </div>
-                  <div>
-                    <label htmlFor="phoneNumber">Phone Number:</label>
-                    <TextField id = "outlined-basic" label = "(909)123-4567" variant = "outlined" size = "small"/>
-                  </div>
-                  <div>
-                    <label htmlFor="email">Email:</label>
-                    <TextField id = "outlined-basic" label = "example@gmail.com" variant = "outlined" size = "small"/>
-                  </div>
-                  <div>
-                    <label htmlFor="password">Password:</label>
-                    <TextField id = "outlined-basic" label = "password" variant = "outlined" size = "small"/>
-                  </div>
-                  <div>
-                    <label>----</label>
-                    <TextField id = "outlined-basic" label = "reenter password" variant = "outlined" size = "small"/>
-                  </div>
-                  <div>
-                    <label htmlFor="description">What Does Your Organization Do?:</label>
-                    <StyledField id = "outlined-basic" label = "field description" rows = "5" columns = "33" variant = "outlined" multiline = {true}/>
-                  </div>
-                </div>
-                <div className = "Footer">
-                  <Button color ="primary" variant = "contained">Submit</Button>
-                </div>
-              </div>
-           
-        </div>
-      </div>
-    );
-  
+    return (
+      <React.Fragment>
+        <CssBaseline />
+          <Container disableGutters = {true} className = {classes.pageContainer}>
+            <Container disableGutters = {true} className = {classes.innerContainer}> 
+              <div className={classes.root}>
+                <Grid container spacing={0}>
+                  {/*Text and Image */}
+                    <Grid item xs={6}>
+                      <Paper elevation = {0} className={classes.paper}>
+                        <Container className = {classes.textContainer}>
+                          <h1>Create Your Team</h1>
+                            <Container>
+                              <h4>~ Description of our organization ~</h4>
+                                <img src = {process.env.PUBLIC_URL + './login_signup 1.png'} alt = "hand"/>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, tempora 
+                                    eligendi! Nisi provident quidem ex. Eligendi blanditiis consequatur reiciendis ullam
+                                    autem ducimus in nulla modi, tenetur doloremque nemo voluptas delectus. Lorem ipsum dolor sit 
+                                    amet consectetur adipisicing elit. Culpa provident incidunt quia.
+                                    Eligendi incidunt possimus, cum omnis facere voluptatibus atque! Autem maxime sequi numquam quod quibusdam ratione quasi, nesciunt consequuntur?</p>  
+                              </Container> 
+                        </Container>
+                      </Paper>
+                    </Grid>
+                  {/*Sign up box */}
+                  <Grid item xs={6}>
+                    <Paper elevation = {0} className={classes.paper}>
+                      <Container disableGutters = {true} className={classes.signContainer}>
+                        <Container className={classes.signHeader}>
+                          <h1>Sign Up</h1>
+                        </Container>
+                      <Container className = {classes.signBody}>
+                        <Grid id = "row" container spacing = {24}>
+                          <Grid item xs={6}>
+                            <Paper elevation = {0} className = {classes.signupInfoPaper}>
+                              <label htmlFor="name">Organization Name: </label>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                              <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "Code Against Racism" variant = "outlined" size = "small"/>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Paper elevation = {0} className = {classes.signupInfoPaper}>
+                              <label htmlFor="EIN">EIN (Employer Identification Number): </label>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                              <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "55-4123567" variant = "outlined" size = "small"/>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Paper elevation = {0} className = {classes.signupInfoPaper}>
+                              <label htmlFor="phoneNumber">Phone Number: </label>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                                <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "(909)123-4576" variant = "outlined" size = "small"/>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={6}>
+                              <Paper elevation = {0} className = {classes.signupInfoPaper}>
+                                <label htmlFor="email">Email: </label>
+                              </Paper>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                                <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "example@gmail.com" variant = "outlined" size = "small"/>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={6}>
+                              <Paper elevation = {0} className = {classes.signupInfoPaper}>
+                                <label htmlFor="password">Password: </label>
+                              </Paper>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                                <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "Password" variant = "outlined" size = "small"/>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                                <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "Reenter Password" variant = "outlined" size = "small"/>
+                            </Paper>
+                          </Grid>
+                          <Grid item xs={12}>
+                              <Paper elevation = {0} className = {classes.signupInfoPaper}>
+                              <label htmlFor="description">What Does Your Organization Do?</label>
+                              </Paper>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                              <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "field description" rows = "4" columns = "33" variant = "outlined" multiline = {true}/>                  </Paper>
+                          </Grid>
+                        </Grid>
+                       </Container>
+                      <Container className={classes.signFooter}>
+                        <Button fullWidth = {true} color ="primary" variant = "contained">Submit</Button>
+                      </Container>
+                    </Container>
+                  </Paper>
+                </Grid>
+              </Grid>
+            </div>
+          </Container>
+        </Container>
+      {/* Footer */}
+      <Footer />
+      {/* End footer */} 
+      </React.Fragment>
+    );  
 }
 
-//export default SignUp;

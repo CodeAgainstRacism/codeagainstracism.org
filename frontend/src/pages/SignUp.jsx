@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import {Container, CssBaseline, Grid, Paper, Button, TextField} from '@material-ui/core';
 import Footer from "../components/Footer";
+import SignUpImage from "../assets/SignUpImage.png";
 
 const signStyles = makeStyles((theme) => ({
 
@@ -119,7 +120,7 @@ export default function SignUp() {
                           <h1>Create Your Team</h1>
                             <Container>
                               <h4>~ Description of our organization ~</h4>
-                                <img src = {process.env.PUBLIC_URL + './login_signup 1.png'} alt = "hand"/>
+                                <img src = {SignUpImage} alt = "hand"/>
                                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, tempora 
                                     eligendi! Nisi provident quidem ex. Eligendi blanditiis consequatur reiciendis ullam
                                     autem ducimus in nulla modi, tenetur doloremque nemo voluptas delectus. Lorem ipsum dolor sit 
@@ -140,7 +141,7 @@ export default function SignUp() {
                         <Grid id = "row" container spacing = {24}>
                           <Grid item xs={6}>
                             <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                              <label htmlFor="name">Organization Name: </label>
+                              <label> Organization Name: </label>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
@@ -150,7 +151,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                              <label htmlFor="EIN">EIN (Employer Identification Number): </label>
+                              <label> EIN (Employer Identification Number): </label>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
@@ -160,7 +161,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={6}>
                             <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                              <label htmlFor="phoneNumber">Phone Number: </label>
+                              <label> Phone Number: </label>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
@@ -170,7 +171,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={6}>
                               <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                                <label htmlFor="email">Email: </label>
+                                <label> Email: </label>
                               </Paper>
                           </Grid>
                           <Grid item xs={12}>
@@ -180,7 +181,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={6}>
                               <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                                <label htmlFor="password">Password: </label>
+                                <label> Password: </label>
                               </Paper>
                           </Grid>
                           <Grid item xs={12}>
@@ -195,7 +196,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                               <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                              <label htmlFor="description">What Does Your Organization Do?</label>
+                              <label> What Does Your Organization Do?</label>
                               </Paper>
                           </Grid>
                           <Grid item xs={12}>

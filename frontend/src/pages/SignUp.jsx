@@ -90,7 +90,7 @@ const signStyles = makeStyles((theme) => ({
     textAlign: "center",
     background: "#f2f2f2",
     overflow: "hidden",
-    maxWidth: "70vw", //TODO check if needed
+    maxWidth: "70vw", 
   },
 
 }));

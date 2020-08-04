@@ -12,31 +12,6 @@ const blackTheme = createMuiTheme({ palette: { primary: {main: "#000" }} })
 const redTheme = createMuiTheme({ palette: { primary: {main: "#ff411c" }} })
 const blueTheme = createMuiTheme({ palette: { primary: {main: "#1c55ff" }} })
 
-
-// const theme2 = createMuiTheme({
-//   props: {
-//     // Name of the component ⚛️
-//     MuiTextField: {
-//       color: theme.palette.secondary,
-//     size: "small",
-//     id: "outlined-basic",
-//     variant: "outlined"
-//     },
-//   },
-// });
-
-// const StyledTextfield= withStyles({
-//   root: {
-    
-//   },
-//   labelColor: {
-//     color:'#808080'
-//   },
-// })(TextField);
-
-
-
-
 const LoginStyles = makeStyles((theme) => ({
 
   root: {
@@ -142,7 +117,7 @@ const LoginStyles = makeStyles((theme) => ({
     textAlign: "center",
     background: "#f2f2f2",
     overflow: "hidden",
-    maxWidth: "70vw", //TODO check if needed
+    maxWidth: "70vw", 
   },
 
   /*icon button spacing*/

@@ -87,13 +87,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 2), 
     textAlign: 'left',
     color: theme.palette.text.primary,
-  },
+    },
 
-  labelColor:{
-    color:'#808080'
-}
-
-  
 }));
 
 
@@ -127,13 +122,13 @@ export default function NewProjectForm() {
         
           <Grid item xs = {12} sm = {12}>
             <Paper elevation = {0} className={classes.paper}>
-              <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "Enter Your Project's Name" variant = "outlined" row = '5' size = "small"/>
+              <TextField placeholder = "Enter Your Project's Name"/>
             </Paper>
           </Grid>
 
           <Grid item xs = {12} sm = {12}>
             <Paper elevation = {0} className={classes.paper}>
-              <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic"  label = "Tell us about your project! Be sure to include details of your organization, requirements for potential members, and any further suggestions" rows = "20" columns = "30" variant = "outlined" multiline = {true}/>
+              <TextField placeholder = "Tell us about your project! Be sure to include details of your organization, requirements for potential members, and any further suggestions" rows = "20" columns = "30" multiline = {true}/>
             </Paper>
           </Grid>
           
@@ -144,7 +139,7 @@ export default function NewProjectForm() {
           </Grid>
           <Grid item xs = {12} sm = {8}>
             <Paper elevation = {0} className={classes.paper}>
-              <TextField id = "outlined-basic" type = "date" variant = "outlined" size = "small"/>
+              <TextField type = "date"/>
             </Paper>
           </Grid>
          
@@ -179,7 +174,7 @@ export default function NewProjectForm() {
             </Grid>
             <Grid item xs = {12} sm = {8}>
               <Paper elevation = {0} className={classes.paper}> 
-                <StyledField  id = "outlined-basic" variant = "outlined" row = '5' size = "small"/>
+                <TextField/>
               </Paper> 
             </Grid>
             
@@ -192,7 +187,7 @@ export default function NewProjectForm() {
 
            <Grid item xs = {12} sm = {8}>
               <Paper elevation = {0} className={classes.paper}> 
-                <StyledField  id = "outlined-basic" variant = "outlined" row = '5' size = "small"/>
+                <TextField/>              
               </Paper>
            </Grid>
             
@@ -206,7 +201,7 @@ export default function NewProjectForm() {
 
             <Grid item xs = {12} sm = {8}>
               <Paper elevation = {0} className={classes.paper}> 
-                <StyledField  id = "outlined-basic" variant = "outlined" row = '5' size = "small"/>
+                <TextField/>              
               </Paper>
             </Grid>
 
@@ -219,14 +214,14 @@ export default function NewProjectForm() {
 
 
             <Grid item xs = {12} sm = {8}>
-              <Paper elevation = {0} className={classes.paper}> 
-                <StyledField  id = "outlined-basic" variant = "outlined" row = '5' size = "small"/>
+              <Paper elevation = {0} className={classes.paper}>
+                <TextField/> 
               </Paper>
             </Grid>
 
 
             <Grid item xs = {12} sm = {4}>
-            <Paper elevation = {0} className={classes.paper}></Paper>
+              <Paper elevation = {0} className={classes.paper}></Paper>
             </Grid>
 
             <Grid item xs = {12} sm = {8}>

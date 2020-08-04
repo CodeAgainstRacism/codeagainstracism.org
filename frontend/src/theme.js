@@ -30,6 +30,17 @@ const theme = createMuiTheme({
       },
     },
   },
+  //Global theme for textfields
+  props: {
+    MuiTextField: {
+      color: "#FFC43D",
+      size: "small",
+      id: "outlined-basic",
+      variant: "outlined",
+      fullWidth: true,
+    },
+  }
+
 });
 
 export default theme;

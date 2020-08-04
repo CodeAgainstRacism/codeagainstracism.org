@@ -28,9 +28,7 @@ const signStyles = makeStyles((theme) => ({
   /*containers*/
 
   innerContainer: {
-   // border: "1px solid #292929",
     alignItems: "stretch",
-   // boxSizing: "border-box",
     background: "#f2f2f2",
     overflow: "hidden", 
     display: "flex",
@@ -87,8 +85,6 @@ const signStyles = makeStyles((theme) => ({
   },
 
   pageContainer: {
-    //maxheight: "120vmax",
-    //minHeight: "100vmin",
     height: "60 vmax",
     margin: "0 auto",
     textAlign: "center",
@@ -97,10 +93,6 @@ const signStyles = makeStyles((theme) => ({
     maxWidth: "70vw", //TODO check if needed
   },
 
-  /*label color in textfield*/
-  labelColor:{
-    color:'#808080'
-}
 }));
 
 export default function SignUp() {
@@ -146,7 +138,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.signupfoPaper}>
-                              <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "Code Against Racism" variant = "outlined" size = "small"/>
+                              <TextField placeholder = "Code Against Racism"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
@@ -156,7 +148,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.signupfoPaper}>
-                              <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "55-4123567" variant = "outlined" size = "small"/>
+                              <TextField  placeholder = "55-4123567"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={6}>
@@ -166,7 +158,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.signupfoPaper}>
-                                <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "(909)123-4576" variant = "outlined" size = "small"/>
+                              <TextField placeholder = "(909)123-4576"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={6}>
@@ -176,7 +168,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.signupfoPaper}>
-                                <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "example@gmail.com" variant = "outlined" size = "small"/>
+                                <TextField placeholder = "example@gmail.com"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={6}>
@@ -186,22 +178,23 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.signupfoPaper}>
-                                <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "Password" variant = "outlined" size = "small"/>
+                                <TextField placeholder = "Password"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.signupfoPaper}>
-                                <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "Reenter Password" variant = "outlined" size = "small"/>
+                                <TextField placeholder = "Reenter Password"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
                               <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                              <label> What Does Your Organization Do?</label>
+                                <label> What Does Your Organization Do?</label>
                               </Paper>
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.signupfoPaper}>
-                              <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "field description" rows = "4" columns = "33" variant = "outlined" multiline = {true}/>                  </Paper>
+                              <TextField placeholder = "field description" rows = "4" columns = "33" multiline = {true}/>                  
+                            </Paper>
                           </Grid>
                         </Grid>
                        </Container>

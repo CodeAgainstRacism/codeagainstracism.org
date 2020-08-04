@@ -1,5 +1,5 @@
 import React from "react";
-import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, makeStyles, withStyles } from '@material-ui/core/styles';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import SvgIcon from '@material-ui/core/SvgIcon';
@@ -11,6 +11,31 @@ import HandWave from "../assets/Hand waving.png";
 const blackTheme = createMuiTheme({ palette: { primary: {main: "#000" }} })
 const redTheme = createMuiTheme({ palette: { primary: {main: "#ff411c" }} })
 const blueTheme = createMuiTheme({ palette: { primary: {main: "#1c55ff" }} })
+
+
+// const theme2 = createMuiTheme({
+//   props: {
+//     // Name of the component ⚛️
+//     MuiTextField: {
+//       color: theme.palette.secondary,
+//     size: "small",
+//     id: "outlined-basic",
+//     variant: "outlined"
+//     },
+//   },
+// });
+
+// const StyledTextfield= withStyles({
+//   root: {
+    
+//   },
+//   labelColor: {
+//     color:'#808080'
+//   },
+// })(TextField);
+
+
+
 
 const LoginStyles = makeStyles((theme) => ({
 
@@ -120,10 +145,6 @@ const LoginStyles = makeStyles((theme) => ({
     maxWidth: "70vw", //TODO check if needed
   },
 
-  /*textfield label color*/
-  labelColor:{
-    color:'#808080'
-  },
   /*icon button spacing*/
   button: {
     margin: theme.spacing(1),
@@ -213,7 +234,10 @@ export default function LogIn(props) {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.loginInfoPaper}>
-                            <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "Your Username" variant = "outlined" size = "small"/>
+
+                            {/*<MuiThemeProvider theme={theme2}>*/}
+                            <TextField placeholder = "Your Username"/>
+                            {/*</MuiThemeProvider>*/}
                             </Paper>
                           </Grid>
                           <Grid item xs={6}>
@@ -228,7 +252,7 @@ export default function LogIn(props) {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.loginInfoPaper}>
-                              <TextField fullWidth = {true} InputLabelProps={{ className: classes.labelColor}} id = "outlined-basic" label = "Enter Password" variant = "outlined" size = "small"/>
+                              <TextField placeholder = "Enter Password"/>
                             </Paper>
                           </Grid> 
                       </Grid>

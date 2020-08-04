@@ -230,7 +230,7 @@ export default function LogIn(props) {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField placeholder = "Enter Password"/>
+                              <TextField type = "password" placeholder = "Enter Password"/>
                             </Paper>
                           </Grid> 
                       </Grid>

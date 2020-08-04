@@ -159,7 +159,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField  placeholder = "55-4123567"/>
+                              <TextField placeholder = "55-4123567"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={6}>
@@ -179,7 +179,7 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.textFieldPaper}>
-                                <TextField InputProps = {classes.textBackground} placeholder = "example@gmail.com"/>
+                                <TextField type = "email" InputProps = {classes.textBackground} placeholder = "example@gmail.com"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={6}>
@@ -189,12 +189,12 @@ export default function SignUp() {
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.textFieldPaper}>
-                                <TextField placeholder = "Password"/>
+                                <TextField type = "password" placeholder = "Password"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.textFieldPaper}>
-                                <TextField placeholder = "Reenter Password"/>
+                                <TextField type = "password" placeholder = "Reenter Password"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>

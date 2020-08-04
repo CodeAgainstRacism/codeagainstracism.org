@@ -41,7 +41,7 @@ const LoginStyles = makeStyles((theme) => ({
   },
 
   loginInfoPaper: {
-    padding: theme.spacing(1, 0),
+    padding: theme.spacing(.5, 0),
     textAlign: 'left',
     color: theme.palette.text.primary,
     background: theme.palette.background.default,
@@ -52,6 +52,12 @@ const LoginStyles = makeStyles((theme) => ({
     textAlign: 'right',
     color: "#808080", //should be gray 
     background: theme.palette.background.default,
+  },
+
+  textFieldPaper: {
+    textAlign: 'left',
+    color: theme.palette.text.primary,
+    background: "#fff",
   },
 
   /*containers*/
@@ -122,7 +128,7 @@ const LoginStyles = makeStyles((theme) => ({
 
   /*icon button spacing*/
   button: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1, 0, 0),
   },
 }));
 
@@ -208,11 +214,8 @@ export default function LogIn(props) {
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.loginInfoPaper}>
-
-                            {/*<MuiThemeProvider theme={theme2}>*/}
-                            <TextField placeholder = "Your Username"/>
-                            {/*</MuiThemeProvider>*/}
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
+                              <TextField placeholder = "Your Username"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={6}>
@@ -226,13 +229,13 @@ export default function LogIn(props) {
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.loginInfoPaper}>
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
                               <TextField placeholder = "Enter Password"/>
                             </Paper>
                           </Grid> 
                       </Grid>
                       <div>
-                        <Button fullWidth = {true} color = "primary" variant="contained">Login </Button>
+                        <Button className={classes.button} fullWidth = {true} color = "primary" variant="contained">Login </Button>
                       </div>
                       {/**Divider with text "or" in between */}
                       <Container className = {classes.dividerContainer}>

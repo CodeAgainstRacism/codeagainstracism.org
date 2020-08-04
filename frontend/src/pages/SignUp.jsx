@@ -9,6 +9,11 @@ const signStyles = makeStyles((theme) => ({
 
   root: {
     flexGrow: 1,
+    
+  },
+
+  textBackground: {
+    background: "#fff"
   },
   /*grid papers*/
   paper: {
@@ -23,6 +28,12 @@ const signStyles = makeStyles((theme) => ({
     textAlign: 'left',
     color: theme.palette.text.primary,
     background: theme.palette.background.default,
+  },
+
+  textFieldPaper: {
+    textAlign: 'left',
+    color: theme.palette.text.primary,
+    background: "#fff",
   },
 
   /*containers*/
@@ -137,7 +148,7 @@ export default function SignUp() {
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
                               <TextField placeholder = "Code Against Racism"/>
                             </Paper>
                           </Grid>
@@ -147,7 +158,7 @@ export default function SignUp() {
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
                               <TextField  placeholder = "55-4123567"/>
                             </Paper>
                           </Grid>
@@ -157,7 +168,7 @@ export default function SignUp() {
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
                               <TextField placeholder = "(909)123-4576"/>
                             </Paper>
                           </Grid>
@@ -167,8 +178,8 @@ export default function SignUp() {
                               </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.signupfoPaper}>
-                                <TextField placeholder = "example@gmail.com"/>
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
+                                <TextField InputProps = {classes.textBackground} placeholder = "example@gmail.com"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={6}>
@@ -177,12 +188,12 @@ export default function SignUp() {
                               </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
                                 <TextField placeholder = "Password"/>
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
                                 <TextField placeholder = "Reenter Password"/>
                             </Paper>
                           </Grid>
@@ -192,7 +203,7 @@ export default function SignUp() {
                               </Paper>
                           </Grid>
                           <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.signupfoPaper}>
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
                               <TextField placeholder = "field description" rows = "4" columns = "33" multiline = {true}/>                  
                             </Paper>
                           </Grid>

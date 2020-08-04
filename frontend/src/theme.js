@@ -28,6 +28,11 @@ const theme = createMuiTheme({
       root: {
         cursor: "pointer",
       },
+    MuiTextField:{
+      root: {
+        backgroundColor: "#fff"
+      },
+    }
     },
   },
   //Global theme for textfields

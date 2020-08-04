@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "normalize.css/normalize.css";
 
-
 import LandingPage from "./pages/LandingPage";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
@@ -11,6 +10,7 @@ import News from "./pages/News";
 import FAQ from "./pages/FAQ";
 import About from "./pages/About";
 import NotFoundPage from "./pages/NotFound";
+import NewProjectForm from "./pages/NewProjectForm";
 import NavBar from "./components/NavBar";
 
 class App extends React.Component {
@@ -23,7 +23,7 @@ class App extends React.Component {
             <Switch>
               <Route exact={true} path="/" component={LandingPage} />
               <Route path="/about" component={About} exact={true} />
-              <Route path="/projects" component={Projects} exact={true} />
+              <Route path="/projects" component={NewProjectForm} exact={true} /> {/**originally projects */}
               <Route path="/news" component={News} exact={true} />
               <Route path="/faq" component={FAQ} exact={true} />
               <Route path="/signup" component={SignUp} exact={true} />

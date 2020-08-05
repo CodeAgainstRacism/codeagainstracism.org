@@ -1,26 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
-import { OrganizationsService } from '../organizations/organizations.service';
+import { isValidPassword } from '../utils/utils';
+import { UsersService } from '../users/users.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private organizationsService: OrganizationsService,
+    private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
 
-  async validateOrganization(payload: JwtPayload): Promise<any> {
-    const organization = await this.organizationsService.findByEmail(
-      payload.email,
-    );
+  async validateUser(payload: JwtPayload): Promise<any> {
+    const user = await this.usersService.findByEmail(payload.email);
 
-    if (
-      organization &&
-      bcrypt.compareSync(payload.password, organization.encryptedPassword)
-    ) {
-      const { encryptedPassword, ...result } = organization;
+    if (user && isValidPassword(payload.password, user.encryptedPassword)) {
+      const { encryptedPassword, ...result } = user;
       return result;
     }
     return null;

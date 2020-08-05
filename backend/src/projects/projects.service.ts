@@ -26,17 +26,8 @@ export class ProjectsService {
     return this.projectsRepository.save(project);
   }
 
-  async findAll(): Promise<Project[]> {
-    const projects = await this.projectsRepository.find();
-
-    projects.forEach(function(project) {
-      // removes the password on the response
-      if (project.organization) {
-        delete project.organization.encryptedPassword;
-      }
-    });
-
-    return projects;
+  findAll(): Promise<Project[]> {
+    return this.projectsRepository.find();
   }
 
   async findOne(id: number): Promise<Project> {
@@ -50,10 +41,6 @@ export class ProjectsService {
         },
         HttpStatus.NOT_FOUND,
       );
-    }
-
-    if (project.organization) {
-      delete project.organization.encryptedPassword;
     }
 
     return project;

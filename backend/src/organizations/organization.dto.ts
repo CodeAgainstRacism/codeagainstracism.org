@@ -5,7 +5,7 @@ import {
   IsString,
   Length,
   MaxLength,
-  IsOptional,
+  IsNumber,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -37,12 +37,6 @@ export class OrganizationDto {
   @ApiProperty({ example: 'name@email.com' })
   email: string;
 
-  @IsOptional()
-  @Length(8, 128)
-  @IsString()
-  @ApiProperty({ example: 'unguessable_password' })
-  password: string;
-
   @IsNotEmpty()
   @MaxLength(100)
   @IsString()
@@ -54,4 +48,7 @@ export class OrganizationDto {
   @IsString()
   @ApiProperty({ example: 'Doe' })
   contactLastName: string;
+
+  @IsNumber()
+  adminUserId: number;
 }

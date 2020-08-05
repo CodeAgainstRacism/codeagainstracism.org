@@ -1,6 +1,7 @@
 import { Project } from '../projects/project.entity';
 import { ProjectDto } from '../projects/project.dto';
 import { Organization } from '../organizations/organization.entity';
+import { User } from '../users/user.entity';
 
 const mockProjectEntities = [
   new Project(
@@ -26,6 +27,7 @@ const mockProjectEntities = [
       'janedoe@email.com',
       'Jane',
       'Doe',
+      new User(1, 'John', 'Doe', 'johndoe@email.com'),
     ),
   ),
   new Project(

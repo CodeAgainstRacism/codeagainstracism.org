@@ -4,7 +4,7 @@ import { ProjectsController } from './projects.controller';
 import { ProjectDto } from './project.dto';
 import { ProjectsService } from './projects.service';
 import { Project } from './project.entity';
-import { Organization } from '../organizations/organization.entity';
+import { User } from '../users/user.entity';
 
 import {
   mockProjectEntities,
@@ -112,7 +112,7 @@ describe('Project Controller', () => {
     it('should update an project', () => {
       const beforeUpdate = mockDatabase[1];
       controller
-        .update({ user: mockDatabase[1].organization }, 1, {
+        .update({ user: mockDatabase[1].organization.adminUser }, 1, {
           ...updateProjectDto,
         })
         .then(updatedProject => {
@@ -138,7 +138,7 @@ describe('Project Controller', () => {
       const beforeUpdate = mockDatabase[0];
       let error;
       try {
-        await controller.update({ user: new Organization(-1) }, 0, newData);
+        await controller.update({ user: new User(-1) }, 1, newData);
       } catch (e) {
         error = e;
       }
@@ -165,7 +165,10 @@ describe('Project Controller', () => {
   describe('delete', () => {
     it('should delete an project', async () => {
       const beforeCount = mockDatabase.length;
-      await controller.remove({ user: mockDatabase[1].organization }, 1);
+      await controller.remove(
+        { user: mockDatabase[1].organization.adminUser },
+        1,
+      );
       expect(mockDatabase.length).toEqual(beforeCount - 1);
     });
 
@@ -173,7 +176,7 @@ describe('Project Controller', () => {
       const beforeCount = mockDatabase.length;
       let error;
       try {
-        await controller.remove({ user: null }, 0);
+        await controller.remove({ user: new User(-1) }, 1);
       } catch (e) {
         error = e;
       }

@@ -139,7 +139,7 @@ const NavBar = (props) => {
               variant="contained"
               className={classes.rightButton}
               component={RouterLink}
-              to="/signup"
+              to="/userType"
             >
               SIGN UP
             </Button>

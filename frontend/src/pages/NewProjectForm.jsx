@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import SideBar from "./VerticalNavBar";
+import Footer from "../components/Footer";
 import {Container,
         CssBaseline,
         Button,
@@ -8,7 +8,7 @@ import {Container,
         Paper,
         Grid,} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import Footer from "../components/Footer";
+import SideBar from "../components/SideBarOrganization";
 //checkut form authentification 
 const projectFormStyles = makeStyles((theme) => ({
 
@@ -104,7 +104,7 @@ export default function NewProjectForm() {
                     <Container disableGutters = {true} className = {classes.headingContainer}> 
                       <Grid item xs={12}>
                         <Paper elevation = {0} className={classes.headerPaper}>
-                          <h1>Create A New Project</h1>
+                          <h1>Create Project</h1>
                           <Divider classes={{root: classes.dividerColor}} variant="fullwidth"/>
                         </Paper>
                       </Grid>

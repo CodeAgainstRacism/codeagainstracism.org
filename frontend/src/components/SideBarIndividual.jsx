@@ -15,7 +15,7 @@ import PersonIcon from '@material-ui/icons/Person';
 //use styling hook here to align name and png next to each other
 const sideBarStyles = makeStyles((theme)  => ({
     sideBarContainer: {
-        width: "100%",
+        width: "90%",
         height: "120vh",
         paddingTop: "15%",
         //height: "768px",
@@ -34,7 +34,7 @@ export default function SideBar(){
             <Container>
                 {/*<img src = {"avatar.png"}/> */}
                 <PersonIcon fontSize="large" />
-                <h3>Code Against Racism of the United States of Americas</h3>
+                <h3>Zoosuki Chisaki</h3>
             </Container>
             <Divider/>
             <List>
@@ -47,24 +47,10 @@ export default function SideBar(){
                 <Divider/>
                 <ListItem button>
                     <ListItemIcon>
-                        <CreateIcon />
-                    </ListItemIcon>
-                    <ListItemText primary = "Create Project" />
-                </ListItem>
-                <Divider/>
-                <ListItem button>
-                    <ListItemIcon>
                         <FolderIcon />
                     </ListItemIcon>
                     <ListItemText primary = "Your Projects" />
                 </ListItem>
-                <Divider/>
-                <ListItem button>
-                    <ListItemIcon>
-                        <GroupIcon />
-                    </ListItemIcon>
-                    <ListItemText primary = "Your Teams" />
-                </ListItem>  
                 <Divider/>
             </List>
         </Container>

@@ -8,12 +8,13 @@ import Container from "@material-ui/core/Container";
 import Radio from "@material-ui/core/Radio";
 import Typography from "@material-ui/core/Typography";
 
+import CardActionArea from '@material-ui/core/CardActionArea';
+import classNames from "classnames";
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
-import classNames from "classnames";
 
 const useStyles = makeStyles((theme) => ({
   flexBoxCenter: {
@@ -21,9 +22,13 @@ const useStyles = makeStyles((theme) => ({
     alignContent: "center",
     textAlign: "center"
   },
-  headerStyle: {
-    marginTop: "1rem"
-  }, 
+  headerStyle:{
+    marginBottom: "5rem",
+  },
+  headerTextStyle: {
+    marginTop: "5rem",
+    fontWeight: "bold",
+  },
   contentCenter: {
     display: "flex",
     justifyContent: "center",
@@ -33,84 +38,129 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  cardStyle:{
+    borderRadius: "25px",
+    backgroundColor: "transparent",
+    boxShadow: "none",
+  },
   buttonStyle: {
     color: "white",
     backgroundColor: "black",
     width: "10rem",
+    marginTop: "2rem",
   },
   radioStyle: {
     '&$checked': {
-      color: "black"
+      color: "black",
+    },
+    '&:hover': {
+      background: "none",
     }
   },
   checked: {},
+  temp: {
+    display: "flex",
+    flexWrap: "wrap",
+  }
 }));
 
 const UserTypePage = () => {
   const classes = useStyles();
   const [selectedValue, setSelectedValue] = React.useState("");
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+  const handleJoin = (event) => {
+    setSelectedValue("join");
+  };
+
+  const handleCreate = (event) => {
+    setSelectedValue("create");
   };
 
   return (
     <Container maxWidth="lg" direction="column">
       <Grid item container className={classes.contentCenter}>
         <Grid item xs={12} sm={8} container direction="column">
-          <Grid item className={classes.flexBoxCenter} direction="column">
+          <Grid item className={classNames(classes.flexBoxCenter, classes.headerStyle)} direction="column">
             <Typography
-              variant="h3"
+              variant="h4"
               gutterBottom
-              className={classNames(classes.textStyle, classes.headerStyle)}
+              className={classNames(classes.textStyle, classes.headerTextStyle)}
             >
               Welcome to Code Against Racism
             </Typography>
             <Typography
-              variant="h6"
+              variant="h7"
               gutterBottom
             >
               We are so excited to see you join our teams of warriors!
             </Typography>
           </Grid>
           <Grid item container>
-            <Grid item xs={12} sm={6}>
-              <CardActionArea classeName={classes.textCenter}>
-                <img src={Blogging} alt="blogging" />
-                <Typography
-                  variant="paragraph"
-                  className={classes.textStyle}
+            <Grid item xs={12} sm={6} className={classes.contentCenter}>
+              <Card className={classes.cardStyle}>
+                <ButtonBase
+                  focusRipple
+                  onClick={handleJoin}
+                  value="join"
                 >
-                  I want to join an existing team
-                </Typography>
-              </CardActionArea>
-              <Radio
-                className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
-                disableRipple="True"
-                checked={selectedValue === "join"}
-                onChange={handleChange}
-                value="join"
-                inputProps={{ "aria-label": "join" }}
-              />
+                  <CardActionArea className={classNames(classes.textCenter, classes.cardStyle)}>
+                    <CardMedia
+                      component="img"
+                      image={Blogging}
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="paragraph"
+                        className={classes.textStyle}
+                      >
+                        I want to join an existing team
+                      </Typography>
+                      <Radio
+                        className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
+                        disableRipple="True"
+                        checked={selectedValue === "join"}
+                        onChange={handleJoin}
+                        value="join"
+                        inputProps={{ "aria-label": "join" }}
+                      />
+                    </CardContent>
+                  </CardActionArea>
+                </ButtonBase>
+              </Card>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <CardActionArea>
-                <img src={Plan} alt="plan" />
-                <Typography
-                  variant="paragraph"
-                  className={classes.textStyle}
+            {//<Grid item xs={0} sm={0} />
+            }
+            <Grid item xs={12} sm={6} className={classes.contentCenter}>
+              <Card className={classes.cardStyle}>
+                <ButtonBase
+                  focusRipple
+                  onClick={handleCreate}
+                  value="create"
                 >
-                  I want to create a new team
-                </Typography>
-              </CardActionArea>
-              <Radio
-                className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
-                disableRipple="True"
-                checked={selectedValue === "create"}
-                onChange={handleChange}
-                value="create"
-                inputProps={{ "aria-label": "create" }}
-              />
+                  <CardActionArea className={classNames(classes.textCenter, classes.cardStyle)}>
+                    <CardMedia
+                      component="img"
+                      image={Plan}
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="paragraph"
+                        className={classes.textStyle}
+                      >
+                        I want to create a new team
+                      </Typography>
+                      <Radio
+                        className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
+                        disableRipple="True"
+                        checked={selectedValue === "create"}
+                        onChange={handleCreate}
+                        value="create"
+                        inputProps={{ "aria-label": "create" }}
+                      />
+                    </CardContent>
+                  </CardActionArea>
+                </ButtonBase>
+              </Card>
             </Grid>
           </Grid>
           <Grid item className={classes.contentCenter}>

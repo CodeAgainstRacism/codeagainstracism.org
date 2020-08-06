@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Plan from "../assets/plan.svg";
 import Blogging from "../assets/blogging.svg";
 import { Grid } from "@material-ui/core";
@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Radio from "@material-ui/core/Radio";
 import Typography from "@material-ui/core/Typography";
+import { withRouter, Link as RouterLink } from "react-router-dom";
 
 import CardActionArea from '@material-ui/core/CardActionArea';
 import classNames from "classnames";
@@ -77,14 +78,14 @@ const useStyles = makeStyles((theme) => ({
 
 const UserTypePage = () => {
   const classes = useStyles();
-  const [selectedValue, setSelectedValue] = React.useState("");
+  const [selectedValue, setSelectedValue] = useState("");
 
   const handleJoin = (event) => {
-    setSelectedValue("join");
+    setSelectedValue("individual");
   };
 
   const handleCreate = (event) => {
-    setSelectedValue("create");
+    setSelectedValue("organization");
   };
 
   return (
@@ -112,7 +113,7 @@ const UserTypePage = () => {
                 <ButtonBase
                   focusRipple
                   onClick={handleJoin}
-                  value="join"
+                  value="individual"
                   className={classes.flexColumn}
                 >
                   <CardMedia
@@ -129,24 +130,22 @@ const UserTypePage = () => {
                     <Radio
                       className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
                       disableRipple="True"
-                      checked={selectedValue === "join"}
+                      checked={selectedValue === "individual"}
                       onChange={handleJoin}
-                      value="join"
-                      inputProps={{ "aria-label": "join" }}
+                      value="individual"
+                      inputProps={{ "aria-label": "individual" }}
                     />
                   </CardContent>
 
                 </ButtonBase>
               </Card>
             </Grid>
-            {//<Grid item xs={0} sm={0} />
-            }
             <Grid item xs={12} sm={6} className={classes.widthStyle}>
               <Card className={classes.cardStyle}>
                 <ButtonBase
                   focusRipple
                   onClick={handleCreate}
-                  value="create"
+                  value="organization"
                   className={classes.flexColumn}
                 >
                   <CardMedia
@@ -163,10 +162,10 @@ const UserTypePage = () => {
                     <Radio
                       className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
                       disableRipple="True"
-                      checked={selectedValue === "create"}
+                      checked={selectedValue === "organization"}
                       onChange={handleCreate}
-                      value="create"
-                      inputProps={{ "aria-label": "create" }}
+                      value="organization"
+                      inputProps={{ "aria-label": "organization" }}
                     />
                   </CardContent>
                 </ButtonBase>
@@ -177,6 +176,9 @@ const UserTypePage = () => {
             <Button
               variant="contained"
               className={classes.buttonStyle}
+              disabled={!selectedValue}
+              component={RouterLink}                            
+              to={selectedValue === "individual" ? "/signup/Individual" : "/signup/Organization"}
             >
               Next
             </Button>

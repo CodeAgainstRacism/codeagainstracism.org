@@ -18,8 +18,6 @@ const sideBarStyles = makeStyles((theme)  => ({
         width: "90%",
         height: "120vh",
         paddingTop: "15%",
-        //height: "768px",
-        //textAlign: "left",
         alignItems: "center",
         backgroundColor: "#ffffff"  
     },

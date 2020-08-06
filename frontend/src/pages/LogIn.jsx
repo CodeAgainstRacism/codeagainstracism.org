@@ -112,7 +112,7 @@ const LoginStyles = makeStyles((theme) => ({
   textContainer: {
     position: "relative",
     fontSize: "12px",
-    width: "450px",
+    width: "100%",
     padding: "1rem 0",
     alignItems: "center",
   },
@@ -144,7 +144,7 @@ export default function LogIn(props) {
           <div className={classes.root}>
             <Grid container spacing={0}>
               {/**Text and Image */}
-              <Grid item xs={6}>
+              <Grid item xs={5}>
                 <Paper elevation = {0} className={classes.paper}>
                     <Container className = {classes.textContainer}>
                       <h1>Welcome Back! </h1>  

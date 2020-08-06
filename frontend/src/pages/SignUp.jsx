@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "25px",
     backgroundColor: "transparent",
     boxShadow: "none",
+    width: "100%",
   },
   buttonStyle: {
     color: "white",
@@ -61,6 +62,16 @@ const useStyles = makeStyles((theme) => ({
   temp: {
     display: "flex",
     flexWrap: "wrap",
+  },
+  flexColumn: {
+    flexDirection: "column",
+    width: "100%",
+  },
+  widthStyle: {
+    width: "calc(50% - 30px)",
+  },
+  spaceStyle: {
+    justifyContent: "space-between",
   }
 }));
 
@@ -95,70 +106,69 @@ const UserTypePage = () => {
               We are so excited to see you join our teams of warriors!
             </Typography>
           </Grid>
-          <Grid item container>
-            <Grid item xs={12} sm={6} className={classes.contentCenter}>
+          <Grid item container className={classes.spaceStyle}>
+            <Grid item xs={12} sm={6} className={classes.widthStyle}>
               <Card className={classes.cardStyle}>
                 <ButtonBase
                   focusRipple
                   onClick={handleJoin}
                   value="join"
+                  className={classes.flexColumn}
                 >
-                  <CardActionArea className={classNames(classes.textCenter, classes.cardStyle)}>
-                    <CardMedia
-                      component="img"
-                      image={Blogging}
+                  <CardMedia
+                    component="img"
+                    image={Blogging}
+                  />
+                  <CardContent>
+                    <Typography
+                      variant="paragraph"
+                      className={classes.textStyle}
+                    >
+                      I want to join an existing team
+                    </Typography>
+                    <Radio
+                      className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
+                      disableRipple="True"
+                      checked={selectedValue === "join"}
+                      onChange={handleJoin}
+                      value="join"
+                      inputProps={{ "aria-label": "join" }}
                     />
-                    <CardContent>
-                      <Typography
-                        variant="paragraph"
-                        className={classes.textStyle}
-                      >
-                        I want to join an existing team
-                      </Typography>
-                      <Radio
-                        className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
-                        disableRipple="True"
-                        checked={selectedValue === "join"}
-                        onChange={handleJoin}
-                        value="join"
-                        inputProps={{ "aria-label": "join" }}
-                      />
-                    </CardContent>
-                  </CardActionArea>
+                  </CardContent>
+
                 </ButtonBase>
               </Card>
             </Grid>
             {//<Grid item xs={0} sm={0} />
             }
-            <Grid item xs={12} sm={6} className={classes.contentCenter}>
+            <Grid item xs={12} sm={6} className={classes.widthStyle}>
               <Card className={classes.cardStyle}>
                 <ButtonBase
                   focusRipple
                   onClick={handleCreate}
                   value="create"
+                  className={classes.flexColumn}
                 >
-                  <CardActionArea className={classNames(classes.textCenter, classes.cardStyle)}>
-                    <CardMedia
-                      component="img"
-                      image={Plan}
+                  <CardMedia
+                    component="img"
+                    image={Plan}
+                  />
+                  <CardContent>
+                    <Typography
+                      variant="paragraph"
+                      className={classes.textStyle}
+                    >
+                      I want to create a new team
+                    </Typography>
+                    <Radio
+                      className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
+                      disableRipple="True"
+                      checked={selectedValue === "create"}
+                      onChange={handleCreate}
+                      value="create"
+                      inputProps={{ "aria-label": "create" }}
                     />
-                    <CardContent>
-                      <Typography
-                        variant="paragraph"
-                        className={classes.textStyle}
-                      >
-                        I want to create a new team
-                      </Typography>
-                      <Radio
-                        className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
-                        disableRipple="True"
-                        checked={selectedValue === "create"}
-                        onChange={handleCreate}
-                        value="create"
-                        inputProps={{ "aria-label": "create" }}
-                      />
-                    </CardContent>
-                  </CardActionArea>
+                  </CardContent>
                 </ButtonBase>
               </Card>
             </Grid>

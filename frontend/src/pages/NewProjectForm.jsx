@@ -10,6 +10,8 @@ import {Container,
 import Divider from '@material-ui/core/Divider';
 import SideBar from "../components/SideBarOrganization";
 //checkut form authentification 
+//create label fields for name and description
+//make padding between textfields more bigger?
 const projectFormStyles = makeStyles((theme) => ({
 
   root: {
@@ -28,10 +30,12 @@ const projectFormStyles = makeStyles((theme) => ({
   },
 
   headerPaper: {
-    padding: theme.spacing(1, 2), 
+    padding: theme.spacing(1,0,1,0), 
     textAlign: 'left',
     color: theme.palette.text.primary,
-    background: "#f2f2f2"
+    backgroundColor: "#f2f2f2",
+    borderRadius : "0"
+
   },
 
   outerPaper:{
@@ -41,16 +45,17 @@ const projectFormStyles = makeStyles((theme) => ({
 
   pageContainer: {
     height: "60 vmax",
-    margin: "0 auto",
     textAlign: "center",
+    alignItems: "left",
     backgroundColor: theme.palette.background,
     overflow: "hidden",
-    maxWidth: "70vw", 
+    maxWidth: "100vw", 
   },
 
   innerContainer: {
-    //border: "1px solid #292929",
-    //boxSizing: "border-box",
+    width: "100%",
+    // border: "1px solid #292929",
+    // boxSizing: "border-box",
     alignItems: "stretch",
     backgroundColor: theme.palette.background,
     overflow: "hidden", 
@@ -62,12 +67,12 @@ const projectFormStyles = makeStyles((theme) => ({
     // border: "1px solid #292929",
     // boxSizing: "border-box",
     textAlign: "left",
-    backgroundColor: theme.palette.background
+    backgroundColor: theme.palette.background,
   },
 
   formContainer: {
     backgroundColor: "white",
-    width: "100%"
+    paddingRight: "1%"
   },
 
   rightContainer: {
@@ -76,8 +81,8 @@ const projectFormStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     // border: "1px solid #292929",
     // boxSizing: "border-box",
-    marginLeft: "2%",
-    paddingRight: "1%"
+    marginLeft: "5%",
+    //paddingRight: "1%"
   },
 }))
 export default function NewProjectForm() { 
@@ -91,25 +96,28 @@ export default function NewProjectForm() {
             <Container disableGutters = {true} className={classes.innerContainer}>
             <div className={classes.root}>
               <Grid container spacing={0}>
-                <Grid item xs={3}>
+                {/**this is the sidebar */}
+                <Grid item xs={2}>
                 <Paper elevation = {0} className={classes.outerPaper}>
                   <SideBar/>
                 </Paper>
                 </Grid>
-              <Grid item xs = {9}>
+                {/**This is the form with header */}
+              <Grid item xs = {8}>
               <Paper elevation = {0} className={classes.outerPaper}>
               <Container disableGutters = {true} className= {classes.rightContainer}>
                 <div className={classes.root}>
-                  <Grid container spacing={0}>
+                <Grid id = "row" container spacing = {24}>
                     <Container disableGutters = {true} className = {classes.headingContainer}> 
-                      <Grid item xs={12}>
+                      <Grid alignContent = "flex-start" item xs={12}>
                         <Paper elevation = {0} className={classes.headerPaper}>
                           <h1>Create Project</h1>
                           <Divider classes={{root: classes.dividerColor}} variant="fullwidth"/>
                         </Paper>
                       </Grid>
                     </Container>
-                    {/*<Container disableGutters = {true} className = {classes.formContainer}>*/}
+                    <Container disableGutters = {true} className = {classes.formContainer}>
+                    <Grid id = "row" container spacing = {24}>
                     <Grid item xs = {12} sm = {12}>
                       <Paper elevation = {0} className={classes.paper}>
                         <TextField placeholder = "Enter Your Project's Name"/>
@@ -198,7 +206,8 @@ export default function NewProjectForm() {
                         <Button color ="primary" variant = "contained">Submit</Button>
                       </Paper>
                     </Grid> 
-                    {/*</Container>*/}
+                    </Grid>
+                    </Container>
                   </Grid>
                 </div>
               </Container>

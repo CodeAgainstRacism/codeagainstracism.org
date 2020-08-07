@@ -38,14 +38,14 @@ export default function SideBar(){
             <List>
                 <ListItem button>
                     <ListItemIcon>
-                        <AccountBoxIcon />
+                        <AccountBoxIcon color="secondary"/>
                     </ListItemIcon>
                     <ListItemText primary = "Account Details" />
                 </ListItem>
                 <Divider/>
                 <ListItem button>
                     <ListItemIcon>
-                        <FolderIcon />
+                        <FolderIcon color="secondary" />
                     </ListItemIcon>
                     <ListItemText primary = "Your Projects" />
                 </ListItem>

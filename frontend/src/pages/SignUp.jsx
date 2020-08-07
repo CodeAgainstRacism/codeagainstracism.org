@@ -5,6 +5,8 @@ import {Container, CssBaseline, Grid, Paper, Button, TextField} from '@material-
 import Footer from "../components/Footer";
 import SignUpImage from "../assets/SignUpImage.png";
 
+//make a component for the sign up box one for individual and one for organization
+
 const signStyles = makeStyles((theme) => ({
 
   root: {

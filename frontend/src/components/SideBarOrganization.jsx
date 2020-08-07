@@ -15,11 +15,11 @@ import PersonIcon from '@material-ui/icons/Person';
 //use styling hook here to align name and png next to each other
 const sideBarStyles = makeStyles((theme)  => ({
     sideBarContainer: {
-        width: "90%",
+        width: "100%",
         height: "120vh",
         paddingTop: "15%",
         alignItems: "center",
-        backgroundColor: "#ffffff"  
+        backgroundColor: "#fff", //"#fcfcf7"  
     },
 }));
 
@@ -32,34 +32,34 @@ export default function SideBar(){
             <Container>
                 {/*<img src = {"avatar.png"}/> */}
                 <PersonIcon fontSize="large" />
-                <h3>Code Against Racism of the United States of Americas</h3>
+                <h3>Code Against Racism</h3>
             </Container>
             <Divider/>
             <List>
                 <ListItem button>
                     <ListItemIcon>
-                        <AccountBoxIcon />
+                        <AccountBoxIcon color="secondary" />
                     </ListItemIcon>
                     <ListItemText primary = "Account Details" />
                 </ListItem>
                 <Divider/>
                 <ListItem button>
                     <ListItemIcon>
-                        <CreateIcon />
+                        <CreateIcon color="secondary" />
                     </ListItemIcon>
                     <ListItemText primary = "Create Project" />
                 </ListItem>
                 <Divider/>
                 <ListItem button>
                     <ListItemIcon>
-                        <FolderIcon />
+                        <FolderIcon color="secondary"/>
                     </ListItemIcon>
                     <ListItemText primary = "Your Projects" />
                 </ListItem>
                 <Divider/>
                 <ListItem button>
                     <ListItemIcon>
-                        <GroupIcon />
+                        <GroupIcon color="secondary"/>
                     </ListItemIcon>
                     <ListItemText primary = "Your Teams" />
                 </ListItem>  

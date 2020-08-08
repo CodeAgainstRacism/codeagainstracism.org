@@ -34,8 +34,8 @@ export default function SideBar(){
                 <PersonIcon fontSize="large" />
                 <h3>Zoosuki Chisaki</h3>
             </Container>
-            <Divider/>
             <List>
+                <Divider/>
                 <ListItem button>
                     <ListItemIcon>
                         <AccountBoxIcon color="secondary"/>

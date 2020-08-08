@@ -118,12 +118,22 @@ export default function NewProjectForm() {
                     </Container>
                     <Container disableGutters = {true} className = {classes.formContainer}>
                     <Grid id = "row" container spacing = {24}>
-                    <Grid item xs = {12} sm = {12}>
+                    <Grid item xs = {12} sm = {3}>
+                      <Paper elevation = {0} className={classes.paper}>
+                        Project Name:
+                      </Paper>
+                    </Grid>
+                    <Grid item xs = {12} sm = {9}>
                       <Paper elevation = {0} className={classes.paper}>
                         <TextField placeholder = "Enter Your Project's Name"/>
                       </Paper>
                     </Grid>
-                    <Grid item xs = {12} sm = {12}>
+                    <Grid item xs = {12} sm = {3}>
+                      <Paper elevation = {0} className={classes.paper}>
+                        Project Description:
+                      </Paper>
+                    </Grid>
+                    <Grid item xs = {12} sm = {9}>
                       <Paper elevation = {0} className={classes.paper}>
                         <TextField placeholder = "Tell us about your project! Be sure to include details of your organization, requirements for potential members, and any further suggestions" 
                         rows = "15" columns = "30" multiline = {true}/>

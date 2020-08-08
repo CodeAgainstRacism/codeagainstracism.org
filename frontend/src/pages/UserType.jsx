@@ -7,13 +7,10 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Radio from "@material-ui/core/Radio";
 import Typography from "@material-ui/core/Typography";
-import { withRouter, Link as RouterLink } from "react-router-dom";
-
+import {Link as RouterLink } from "react-router-dom";
 import CardActionArea from '@material-ui/core/CardActionArea';
 import classNames from "classnames";
 import ButtonBase from '@material-ui/core/ButtonBase';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
@@ -40,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   cardStyle:{
-    borderRadius: "25px",
+    borderRadius: "4px",
     backgroundColor: "transparent",
     boxShadow: "none",
     width: "100%",
@@ -108,8 +105,8 @@ const UserTypePage = () => {
             </Typography>
           </Grid>
           <Grid item container className={classes.spaceStyle}>
-            <Grid item xs={12} sm={6} className={classes.widthStyle}>
-              <Card className={classes.cardStyle}>
+            <Grid item xs={12} sm={5} className={classes.widthStyle}>
+              <CardActionArea className={classes.cardStyle}>
                 <ButtonBase
                   focusRipple
                   onClick={handleJoin}
@@ -138,10 +135,11 @@ const UserTypePage = () => {
                   </CardContent>
 
                 </ButtonBase>
-              </Card>
+              </CardActionArea>
             </Grid>
-            <Grid item xs={12} sm={6} className={classes.widthStyle}>
-              <Card className={classes.cardStyle}>
+            <Grid item xs={0} sm={2} />
+            <Grid item xs={12} sm={5} className={classes.widthStyle}>
+              <CardActionArea className={classes.cardStyle}>
                 <ButtonBase
                   focusRipple
                   onClick={handleCreate}
@@ -169,7 +167,7 @@ const UserTypePage = () => {
                     />
                   </CardContent>
                 </ButtonBase>
-              </Card>
+              </CardActionArea>
             </Grid>
           </Grid>
           <Grid item className={classes.contentCenter}>
@@ -177,7 +175,7 @@ const UserTypePage = () => {
               variant="contained"
               className={classes.buttonStyle}
               disabled={!selectedValue}
-              component={RouterLink}                            
+              component={RouterLink}
               to={selectedValue === "individual" ? "/signup/Individual" : "/signup/Organization"}
             >
               Next

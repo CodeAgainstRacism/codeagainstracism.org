@@ -1,11 +1,11 @@
 import React from "react";
-import { MuiThemeProvider, createMuiTheme, makeStyles, withStyles } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, makeStyles, Container, CssBaseline, Grid, Paper, TextField, Button} from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import {Container, CssBaseline, Grid, Paper, TextField, Button} from '@material-ui/core';
 import Footer from "../components/Footer";
 import HandWave from "../assets/Hand waving.png";
+
 
 /**Icon Button Colors */
 const blackTheme = createMuiTheme({ palette: { primary: {main: "#000" }} })
@@ -85,6 +85,7 @@ const LoginStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-evenly",
     background: "white",
+    borderRadius: "7px 7px 0px 0px"
   },
 
   loginFooter: {
@@ -97,6 +98,7 @@ const LoginStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-evenly",
     background: "white",
+    borderRadius: "0px 0px 7px 7px"
   },
 
   loginBody: {
@@ -135,7 +137,6 @@ const LoginStyles = makeStyles((theme) => ({
 
 export default function LogIn(props) {
   const classes = LoginStyles();
-  
   return (
     <React.Fragment>
       <CssBaseline />
@@ -159,7 +160,7 @@ export default function LogIn(props) {
                 <Paper elevation = {0} className={classes.paper}>
                     <Container disableGutters = {true} className={classes.loginContainer}>
                       <Container className = {classes.loginHeader}>
-                        <h1>Log In</h1>
+                        <h1>LOG IN</h1>
                       </Container>
                       <Container className = {classes.loginBody}>
                         <MuiThemeProvider theme={blackTheme}>
@@ -244,7 +245,8 @@ export default function LogIn(props) {
                         <Container className = {classes.dividerBar}></Container>
                       </Container>
                     </Container>        
-                    <Container className = {classes.loginFooter}> 
+                    <Container className = {classes.loginFooter}>
+                    
                       <Button fullWidth = {true} color = "secondary" variant = "outlined"> Create an Account</Button>
                     </Container>
                   </Container>
@@ -259,5 +261,7 @@ export default function LogIn(props) {
       {/* End footer */}
     </React.Fragment>
   );
+  
+
 }
   

@@ -1,15 +1,16 @@
 import React from "react";
-import { withStyles } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
-import {Container, CssBaseline, Grid, Paper, Button, TextField} from '@material-ui/core';
+import {makeStyles, Container, CssBaseline, Grid, Paper, Button,} from '@material-ui/core';
 import Footer from "../components/Footer";
 import SignUpImage from "../assets/SignUpImage.png";
+import SignUpOrganization from "../components/SignUpOrganization"
+import SignUpIndividual from "../components/SignUpIndividual"
+
+//make the body a component so it varies from individual and organization
 
 const signStyles = makeStyles((theme) => ({
 
   root: {
     flexGrow: 1,
-    
   },
 
   textBackground: {
@@ -23,21 +24,7 @@ const signStyles = makeStyles((theme) => ({
     background: theme.palette.background.default,
   },
 
-  signupInfoPaper: {
-    padding: theme.spacing(.5, 0),
-    textAlign: 'left',
-    color: theme.palette.text.primary,
-    background: theme.palette.background.default,
-  },
-
-  textFieldPaper: {
-    textAlign: 'left',
-    color: theme.palette.text.primary,
-    background: "#fff",
-  },
-
   /*containers*/
-
   innerContainer: {
     alignItems: "stretch",
     background: "#f2f2f2",
@@ -60,8 +47,8 @@ const signStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",
-    borderRadius: '7px',
     background: "white",
+    borderRadius: "7px 7px 0px 0px"
   },
 
   signFooter: {
@@ -74,17 +61,7 @@ const signStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-evenly",
     background: "white",
-    borderRadius: '7px',
-  },
-
-  signBody: {
-    marginTop: "1px",
-    fontSize : "12 px",
-    width: "100%",
-    overflow: "auto",
-    paddingLeft: "10%",
-    paddingRight: "10%",
-    paddingBottom: "5%",
+    borderRadius: "0px 0px 7px 7px"
   },
 
   textContainer: {
@@ -138,77 +115,11 @@ export default function SignUp() {
                     <Paper elevation = {0} className={classes.paper}>
                       <Container disableGutters = {true} className={classes.signContainer}>
                         <Container className={classes.signHeader}>
-                          <h1>Sign Up</h1>
+                          <h1>SIGN UP</h1>
                         </Container>
-                      <Container className = {classes.signBody}>
-                        <Grid id = "row" container spacing = {24}>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                              <label> Organization Name: </label>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField placeholder = "Code Against Racism"/>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                              <label> EIN (Employer Identification Number): </label>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField placeholder = "55-4123567"/>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                              <label> Phone Number: </label>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField placeholder = "(909)123-4576"/>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={6}>
-                              <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                                <label> Email: </label>
-                              </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                                <TextField type = "email" InputProps = {classes.textBackground} placeholder = "example@gmail.com"/>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={6}>
-                              <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                                <label> Password: </label>
-                              </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                                <TextField type = "password" placeholder = "Password"/>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                                <TextField type = "password" placeholder = "Reenter Password"/>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                              <Paper elevation = {0} className = {classes.signupInfoPaper}>
-                                <label> What Does Your Organization Do?</label>
-                              </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField placeholder = "field description" rows = "4" columns = "33" multiline = {true}/>                  
-                            </Paper>
-                          </Grid>
-                        </Grid>
-                       </Container>
+                          {/**renders here differently depending on usertype */}
+                          {/*<SignUpOrganization/>*/}
+                          <SignUpIndividual/>
                       <Container className={classes.signFooter}>
                         <Button fullWidth = {true} color ="primary" variant = "contained">Submit</Button>
                       </Container>

@@ -121,7 +121,7 @@ export default function SignUp() {
                           {/*<SignUpOrganization/>*/}
                           <SignUpIndividual/>
                       <Container className={classes.signFooter}>
-                        <Button fullWidth = {true} color ="primary" variant = "contained">Submit</Button>
+                        <Button fullWidth = {true} color ="primary" variant = "contained">Sign Up</Button>
                       </Container>
                     </Container>
                   </Paper>

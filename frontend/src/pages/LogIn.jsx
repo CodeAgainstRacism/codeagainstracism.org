@@ -5,7 +5,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Footer from "../components/Footer";
 import HandWave from "../assets/Hand waving.png";
-
+import { withRouter, Link as RouterLink } from "react-router-dom";
 
 /**Icon Button Colors */
 const blackTheme = createMuiTheme({ palette: { primary: {main: "#000" }} })
@@ -246,8 +246,15 @@ export default function LogIn(props) {
                       </Container>
                     </Container>        
                     <Container className = {classes.loginFooter}>
-                    
-                      <Button fullWidth = {true} color = "secondary" variant = "outlined"> Create an Account</Button>
+                      <Button 
+                        href="#" 
+                        component={RouterLink}
+                        to="/signup" 
+                        fullWidth = {true} 
+                        color = "secondary" 
+                        variant = "outlined"> 
+                        Create an Account
+                      </Button>
                     </Container>
                   </Container>
                 </Paper>

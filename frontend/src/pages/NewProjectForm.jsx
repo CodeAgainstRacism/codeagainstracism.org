@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import {makeStyles } from '@material-ui/core';
 import Footer from "../components/Footer";
 import {Container,
         CssBaseline,
@@ -72,7 +72,9 @@ const projectFormStyles = makeStyles((theme) => ({
 
   formContainer: {
     backgroundColor: "white",
-    paddingRight: "1%"
+    paddingRight: "1%",
+    paddingTop: "2%",
+    paddingBottom: "3%"
   },
 
   rightContainer: {

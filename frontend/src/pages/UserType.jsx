@@ -6,7 +6,6 @@ import classNames from "classnames";
 import {
   Button,
   ButtonBase,
-  CardActionArea,
   CardContent,
   CardMedia,
   Container,
@@ -56,23 +55,22 @@ const useStyles = makeStyles((theme) => ({
     },
     '&:hover': {
       background: "none",
-    }
+    },
   },
   checked: {},
-  temp: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
   flexColumn: {
     flexDirection: "column",
     width: "100%",
+    '&:hover': {
+      backgroundColor: 'rgb(229, 229, 229)',
+    }
   },
   widthStyle: {
     width: "calc(50% - 30px)",
   },
   spaceStyle: {
     justifyContent: "space-between",
-  }
+  },
 }));
 
 const UserTypePage = () => {
@@ -91,7 +89,7 @@ const UserTypePage = () => {
     <Container maxWidth="lg" direction="column">
       <Grid item container className={classes.contentCenter}>
         <Grid item xs={12} sm={8} container direction="column">
-          <Grid item className={classNames(classes.flexBoxCenter, classes.headerStyle)} direction="column">
+          <Grid item container className={classNames(classes.flexBoxCenter, classes.headerStyle)} direction="column">
             <Typography
               variant="h4"
               gutterBottom
@@ -100,7 +98,7 @@ const UserTypePage = () => {
               Welcome to Code Against Racism
             </Typography>
             <Typography
-              variant="h7"
+              variant="h6"
               gutterBottom
             >
               We are so excited to see you join our teams of warriors!
@@ -108,68 +106,63 @@ const UserTypePage = () => {
           </Grid>
           <Grid item container className={classes.spaceStyle}>
             <Grid item xs={12} sm={5} className={classes.widthStyle}>
-              <CardActionArea className={classes.cardStyle}>
-                <ButtonBase
-                  focusRipple
-                  onClick={handleJoin}
-                  value="individual"
-                  className={classes.flexColumn}
-                >
-                  <CardMedia
-                    component="img"
-                    image={Blogging}
+              <ButtonBase
+                focusRipple
+                onClick={handleJoin}
+                value="individual"
+                className={classes.flexColumn}
+              >
+                <CardMedia
+                  component="img"
+                  image={Blogging}
+                />
+                <CardContent>
+                  <Typography
+                    variant="caption"
+                    className={classes.textStyle}
+                  >
+                    I want to join an existing team
+                  </Typography>
+                  <Radio
+                    className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
+                    disableRipple={true}
+                    checked={selectedValue === "individual"}
+                    onChange={handleJoin}
+                    value="individual"
+                    inputProps={{ "aria-label": "individual" }}
                   />
-                  <CardContent>
-                    <Typography
-                      variant="paragraph"
-                      className={classes.textStyle}
-                    >
-                      I want to join an existing team
-                    </Typography>
-                    <Radio
-                      className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
-                      disableRipple="True"
-                      checked={selectedValue === "individual"}
-                      onChange={handleJoin}
-                      value="individual"
-                      inputProps={{ "aria-label": "individual" }}
-                    />
-                  </CardContent>
-
-                </ButtonBase>
-              </CardActionArea>
+                </CardContent>
+              </ButtonBase>
             </Grid>
-            <Grid item xs={0} sm={2} />
+            <Grid item xs={false} sm={2} />
             <Grid item xs={12} sm={5} className={classes.widthStyle}>
-              <CardActionArea className={classes.cardStyle}>
-                <ButtonBase
-                  focusRipple
-                  onClick={handleCreate}
-                  value="organization"
-                  className={classes.flexColumn}
-                >
-                  <CardMedia
-                    component="img"
-                    image={Plan}
+              <ButtonBase
+                focusRipple
+                onClick={handleCreate}
+                value="organization"
+                className={classes.flexColumn}
+              >
+                <CardMedia
+                  component="img"
+                  image={Plan}
+                />
+                <CardContent>
+                  <Typography
+                    variant="caption"
+                    className={classes.textStyle}
+                  >
+                    I want to create a new team
+                  </Typography>
+                  <Radio
+                    className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
+                    disableRipple={true}
+                    checked={selectedValue === "organization"}
+                    onChange={handleCreate}
+                    value="organization"
+                    inputProps={{ "aria-label": "organization" }}
                   />
-                  <CardContent>
-                    <Typography
-                      variant="paragraph"
-                      className={classes.textStyle}
-                    >
-                      I want to create a new team
-                    </Typography>
-                    <Radio
-                      className={classNames(classes.contentCenter, classes.radioStyle, classes.checked)}
-                      disableRipple="True"
-                      checked={selectedValue === "organization"}
-                      onChange={handleCreate}
-                      value="organization"
-                      inputProps={{ "aria-label": "organization" }}
-                    />
-                  </CardContent>
-                </ButtonBase>
-              </CardActionArea>
+                </CardContent>
+              </ButtonBase>
             </Grid>
           </Grid>
           <Grid item className={classes.contentCenter}>

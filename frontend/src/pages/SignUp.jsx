@@ -2,8 +2,8 @@ import React from "react";
 import {makeStyles, Container, CssBaseline, Grid, Paper, Button,} from '@material-ui/core';
 import Footer from "../components/Footer";
 import SignUpImage from "../assets/SignUpImage.png";
-import SignUpOrganization from "../components/SignUpOrganization"
-import SignUpIndividual from "../components/SignUpIndividual"
+import organization from "../components/SignUpOrganization"
+import individual from "../components/SignUpIndividual"
 
 //make the body a component so it varies from individual and organization
 
@@ -14,7 +14,7 @@ const signStyles = makeStyles((theme) => ({
   },
 
   textBackground: {
-    background: "#fff"
+    background: "white"
   },
   /*grid papers*/
   paper: {
@@ -27,7 +27,7 @@ const signStyles = makeStyles((theme) => ({
   /*containers*/
   innerContainer: {
     alignItems: "stretch",
-    background: "#f2f2f2",
+    background: theme.palette.background.default,
     overflow: "hidden", 
     display: "flex",
     justifyContent: "center",
@@ -53,10 +53,7 @@ const signStyles = makeStyles((theme) => ({
 
   signFooter: {
     width: "100%",
-    paddingLeft: "10%",
-    paddingRight: "10%",
-    paddingTop: "2%",
-    paddingBottom: "2%",
+    padding: theme.spacing(1,6,1,6),
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",
@@ -68,7 +65,7 @@ const signStyles = makeStyles((theme) => ({
     position: "relative",
     fontSize: "12px",
     width: "100%",
-    padding: "1rem 0",
+    padding: theme.spacing(1,1,1,1),
     alignItems: "center",
   },
 
@@ -83,7 +80,7 @@ const signStyles = makeStyles((theme) => ({
 
 }));
 
-export default function SignUp() {
+const SignUp = (props) => {
   const classes = signStyles();
 
     return (
@@ -118,8 +115,7 @@ export default function SignUp() {
                           <h1>SIGN UP</h1>
                         </Container>
                           {/**renders here differently depending on usertype */}
-                          {/*<SignUpOrganization/>*/}
-                          <SignUpIndividual/>
+                         {props.individual ? individual : organization}
                       <Container className={classes.signFooter}>
                         <Button fullWidth = {true} color ="primary" variant = "contained">Sign Up</Button>
                       </Container>
@@ -136,4 +132,4 @@ export default function SignUp() {
       </React.Fragment>
     );  
 }
-
+export default SignUp;

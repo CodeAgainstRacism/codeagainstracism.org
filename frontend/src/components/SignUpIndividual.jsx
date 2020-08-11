@@ -14,7 +14,7 @@ const signStyles = makeStyles((theme) => ({
   textFieldPaper: {
     textAlign: 'left',
     color: theme.palette.text.primary,
-    background: "#fff",
+    background: "white",
   },
 
   signBody: {
@@ -22,9 +22,7 @@ const signStyles = makeStyles((theme) => ({
       fontSize : "12 px",
       width: "100%",
       overflow: "auto",
-      paddingLeft: "10%",
-      paddingRight: "10%",
-      paddingBottom: "5%",
+      padding: theme.spacing(1,6,1,6)
     },
 
 }))
@@ -49,6 +47,16 @@ export default function SignUp() {
                   <Grid item xs={12}>
                     <Paper elevation = {0} className = {classes.signupInfoPaper}>
                       <label> Last Name: </label>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Paper elevation = {0} className = {classes.textFieldPaper}>
+                      <TextField />
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Paper elevation = {0} className = {classes.signupInfoPaper}>
+                      <label> Username: </label>
                     </Paper>
                   </Grid>
                   <Grid item xs={12}>

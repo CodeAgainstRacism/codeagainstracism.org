@@ -5,7 +5,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Footer from "../components/Footer";
 import HandWave from "../assets/Hand waving.png";
-import { withRouter, Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink } from "react-router-dom";
 
 /**Icon Button Colors */
 const blackTheme = createMuiTheme({ palette: { primary: {main: "#000" }} })
@@ -50,20 +50,20 @@ const LoginStyles = makeStyles((theme) => ({
   recoveryPaper: {
     padding: theme.spacing(1, 0),
     textAlign: 'right',
-    color: "#808080", //should be gray 
+    color: "#808080", 
     background: theme.palette.background.default,
   },
 
   textFieldPaper: {
     textAlign: 'left',
     color: theme.palette.text.primary,
-    background: "#fff",
+    background: "white",
   },
 
   /*containers*/
   innerContainer: {
     alignItems: "stretch",
-    background: "#f2f2f2",
+    background: theme.palette.background,
     overflow: "hidden", 
     display: "flex",
     justifyContent: "center",
@@ -90,10 +90,7 @@ const LoginStyles = makeStyles((theme) => ({
 
   loginFooter: {
     width: "100%",
-    paddingLeft: "10%",
-    paddingRight: "10%",
-    paddingTop: "2%",
-    paddingBottom: "2%",
+    padding: theme.spacing(1,6,1,6),
     display: "flex",
     alignItems: "center",
     justifyContent: "space-evenly",
@@ -102,28 +99,25 @@ const LoginStyles = makeStyles((theme) => ({
   },
 
   loginBody: {
-    paddingTop: "1%",
     fontSize : "12 px",
     width: "100%",
     overflow: "auto",
-    paddingLeft: "10%",
-    paddingRight: "10%",
-    paddingBottom: "1%",
+    padding: theme.spacing(1,6,1,6)
   },
 
   textContainer: {
     position: "relative",
     fontSize: "12px",
     width: "100%",
-    padding: "1rem 0",
+    padding: theme.spacing(1,1,1,1),
     alignItems: "center",
   },
 
   pageContainer: {
-    height: "768px",
+    height: "60 vmax",
     margin: "0 auto",
     textAlign: "center",
-    background: "#f2f2f2",
+    background: theme.palette.background,
     overflow: "hidden",
     maxWidth: "70vw", 
   },

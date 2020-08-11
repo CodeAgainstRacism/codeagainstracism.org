@@ -21,13 +21,16 @@ class App extends React.Component {
           <NavBar />
           <div>
             <Switch>
-              <Route exact={true} path="/" component={LandingPage} />
-              <Route path="/about" component={About} exact={true} />
-              <Route path="/projects" component={Projects} exact={true} />
-              <Route path="/news" component={News} exact={true} />
-              <Route path="/faq" component={FAQ} exact={true} />
-              <Route path="/signup" component={SignUp} exact={true} />
-              <Route path="/login" component={LogIn} exact={true} />
+            <Route exact path="/" component={LandingPage} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/projects" component={Projects} />
+              <Route exact path="/news" component={News} />
+              <Route exact path="/faq" component={FAQ} />
+              <Route exact path="/signup" component={SignUp} />
+              <Route exact path="/login" component={LogIn} />
+              {/*<Route exact path="/userType" component={UserTypePage} />*/}
+              {/* <Route exact path="/signUp/Individual" render={() => <SignUp individual/>} />
+              <Route exact path="/signUp/Organization" render={()=> <SignUp organization/>} /> */}
               <Route component={NotFoundPage} />
             </Switch>
           </div>

@@ -21,7 +21,8 @@ const sideBarStyles = makeStyles((theme)  => ({
         height: "120vh",
         paddingTop: "15%",
         alignItems: "center",
-        backgroundColor: "#fff", 
+        backgroundColor: "#2b3340",
+        color: theme.palette.text.secondary
     },
 }));
 

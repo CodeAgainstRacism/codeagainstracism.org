@@ -12,6 +12,7 @@ import SideBar from "../components/SideBarOrganization";
 //checkut form authentification 
 //create label fields for name and description
 //make padding between textfields more bigger?
+//make sidebar their own branch
 const projectFormStyles = makeStyles((theme) => ({
 
   root: {
@@ -39,7 +40,7 @@ const projectFormStyles = makeStyles((theme) => ({
   },
 
   outerPaper:{
-    padding: theme.spacing(0.5, 0, 0, 0), 
+    padding: theme.spacing(0, 0, 0, 0), 
     backgroundColor: "#f2f2f2"
   },
 

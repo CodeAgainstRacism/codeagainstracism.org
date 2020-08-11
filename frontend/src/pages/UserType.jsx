@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import Plan from "../assets/plan.svg";
 import Blogging from "../assets/blogging.svg";
-import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import Radio from "@material-ui/core/Radio";
-import Typography from "@material-ui/core/Typography";
-import { withRouter, Link as RouterLink } from "react-router-dom";
-
-import CardActionArea from "@material-ui/core/CardActionArea";
+import { Link as RouterLink } from "react-router-dom";
 import classNames from "classnames";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+import {
+  Button,
+  ButtonBase,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Radio,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   flexBoxCenter: {
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   cardStyle: {
-    borderRadius: "25px",
+    borderRadius: "4px",
     backgroundColor: "transparent",
     boxShadow: "none",
     width: "100%",
@@ -64,13 +63,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   checked: {},
-  temp: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
   flexColumn: {
     flexDirection: "column",
     width: "100%",
+    "&:hover": {
+      backgroundColor: "rgb(229, 229, 229)",
+    },
   },
   widthStyle: {
     width: "calc(50% - 30px)",

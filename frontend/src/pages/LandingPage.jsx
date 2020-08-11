@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
+
+  /**** HERO *******/
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
+    marginTop: theme.spacing(2),
   },
-  /**** TITLE *******/
-
-  /***** PARAGRAPH */
   heroParagraph: {
     padding: theme.spacing(2, 0),
     color: theme.palette.text.primary,
@@ -47,13 +47,17 @@ const useStyles = makeStyles((theme) => ({
   heroLeftCTAButton: {
     backgroundColor: theme.heroCTAButton.left,
     color: theme.palette.text.secondary,
-    width: "14rem",
+    width: theme.spacing(28),
     padding: theme.spacing(2, 0),
+    fontWeight: "bold",
+    fontSize: "",
   },
   heroRightCTAButton: {
     backgroundColor: theme.heroCTAButton.right,
-    width: "14rem",
+    width: theme.spacing(28),
     padding: theme.spacing(2, 0),
+    fontWeight: "bold",
+    fontSize: "",
   },
 
   /* Projects Title */
@@ -102,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-    marginBottom: theme.spacing(8),
+    // marginBottom: theme.spacing(8),
   },
   card: {
     height: "100%",
@@ -153,16 +157,10 @@ const LandingPage = (props) => {
                   <Grid container spacing={7}>
                     <Grid item>
                       <Button
-                        size="large"
                         variant="contained"
                         className={classes.heroLeftCTAButton}
                       >
-                        <Typography
-                          variant="button"
-                          fontWeight="fontWeightBold"
-                        >
-                          Join A Project
-                        </Typography>
+                        Join A Project
                       </Button>
                     </Grid>
                     <Grid item>

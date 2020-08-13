@@ -55,8 +55,7 @@ const NavBar = (props) => {
         <Toolbar className={classes.toolbar}>
           <IconButton>
             <Link
-              color="primary"
-              underline="none"
+              color="primary"              
               variant="subtitle2"
               component={RouterLink}
               to="/"
@@ -72,7 +71,6 @@ const NavBar = (props) => {
                   component={RouterLink}
                   to="/about"
                   color="inherit"
-                  underline="none"
                 >
                   ABOUT
                 </Link>
@@ -83,7 +81,6 @@ const NavBar = (props) => {
                   component={RouterLink}
                   to="/projects"
                   color="inherit"
-                  underline="none"
                 >
                   PROJECTS
                 </Link>
@@ -94,7 +91,6 @@ const NavBar = (props) => {
                   component={RouterLink}
                   to="/news"
                   color="inherit"
-                  underline="none"
                 >
                   NEWS
                 </Link>
@@ -119,7 +115,6 @@ const NavBar = (props) => {
               to="/login"
               color="inherit"
               className={classes.rightButton}
-              underline="none"
             >
               LOGIN
             </Link>
@@ -132,7 +127,6 @@ const NavBar = (props) => {
             >
               <Link
                 variant="subtitle2"
-                underline="none"
                 component={RouterLink}
                 to="/userType"
                 color="textPrimary"

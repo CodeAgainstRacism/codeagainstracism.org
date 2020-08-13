@@ -129,9 +129,8 @@ const UserTypePage = () => {
                       classes.radioStyle,
                       classes.checked
                     )}
-                    disableRipple="True"
+                    disableRipple={true}
                     checked={selectedValue === "individual"}
-                    onChange={handleJoin}
                     value="individual"
                     inputProps={{ "aria-label": "individual" }}
                   />
@@ -158,9 +157,8 @@ const UserTypePage = () => {
                       classes.radioStyle,
                       classes.checked
                     )}
-                    disableRipple="True"
+                    disableRipple={true}
                     checked={selectedValue === "organization"}
-                    onChange={handleCreate}
                     value="organization"
                     inputProps={{ "aria-label": "organization" }}
                   />

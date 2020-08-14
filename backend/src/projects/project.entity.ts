@@ -70,6 +70,7 @@ export class Project {
     this.description = description;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.isFeatured = isFeatured;
     this.organization = organization;
   }
 }

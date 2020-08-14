@@ -11,7 +11,7 @@ describe('Project entity', () => {
     expect(project.description).toBe(undefined);
     expect(project.startDate).toBe(undefined);
     expect(project.endDate).toBe(undefined);
-    expect(project.isFeatured).toBeDefined();
+    expect(project.isFeatured).toBe(undefined);
   });
 
   it('should make a project with some fields', () => {
@@ -28,7 +28,7 @@ describe('Project entity', () => {
     expect(project.description).toBe('project description');
     expect(project.startDate).toBe(undefined);
     expect(project.endDate).toBe(undefined);
-    expect(project.isFeatured).toBeDefined();
+    expect(project.isFeatured).toBe(undefined);
   });
 
   it('should make a project with all fields', () => {

@@ -46,6 +46,25 @@ export class ProjectsService {
     return project;
   }
 
+  async findFeatured(isFeatured: boolean): Promise<Project[]> {
+    const project = await this.projectsRepository.find({
+      where: { isFeatured },
+      select: ['id', 'description', 'startDate', 'endDate', 'organization', 'isFeatured', 'createdAt', 'updatedAt'],
+    });
+
+    if (project === undefined) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `No featured projects found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return project;
+  }
+
   public async update(id: number, project: ProjectDto): Promise<Project> {
     await this.findOne(id); // checks if the project exists
     await this.projectsRepository.update(id, project);

@@ -32,7 +32,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Fetches all users' })
   @ApiResponse({
     status: 200,
-    description: 'An array of with the users',
+    description: 'An array of all the users',
     type: [User],
   })
   findAll(): Promise<User[]> {

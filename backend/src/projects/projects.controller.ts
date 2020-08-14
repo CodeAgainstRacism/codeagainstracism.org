@@ -39,11 +39,22 @@ export class ProjectsController {
   @ApiOperation({ summary: 'Fetches all projects' })
   @ApiResponse({
     status: 200,
-    description: 'An array of with the projects',
+    description: 'An array of all the projects',
     type: [Project],
   })
   findAll(): Promise<Project[]> {
     return this.projectsService.findAll();
+  }
+
+  @Get('/featured')
+  @ApiOperation({ summary: 'Fetches all featured projects' })
+  @ApiResponse({
+    status: 200,
+    description: 'An array of all the featured projects',
+    type: [Project],
+  })
+  findFeatured(): Promise<Project[]> {
+    return this.projectsService.findFeatured(true);
   }
 
   @Get(':id')

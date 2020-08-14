@@ -18,6 +18,7 @@ const mockProjectEntities = [
     'A simple cli to input and store your ideas directly with git and without a text editor',
     new Date('2020/06/05'),
     new Date('2020/06/15'),
+    false,
     new Organization(
       1,
       '34-5678901',

@@ -2,8 +2,8 @@ import React from "react";
 import {makeStyles, Container, CssBaseline, Grid, Paper, Button,} from '@material-ui/core';
 import Footer from "../components/Footer";
 import SignUpImage from "../assets/SignUpImage.png";
-import organization from "../components/SignUpOrganization"
-import individual from "../components/SignUpIndividual"
+import Sorganization from "../components/SignUpOrganization"
+import Sindividual from "../components/SignUpIndividual"
 
 //make the body a component so it varies from individual and organization
 
@@ -114,8 +114,10 @@ const SignUp = (props) => {
                         <Container className={classes.signHeader}>
                           <h1>SIGN UP</h1>
                         </Container>
-                          {/**renders here differently depending on usertype */}
-                         {props.individual ? individual : organization}
+                         {/**renders here differently depending on usertype */}
+                        {/* {props.individual ? individual : organization} */}
+                          {/* <Sorganization/> */}
+                          <Sorganization/>
                       <Container className={classes.signFooter}>
                         <Button fullWidth = {true} color ="primary" variant = "contained">Sign Up</Button>
                       </Container>

@@ -28,12 +28,20 @@ const theme = createMuiTheme({
       root: {
         cursor: "pointer",
       },
+    },
+
     MuiTextField:{
       root: {
         backgroundColor: "#fff"
       },
-    }
     },
+
+    MuiInputLabel: { 
+      root: { 
+        color: "#adadad",
+      }
+    },
+
   },
   //Global theme for textfields
   props: {
@@ -43,6 +51,7 @@ const theme = createMuiTheme({
       id: "outlined-basic",
       variant: "outlined",
       fullWidth: true,
+      backgroundColor: "#fff"
     },
   }
 

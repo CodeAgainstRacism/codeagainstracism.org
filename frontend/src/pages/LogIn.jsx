@@ -1,5 +1,5 @@
 import React from "react";
-import { MuiThemeProvider, createMuiTheme, makeStyles, Container, CssBaseline, Grid, Paper, TextField, Button} from '@material-ui/core';
+import { MuiThemeProvider, Link, createMuiTheme, makeStyles, Container, CssBaseline, Grid, Paper, TextField, Button} from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import SvgIcon from '@material-ui/core/SvgIcon';
@@ -40,15 +40,8 @@ const LoginStyles = makeStyles((theme) => ({
     background: theme.palette.background.default,
   },
 
-  loginInfoPaper: {
-    padding: theme.spacing(.5, 0),
-    textAlign: 'left',
-    color: theme.palette.text.primary,
-    background: theme.palette.background.default,
-  },
-
   recoveryPaper: {
-    padding: theme.spacing(1, 0),
+    padding: theme.spacing(0,0,0,0),
     textAlign: 'right',
     color: "#808080", 
     background: theme.palette.background.default,
@@ -56,8 +49,8 @@ const LoginStyles = makeStyles((theme) => ({
 
   textFieldPaper: {
     textAlign: 'left',
-    color: theme.palette.text.primary,
-    background: "white",
+    background: theme.palette.background.default,
+    padding: theme.spacing(1,0,1,0),
   },
 
   /*containers*/
@@ -194,38 +187,31 @@ export default function LogIn(props) {
                         {/**Divider with text "or" in between */}
                         <Container className = {classes.dividerContainer}>
                           <Container className = {classes.dividerBar}></Container>
-                            <label> or</label>
+                            <label> or </label>
                           <Container className = {classes.dividerBar}></Container>
                         </Container>
                         <Grid id = "row" container spacing = {24}>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.loginInfoPaper}>
-                              <label >Username:</label>
+                          <Grid item xs={6}></Grid>
+                          <Grid item xs={12}>
+                            <Paper elevation = {0} className = {classes.textFieldPaper}>
+                              <TextField label = "Username"/>
                             </Paper>
                           </Grid>
+                          <Grid item xs={6}></Grid>
                           <Grid item xs={6}>
                             <Paper elevation = {0} className = {classes.recoveryPaper}>
-                              <label>Account Recovery</label>
+                            <Link
+                              component={RouterLink}
+                              to="/accountrecovery"
+                              color = "inherit"
+                              underline="none">
+                              Forgot your password?
+                            </Link>  
                             </Paper>
                           </Grid>
                           <Grid item xs={12}>
                             <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField placeholder = "Your Username"/>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.loginInfoPaper}>
-                            <label >Password:</label>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.recoveryPaper}>
-                              <label >Forgot your password?</label>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField type = "password" placeholder = "Enter Password"/>
+                              <TextField type = "password" label = "Password"/>
                             </Paper>
                           </Grid> 
                       </Grid>
@@ -235,7 +221,7 @@ export default function LogIn(props) {
                       {/**Divider with text "or" in between */}
                       <Container className = {classes.dividerContainer}>
                         <Container className = {classes.dividerBar}></Container>
-                        <label> or</label>
+                        <label> or </label>
                         <Container className = {classes.dividerBar}></Container>
                       </Container>
                     </Container>        

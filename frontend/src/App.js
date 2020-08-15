@@ -10,8 +10,10 @@ import Projects from "./pages/Projects";
 import News from "./pages/News";
 import FAQ from "./pages/FAQ";
 import About from "./pages/About";
+import AccountRecovery from "./pages/AccountRecovery";
 import NotFoundPage from "./pages/NotFound";
 import NavBar from "./components/NavBar";
+
 
 class App extends React.Component {
   render() {
@@ -28,6 +30,7 @@ class App extends React.Component {
               <Route exact path="/faq" component={FAQ} />
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/login" component={LogIn} />
+              <Route exact path="/accountrecovery" component={AccountRecovery} />
               {/*<Route exact path="/userType" component={UserTypePage} />*/}
               {/* <Route exact path="/signUp/Individual" render={() => <SignUp individual/>} />
               <Route exact path="/signUp/Organization" render={()=> <SignUp organization/>} /> */}

@@ -32,8 +32,8 @@ class App extends React.Component {
               <Route exact path="/login" component={LogIn} />
               <Route exact path="/accountrecovery" component={AccountRecovery} />
               {/*<Route exact path="/userType" component={UserTypePage} />*/}
-              {/* <Route exact path="/signUp/Individual" render={() => <SignUp individual/>} />
-              <Route exact path="/signUp/Organization" render={()=> <SignUp organization/>} /> */}
+              <Route exact path="/signUp/Individual" render={() => <SignUp individual/>} />
+              <Route exact path="/signUp/Organization" render={()=> <SignUp organization/>} /> 
               <Route component={NotFoundPage} />
             </Switch>
           </div>

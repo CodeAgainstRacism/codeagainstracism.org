@@ -115,9 +115,7 @@ const SignUp = (props) => {
                           <h1>SIGN UP</h1>
                         </Container>
                          {/**renders here differently depending on usertype */}
-                        {/* {props.individual ? individual : organization} */}
-                          {/* <Sorganization/> */}
-                          <Sorganization/>
+                        {props.individual ? individual : organization}
                       <Container className={classes.signFooter}>
                         <Button fullWidth = {true} color ="primary" variant = "contained">Sign Up</Button>
                       </Container>

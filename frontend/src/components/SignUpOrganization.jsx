@@ -1,20 +1,13 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import {Container, CssBaseline, Grid, Paper,TextField} from '@material-ui/core';
+import {Container, Grid, TextField} from '@material-ui/core';
 
 
 const signStyles = makeStyles((theme) => ({
-  textFieldPaper: {
-    padding: theme.spacing(1,0,1,0),
-    color: theme.palette.text.primary,
-    background: theme.palette.background.default,
-  },
-
   signBody: {
     marginTop: "1%",
-    fontSize : "12 px",
     width: "100%",
-    overflow: "auto",
+    overflow: "hidden",
     padding: theme.spacing(1,6,1,6)
   },
 
@@ -24,46 +17,31 @@ export default function SignUp() {
     const classes = signStyles();
       return (
         <React.Fragment>
-          <CssBaseline />
-            <Container className = {classes.signBody}>
-              <Grid container spacing = {24}>
-                <Grid item xs={12}>
-                  <Paper elevation = {0} className = {classes.textFieldPaper}>
-                    <TextField label = "Organization Name"/>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper elevation = {0} className = {classes.textFieldPaper}>
-                    <TextField label = "EIN (Employer Identification Number)"/>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper elevation = {0} className = {classes.textFieldPaper}>
-                    <TextField type = "tel" label = "Phone Number"/>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper elevation = {0} className = {classes.textFieldPaper}>
-                      <TextField type = "email" label = "Email"/>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper elevation = {0} className = {classes.textFieldPaper}>
-                      <TextField type = "password" label = "Password"/>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper elevation = {0} className = {classes.textFieldPaper}>
-                      <TextField type = "password" label = "Reenter Password"/>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper elevation = {0} className = {classes.textFieldPaper}>
-                    <TextField label = "What Does Your Organization Do?" rows = "4" multiline = {true}/>                  
-                  </Paper>
-                </Grid>
+          <Container className = {classes.signBody}>
+            <Grid  direction = "column" container spacing = {1}>
+              <Grid  item xs={12}>
+                  <TextField label = "Organization Name"/>
               </Grid>
-            </Container> 
+              <Grid item xs={12}>
+                  <TextField label = "EIN (Employer Identification Number)"/>
+              </Grid>
+              <Grid item xs={12}>
+                  <TextField type = "tel" label = "Phone Number"/>
+              </Grid>
+              <Grid item xs={12}>
+                    <TextField type = "email" label = "Email"/>
+              </Grid>
+              <Grid item xs={12}>
+                    <TextField type = "password" label = "Password"/>
+              </Grid>
+              <Grid item xs={12}>
+                    <TextField type = "password" label = "Confirm Password"/>
+              </Grid>
+              <Grid item xs={12}>
+                  <TextField label = "What Does Your Organization Do?" rows = "4" multiline = {true}/>                  
+              </Grid>
+            </Grid>
+          </Container> 
         </React.Fragment>
       )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { MuiThemeProvider, Link, createMuiTheme, makeStyles, Container, CssBaseline, Grid, Paper, TextField, Button} from '@material-ui/core';
+import { MuiThemeProvider, Link, createMuiTheme, makeStyles, Container, CssBaseline, Grid, TextField, Button} from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import SvgIcon from '@material-ui/core/SvgIcon';
@@ -32,28 +32,13 @@ const LoginStyles = makeStyles((theme) => ({
     width: "100%", 
   },
 
-/**Grid */
-  paper: {
-    padding: theme.spacing(6, 2), 
-    textAlign: 'center',
-    color: theme.palette.text.primary,
-    background: theme.palette.background.default,
-  },
-
-  recoveryPaper: {
+  /*containers*/
+  recoveryContainer: {
     padding: theme.spacing(0,0,0,0),
     textAlign: 'right',
     color: "#808080", 
-    background: theme.palette.background.default,
   },
 
-  textFieldPaper: {
-    textAlign: 'left',
-    background: theme.palette.background.default,
-    padding: theme.spacing(1,0,1,0),
-  },
-
-  /*containers*/
   innerContainer: {
     alignItems: "stretch",
     background: theme.palette.background,
@@ -61,6 +46,8 @@ const LoginStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     maxHeight: "100 vh",
+    padding: theme.spacing(6, 2), 
+    textAlign: 'center',
   },
 
   loginContainer: {
@@ -68,10 +55,10 @@ const LoginStyles = makeStyles((theme) => ({
     border: '1px solid #292929',
     alignItems: "center", 
     boxSizing: "border-box", 
-    borderRadius: '7px', 
     overflow: "auto",
     transform: "matrix(1, 0, 0, 1, 0, 0)"
   },
+  
   loginHeader:{
     width: "100%",
     display: "flex",
@@ -132,121 +119,110 @@ export default function LogIn(props) {
           <div className={classes.root}>
             <Grid container spacing={0}>
               {/**Text and Image */}
-              <Grid item xs={5}>
-                <Paper elevation = {0} className={classes.paper}>
-                    <Container className = {classes.textContainer}>
-                      <h1>Welcome Back! </h1>  
-                      <h4>~ Description of our organization ~</h4>
-                      <img src = {HandWave} alt = "hand"/>
-                      <p>We missed you. Go catch up on your project!</p>
-                    </Container>
-                </Paper>
+              <Grid item xs={5}> 
+                <Container className = {classes.textContainer}>
+                  <h1>Welcome Back! </h1>  
+                  <h4>~ Description of our organization ~</h4>
+                  <img src = {HandWave} alt = "hand"/>
+                  <p>We missed you. Go catch up on your project!</p>
+                </Container>
               </Grid>
               {/**Login Page */}
               <Grid item xs={6}>
-                <Paper elevation = {0} className={classes.paper}>
-                    <Container disableGutters = {true} className={classes.loginContainer}>
-                      <Container className = {classes.loginHeader}>
-                        <h1>LOG IN</h1>
-                      </Container>
-                      <Container className = {classes.loginBody}>
-                        <MuiThemeProvider theme={blackTheme}>
-                          {/**Github Icon Button */}
-                          <Button
-                            fullWidth = {true}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            startIcon={<GitHubIcon />}>
-                            Sign In with Github
-                          </Button>
-                        </MuiThemeProvider>
-                        {/**Google Icon Button */}
-                        <MuiThemeProvider theme={redTheme}>
-                          <Button
-                            fullWidth = {true}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            startIcon={<SvgIcon {...props}>
-                            <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/>
-                            </SvgIcon>}>
-                            Sign In with Google
-                          </Button>
-                        </MuiThemeProvider>
-                        {/**Facebook Icon Button */}
-                        <MuiThemeProvider theme={blueTheme}>
-                          <Button fullWidth = {true}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            startIcon={<FacebookIcon />}>
-                            Sign In with Facebook
-                          </Button>
-                        </MuiThemeProvider>
-                        {/**Divider with text "or" in between */}
-                        <Container className = {classes.dividerContainer}>
-                          <Container className = {classes.dividerBar}></Container>
-                            <label> or </label>
-                          <Container className = {classes.dividerBar}></Container>
-                        </Container>
-                        <Grid id = "row" container spacing = {24}>
-                          <Grid item xs={6}></Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField label = "Username"/>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={6}></Grid>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.recoveryPaper}>
-                            <Link
-                              component={RouterLink}
-                              to="/accountrecovery"
-                              color = "inherit"
-                              underline="none">
-                              Forgot your password?
-                            </Link>  
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField type = "password" label = "Password"/>
-                            </Paper>
-                          </Grid> 
-                      </Grid>
-                      <div>
-                        <Button className={classes.button} fullWidth = {true} color = "primary" variant="contained">Login </Button>
-                      </div>
-                      {/**Divider with text "or" in between */}
-                      <Container className = {classes.dividerContainer}>
-                        <Container className = {classes.dividerBar}></Container>
-                        <label> or </label>
-                        <Container className = {classes.dividerBar}></Container>
-                      </Container>
-                    </Container>        
-                    <Container className = {classes.loginFooter}>
-                      <Button 
-                        href="#" 
-                        component={RouterLink}
-                        to="/signup" 
-                        fullWidth = {true} 
-                        color = "secondary" 
-                        variant = "outlined"> 
-                        Create an Account
-                      </Button>
-                    </Container>
+                <Container disableGutters = {true} className={classes.loginContainer}>
+                  <Container className = {classes.loginHeader}>
+                    <h1>LOG IN</h1>
                   </Container>
-                </Paper>
-              </Grid>
+                  <Container className = {classes.loginBody}>
+                    {/**Github Icon Button */}
+                    <MuiThemeProvider theme={blackTheme}>
+                      <Button
+                        fullWidth = {true}
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        startIcon={<GitHubIcon />}>
+                        Sign In with Github
+                      </Button>
+                    </MuiThemeProvider>
+                    {/**Google Icon Button */}
+                    <MuiThemeProvider theme={redTheme}>
+                      <Button
+                        fullWidth = {true}
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        startIcon={<SvgIcon {...props}>
+                        <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/>
+                        </SvgIcon>}>
+                        Sign In with Google
+                      </Button>
+                    </MuiThemeProvider>
+                    {/**Facebook Icon Button */}
+                    <MuiThemeProvider theme={blueTheme}>
+                      <Button fullWidth = {true}
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        startIcon={<FacebookIcon />}>
+                        Sign In with Facebook
+                      </Button>
+                    </MuiThemeProvider>
+                    {/**Divider with text "or" in between */}
+                    <Container className = {classes.dividerContainer}>
+                      <Container className = {classes.dividerBar}></Container>
+                        or 
+                      <Container className = {classes.dividerBar}></Container>
+                    </Container>
+                    <Grid id = "row" container spacing = {1}>
+                      <Grid item xs={12}>
+                          <TextField label = "Username"/>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField type = "password" label = "Password"/>
+                      </Grid> 
+                      <Grid item xs={6}></Grid>
+                      <Grid item xs={6}>
+                      <Container className = {classes.recoveryContainer}>
+                        <Link
+                          component={RouterLink}
+                          to="/accountrecovery"
+                          color = "inherit"
+                          underline="none">
+                          Forgot your password?
+                        </Link>  
+                        </Container>
+                      </Grid>
+                  </Grid>
+                    <Button className={classes.button} fullWidth = {true} color = "primary" variant="contained">Login </Button>
+                  {/**Divider with text "or" in between */}
+                  <Container className = {classes.dividerContainer}>
+                    <Container className = {classes.dividerBar}></Container>
+                      or 
+                    <Container className = {classes.dividerBar}></Container>
+                  </Container>
+                </Container>        
+                <Container className = {classes.loginFooter}>
+                  <Button 
+                    href="#" 
+                    component={RouterLink}
+                    to="/signup" 
+                    fullWidth = {true} 
+                    color = "secondary" 
+                    variant = "outlined"> 
+                    Create an Account
+                  </Button>
+                </Container>
+              </Container>
             </Grid>
-          </div>
-         </Container>
+          </Grid>
+        </div>
       </Container>
-      {/* Footer */}
-      <Footer />
-      {/* End footer */}
-    </React.Fragment>
+    </Container>
+    {/* Footer */}
+    <Footer />
+    {/* End footer */}
+  </React.Fragment>
   );
   
 

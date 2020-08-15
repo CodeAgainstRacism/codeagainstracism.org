@@ -1,9 +1,9 @@
 import React from "react";
-import {makeStyles, Container, CssBaseline, Grid, Paper, Button,} from '@material-ui/core';
+import {makeStyles, Container, CssBaseline, Grid, Button,} from '@material-ui/core';
 import Footer from "../components/Footer";
 import SignUpImage from "../assets/SignUpImage.png";
-import Sorganization from "../components/SignUpOrganization"
-import Sindividual from "../components/SignUpIndividual"
+import organization from "../components/SignUpOrganization"
+import individual from "../components/SignUpIndividual"
 
 //make the body a component so it varies from individual and organization
 
@@ -13,17 +13,6 @@ const signStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 
-  textBackground: {
-    background: "white"
-  },
-  /*grid papers*/
-  paper: {
-    padding: theme.spacing(2, 2), 
-    textAlign: 'center',
-    color: theme.palette.text.primary,
-    background: theme.palette.background.default,
-  },
-
   /*containers*/
   innerContainer: {
     alignItems: "stretch",
@@ -31,6 +20,8 @@ const signStyles = makeStyles((theme) => ({
     overflow: "hidden", 
     display: "flex",
     justifyContent: "center",
+    padding: theme.spacing(2, 2), 
+    textAlign: 'center',
   },
 
   signContainer: {
@@ -82,7 +73,6 @@ const signStyles = makeStyles((theme) => ({
 
 const SignUp = (props) => {
   const classes = signStyles();
-
     return (
       <React.Fragment>
         <CssBaseline />
@@ -92,35 +82,31 @@ const SignUp = (props) => {
                 <Grid container spacing={0}>
                   {/*Text and Image */}
                     <Grid item xs={5}>
-                      <Paper elevation = {0} className={classes.paper}>
-                        <Container className = {classes.textContainer}>
-                          <h1>Create Your Team</h1>
-                            <Container>
-                              <h4>~ Description of our organization ~</h4>
-                                <img src = {SignUpImage} alt = "hand"/>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, tempora 
-                                    eligendi! Nisi provident quidem ex. Eligendi blanditiis consequatur reiciendis ullam
-                                    autem ducimus in nulla modi, tenetur doloremque nemo voluptas delectus. Lorem ipsum dolor sit 
-                                    amet consectetur adipisicing elit. Culpa provident incidunt quia.
-                                    Eligendi incidunt possimus, cum omnis facere voluptatibus atque! Autem maxime sequi numquam quod quibusdam ratione quasi, nesciunt consequuntur?</p>  
-                              </Container> 
-                        </Container>
-                      </Paper>
+                      <Container className = {classes.textContainer}>
+                        <h1>Create Your Team</h1>
+                          <Container>
+                            <h4>~ Description of our organization ~</h4>
+                              <img src = {SignUpImage} alt = "hand"/>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, tempora 
+                                  eligendi! Nisi provident quidem ex. Eligendi blanditiis consequatur reiciendis ullam
+                                  autem ducimus in nulla modi, tenetur doloremque nemo voluptas delectus. Lorem ipsum dolor sit 
+                                  amet consectetur adipisicing elit. Culpa provident incidunt quia.
+                                  Eligendi incidunt possimus, cum omnis facere voluptatibus atque! Autem maxime sequi numquam quod quibusdam ratione quasi, nesciunt consequuntur?</p>  
+                            </Container> 
+                      </Container>
                     </Grid>
                   {/*Sign up box */}
                   <Grid item xs={6}>
-                    <Paper elevation = {0} className={classes.paper}>
-                      <Container disableGutters = {true} className={classes.signContainer}>
-                        <Container className={classes.signHeader}>
-                          <h1>SIGN UP</h1>
-                        </Container>
-                         {/**renders here differently depending on usertype */}
-                        {props.individual ? individual : organization}
-                      <Container className={classes.signFooter}>
-                        <Button fullWidth = {true} color ="primary" variant = "contained">Sign Up</Button>
+                    <Container disableGutters = {true} className={classes.signContainer}>
+                      <Container className={classes.signHeader}>
+                        <h1>SIGN UP</h1>
                       </Container>
+                        {/**renders here differently depending on usertype */}
+                        {props.individual ? individual : organization}
+                    <Container className={classes.signFooter}>
+                      <Button fullWidth = {true} color ="primary" variant = "contained">Sign Up</Button>
                     </Container>
-                  </Paper>
+                  </Container>
                 </Grid>
               </Grid>
             </div>

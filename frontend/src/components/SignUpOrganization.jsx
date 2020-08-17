@@ -26,6 +26,9 @@ export default function SignUp() {
                   <TextField label = "EIN (Employer Identification Number)"/>
               </Grid>
               <Grid item xs={12}>
+                  <TextField label = "Username"/>
+              </Grid>
+              <Grid item xs={12}>
                   <TextField type = "tel" label = "Phone Number"/>
               </Grid>
               <Grid item xs={12}>

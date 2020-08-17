@@ -56,6 +56,7 @@ const LoginStyles = makeStyles((theme) => ({
     alignItems: "center", 
     boxSizing: "border-box", 
     overflow: "auto",
+    borderRadius: "7px 7px 7px 7px",
     transform: "matrix(1, 0, 0, 1, 0, 0)"
   },
   

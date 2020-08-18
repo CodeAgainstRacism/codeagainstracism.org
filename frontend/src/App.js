@@ -1,42 +1,26 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
+import { configureStore } from "./redux-store";
+import { BrowserRouter } from "react-router-dom";
+
+import NavBar from "./components/NavBar";
+import Main from "./containers/Main";
 import "normalize.css/normalize.css";
 import "./styles/styles.scss";
 
-import LandingPage from "./pages/LandingPage";
-import SignUp from "./pages/SignUp";
-import LogIn from "./pages/LogIn";
-import Projects from "./pages/Projects";
-import News from "./pages/News";
-import FAQ from "./pages/FAQ";
-import About from "./pages/About";
-import NotFoundPage from "./pages/NotFound";
-import NavBar from "./components/NavBar";
-import UserTypePage from "./pages/UserType";
+const reduxStore = configureStore();
 
 class App extends React.Component {
   render() {
     return (
-      <BrowserRouter>
-        <div>
-          <NavBar />
+      <Provider store={reduxStore}>
+        <BrowserRouter>
           <div>
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route exact path="/about" component={About} />
-              <Route exact path="/projects" component={Projects} />
-              <Route exact path="/news" component={News} />
-              <Route exact path="/faq" component={FAQ} />
-              <Route exact path="/signup" component={SignUp} />
-              <Route exact path="/login" component={LogIn} />
-              <Route exact path="/userType" component={UserTypePage} />
-              <Route exact path="/signUp/Individual" render={() => <SignUp individual/>} />
-              <Route exact path="/signUp/Organization" render={()=> <SignUp organization/>} />
-              <Route component={NotFoundPage} />
-            </Switch>
+            <NavBar />
+            <Main />
           </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

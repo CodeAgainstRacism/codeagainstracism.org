@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Organization } from '../organizations/organization.entity';
+import { Url } from 'url';
 
 @Entity()
 export class Project {
@@ -41,6 +42,10 @@ export class Project {
   @ApiProperty({ example: new Date('2020-07-15T22:50:43.000Z') })
   updatedAt: Date;
 
+  @Column()
+  @ApiProperty({ example: new URL('https://i.imgur.com/TTFCXdv.png') })
+  imageURL: Url;
+
   @ManyToOne(
     () => Organization,
     (organization: Organization) => organization.projects,
@@ -57,6 +62,7 @@ export class Project {
     description?: string,
     startDate?: Date,
     endDate?: Date,
+    imageURL?: Url,
     organization?: Organization,
   ) {
     this.id = id;
@@ -64,6 +70,7 @@ export class Project {
     this.description = description;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.imageURL = imageURL;
     this.organization = organization;
   }
 }

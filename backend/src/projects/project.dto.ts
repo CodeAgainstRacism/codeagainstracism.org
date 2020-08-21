@@ -7,6 +7,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { Url } from 'url';
 
 export class ProjectDto {
   @IsNotEmpty()
@@ -31,6 +32,12 @@ export class ProjectDto {
   @Type(() => Date)
   @ApiProperty({ example: '2020/07/16' })
   endDate: Date;
+
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date)
+  @ApiProperty({ example: '2020/07/16' })
+  imageURL: Url;
 
   @ApiProperty({ example: 1 })
   organizationId: number;

@@ -36,6 +36,7 @@ describe('Project entity', () => {
       'A simple cli to input and store your ideas directly with git and without a text editor',
       new Date('2020/06/05'),
       new Date('2020/06/15'),
+      new URL('https://i.imgur.com/TTFCXdv.png'),
       new Organization(0),
     );
 

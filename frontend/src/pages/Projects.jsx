@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState} from "react";
 import {
   Box,
   Container,
-  fade,
   Grid,
   makeStyles,
   Typography,
@@ -11,6 +10,7 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import ProjectCard from "../components/ProjectCard";
 import axios from 'axios';
+import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   contentStyle: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   marginStyle: {
-    margin: theme.spacing(3),
+    marginTop: theme.spacing(3),
   },
   dividerContainer: {
     display: "flex",
@@ -36,51 +36,30 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     overflow: "visible",
     textAlign: "center",
-    width: "30%",
+    width: "50%",
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+    backgroundColor: theme.palette.common.white,
+  },
+  inputStyle: {
+    display: "flex",
+    justifyContent: "center",
     alignItems: "center",
+    textAlign: "center",
+    width: "25%",
+    backgroundColor: "white",
   },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
+  iconStyle: {
+    paddingLeft: theme.spacing(0.5),
+  }
 }));
 
 export default function Projects() {
   const classes = useStyles();
   const [projectList, setProjectList] = useState([]);
+  const [searchedCard, setSearchedCard] = useState("");
 
   useEffect(()=>{
     axios.get('http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects', {
@@ -89,9 +68,17 @@ export default function Projects() {
     }
     })
     .then(function (response) {
-      console.log(response);
-      if(response.status == 200){
-        setProjectList(response.data);
+      if(response.status === 200){
+        const { data } = response;
+        const newCard = [];
+        data.forEach((card, index) => {
+          newCard[index] = {
+            id: card.id,
+            name: card.name,
+            description: card.description,
+          };
+        });
+        setProjectList(newCard);
       }
     })
     .catch(function (error) {
@@ -99,11 +86,14 @@ export default function Projects() {
     })
   });
 
-  const getProjectCards = projectCardsObj => {
+  const handleSearch = (event) => {
+    setSearchedCard(event.target.value);
+  }
+
+  const getProjectCards = projectCardObj => {
     return (
-      <Grid item xs={12} sm={4}>
-        <ProjectCard {...projectCardsObj} />
-        {/* TODO: change card title's and image, pass in props */}
+      <Grid item xs={12} sm={6} lg={4} key={projectCardObj.id}>
+        <ProjectCard {...projectCardObj} />
       </Grid>
     );
   }
@@ -112,42 +102,41 @@ export default function Projects() {
     <Fragment>
       <Container maxWidth="lg" direction="column">
         <Grid container className={classes.contentStyle}>
-          <Grid xs={0} sm={2} item />
-          <Grid xs={12} sm={8} item direction="column"> {/* Header container */}
+          <Grid item container direction="column">
             <Grid item className={classes.marginStyle}>
               <Box className={classes.dividerContainer}>
                 <hr className={classes.line}/>
                 <Typography
-                  variant="h3"
+                  variant="h4"
                   align="center"
                   gutterBottom
+                  className={classes.projectTitle}
                 >
                   All Projects
                 </Typography>
                 <hr className={classes.line}/>
               </Box>
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
+              <div className={classes.contentStyle}>
+                <div className={classes.inputStyle}>
+                  <SearchIcon className={classes.iconStyle}/>
+                  <InputBase
+                    className={classes.input}
+                    placeholder="Search for a project"
+                    inputProps={{ 'aria-label': 'search for a project' }}
+                    onChange={handleSearch}
+                  />
                 </div>
-                <InputBase
-                  placeholder="Search…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{ 'aria-label': 'search' }}
-                />
               </div>
             </Grid>
-            <Grid item container spacing={4}> {/* Body container */}
-              {/* Populate project cards here */}
-              {projectList.map(projectCardsObj => getProjectCards(projectCardsObj))}
+            <Grid item container spacing={3} className={classes.marginStyle}>
+              {projectList.map(projectCardObj =>
+                projectList[projectCardObj.id - 1].name.toLowerCase().includes(searchedCard) &&
+                getProjectCards(projectCardObj))}
             </Grid>
           </Grid>
-          <Grid xs={0} sm={2} item />
         </Grid>
       </Container>
+      <Footer />
     </Fragment>
   );
 }

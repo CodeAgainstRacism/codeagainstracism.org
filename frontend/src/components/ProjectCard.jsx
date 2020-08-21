@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProjectCard = (props) => {
   const classes = useStyles();
-  const { title, image } = props;
+  const { name, description } = props;
 
   return (
     <Card className={classes.card}>
@@ -44,11 +44,10 @@ const ProjectCard = (props) => {
       />
       <CardContent className={classes.cardContent}>
         <Typography gutterBottom variant="h5">
-          Title
+          {name}
         </Typography>
         <Typography align="left">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-          Voluptate impedit magnam culpa
+          {description}
         </Typography>
       </CardContent>
       <CardActions className={classes.flexBoxCenter}>

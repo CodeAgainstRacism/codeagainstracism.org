@@ -5,7 +5,6 @@ import { Link as RouterLink } from "react-router-dom";
 import classNames from "classnames";
 import {
   Button,
-  ButtonBase,
   CardActionArea,
   CardContent,
   CardMedia,
@@ -13,46 +12,46 @@ import {
   Grid,
   Radio,
   makeStyles,
+  useTheme,
   Typography,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  flexBoxCenter: {
+  flexCenter: {
     display: "flex",
-    alignContent: "center",
-    textAlign: "center",
+    justifyContent: "center",
   },
   headerStyle: {
     marginBottom: "3rem",
   },
   headerTextStyle: {
-    marginTop: "2rem",
+    margin: "1rem 0 0.25rem 0",
     fontWeight: "bold",
+    fontSize: "2.75rem",
   },
   contentCenter: {
     display: "flex",
     justifyContent: "center",
     background: theme.palette.background.paper,
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
     borderRadius: "3%",
-  },
-  textStyle: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   },
   cardStyle: {
     borderRadius: "4px",
     backgroundColor: "transparent",
     boxShadow: "none",
     width: "100%",
-    padding: theme.spacing(0, 5),
   },
   buttonStyle: {
     color: "white",
     backgroundColor: "black",
+    fontWeight: "bold",
+    fontSize: "1rem",
+    textAlgin: "center",
+    letterSpacing: "0.25rem",
     width: "10rem",
-    marginTop: "2rem",
+    margin: "1rem 0",
+    padding: theme.spacing(1.5, 3),
   },
   radioStyle: {
     "&$checked": {
@@ -63,23 +62,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   checked: {},
-  flexColumn: {
-    flexDirection: "column",
-    width: "100%",
-    "&:hover": {
-      backgroundColor: "rgb(229, 229, 229)",
-    },
-  },
-  widthStyle: {
-    width: "calc(50% - 30px)",
-  },
-  spaceStyle: {
-    justifyContent: "space-between",
+  image: {
+    height: "40vh",
+    objectFit: "fill",
+    maxHeight: "100%",
+    maxWidth: "100%",
   },
 }));
 
 const UserTypePage = () => {
   const classes = useStyles();
+  const theme = useTheme();
   const [selectedValue, setSelectedValue] = useState("");
 
   const handleJoin = (event) => {
@@ -92,96 +85,86 @@ const UserTypePage = () => {
 
   return (
     <Container maxWidth="lg" direction="column">
-      <Grid container className={classes.contentCenter}>
+      <Grid container className={classes.contentCenter} spacing={3}>
         <Grid item xs={12} direction="column">
-          <Typography
-            variant="h3"
-            gutterBottom
-            className={classNames(classes.textStyle, classes.headerTextStyle)}
-            align="center"
-          >
+          <Typography className={classes.headerTextStyle} align="center">
             Welcome to Code Against Racism
           </Typography>
           <Typography variant="h6" gutterBottom align="center">
             We are so excited to see you join our teams of warriors!
           </Typography>
-          <Typography variant="body1" gutterBottom align="center">
+          <Typography variant="body2" gutterBottom align="center">
             Please choose one of these options
           </Typography>
         </Grid>
-        <Grid item container className={classes.spaceStyle}>
-          <Grid item xs={6} className={classes.widthStyle}>
-            <CardActionArea className={classes.cardStyle}>
-              <ButtonBase
-                focusRipple
-                onClick={handleJoin}
+
+        <Grid item xs={5}>
+          <CardActionArea className={classes.cardStyle} onClick={handleJoin}>
+            <CardContent>
+              <CardMedia
+                className={classes.image}
+                title="Blogging"
+                image={Blogging}
+                style={{ marginBottom: theme.spacing(3) }}
+              />
+              <Typography variant="h6" align="center">
+                I want to join an existing team
+              </Typography>
+              <Radio
+                className={classNames(
+                  classes.flexCenter,
+                  classes.radioStyle,
+                  classes.checked
+                )}
+                disableRipple={true}
+                checked={selectedValue === "individual"}
                 value="individual"
-                className={classes.flexColumn}
-              >
-                <CardMedia component="img" image={Blogging} />
-                <CardContent>
-                  <Typography variant="body1" className={classes.textStyle}>
-                    I want to join an existing team
-                  </Typography>
-                  <Radio
-                    className={classNames(
-                      classes.contentCenter,
-                      classes.radioStyle,
-                      classes.checked
-                    )}
-                    disableRipple={true}
-                    checked={selectedValue === "individual"}
-                    value="individual"
-                    inputProps={{ "aria-label": "individual" }}
-                  />
-                </CardContent>
-              </ButtonBase>
-            </CardActionArea>
-          </Grid>
-          <Grid item xs={6} className={classes.widthStyle}>
-            <CardActionArea className={classes.cardStyle}>
-              <ButtonBase
-                focusRipple
-                onClick={handleCreate}
+                inputProps={{ "aria-label": "individual" }}
+              />
+            </CardContent>
+          </CardActionArea>
+        </Grid>
+        <Grid item xs={1}></Grid>
+        <Grid item xs={5}>
+          <CardActionArea className={classes.cardStyle} onClick={handleCreate}>
+            <CardContent>
+              <CardMedia
+                className={classes.image}
+                title="Planning"
+                style={{ marginBottom: theme.spacing(3) }}
+                image={Plan}
+              />
+              <Typography variant="h6" align="center">
+                I want to create a new team
+              </Typography>
+              <Radio
+                className={classNames(
+                  classes.flexCenter,
+                  classes.radioStyle,
+                  classes.checked
+                )}
+                disableRipple={true}
+                checked={selectedValue === "organization"}
                 value="organization"
-                className={classes.flexColumn}
-              >
-                <CardMedia component="img" image={Plan} />
-                <CardContent>
-                  <Typography variant="body1" className={classes.textStyle}>
-                    I want to create a new team
-                  </Typography>
-                  <Radio
-                    className={classNames(
-                      classes.contentCenter,
-                      classes.radioStyle,
-                      classes.checked
-                    )}
-                    disableRipple={true}
-                    checked={selectedValue === "organization"}
-                    value="organization"
-                    inputProps={{ "aria-label": "organization" }}
-                  />
-                </CardContent>
-              </ButtonBase>
-            </CardActionArea>
-          </Grid>
+                inputProps={{ "aria-label": "organization" }}
+              />
+            </CardContent>
+          </CardActionArea>
         </Grid>
-        <Grid item className={classes.contentCenter}>
-          <Button
-            variant="contained"
-            className={classes.buttonStyle}
-            disabled={!selectedValue}
-            component={RouterLink}
-            to={
-              selectedValue === "individual"
-                ? "/signup/Individual"
-                : "/signup/Organization"
-            }
-          >
-            Next
-          </Button>
-        </Grid>
+
+        <Button
+          variant="contained"
+          className={classes.buttonStyle}
+          disabled={!selectedValue}
+          component={RouterLink}
+          to={
+            selectedValue === "individual"
+              ? "/signup/Individual"
+              : "/signup/Organization"
+          }
+        >
+          Next
+        </Button>
       </Grid>
     </Container>
   );

@@ -54,7 +54,7 @@ export class Organization {
     () => Project,
     (project: Project) => project.organization,
   )
-  projects: Project[];
+  projects: Project[]; 
 
   constructor(
     id?: number,

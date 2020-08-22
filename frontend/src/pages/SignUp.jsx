@@ -5,6 +5,7 @@ class SignUp extends React.Component {
     return (
       <div>
         <form className="auth-form-container">
+          <h1> {this.props.individual ? "Individual" : "Organization"} </h1>
           <div>
             <label htmlFor="name">Name of Organization: </label>
             <input type="text" name="name"></input>

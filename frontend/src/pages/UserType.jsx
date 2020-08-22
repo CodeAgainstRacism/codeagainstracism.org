@@ -21,23 +21,20 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
   },
-  headerStyle: {
-    marginBottom: "3rem",
-  },
-  headerTextStyle: {
-    margin: "1rem 0 0.25rem 0",
+  headerTextStyle: {    
+    margin: theme.spacing(2, 0, 0.5, 0),
     fontWeight: "bold",
-    fontSize: "2.75rem",
+    fontSize: theme.spacing(5.5)
   },
   contentCenter: {
     display: "flex",
     justifyContent: "center",
     background: theme.palette.background.paper,
     marginTop: theme.spacing(3),
-    borderRadius: "3%",
+    borderRadius: theme.spacing(3),
   },
   cardStyle: {
-    borderRadius: "4px",
+    borderRadius: theme.spacing(0.5),
     backgroundColor: "transparent",
     boxShadow: "none",
     width: "100%",
@@ -46,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     backgroundColor: "black",
     fontWeight: "bold",
-    fontSize: "1rem",
+    fontSize: theme.spacing(2),
     textAlgin: "center",
-    letterSpacing: "0.25rem",
-    width: "10rem",
-    margin: "1rem 0",
+    letterSpacing: theme.spacing(0.5),
+    width: theme.spacing(20),
+    margin: theme.spacing(2, 0),
     padding: theme.spacing(1.5, 3),
   },
   radioStyle: {

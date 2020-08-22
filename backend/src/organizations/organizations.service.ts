@@ -1,15 +1,17 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Inject, Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
 import { OrganizationDto } from './organization.dto';
 import { Organization } from './organization.entity';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class OrganizationsService {
   constructor(
     @InjectRepository(Organization)
     private readonly organizationsRepository: Repository<Organization>,
+    @Inject(UsersService)
+    private readonly userService: UsersService,
   ) {}
 
   async create(organizationDto: OrganizationDto): Promise<Organization> {
@@ -27,10 +29,15 @@ export class OrganizationsService {
       );
     }
 
-    const organization = this.organizationsRepository.create(organizationDto);
-    organization.encryptedPassword = OrganizationsService.encrypt(
-      organizationDto.password,
+    const organization = await this.organizationsRepository.create(
+      organizationDto,
     );
+
+    if (organizationDto.adminUserId !== undefined) {
+      organization.adminUser = await this.userService.findOne(
+        organizationDto.adminUserId,
+      );
+    }
 
     return this.organizationsRepository.save(organization);
   }
@@ -40,7 +47,9 @@ export class OrganizationsService {
   }
 
   async findOne(id: number): Promise<Organization> {
-    const organization = await this.organizationsRepository.findOne(id);
+    const organization = await this.organizationsRepository.findOne(id, {
+      relations: ['adminUser', 'projects'],
+    });
     if (organization === undefined) {
       throw new HttpException(
         {
@@ -73,30 +82,27 @@ export class OrganizationsService {
 
   public async update(
     id: number,
-    organization: OrganizationDto,
+    organizationDto: OrganizationDto,
   ): Promise<Organization> {
-    await this.findOne(id); // checks if the organization exists
-    if (organization.password) {
-      await this.organizationsRepository.update(id, {
-        encryptedPassword: OrganizationsService.encrypt(organization.password),
-      });
-      delete organization.password;
-    }
-    await this.organizationsRepository.update(id, organization);
+    const organization = await this.findOne(id); // checks if the organization exists
 
-    return this.organizationsRepository.findOne(id);
+    if (organizationDto.adminUserId) {
+      const user = await this.userService.findOne(organizationDto.adminUserId);
+      delete organizationDto.adminUserId;
+      organization.adminUser = user;
+    }
+    Object.assign(organization, organizationDto);
+
+    return this.organizationsRepository.save(organization);
   }
 
   async remove(id: number): Promise<void> {
-    await this.findOne(id); // checks if the organization exists
-    await this.organizationsRepository.delete(id);
-  }
+    const organization = await this.findOne(id); // checks if the organization exists
 
-  /**
-   * Returns the encrypted password using bcrypt
-   * @param password password to encrypt
-   */
-  public static encrypt(password: string): string {
-    return bcrypt.hashSync(password, 10);
+    // unlinks admin user relation to avoid cascade deletion
+    organization.adminUser = null;
+    await this.organizationsRepository.save(organization);
+
+    await this.organizationsRepository.delete(id);
   }
 }

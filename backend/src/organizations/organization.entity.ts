@@ -4,8 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  OneToOne,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { User } from '../users/user.entity';
+import { Project } from '../projects/project.entity';
 
 @Entity()
 export class Organization {
@@ -34,16 +37,24 @@ export class Organization {
   contactLastName: string;
 
   @Column()
-  @Exclude({ toPlainOnly: true })
-  encryptedPassword: string;
-
-  @Column()
   @CreateDateColumn()
   createdAt: Date;
 
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne(
+    () => User,
+    (user: User) => user.ownedOrganization,
+  )
+  adminUser: User;
+
+  @OneToMany(
+    () => Project,
+    (project: Project) => project.organization,
+  )
+  projects: Project[];
 
   constructor(
     id?: number,
@@ -54,7 +65,7 @@ export class Organization {
     email?: string,
     contactFirstName?: string,
     contactLastName?: string,
-    encryptedPassword?: string,
+    adminUser?: User,
   ) {
     this.id = id;
     this.EIN = EIN;
@@ -64,6 +75,6 @@ export class Organization {
     this.email = email;
     this.contactFirstName = contactFirstName;
     this.contactLastName = contactLastName;
-    this.encryptedPassword = encryptedPassword;
+    this.adminUser = adminUser;
   }
 }

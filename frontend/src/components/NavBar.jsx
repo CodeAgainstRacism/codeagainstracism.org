@@ -59,6 +59,7 @@ const NavBar = (props) => {
               variant="subtitle2"
               component={RouterLink}
               to="/"
+              underline="none"
             >
               Logo
             </Link>
@@ -71,6 +72,7 @@ const NavBar = (props) => {
                   component={RouterLink}
                   to="/about"
                   color="inherit"
+                  underline="none"
                 >
                   ABOUT
                 </Link>
@@ -81,6 +83,7 @@ const NavBar = (props) => {
                   component={RouterLink}
                   to="/projects"
                   color="inherit"
+                  underline="none"
                 >
                   PROJECTS
                 </Link>
@@ -91,6 +94,7 @@ const NavBar = (props) => {
                   component={RouterLink}
                   to="/news"
                   color="inherit"
+                  underline="none"
                 >
                   NEWS
                 </Link>
@@ -101,6 +105,7 @@ const NavBar = (props) => {
                   component={RouterLink}
                   to="/faq"
                   color="inherit"
+                  underline="none"
                 >
                   FAQ
                 </Link>
@@ -114,6 +119,7 @@ const NavBar = (props) => {
               to="/login"
               color="inherit"
               className={classes.rightButton}
+              underline="none"
             >
               LOGIN
             </Link>
@@ -124,6 +130,7 @@ const NavBar = (props) => {
               color="secondary"
               variant="contained"
               className={classes.rightButton}
+              underline="none"
             >
               SIGN UP
             </Button>

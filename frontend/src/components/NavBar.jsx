@@ -55,7 +55,7 @@ const NavBar = (props) => {
         <Toolbar className={classes.toolbar}>
           <IconButton>
             <Link
-              color="primary"              
+              color="primary"
               variant="subtitle2"
               component={RouterLink}
               to="/"
@@ -110,7 +110,6 @@ const NavBar = (props) => {
           <Box className={classes.toolbarRight}>
             <Link
               variant="subtitle1"
-              variant="subtitle2"
               component={RouterLink}
               to="/login"
               color="inherit"
@@ -120,19 +119,13 @@ const NavBar = (props) => {
             </Link>
 
             <Button
-              href="#"
+              component={RouterLink}
+              to="/userType"
               color="secondary"
               variant="contained"
               className={classes.rightButton}
             >
-              <Link
-                variant="subtitle2"
-                component={RouterLink}
-                to="/userType"
-                color="textPrimary"
-              >
-                SIGN UP
-              </Link>
+              SIGN UP
             </Button>
           </Box>
         </Toolbar>

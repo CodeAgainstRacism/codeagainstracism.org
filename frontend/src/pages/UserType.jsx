@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
   },
-  headerTextStyle: {    
+  headerTextStyle: {
     margin: theme.spacing(2, 0, 0.5, 0),
     fontWeight: "bold",
-    fontSize: theme.spacing(5.5)
+    fontSize: theme.spacing(5.5),
   },
   contentCenter: {
     display: "flex",
@@ -83,7 +83,7 @@ const UserTypePage = () => {
   return (
     <Container maxWidth="lg" direction="column">
       <Grid container className={classes.contentCenter} spacing={3}>
-        <Grid item xs={12} direction="column">
+        <Grid item xs={12}>
           <Typography className={classes.headerTextStyle} align="center">
             Welcome to Code Against Racism
           </Typography>

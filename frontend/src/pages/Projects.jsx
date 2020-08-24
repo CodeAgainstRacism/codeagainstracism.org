@@ -57,18 +57,10 @@ const useStyles = makeStyles((theme) => ({
   iconStyle: {
     paddingLeft: theme.spacing(0.5),
   },
-  bodyStyle: { // may delete
-    minHeight: '100vh',
-    width: '100vh',
-    marginTop: theme.spacing(3),
-  },
   paginationStyle: {
     margin: theme.spacing(4),
     display: 'flex',
     justifyContent: 'center',
-  },
-  footerStyle: {
-    flexShrink: 0,
   },
   viewStyle: {
     minHeight: '100vh',
@@ -191,7 +183,6 @@ export default function Projects() {
           </div>
         </Grid>
       </Container>
-      <Footer className={classes.footerStyle}/>
     </Fragment>
   );
 }

@@ -45,7 +45,6 @@ export class Project {
   @ApiProperty({ example: new Date('2020-07-15T22:50:43.000Z') })
   updatedAt: Date;
 
-
   @ManyToOne(
     () => Organization,
     (organization: Organization) => organization.projects,

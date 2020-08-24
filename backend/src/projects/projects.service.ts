@@ -47,12 +47,12 @@ export class ProjectsService {
   }
 
   async findFeatured(isFeatured: boolean): Promise<Project[]> {
-    const project = await this.projectsRepository.find({
+    const projects = await this.projectsRepository.find({
       where: { isFeatured },
       select: ['id', 'description', 'startDate', 'endDate', 'organization', 'isFeatured', 'createdAt', 'updatedAt'],
     });
 
-    if (project === undefined) {
+    if (projects === undefined) {
       throw new HttpException(
         {
           status: HttpStatus.NOT_FOUND,
@@ -62,7 +62,7 @@ export class ProjectsService {
       );
     }
 
-    return project;
+    return projects;
   }
 
   public async update(id: number, project: ProjectDto): Promise<Project> {

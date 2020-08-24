@@ -5,9 +5,23 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiProperty,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { User } from '../users/user.entity';
+
+class AuthResponse {
+  @ApiProperty()
+  accessToken: string;
+
+  @ApiProperty()
+  user: User;
+}
 
 @Controller('auth')
 @ApiTags('auth')
@@ -19,13 +33,14 @@ export class AuthController {
   @ApiResponse({
     status: 201,
     description: 'Sends the accessToken and the corresponding user',
+    type: AuthResponse,
   })
   @ApiResponse({
     status: 401,
     description:
       'Unauthorized access. The email and password combination do not match or do not exist.',
   })
-  async login(@Body() payload: JwtPayload): Promise<any> {
+  async login(@Body() payload: JwtPayload): Promise<AuthResponse> {
     const user = await this.authService.validateUser(payload);
 
     if (!user) {

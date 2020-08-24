@@ -31,7 +31,7 @@ export class OrganizationsController {
   @ApiOperation({ summary: 'Fetches all organizations' })
   @ApiResponse({
     status: 200,
-    description: 'An array of with the organizations',
+    description: 'An array of all the organizations',
   })
   findAll(): Promise<Organization[]> {
     return this.organizationsService.findAll();

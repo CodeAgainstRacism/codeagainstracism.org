@@ -13,6 +13,10 @@ import About from "./pages/About";
 import NotFoundPage from "./pages/NotFound";
 import NavBar from "./components/NavBar";
 import UserTypePage from "./pages/UserType";
+import AccountInfo from "./pages/AccountInfo";
+import YourProjects from "./pages/YourProjects";
+import YourTeams from "./pages/YourTeams";
+import NewProjectForm from "./pages/NewProjectForm";
 
 class App extends React.Component {
   render() {
@@ -32,6 +36,10 @@ class App extends React.Component {
               <Route exact path="/userType" component={UserTypePage} />
               <Route exact path="/signUp/Individual" render={() => <SignUp individual/>} />
               <Route exact path="/signUp/Organization" render={()=> <SignUp organization/>} />
+              <Route path="/create_projects" component={NewProjectForm} exact={true} />
+              <Route path="/account_details" component={AccountInfo} exact={true} />
+              <Route path="/your_projects" component={YourProjects} exact={true} />
+              <Route path="/your_teams" component={YourTeams} exact={true} />
               <Route component={NotFoundPage} />
             </Switch>
           </div>

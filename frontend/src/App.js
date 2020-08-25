@@ -12,6 +12,9 @@ import About from "./pages/About";
 import NotFoundPage from "./pages/NotFound";
 import NewProjectForm from "./pages/NewProjectForm";
 import NavBar from "./components/NavBar";
+import AccountInfo from "./pages/AccountInfo";
+import YourProjects from "./pages/YourProjects";
+import YourTeams from "./pages/YourTeams";
 
 class App extends React.Component {
   render() {
@@ -23,11 +26,14 @@ class App extends React.Component {
             <Switch>
               <Route exact={true} path="/" component={LandingPage} />
               <Route path="/about" component={About} exact={true} />
-              <Route path="/projects" component={NewProjectForm} exact={true} /> {/**originally projects */}
+              <Route path="/projects" component={Projects} exact={true} /> {/**originally projects */}
               <Route path="/news" component={News} exact={true} />
               <Route path="/faq" component={FAQ} exact={true} />
               <Route path="/signup" component={SignUp} exact={true} />
-              <Route path="/login" component={LogIn} exact={true} />
+              <Route path="/create_projects" component={NewProjectForm} exact={true} />
+              <Route path="/account_details" component={AccountInfo} exact={true} />
+              <Route path="/your_projects" component={YourProjects} exact={true} />
+              <Route path="/your_teams" component={YourTeams} exact={true} />
               <Route component={NotFoundPage} />
             </Switch>
           </div>

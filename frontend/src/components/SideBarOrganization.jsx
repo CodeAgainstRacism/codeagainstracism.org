@@ -21,7 +21,7 @@ const sideBarStyles = makeStyles((theme)  => ({
         height: "120vh",
         paddingTop: "15%",
         alignItems: "center",
-        backgroundColor: "#2b3340",
+        backgroundColor: "#323b4a",
         color: theme.palette.text.secondary
     },
 }));
@@ -41,7 +41,7 @@ export default function SideBar(){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/about">
+                    to="/account_details">
                     <ListItemIcon>
                         <AccountBoxIcon color="secondary" />
                     </ListItemIcon>
@@ -51,7 +51,7 @@ export default function SideBar(){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/about">
+                    to="/create_projects">
                     <ListItemIcon>
                         <CreateIcon color="secondary" />
                     </ListItemIcon>
@@ -60,7 +60,7 @@ export default function SideBar(){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/about">
+                    to="/your_projects">
                     <ListItemIcon>
                         <FolderIcon color="secondary"/>
                     </ListItemIcon>
@@ -69,7 +69,7 @@ export default function SideBar(){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/about">
+                    to="/your_teams">
                     <ListItemIcon>
                         <GroupIcon color="secondary"/>
                     </ListItemIcon>

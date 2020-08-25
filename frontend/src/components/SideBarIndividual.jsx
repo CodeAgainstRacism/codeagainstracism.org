@@ -8,8 +8,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import FolderIcon from '@material-ui/icons/Folder';
-import CreateIcon from '@material-ui/icons/Create';
-import GroupIcon from '@material-ui/icons/Group';
 import PersonIcon from '@material-ui/icons/Person';
 
 //use styling hook here to align name and png next to each other
@@ -21,7 +19,7 @@ const sideBarStyles = makeStyles((theme)  => ({
         height: "120vh",
         paddingTop: "15%",
         alignItems: "center",
-        backgroundColor: "#242424",
+        backgroundColor: "#323b4a",
         color: theme.palette.text.secondary
     },
 }));
@@ -41,7 +39,7 @@ export default function SideBar(){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/about">
+                    to="/account_details">
                     <ListItemIcon>
                         <AccountBoxIcon color="secondary"/>
                     </ListItemIcon>
@@ -50,7 +48,7 @@ export default function SideBar(){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/about">
+                    to="/your_projects">
                     <ListItemIcon>
                         <FolderIcon color="secondary" />
                     </ListItemIcon>

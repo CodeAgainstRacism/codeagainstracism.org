@@ -1,6 +1,7 @@
 import React from "react";
 import {
   makeStyles,
+  useTheme,
   Box,
   Button,
   Card,
@@ -13,7 +14,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import HeroImage from "../assets/Landing_Hero.svg";
-import Footer from "../components/Footer";
+import LineOnSide_Header from "../components/LineOnSide_Header";
 
 const useStyles = makeStyles((theme) => ({
   flexBox: {
@@ -58,26 +59,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 0),
     fontWeight: "bold",
     fontSize: "",
-  },
-
-  /* Projects Title */
-  dividerContainer: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: theme.spacing(5),
-  },
-  projectTitle: {
-    alignText: "center",
-    display: "inline",
-    padding: theme.spacing(0, 5),
-  },
-  line: {
-    border: "none",
-    borderTop: `3px solid ${theme.palette.text.primary}`,
-    color: theme.palette.text.secondary,
-    overflow: "visible",
-    textAlign: "center",
-    width: "50%",
   },
 
   /* Feature Project */
@@ -129,6 +110,7 @@ const cards = [1, 2, 3, 4, 5, 6];
 
 const LandingPage = (props) => {
   const classes = useStyles();
+  const theme = useTheme();
 
   return (
     <React.Fragment>
@@ -180,14 +162,9 @@ const LandingPage = (props) => {
         </Container>
         {/* End hero Box */}
         <Container className={classes.cardGrid} maxWidth="lg">
-          <Box className={classes.dividerContainer}>
-            <hr className={classes.line} />
-            <Typography variant="h4" className={classes.projectTitle}>
-              PROJECTS
-            </Typography>
-            <hr className={classes.line} />
+          <Box style={{ marginBottom: theme.spacing(5) }}>
+            <LineOnSide_Header title="PROJECTS" variant="h4" />
           </Box>
-
           {/* Featured Project */}
           <Card className={classes.featuredContainer}>
             <Grid container spacing={3}>
@@ -277,9 +254,6 @@ const LandingPage = (props) => {
           {/* Insert Sponsors */}
         </Container>
       </main>
-      {/* Footer */}
-      <Footer />
-      {/* End footer */}
     </React.Fragment>
   );
 };

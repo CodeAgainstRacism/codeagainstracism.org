@@ -7,6 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import Projects from "./pages/Projects";
+import ProjectDetails from "./pages/ProjectDetails";
 import News from "./pages/News";
 import FAQ from "./pages/FAQ";
 import About from "./pages/About";
@@ -25,13 +26,23 @@ class App extends React.Component {
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/about" component={About} />
               <Route exact path="/projects" component={Projects} />
+              <Route exact path="/projects/:id" component={ProjectDetails} />
+
               <Route exact path="/news" component={News} />
               <Route exact path="/faq" component={FAQ} />
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/login" component={LogIn} />
               <Route exact path="/userType" component={UserTypePage} />
-              <Route exact path="/signUp/Individual" render={() => <SignUp individual/>} />
-              <Route exact path="/signUp/Organization" render={()=> <SignUp organization/>} />
+              <Route
+                exact
+                path="/signUp/Individual"
+                render={() => <SignUp individual />}
+              />
+              <Route
+                exact
+                path="/signUp/Organization"
+                render={() => <SignUp organization />}
+              />
               <Route component={NotFoundPage} />
             </Switch>
           </div>

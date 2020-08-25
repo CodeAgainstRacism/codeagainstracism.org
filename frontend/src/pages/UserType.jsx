@@ -22,9 +22,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   headerTextStyle: {
-    margin: theme.spacing(2, 0, 0.5, 0),
+    margin: theme.spacing(2, 0, 0, 0),
     fontWeight: "bold",
-    fontSize: theme.spacing(5.5),
   },
   contentCenter: {
     display: "flex",
@@ -38,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "transparent",
     boxShadow: "none",
     width: "100%",
+  },
+  cardContent: {
+    height: "50vh",
   },
   buttonStyle: {
     color: "white",
@@ -61,9 +63,9 @@ const useStyles = makeStyles((theme) => ({
   checked: {},
   image: {
     height: "40vh",
-    objectFit: "fill",
-    maxHeight: "100%",
+    objectFit: "contain",
     maxWidth: "100%",
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -84,10 +86,14 @@ const UserTypePage = () => {
     <Container maxWidth="lg" direction="column">
       <Grid container className={classes.contentCenter} spacing={3}>
         <Grid item xs={12}>
-          <Typography className={classes.headerTextStyle} align="center">
+          <Typography
+            variant="h4"
+            className={classes.headerTextStyle}
+            align="center"
+          >
             Welcome to Code Against Racism
           </Typography>
-          <Typography variant="h6" gutterBottom align="center">
+          <Typography variant="h6" align="center">
             We are so excited to see you join our teams of warriors!
           </Typography>
           <Typography variant="body2" gutterBottom align="center">
@@ -97,12 +103,11 @@ const UserTypePage = () => {
 
         <Grid item xs={5}>
           <CardActionArea className={classes.cardStyle} onClick={handleJoin}>
-            <CardContent>
+            <CardContent className={classes.cardContent}>
               <CardMedia
                 className={classes.image}
                 title="Blogging"
                 image={Blogging}
-                style={{ marginBottom: theme.spacing(3) }}
               />
               <Typography variant="h6" align="center">
                 I want to join an existing team
@@ -124,7 +129,7 @@ const UserTypePage = () => {
         <Grid item xs={1}></Grid>
         <Grid item xs={5}>
           <CardActionArea className={classes.cardStyle} onClick={handleCreate}>
-            <CardContent>
+            <CardContent className={classes.cardContent}>
               <CardMedia
                 className={classes.image}
                 title="Planning"

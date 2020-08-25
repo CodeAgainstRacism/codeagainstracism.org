@@ -16,7 +16,11 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { User } from '../users/user.entity';
 
 class AuthResponse {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The JSON Web Token',
+    example:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsInBhc3N3b3JkIjoicGFzc3dvcmQiLCJpYXQiOjE1OTgzNjc0NDIsImV4cCI6MTU5OTIzMTQ0Mn0.dcidxRTUUi4mJrnbwqLzQcZ5KwIWnZ2QdSQa8DNt874',
+  })
   accessToken: string;
 
   @ApiProperty()
@@ -32,7 +36,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Logs in as a user' })
   @ApiResponse({
     status: 201,
-    description: 'Sends the accessToken and the corresponding user',
+    description: 'Returns the accessToken and the corresponding user',
     type: AuthResponse,
   })
   @ApiResponse({

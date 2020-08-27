@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter, Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-import {Container, Box} from "@material-ui/core";
+import {Container, Grid} from "@material-ui/core";
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,19 +17,12 @@ import PersonIcon from '@material-ui/icons/Person';
 //change links for after user type is merged so you dont have a merge conflict with app js
 const sideBarStyles = makeStyles((theme)  => ({
     sideBarContainer: {
-        width: "100%",
+        width: "17%",
         height: "120vh",
-        paddingTop: "15%",
-        alignItems: "center",
+        paddingTop: "1%",
+        textAlign: "center",
         backgroundColor: "#323b4a",
         color: theme.palette.text.secondary
-    },
-    profileBox:{
-        alignItems: "center"
-    },
-    outerContainer: {
-        width: "215px",
-        alignItems: "center",
     },
 }));
 
@@ -37,12 +30,10 @@ const sideBarStyles = makeStyles((theme)  => ({
 export default function SideBar(){
    const classes = sideBarStyles();
     return(
-        <Container disableGutters = {true} className = {classes.outerContainer}>
+        <Container disableGutters = {true}>
         <Container disableGutters = {true} className = {classes.sideBarContainer}>
-            <Container className = {classes.profileBox}>
-                {/* <PersonIcon fontSize="large" /> */}
-                <h3>Code Against Racism</h3>
-            </Container>
+            <PersonIcon fontSize="large" />
+            <h3>Code Against Racism</h3>
             <List>
                 <Divider/>
                 <ListItem button

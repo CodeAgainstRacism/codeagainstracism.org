@@ -15,10 +15,10 @@ import PersonIcon from '@material-ui/icons/Person';
 
 const sideBarStyles = makeStyles((theme)  => ({
     sideBarContainer: {
-        width: "90%",
+        width: "17%",
         height: "120vh",
-        paddingTop: "15%",
-        alignItems: "center",
+        paddingTop: "1%",
+        textAlign: "center",
         backgroundColor: "#323b4a",
         color: theme.palette.text.secondary
     },
@@ -31,9 +31,8 @@ export default function SideBar(){
 
         <Container disableGutters = {true} className = {classes.sideBarContainer}>
             <Container>
-                {/*<img src = {"avatar.png"}/> */}
                 <PersonIcon fontSize="large" />
-                <h3>Zoosuki Chisaki</h3>
+                <h3>John Doe</h3>
             </Container>
             <List>
                 <Divider/>

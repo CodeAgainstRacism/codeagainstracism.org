@@ -106,6 +106,17 @@ export class ProjectsController {
     return this.projectsService.update(id, newProjectInfo);
   }
 
+  @Post(':id/toggle-like')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Toggle a like of a project' })
+  async toggleLike(
+    @Req() req: { user: User },
+    @Param('id') id: number,
+  ): Promise<Project> {
+    return this.projectsService.toggleLike(id, req.user);
+  }
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()

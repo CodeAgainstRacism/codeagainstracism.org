@@ -6,10 +6,12 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { Organization } from '../organizations/organization.entity';
+import { Project } from '../projects/project.entity';
 
 @Entity()
 export class User {
@@ -50,6 +52,15 @@ export class User {
   )
   @JoinColumn()
   ownedOrganization: Organization;
+
+  @ApiProperty({
+    type: () => Project,
+  })
+  @ManyToMany(
+    () => Project,
+    (project: Project) => project.likers,
+  )
+  likedProjects: Project[];
 
   constructor(
     id?: number,

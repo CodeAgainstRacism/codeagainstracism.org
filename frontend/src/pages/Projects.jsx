@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState} from 'react';
+import React, { Fragment, useEffect, useCallback, useState} from 'react';
 import {
   Box,
   Container,
@@ -11,7 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { Pagination } from '@material-ui/lab';
 import ProjectCard from '../components/ProjectCard';
 import axios from 'axios';
-import Footer from '../components/Footer';
+import debounce from 'lodash';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -78,11 +78,20 @@ export default function Projects() {
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = projectList.slice(indexOfFirstCard, indexOfLastCard);
 
-  useEffect(()=>{
+  useEffect(() => {
+    handleDebounce(getData(), 500);
+  });
+
+  const getData = () => {
+    // States used:
+      // projectList
+      // cardsPerPage
+      // searchedCard
     axios.get('http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects', {
         params: {}
       })
       .then(function (response) {
+        console.log(response.data);
         if(response.status === 200){
           const { data } = response;
           const newCards = [];
@@ -108,6 +117,7 @@ export default function Projects() {
             });
             setCurrentPage(1);  // Setting the pagination back to the first page
           }
+          //setAllProjects(newCards);
           setProjectList(newCards);
           setTotalPages(Math.ceil(projectList.length / cardsPerPage));
         }
@@ -115,14 +125,27 @@ export default function Projects() {
       .catch(function (error) {
         console.log(error);
       })
-  });
+  };
+
+  const handleDebounce = (fn, delay) => {
+      let timer = null;
+      return function (...args) {
+          const context = this;
+          timer && clearTimeout(timer);
+          timer = setTimeout(() => {
+              fn.apply(context, args);
+          }, delay);
+      };
+  }
 
   const handleSearch = event => {
     setSearchedCard(event.target.value);
-  }
+    handleDebounce(getData(), 300);
+  };
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
+    getData();
   }
 
   const getProjectCards = projectCardObj => {
@@ -145,6 +168,8 @@ export default function Projects() {
       />
     );
   }
+
+  //useCallback(handleDebounce(getData(), 500));
 
   return (
     <Fragment >

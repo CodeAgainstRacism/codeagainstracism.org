@@ -13,7 +13,7 @@ import AccountRecovery from "./pages/AccountRecovery";
 import UserTypePage from "./pages/UserType";
 import NotFoundPage from "./pages/NotFound";
 import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 
 class App extends React.Component {
   render() {
@@ -48,7 +48,7 @@ class App extends React.Component {
               <Route component={NotFoundPage} />
             </Switch>
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </BrowserRouter>
     );

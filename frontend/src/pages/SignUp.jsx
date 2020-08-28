@@ -111,7 +111,7 @@ export default function AuthForm(props) {
                 disableGutters={true}
                 direction="column"
                 justify="center"
-                alignItems="center"
+                align="center"
                 className={classes.formContainer}
               >
                 <Container className={classes.formHeaderBackground}>

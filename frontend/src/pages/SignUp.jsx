@@ -17,6 +17,10 @@ const LoginStyles = makeStyles((theme) => ({
   /*containers*/
   outerContainer: {
     padding: theme.spacing(3),
+    marginTop: theme.spacing(5),
+    display: "flex",
+    flexDirection: "center",
+    alignItems: "center",
   },
   header: {
     fontWeight: "bold",

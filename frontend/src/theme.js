@@ -18,6 +18,13 @@ const theme = createMuiTheme({
   },
   navbar: {
     default: "#222831",
+    height: "5vh",
+  },
+  pageContent: {
+    height: "90vh",
+  },
+  footer: {
+    height: "5vh",
   },
   heroCTAButton: {
     left: "#205D67",

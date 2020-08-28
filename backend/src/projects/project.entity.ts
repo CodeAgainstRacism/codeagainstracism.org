@@ -72,6 +72,7 @@ export class Project {
    * Calculated field (value: likers.length)
    */
   @Column()
+  @ApiProperty({ example: 6 })
   likeCount: number;
 
   constructor(

@@ -27,6 +27,14 @@ const theme = createMuiTheme({
     MuiLink: {
       root: {
         cursor: "pointer",
+        // fontWeight: "bold",
+      },
+    },
+
+    MuiList: {
+      padding: {
+        paddingTop: 0,
+        paddingBottom: 0,
       },
     },
 

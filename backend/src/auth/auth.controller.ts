@@ -5,9 +5,23 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiProperty,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { User } from '../users/user.entity';
+
+class AuthResponse {
+  @ApiProperty()
+  accessToken: string;
+
+  @ApiProperty()
+  user: User;
+}
 
 @Controller('auth')
 @ApiTags('auth')
@@ -15,17 +29,21 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  @ApiOperation({ summary: 'Logs in as an organization' })
-  @ApiResponse({ status: 201, description: 'Sends the accessToken and the corresponding organization' })
+  @ApiOperation({ summary: 'Logs in as a user' })
+  @ApiResponse({
+    status: 201,
+    description: 'Sends the accessToken and the corresponding user',
+    type: AuthResponse,
+  })
   @ApiResponse({
     status: 401,
     description:
       'Unauthorized access. The email and password combination do not match or do not exist.',
   })
-  async login(@Body() payload: JwtPayload): Promise<any> {
-    const organization = await this.authService.validateOrganization(payload);
+  async login(@Body() payload: JwtPayload): Promise<AuthResponse> {
+    const user = await this.authService.validateUser(payload);
 
-    if (!organization) {
+    if (!user) {
       throw new HttpException(
         `Unauthorized access. The email and password combination do not match or do not exist.`,
         HttpStatus.UNAUTHORIZED,
@@ -34,7 +52,7 @@ export class AuthController {
 
     return {
       accessToken: this.authService.createToken(payload),
-      organization: organization,
+      user,
     };
   }
 }

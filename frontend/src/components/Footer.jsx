@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.navbar.default,
     color: theme.palette.text.secondary,
     padding: theme.spacing(2),
+    height: "10vh",
   },
 }));
 

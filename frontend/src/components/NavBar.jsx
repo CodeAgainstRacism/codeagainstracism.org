@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
     flexWrap: "wrap",
   },
   toolbarRight: {

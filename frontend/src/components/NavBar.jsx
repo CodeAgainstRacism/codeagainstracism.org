@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundColor: theme.navbar.default,
+    background: theme.navbar.default,
     color: theme.palette.text.secondary,
   },
   toolbar: {

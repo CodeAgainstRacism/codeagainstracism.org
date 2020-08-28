@@ -23,6 +23,7 @@ const theme = createMuiTheme({
     left: "#205D67",
     right: "#DB5375",
   },
+
   overrides: {
     MuiLink: {
       root: {
@@ -38,18 +39,24 @@ const theme = createMuiTheme({
       },
     },
 
-    MuiTextField:{
+    MuiTextField: {
       root: {
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
       },
     },
 
-    MuiInputLabel: { 
-      root: { 
+    MuiInputLabel: {
+      root: {
         color: "#adadad",
-      }
+      },
     },
-
+    MuiToolbar: {
+      regular: {
+        "@media (min-width: 600px)": {
+          minHeight: "2.5rem",
+        },
+      },
+    },
   },
   //Global theme for textfields
   props: {
@@ -59,10 +66,9 @@ const theme = createMuiTheme({
       id: "outlined-basic",
       variant: "outlined",
       fullWidth: true,
-      backgroundColor: "#fff"
+      backgroundColor: "#fff",
     },
-  }
-
+  },
 });
 
 export default theme;

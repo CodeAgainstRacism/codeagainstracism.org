@@ -3,16 +3,17 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "normalize.css/normalize.css";
 
 import LandingPage from "./pages/LandingPage";
-import SignUp from "./pages/SignUp";
-import LogIn from "./pages/LogIn";
 import Projects from "./pages/Projects";
 import News from "./pages/News";
 import FAQ from "./pages/FAQ";
 import About from "./pages/About";
+import LogIn from "./pages/LogIn";
+import SignUp from "./pages/SignUp";
 import AccountRecovery from "./pages/AccountRecovery";
+import UserTypePage from "./pages/UserType";
 import NotFoundPage from "./pages/NotFound";
 import NavBar from "./components/NavBar";
-import UserTypePage from "./pages/UserType";
+import Footer from "./components/Footer";
 
 class App extends React.Component {
   render() {
@@ -47,6 +48,7 @@ class App extends React.Component {
               <Route component={NotFoundPage} />
             </Switch>
           </div>
+          <Footer />
         </div>
       </BrowserRouter>
     );

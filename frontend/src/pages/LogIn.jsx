@@ -33,7 +33,7 @@ const LoginStyles = makeStyles((theme) => ({
   /**Divider with text in between */
   dividerBar: {
     height: "1px",
-    backgroundColor: "#808080",
+    background: "#808080",
     flexGrow: 1,
   },
 
@@ -146,7 +146,7 @@ const LoginStyles = makeStyles((theme) => ({
     height: "60 vmax",
     margin: "0 auto",
     textAlign: "center",
-    background: theme.palette.background,
+    backgroundColor: theme.palette.background,
     overflow: "hidden",
     maxWidth: "70vw",
   },
@@ -167,16 +167,6 @@ export default function LogIn(props) {
           <Grid container spacing={6}>
             {/**Text and Image */}
             <Grid item container xs={6} className={classes.leftGridContainer}>
-              <Typography variant="body1" gutterBottom>
-                We missed you. Go catch up on your project!
-              </Typography>
-              <Box my={1} className={classes.imageContainer}>
-                <img
-                  src={HandWave}
-                  alt="Hand Waving"
-                  style={{ objectFit: "contain" }}
-                />
-              </Box>
               <Typography
                 variant="h4"
                 align="center"
@@ -185,6 +175,16 @@ export default function LogIn(props) {
               >
                 Welcome Back
               </Typography>
+              <Box my={1} className={classes.imageContainer}>
+                <img
+                  src={HandWave}
+                  alt="Hand Waving"
+                  style={{ objectFit: "contain" }}
+                />
+              </Box>
+              <Typography variant="body1" gutterBottom>
+                We missed you. Go catch up on your project!
+              </Typography>
             </Grid>
             {/**Login Page */}
             <Grid item xs={6}>
@@ -192,7 +192,7 @@ export default function LogIn(props) {
                 disableGutters={true}
                 direction="column"
                 justify="center"
-                alignItems="center"
+                align="center"
                 className={classes.formContainer}
               >
                 <Container className={classes.formHeaderBackground}>
@@ -248,7 +248,11 @@ export default function LogIn(props) {
                     </Button>
                   </MuiThemeProvider>
                   {/**Divider with text "or" in between */}
-                  <Divider classes={classes} theme={theme} />
+                  <Divider
+                    dividerContainer={classes.dividerContainer}
+                    dividerBar={classes.dividerBar}
+                    theme={theme}
+                  />
                   {/** Right Grid **/}
 
                   <Grid id="row" container spacing={1}>
@@ -287,7 +291,11 @@ export default function LogIn(props) {
                   </Button>
 
                   {/**Divider with text "or" in between */}
-                  <Divider classes={classes} theme={theme} />
+                  <Divider
+                    dividerContainer={classes.dividerContainer}
+                    dividerBar={classes.dividerBar}
+                    theme={theme}
+                  />
                 </Container>
                 <Container className={classes.formFooter}>
                   <Button
@@ -311,15 +319,16 @@ export default function LogIn(props) {
 }
 
 const Divider = (props) => {
-  const classes = props.classes;
+  // const classes = props.classes;
   const theme = props.theme;
+
   return (
-    <Box className={classes.dividerContainer}>
-      <Container className={classes.dividerBar}></Container>
+    <Box className={props.dividerContainer}>
+      <Container className={props.dividerBar}></Container>
       <Typography variant="subtitle2" style={{ padding: theme.spacing(0, 2) }}>
         or
       </Typography>
-      <Container className={classes.dividerBar}></Container>
+      <Container className={props.dividerBar}></Container>
     </Box>
   );
 };

@@ -78,7 +78,9 @@ const LoginStyles = makeStyles((theme) => ({
 
 export default function AuthForm(props) {
   const classes = LoginStyles();
-  const { individual, organization } = props;
+  const individual =
+    props.match.params.type.toLowerCase() === "individual" ? true : false;
+  const organization = !individual;
 
   return (
     <React.Fragment>

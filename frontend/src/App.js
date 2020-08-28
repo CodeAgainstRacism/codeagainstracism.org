@@ -34,16 +34,10 @@ class App extends React.Component {
                 path="/accountrecovery"
                 component={AccountRecovery}
               />
-              <Route exact path="/userType" component={UserTypePage} />
+              <Route exact path="/signup" component={UserTypePage} />
               <Route
-                exact
-                path="/signUp/Individual"
-                render={() => <SignUp individual />}
-              />
-              <Route
-                exact
-                path="/signUp/Organization"
-                render={() => <SignUp organization />}
+                path="/signup/:type"
+                render={(props) => <SignUp {...props} />}
               />
               <Route component={NotFoundPage} />
             </Switch>

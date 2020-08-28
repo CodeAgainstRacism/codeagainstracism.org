@@ -128,7 +128,7 @@ const NavBar = (props) => {
 
             <Button
               component={RouterLink}
-              to="/userType"
+              to="/signup"
               color="secondary"
               variant="contained"
               className={classes.rightButton}

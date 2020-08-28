@@ -156,8 +156,8 @@ const UserTypePage = () => {
           component={RouterLink}
           to={
             selectedValue === "individual"
-              ? "/signup/Individual"
-              : "/signup/Organization"
+              ? "/signup/individual"
+              : "/signup/organization"
           }
         >
           Next

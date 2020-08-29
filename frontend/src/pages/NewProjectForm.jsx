@@ -2,7 +2,6 @@ import React from "react";
 import SideBarOrganization from "../components/SideBarOrganization";
 
 export default function News() {
-
   return (
     <div>
       <SideBarOrganization/>
@@ -10,3 +9,4 @@ export default function News() {
     </div>
   );
 }
+

@@ -13,7 +13,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import HeroImage from "../assets/Landing_Hero.svg";
-import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   flexBox: {
@@ -277,9 +276,6 @@ const LandingPage = (props) => {
           {/* Insert Sponsors */}
         </Container>
       </main>
-      {/* Footer */}
-      <Footer />
-      {/* End footer */}
     </React.Fragment>
   );
 };

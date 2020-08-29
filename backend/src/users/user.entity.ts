@@ -35,20 +35,22 @@ export class User {
 
   @Column()
   @CreateDateColumn()
+  @ApiProperty({ example: new Date('2020-07-11T13:08:16.364Z') })
   createdAt: Date;
 
   @Column()
   @UpdateDateColumn()
+  @ApiProperty({ example: new Date('2020-07-12T22:50:43.000Z') })
   updatedAt: Date;
 
-  @ApiProperty({
-    type: () => Organization,
-  })
   @OneToOne(
     () => Organization,
     (organization: Organization) => organization.adminUser,
   )
   @JoinColumn()
+  @ApiProperty({
+    type: () => Organization,
+  })
   ownedOrganization: Organization;
 
   constructor(

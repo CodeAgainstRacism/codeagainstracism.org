@@ -22,8 +22,15 @@ export class UsersController {
 
   @Post()
   @ApiOperation({ summary: 'Creates a user' })
-  @ApiResponse({ status: 201, type: User })
-  @ApiResponse({ status: 409, description: 'Email already used' })
+  @ApiResponse({
+    status: 201,
+    description: 'Returns the created user',
+    type: User,
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Error message saying that the email is already used',
+  })
   create(@Body() userDto: UserDto): Promise<User> {
     return this.usersService.create(userDto);
   }
@@ -32,7 +39,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Fetches all users' })
   @ApiResponse({
     status: 200,
-    description: 'An array of all the users',
+    description: 'Returns an array of all the users',
     type: [User],
   })
   findAll(): Promise<User[]> {
@@ -43,12 +50,13 @@ export class UsersController {
   @ApiOperation({ summary: 'Fetches a user' })
   @ApiResponse({
     status: 200,
-    description: 'The found user',
+    description: 'Return the user with the specified id',
     type: User,
   })
   @ApiResponse({
     status: 404,
-    description: 'User with id:${id} not found',
+    description:
+      'Error message saying that no organization with the specified id has been found',
   })
   findOne(@Param('id') id: number): Promise<User> {
     return this.usersService.findOne(id);
@@ -56,10 +64,15 @@ export class UsersController {
 
   @Put(':id')
   @ApiOperation({ summary: 'Updates a user' })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the updated user',
+    type: User,
+  })
   @ApiResponse({
     status: 404,
-    description: 'User with id:${id} not found',
+    description:
+      'Error message saying that no organization with the specified id has been found',
   })
   update(@Param('id') id: number, @Body() userDto: UserDto) {
     return this.usersService.update(id, userDto);
@@ -67,10 +80,14 @@ export class UsersController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Deletes a user' })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({
+    status: 200,
+    description: 'Deletion successful. Returns an empty response',
+  })
   @ApiResponse({
     status: 404,
-    description: 'User with id:${id} not found',
+    description:
+      'Error message saying that no organization with the specified id has been found',
   })
   remove(@Param('id') id: number): Promise<void> {
     return this.usersService.remove(id);

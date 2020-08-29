@@ -24,11 +24,13 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundColor: theme.navbar.default,
+    background: theme.navbar.default,
     color: theme.palette.text.secondary,
   },
   toolbar: {
     display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
     flexWrap: "wrap",
   },
   toolbarRight: {
@@ -126,7 +128,7 @@ const NavBar = (props) => {
 
             <Button
               component={RouterLink}
-              to="/userType"
+              to="/signup"
               color="secondary"
               variant="contained"
               className={classes.rightButton}

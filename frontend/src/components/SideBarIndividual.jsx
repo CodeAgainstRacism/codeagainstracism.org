@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import {Container} from "@material-ui/core";
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -9,27 +9,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import FolderIcon from '@material-ui/icons/Folder';
 import PersonIcon from '@material-ui/icons/Person';
+import SideBar from './SideBar';
 
 //use styling hook here to align name and png next to each other
 //change links for after user type is merged so you dont have a merge conflict with app js
 
-const sideBarStyles = makeStyles((theme)  => ({
-    sideBarContainer: {
-        width: "17%",
-        height: "120vh",
-        paddingTop: "1%",
-        textAlign: "center",
-        backgroundColor: "#323b4a",
-        color: theme.palette.text.secondary
-    },
-}));
-
-
-export default function SideBar(){
-   const classes = sideBarStyles();
+export default function SideBarIndividual(){
     return(
-
-        <Container disableGutters = {true} className = {classes.sideBarContainer}>
+        <SideBar>
             <Container>
                 <PersonIcon fontSize="large" />
                 <h3>John Doe</h3>
@@ -55,6 +42,6 @@ export default function SideBar(){
                 </ListItem>
                 <Divider/>
             </List>
-        </Container>
+        </SideBar>
     )
 }

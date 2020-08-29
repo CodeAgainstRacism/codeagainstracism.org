@@ -1,7 +1,5 @@
 import React from "react";
-import { withRouter, Link as RouterLink } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
-import {Container, Grid} from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,26 +10,15 @@ import FolderIcon from '@material-ui/icons/Folder';
 import CreateIcon from '@material-ui/icons/Create';
 import GroupIcon from '@material-ui/icons/Group';
 import PersonIcon from '@material-ui/icons/Person';
+import SideBar from './SideBar';
 
 //use styling hook here to align name and png next to each other
 //change links for after user type is merged so you dont have a merge conflict with app js
-const sideBarStyles = makeStyles((theme)  => ({
-    sideBarContainer: {
-        width: "17%",
-        height: "120vh",
-        paddingTop: "1%",
-        textAlign: "center",
-        backgroundColor: "#323b4a",
-        color: theme.palette.text.secondary
-    },
-}));
 
 
-export default function SideBar(){
-   const classes = sideBarStyles();
+export default function SideBarOrganization(){
     return(
-        <Container disableGutters = {true}>
-        <Container disableGutters = {true} className = {classes.sideBarContainer}>
+        <SideBar>
             <PersonIcon fontSize="large" />
             <h3>Code Against Racism</h3>
             <List>
@@ -43,7 +30,6 @@ export default function SideBar(){
                         <AccountBoxIcon color="secondary" />
                     </ListItemIcon>
                     <ListItemText primary = "Account Details" />
-
                 </ListItem>
                 <Divider/>
                 <ListItem button
@@ -74,7 +60,6 @@ export default function SideBar(){
                 </ListItem>  
                 <Divider/>
             </List>
-        </Container>
-        </Container>
+        </SideBar>
     )
 }

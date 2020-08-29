@@ -1,11 +1,11 @@
 import React from "react";
-import SideBarOrganization from "../components/SideBarOrganization";
+import SideBarIndividual from "../components/SideBarIndividual";
 
 export default function News() {
 
   return (
     <div>
-      <SideBarOrganization/>
+      <SideBarIndividual/>
       <h1>This is the New project form</h1>
     </div>
   );

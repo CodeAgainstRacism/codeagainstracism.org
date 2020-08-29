@@ -18,34 +18,62 @@ const theme = createMuiTheme({
   },
   navbar: {
     default: "#222831",
+    height: "5vh",
+  },
+  pageContent: {
+    height: "90vh",
+  },
+  footer: {
+    height: "5vh",
   },
   heroCTAButton: {
     left: "#205D67",
     right: "#DB5375",
   },
+
   overrides: {
     MuiLink: {
       root: {
         cursor: "pointer",
+        // fontWeight: "bold",
       },
-    MuiTextField:{
+    },
+
+    MuiList: {
+      padding: {
+        paddingTop: 0,
+        paddingBottom: 0,
+      },
+    },
+
+    MuiTextField: {
       root: {
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
       },
-    }
+    },
+
+    MuiInputLabel: {
+      root: {
+        color: "#adadad",
+      },
+    },
+    MuiToolbar: {
+      regular: {
+        "@media (min-width: 600px)": {
+          minHeight: "2.5rem",
+        },
+      },
     },
   },
   //Global theme for textfields
   props: {
     MuiTextField: {
-      color: "#FFC43D",
       size: "small",
       id: "outlined-basic",
       variant: "outlined",
       fullWidth: true,
     },
-  }
-
+  },
 });
 
 export default theme;

@@ -1,263 +1,246 @@
 import React from "react";
-import { MuiThemeProvider, createMuiTheme, makeStyles, withStyles } from '@material-ui/core/styles';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import {Container, CssBaseline, Grid, Paper, TextField, Button} from '@material-ui/core';
-import Footer from "../components/Footer";
+import {
+  makeStyles,
+  useTheme,
+  Box,
+  Button,
+  Link,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+import SignInButtons from "../components/SignInButtons";
 import HandWave from "../assets/Hand waving.png";
-
-/**Icon Button Colors */
-const blackTheme = createMuiTheme({ palette: { primary: {main: "#000" }} })
-const redTheme = createMuiTheme({ palette: { primary: {main: "#ff411c" }} })
-const blueTheme = createMuiTheme({ palette: { primary: {main: "#1c55ff" }} })
+import { Link as RouterLink } from "react-router-dom";
 
 const LoginStyles = makeStyles((theme) => ({
-
   root: {
     flexGrow: 1,
   },
-
+  outerContainer: {
+    padding: theme.spacing(3),
+    marginTop: theme.spacing(5),
+    display: "flex",
+    flexDirection: "center",
+    alignItems: "center",
+  },
   /**Divider with text in between */
   dividerBar: {
-    height: "1px", 
-    backgroundColor: "#808080", 
-    flexGrow: 1, 
+    height: "1px",
+    background: "#808080",
+    flexGrow: 1,
   },
 
-  dividerContainer:{
+  dividerContainer: {
     display: "flex",
     alignItems: "center",
     color: "#808080",
-    width: "100%", 
-  },
-
-/**Grid */
-  paper: {
-    padding: theme.spacing(6, 2), 
-    textAlign: 'center',
-    color: theme.palette.text.primary,
-    background: theme.palette.background.default,
-  },
-
-  loginInfoPaper: {
-    padding: theme.spacing(.5, 0),
-    textAlign: 'left',
-    color: theme.palette.text.primary,
-    background: theme.palette.background.default,
-  },
-
-  recoveryPaper: {
+    width: "100%",
     padding: theme.spacing(1, 0),
-    textAlign: 'right',
-    color: "#808080", //should be gray 
-    background: theme.palette.background.default,
-  },
-
-  textFieldPaper: {
-    textAlign: 'left',
-    color: theme.palette.text.primary,
-    background: "#fff",
   },
 
   /*containers*/
-  innerContainer: {
-    alignItems: "stretch",
-    background: "#f2f2f2",
-    overflow: "hidden", 
+  header: {
+    fontWeight: "bold",
+    paddingTop: "0.67em",
+    letterSpacing: theme.spacing(0.15),
+    width: "100%",
+    fontSize: theme.spacing(3.5),
+    textTransform: "uppercase",
+  },
+  leftGridContainer: {
+    display: "flex",
+    direction: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageContainer: {
     display: "flex",
     justifyContent: "center",
-    maxHeight: "100 vh",
+    width: "350px",
+    height: "350px",
+  },
+  formContainer: {
+    width: "100%",
+    border: "1px solid #292929",
+    boxSizing: "border-box",
+    overflow: "auto",
+    borderRadius: "7px",
+    transform: "matrix(1, 0, 0, 1, 0, 0)",
+  },
+  formHeaderBackground: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    background: "white",
+    borderRadius: "7px 7px 0px 0px",
+  },
+  formBody: {
+    fontSize: theme.spacing(1.5),
+    width: "100%",
+    overflow: "auto",
+    padding: theme.spacing(2, 6, 0, 6),
+  },
+  formFooter: {
+    width: "100%",
+    padding: theme.spacing(2, 6, 2, 6),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    background: "white",
+    borderRadius: "0px 0px 7px 7px",
   },
 
   loginContainer: {
-    width: '100%',
-    border: '1px solid #292929',
-    alignItems: "center", 
-    boxSizing: "border-box", 
-    borderRadius: '7px', 
+    width: "100%",
+    border: "1px solid #292929",
+    alignItems: "center",
+    boxSizing: "border-box",
     overflow: "auto",
-    transform: "matrix(1, 0, 0, 1, 0, 0)"
-  },
-  loginHeader:{
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    background: "white",
-  },
-
-  loginFooter: {
-    width: "100%",
-    paddingLeft: "10%",
-    paddingRight: "10%",
-    paddingTop: "2%",
-    paddingBottom: "2%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    background: "white",
-  },
-
-  loginBody: {
-    paddingTop: "1%",
-    fontSize : "12 px",
-    width: "100%",
-    overflow: "auto",
-    paddingLeft: "10%",
-    paddingRight: "10%",
-    paddingBottom: "1%",
-  },
-
-  textContainer: {
-    position: "relative",
-    fontSize: "12px",
-    width: "100%",
-    padding: "1rem 0",
-    alignItems: "center",
-  },
-
-  pageContainer: {
-    height: "768px",
-    margin: "0 auto",
-    textAlign: "center",
-    background: "#f2f2f2",
-    overflow: "hidden",
-    maxWidth: "70vw", 
+    borderRadius: "7px 7px 7px 7px",
+    transform: "matrix(1, 0, 0, 1, 0, 0)",
   },
 
   /*icon button spacing*/
-  button: {
+  actionButton: {
     margin: theme.spacing(1, 0, 0),
+    fontWeight: "bold",
+    fontSize: theme.spacing(1.75),
   },
 }));
 
-
 export default function LogIn(props) {
   const classes = LoginStyles();
-  
+  const theme = useTheme();
   return (
     <React.Fragment>
-      <CssBaseline />
-        <Container disableGutters = {true} className = {classes.innerContainer}>
-          <Container disableGutters = {true} className = {classes.pageContainer}>
-          <div className={classes.root}>
-            <Grid container spacing={0}>
-              {/**Text and Image */}
-              <Grid item xs={5}>
-                <Paper elevation = {0} className={classes.paper}>
-                    <Container className = {classes.textContainer}>
-                      <h1>Welcome Back! </h1>  
-                      <h4>~ Description of our organization ~</h4>
-                      <img src = {HandWave} alt = "hand"/>
-                      <p>We missed you. Go catch up on your project!</p>
-                    </Container>
-                </Paper>
-              </Grid>
-              {/**Login Page */}
-              <Grid item xs={6}>
-                <Paper elevation = {0} className={classes.paper}>
-                    <Container disableGutters = {true} className={classes.loginContainer}>
-                      <Container className = {classes.loginHeader}>
-                        <h1>Log In</h1>
-                      </Container>
-                      <Container className = {classes.loginBody}>
-                        <MuiThemeProvider theme={blackTheme}>
-                          {/**Github Icon Button */}
-                          <Button
-                            fullWidth = {true}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            startIcon={<GitHubIcon />}>
-                            Sign In with Github
-                          </Button>
-                        </MuiThemeProvider>
-                        {/**Google Icon Button */}
-                        <MuiThemeProvider theme={redTheme}>
-                          <Button
-                            fullWidth = {true}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            startIcon={<SvgIcon {...props}>
-                            <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/>
-                            </SvgIcon>}>
-                            Sign In with Google
-                          </Button>
-                        </MuiThemeProvider>
-                        {/**Facebook Icon Button */}
-                        <MuiThemeProvider theme={blueTheme}>
-                          <Button fullWidth = {true}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            startIcon={<FacebookIcon />}>
-                            Sign In with Facebook
-                          </Button>
-                        </MuiThemeProvider>
-                        {/**Divider with text "or" in between */}
-                        <Container className = {classes.dividerContainer}>
-                          <Container className = {classes.dividerBar}></Container>
-                            <label> or</label>
-                          <Container className = {classes.dividerBar}></Container>
-                        </Container>
-                        <Grid id = "row" container spacing = {24}>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.loginInfoPaper}>
-                              <label >Username:</label>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.recoveryPaper}>
-                              <label>Account Recovery</label>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField placeholder = "Your Username"/>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.loginInfoPaper}>
-                            <label >Password:</label>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Paper elevation = {0} className = {classes.recoveryPaper}>
-                              <label >Forgot your password?</label>
-                            </Paper>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Paper elevation = {0} className = {classes.textFieldPaper}>
-                              <TextField type = "password" placeholder = "Enter Password"/>
-                            </Paper>
-                          </Grid> 
-                      </Grid>
-                      <div>
-                        <Button className={classes.button} fullWidth = {true} color = "primary" variant="contained">Login </Button>
-                      </div>
-                      {/**Divider with text "or" in between */}
-                      <Container className = {classes.dividerContainer}>
-                        <Container className = {classes.dividerBar}></Container>
-                        <label> or</label>
-                        <Container className = {classes.dividerBar}></Container>
-                      </Container>
-                    </Container>        
-                    <Container className = {classes.loginFooter}> 
-                      <Button fullWidth = {true} color = "secondary" variant = "outlined"> Create an Account</Button>
-                    </Container>
-                  </Container>
-                </Paper>
+      <main>
+        <Container maxWidth="md" className={classes.outerContainer}>
+          <Grid container spacing={6}>
+            {/**Text and Image */}
+            <Grid item container xs={6} className={classes.leftGridContainer}>
+              <Typography
+                variant="h4"
+                align="center"
+                gutterBottom
+                className={classes.header}
+              >
+                Welcome Back
+              </Typography>
+              <Box my={1} className={classes.imageContainer}>
+                <img
+                  src={HandWave}
+                  alt="Hand Waving"
+                  style={{ objectFit: "contain" }}
+                />
+              </Box>
+              <Typography variant="h6" gutterBottom>
+                We missed you. Go catch up on your project!
+              </Typography>
+            </Grid>
+            {/**Login Page */}
+            <Grid item xs={6}>
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                align="center"
+                className={classes.formContainer}
+              >
+                <Grid item xs={12} className={classes.formHeaderBackground}>
+                  <Typography
+                    variant="h4"
+                    align="center"
+                    gutterBottom
+                    className={classes.header}
+                    style={{ textTransform: "uppercase" }}
+                  >
+                    Log In
+                  </Typography>
+                </Grid>
+                <Container className={classes.formBody}>
+                  {/**Github Icon Button */}
+                  <SignInButtons action="Sign In" />
+
+                  <Divider
+                    dividerContainer={classes.dividerContainer}
+                    dividerBar={classes.dividerBar}
+                    theme={theme}
+                  />
+
+                  {/** Right Grid **/}
+
+                  <Grid id="row" container spacing={1}>
+                    <Grid item xs={12}>
+                      <TextField label="Username" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField type="password" label="Password" />
+                    </Grid>
+
+                    <Grid
+                      item
+                      container
+                      xs={12}
+                      display="flex"
+                      justify="flex-end"
+                    >
+                      <Link
+                        component={RouterLink}
+                        to="/accountrecovery"
+                        color="inherit"
+                        underline="none"
+                      >
+                        Forgot your password?
+                      </Link>
+                    </Grid>
+                  </Grid>
+
+                  <Button
+                    className={classes.actionButton}
+                    fullWidth={true}
+                    color="primary"
+                    variant="contained"
+                  >
+                    Login
+                  </Button>
+
+                  {/**Divider with text "or" in between */}
+                  <Divider
+                    dividerContainer={classes.dividerContainer}
+                    dividerBar={classes.dividerBar}
+                    theme={theme}
+                  />
+                </Container>
+                <Container className={classes.formFooter}>
+                  <Button
+                    component={RouterLink}
+                    to="/signup"
+                    fullWidth={true}
+                    color="secondary"
+                    variant="outlined"
+                    className={classes.actionButton}
+                  >
+                    Create an Account
+                  </Button>
+                </Container>
               </Grid>
             </Grid>
-          </div>
-         </Container>
-      </Container>
-      {/* Footer */}
-      <Footer />
-      {/* End footer */}
+          </Grid>
+        </Container>
+      </main>
     </React.Fragment>
   );
 }
-  
+
+const Divider = (props) => {
+  return (
+    <Box className={props.dividerContainer}>
+      <Box className={props.dividerBar} />
+      <Typography variant="subtitle2">or</Typography>
+      <Box className={props.dividerBar} />
+    </Box>
+  );
+};

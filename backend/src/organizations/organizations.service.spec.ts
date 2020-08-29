@@ -1,22 +1,27 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { OrganizationsService } from './organizations.service';
 import { Organization } from './organization.entity';
 import { OrganizationDto } from './organization.dto';
+import { UsersService } from '../users/users.service';
+import { User } from '../users/user.entity';
 
 import {
   mockOrganizationEntities,
   newOrganizationDto,
-  updateOrganizationDtoWithPassword,
-  updateOrganizationDtoWithoutPassword,
+  updateOrganizationDto,
 } from '../utils/organization.constant';
 
 const INVALID_ID = -1;
 
 let mockDatabase: Organization[] = [];
+
+const mockUsers = [
+  new User(1, 'John', 'Doe', 'johndoe@email.com'),
+  new User(2, 'Jane', 'Doe', 'janedoe@email.com'),
+];
 
 describe('OrganizationsService', () => {
   let service: OrganizationsService;
@@ -26,6 +31,16 @@ describe('OrganizationsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         OrganizationsService,
+        {
+          provide: UsersService,
+          useValue: {
+            findOne: jest
+              .fn()
+              .mockImplementation((id: number) =>
+                mockUsers.find(user => user.id === id),
+              ),
+          },
+        },
         {
           provide: getRepositoryToken(Organization),
           useValue: {
@@ -64,12 +79,6 @@ describe('OrganizationsService', () => {
                   const organizationToUpdate = mockDatabase.find(
                     organization => organization.id === id,
                   );
-                  if (organizationData.password) {
-                    organizationToUpdate.encryptedPassword = OrganizationsService.encrypt(
-                      organizationData.password,
-                    );
-                    delete organizationData.password;
-                  }
                   // like Object.assign, but for defined properties
                   for (const key of Object.keys(organizationData)) {
                     const value = organizationData[key];
@@ -101,28 +110,6 @@ describe('OrganizationsService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-  });
-
-  describe('util functions', () => {
-    it('should encrypt the password', () => {
-      expect(
-        bcrypt.compareSync(
-          'password',
-          OrganizationsService.encrypt('password'),
-        ),
-      ).toBeTruthy();
-      expect(
-        bcrypt.compareSync('', OrganizationsService.encrypt('')),
-      ).toBeTruthy();
-    });
-    it('should detect that its the wrong password', () => {
-      expect(
-        bcrypt.compareSync(
-          'not same password',
-          OrganizationsService.encrypt('password'),
-        ),
-      ).toBeFalsy();
-    });
   });
 
   describe('find', () => {
@@ -259,53 +246,31 @@ describe('OrganizationsService', () => {
   });
 
   describe('update', () => {
-    it('should update an organization without password', async () => {
+    it('should update an organization', async () => {
       const beforeUpdate = mockDatabase[0];
-      await service.update(0, updateOrganizationDtoWithoutPassword);
+      await service.update(0, updateOrganizationDto);
 
-      expect(mockDatabase[0].EIN).toEqual(beforeUpdate.EIN);
-      expect(mockDatabase[0].name).toEqual(
-        updateOrganizationDtoWithoutPassword.name,
+      expect(mockDatabase[0].EIN).toEqual(updateOrganizationDto.EIN);
+      expect(mockDatabase[0].name).toEqual(updateOrganizationDto.name);
+      expect(mockDatabase[0].description).toEqual(
+        updateOrganizationDto.description,
       );
-      expect(mockDatabase[0].description).toEqual(beforeUpdate.description);
-      expect(mockDatabase[0].phoneNumber).toEqual(beforeUpdate.phoneNumber);
-      expect(mockDatabase[0].email).toEqual(
-        updateOrganizationDtoWithoutPassword.email,
+      expect(mockDatabase[0].phoneNumber).toEqual(
+        updateOrganizationDto.phoneNumber,
       );
+      expect(mockDatabase[0].email).toEqual(updateOrganizationDto.email);
       expect(mockDatabase[0].contactFirstName).toEqual(
-        beforeUpdate.contactFirstName,
+        updateOrganizationDto.contactFirstName,
       );
       expect(mockDatabase[0].contactLastName).toEqual(
-        beforeUpdate.contactLastName,
-      );
-    });
-
-    it('should update an organization with password', async () => {
-      const password = updateOrganizationDtoWithPassword.password;
-      const beforeUpdate = mockDatabase[0];
-      await service.update(0, updateOrganizationDtoWithPassword);
-
-      expect(
-        bcrypt.compareSync(password, mockDatabase[0].encryptedPassword),
-      ).toBeTruthy();
-
-      expect(mockDatabase[0].EIN).toEqual(beforeUpdate.EIN);
-      expect(mockDatabase[0].name).toEqual(beforeUpdate.name);
-      expect(mockDatabase[0].description).toEqual(beforeUpdate.description);
-      expect(mockDatabase[0].phoneNumber).toEqual(beforeUpdate.phoneNumber);
-      expect(mockDatabase[0].email).toEqual(beforeUpdate.email);
-      expect(mockDatabase[0].contactFirstName).toEqual(
-        updateOrganizationDtoWithPassword.contactFirstName,
-      );
-      expect(mockDatabase[0].contactLastName).toEqual(
-        updateOrganizationDtoWithPassword.contactLastName,
+        updateOrganizationDto.contactLastName,
       );
     });
 
     it('should throw an exception with a non existing id', async () => {
       let error;
       try {
-        await service.update(INVALID_ID, updateOrganizationDtoWithPassword);
+        await service.update(INVALID_ID, updateOrganizationDto);
       } catch (e) {
         error = e;
       }

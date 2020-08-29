@@ -31,6 +31,10 @@ export class Project {
   @ApiProperty({ example: new Date('2038/01/19') })
   endDate: Date;
 
+  @Column({ default: false })
+  @ApiProperty({ example: true })
+  isFeatured: boolean;
+
   @Column()
   @CreateDateColumn()
   @ApiProperty({ example: new Date('2020-07-10T13:08:16.364Z') })
@@ -57,6 +61,7 @@ export class Project {
     description?: string,
     startDate?: Date,
     endDate?: Date,
+    isFeatured?: boolean,
     organization?: Organization,
   ) {
     this.id = id;
@@ -64,6 +69,7 @@ export class Project {
     this.description = description;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.isFeatured = isFeatured;
     this.organization = organization;
   }
 }

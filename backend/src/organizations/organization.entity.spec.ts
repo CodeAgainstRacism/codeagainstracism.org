@@ -12,7 +12,6 @@ describe('Organization entity', () => {
     expect(organization.email).toBe(undefined);
     expect(organization.contactFirstName).toBe(undefined);
     expect(organization.contactLastName).toBe(undefined);
-    expect(organization.encryptedPassword).toBe(undefined);
   });
 
   it('should make an organization with some fields', () => {
@@ -32,7 +31,6 @@ describe('Organization entity', () => {
     expect(organization.email).toBe(undefined);
     expect(organization.contactFirstName).toBe(undefined);
     expect(organization.contactLastName).toBe(undefined);
-    expect(organization.encryptedPassword).toBe(undefined);
   });
 
   it('should make an organization with all fields', () => {
@@ -45,7 +43,6 @@ describe('Organization entity', () => {
       'email@email.com',
       'first name',
       'last name',
-      'secret password',
     );
     expect(organization).toBeTruthy();
     expect(organization.id).toBe(0);
@@ -56,6 +53,5 @@ describe('Organization entity', () => {
     expect(organization.email).toBe('email@email.com');
     expect(organization.contactFirstName).toBe('first name');
     expect(organization.contactLastName).toBe('last name');
-    expect(organization.encryptedPassword).toBe('secret password');
   });
 });

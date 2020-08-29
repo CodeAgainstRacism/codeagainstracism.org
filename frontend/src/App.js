@@ -30,6 +30,7 @@ class App extends React.Component {
               <Route exact path="/news" component={News} />
               <Route exact path="/faq" component={FAQ} />
               <Route exact path="/login" component={LogIn} />
+              <Route exact path="/newprojectform" component={NewProjectForm} />
               <Route
                 exact
                 path="/accountrecovery"

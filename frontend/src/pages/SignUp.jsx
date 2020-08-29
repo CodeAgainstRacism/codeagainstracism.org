@@ -1,30 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import { withStyles } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
-import {Container, CssBaseline, Grid, Paper, Button, TextField} from '@material-ui/core';
-import Footer from "../components/Footer";
-import SignUpImage from "../assets/SignUpImage.png";
-
-//make a component for the sign up box one for individual and one for organization
-
-const signStyles = makeStyles((theme) => ({
-
-  root: {
-    flexGrow: 1,
-    
-  },
-
-  textBackground: {
-    background: "#fff"
-  },
-  /*grid papers*/
-  paper: {
-    padding: theme.spacing(2, 2), 
-    textAlign: 'center',
-    color: theme.palette.text.primary,
-    background: theme.palette.background.default,
-=======
 import {
   makeStyles,
   Box,
@@ -39,7 +13,6 @@ import DiversityTeam from "../assets/create_a_team.png";
 const LoginStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
->>>>>>> develop
   },
   /*containers*/
   outerContainer: {
@@ -92,19 +65,10 @@ const LoginStyles = makeStyles((theme) => ({
     overflow: "auto",
     padding: theme.spacing(2, 6, 2, 6),
   },
-<<<<<<< HEAD
-
-  textContainer: {
-    position: "relative",
-    fontSize: "12px",
-    width: "100%",
-    padding: "1rem 0",
-=======
   formFooter: {
     width: "100%",
     padding: theme.spacing(2, 6, 2, 6),
     display: "flex",
->>>>>>> develop
     alignItems: "center",
     justifyContent: "space-evenly",
     background: "white",
@@ -187,31 +151,6 @@ export default function AuthForm(props) {
                       />
                     </Grid>
 
-<<<<<<< HEAD
-    return (
-      <React.Fragment>
-        <CssBaseline />
-          <Container disableGutters = {true} className = {classes.pageContainer}>
-            <Container disableGutters = {true} className = {classes.innerContainer}> 
-              <div className={classes.root}>
-                <Grid container spacing={0}>
-                  {/*Text and Image */}
-                    <Grid item xs={5}>
-                      <Paper elevation = {0} className={classes.paper}>
-                        <Container className = {classes.textContainer}>
-                          <h1>Create Your Team</h1>
-                            <Container>
-                              <h4>~ Description of our organization ~</h4>
-                                <img src = {SignUpImage} alt = "hand"/>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, tempora 
-                                    eligendi! Nisi provident quidem ex. Eligendi blanditiis consequatur reiciendis ullam
-                                    autem ducimus in nulla modi, tenetur doloremque nemo voluptas delectus. Lorem ipsum dolor sit 
-                                    amet consectetur adipisicing elit. Culpa provident incidunt quia.
-                                    Eligendi incidunt possimus, cum omnis facere voluptatibus atque! Autem maxime sequi numquam quod quibusdam ratione quasi, nesciunt consequuntur?</p>  
-                              </Container> 
-                        </Container>
-                      </Paper>
-=======
                     <Grid item xs={12}>
                       <TextField
                         type="string"
@@ -223,7 +162,6 @@ export default function AuthForm(props) {
                         multiline
                         rows={4}
                       />
->>>>>>> develop
                     </Grid>
                   </Grid>
                 </Container>

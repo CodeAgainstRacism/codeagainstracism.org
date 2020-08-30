@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useCallback, useState} from 'react';
+import React, { Fragment, useEffect, useState} from 'react';
 import {
   Box,
   Container,
@@ -11,7 +11,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import { Pagination } from '@material-ui/lab';
 import ProjectCard from '../components/ProjectCard';
 import axios from 'axios';
-import debounce from 'lodash';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     textAlign: 'center',
     width: '25%',
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.common.white,
   },
   iconStyle: {
     paddingLeft: theme.spacing(0.5),
@@ -69,57 +68,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Projects() {
   const classes = useStyles();
-  const [projectList, setProjectList] = useState([]);
+  const [projects, setProjects] = useState([]);
   const [searchedCard, setSearchedCard] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [cardsPerPage] = useState(9);
+  const cardsPerPage = 9;
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = projectList.slice(indexOfFirstCard, indexOfLastCard);
 
   useEffect(() => {
-    handleDebounce(getData(), 500);
-  });
+    getData();
+  }, []);
 
   const getData = () => {
-    // States used:
-      // projectList
-      // cardsPerPage
-      // searchedCard
     axios.get('http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects', {
         params: {}
       })
       .then(function (response) {
-        console.log(response.data);
         if(response.status === 200){
           const { data } = response;
           const newCards = [];
-          if(searchedCard === ''){
-            data.forEach((card, index) => {
-              newCards[index] = {
-                id: card.id,
-                name: card.name,
-                description: card.description,
-                index: index,
-              };
-            });
-          } else {
-            data.forEach((card, index) => {
-              if(card.name.toLowerCase().includes(searchedCard)){
-                newCards[index] = {
-                  id: card.id,
-                  name: card.name,
-                  description: card.description,
-                  index: index,
-                };
-              }
-            });
-            setCurrentPage(1);  // Setting the pagination back to the first page
-          }
-          //setAllProjects(newCards);
-          setProjectList(newCards);
-          setTotalPages(Math.ceil(projectList.length / cardsPerPage));
+          data.forEach((card, index) => {
+            newCards[index] = {
+              id: card.id,
+              name: card.name,
+              description: card.description,
+              index: index,
+            };
+          });
+          setProjects(newCards);
         }
       })
       .catch(function (error) {
@@ -127,40 +103,24 @@ export default function Projects() {
       })
   };
 
-  const handleDebounce = (fn, delay) => {
-      let timer = null;
-      return function (...args) {
-          const context = this;
-          timer && clearTimeout(timer);
-          timer = setTimeout(() => {
-              fn.apply(context, args);
-          }, delay);
-      };
-  }
+  const filteredList = projects.filter((card) =>
+    card.name.toLowerCase().includes(searchedCard.toLowerCase())
+  );
 
   const handleSearch = event => {
     setSearchedCard(event.target.value);
-    handleDebounce(getData(), 300);
+    setCurrentPage(1); // set the current page back to 1 after each search
   };
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
-    getData();
-  }
-
-  const getProjectCards = projectCardObj => {
-    return (
-      <Grid item xs={12} sm={6} lg={4} key={projectCardObj.id}>
-        <ProjectCard {...projectCardObj} />
-      </Grid>
-    );
   }
 
   const getPagination = () => {
     return (
-      projectList.length > 0 &&
+      filteredList.length > 0 &&  // if no search results, hide pagination, could remove this line
       <Pagination
-        count={totalPages}
+        count={Math.ceil(filteredList.length / cardsPerPage)}
         page={currentPage}
         variant='outlined'
         shape='rounded'
@@ -168,8 +128,6 @@ export default function Projects() {
       />
     );
   }
-
-  //useCallback(handleDebounce(getData(), 500));
 
   return (
     <Fragment >
@@ -201,7 +159,13 @@ export default function Projects() {
             </div>
           </Grid>
           <Grid item container spacing={3} className={classes.marginStyle}>
-            {currentCards.map(projectCardObj => getProjectCards(projectCardObj))}
+            {filteredList
+              .slice(indexOfFirstCard, indexOfLastCard)
+              .map(card => (
+                <Grid item xs={12} sm={6} lg={4} key={card.id}>
+                  <ProjectCard {...card} />
+                </Grid>
+              ))}
           </Grid>
           <div className={classes.paginationStyle}>
             {getPagination()}

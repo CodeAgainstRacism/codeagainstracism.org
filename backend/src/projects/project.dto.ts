@@ -7,6 +7,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsValidDate } from "./projects.validator";
 
 export class ProjectDto {
   @IsNotEmpty()
@@ -28,6 +29,7 @@ export class ProjectDto {
 
   @IsOptional()
   @IsDate()
+  @IsValidDate("startDate", {message: "Project end date must be greater than the start date."})
   @Type(() => Date)
   @ApiProperty({ example: '2020/07/16' })
   endDate: Date;

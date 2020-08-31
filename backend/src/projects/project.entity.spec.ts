@@ -2,7 +2,7 @@ import { Project } from './project.entity';
 import { Organization } from '../organizations/organization.entity';
 
 describe('Project entity', () => {
-  it('should make an project with no fields', () => {
+  it('should make a project with no fields', () => {
     const project = new Project();
 
     expect(project).toBeDefined();
@@ -12,9 +12,10 @@ describe('Project entity', () => {
     expect(project.startDate).toBe(undefined);
     expect(project.endDate).toBe(undefined);
     expect(project.imageURL).toBe(undefined);
+    expect(project.isFeatured).toBe(undefined);
   });
 
-  it('should make an project with some fields', () => {
+  it('should make a project with some fields', () => {
     const project = new Project(
       0,
       'project name',
@@ -29,9 +30,10 @@ describe('Project entity', () => {
     expect(project.startDate).toBe(undefined);
     expect(project.endDate).toBe(undefined);
     expect(project.imageURL).toBe(undefined);
+    expect(project.isFeatured).toBe(undefined);
   });
 
-  it('should make an project with all fields', () => {
+  it('should make a project with all fields', () => {
     const project = new Project(
       1,
       'spark',
@@ -39,6 +41,7 @@ describe('Project entity', () => {
       new Date('2020/06/05'),
       new Date('2020/06/15'),
       'https://i.imgur.com/TTFCXdv.png',
+      false,
       new Organization(0),
     );
 
@@ -57,6 +60,7 @@ describe('Project entity', () => {
     expect(project.imageURL).toBe(
       'https://i.imgur.com/TTFCXdv.png',
     );
+    expect(project.isFeatured).toBe(false);
     expect(project.organization.id).toBe(0);
   });
 });

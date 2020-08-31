@@ -24,11 +24,13 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundColor: theme.navbar.default,
+    background: theme.navbar.default,
     color: theme.palette.text.secondary,
   },
   toolbar: {
     display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
     flexWrap: "wrap",
   },
   toolbarRight: {
@@ -37,21 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
   rightButton: {
     margin: theme.spacing(1, 3),
-  },
-  heroContent: {
-    padding: theme.spacing(8, 0, 6),
-  },
-  cardHeader: {
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[200]
-        : theme.palette.grey[700],
-  },
-  cardPricing: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "baseline",
-    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -69,7 +56,13 @@ const NavBar = (props) => {
       >
         <Toolbar className={classes.toolbar}>
           <IconButton>
-            <Link variant="subtitle1" component={RouterLink} to="/">
+            <Link
+              color="primary"
+              variant="subtitle2"
+              component={RouterLink}
+              to="/"
+              underline="none"
+            >
               Logo
             </Link>
           </IconButton>
@@ -77,7 +70,7 @@ const NavBar = (props) => {
             <ListItem component="div">
               <ListItemText inset>
                 <Link
-                  variant="subtitle1"
+                  variant="subtitle2"
                   component={RouterLink}
                   to="/about"
                   color="inherit"
@@ -88,7 +81,7 @@ const NavBar = (props) => {
               </ListItemText>
               <ListItemText inset>
                 <Link
-                  variant="subtitle1"
+                  variant="subtitle2"
                   component={RouterLink}
                   to="/projects"
                   color="inherit"
@@ -99,7 +92,7 @@ const NavBar = (props) => {
               </ListItemText>
               <ListItemText inset>
                 <Link
-                  variant="subtitle1"
+                  variant="subtitle2"
                   component={RouterLink}
                   to="/news"
                   color="inherit"
@@ -110,7 +103,7 @@ const NavBar = (props) => {
               </ListItemText>
               <ListItemText inset>
                 <Link
-                  variant="subtitle1"
+                  variant="subtitle2"
                   component={RouterLink}
                   to="/faq"
                   color="inherit"
@@ -124,22 +117,22 @@ const NavBar = (props) => {
           <Box className={classes.toolbarRight}>
             <Link
               variant="subtitle1"
-              color="inherit"
-              underline="none"
               component={RouterLink}
               to="/login"
+              color="inherit"
               className={classes.rightButton}
+              underline="none"
             >
               LOGIN
             </Link>
 
             <Button
-              href="#"
+              component={RouterLink}
+              to="/signup"
               color="secondary"
               variant="contained"
               className={classes.rightButton}
-              component={RouterLink}
-              to="/signup"
+              underline="none"
             >
               SIGN UP
             </Button>

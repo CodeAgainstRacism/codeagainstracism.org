@@ -13,7 +13,6 @@ import AccountRecovery from "./pages/AccountRecovery";
 import UserTypePage from "./pages/UserType";
 import NotFoundPage from "./pages/NotFound";
 import NavBar from "./components/NavBar";
-import UserTypePage from "./pages/UserType";
 import AccountInfo from "./pages/AccountInfo";
 import YourProjects from "./pages/YourProjects";
 import YourTeams from "./pages/YourTeams";

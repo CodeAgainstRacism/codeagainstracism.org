@@ -8,6 +8,7 @@ import {Container,
         Box} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import Footer from "../components/Footer";
+import SideBar from "../components/SideBarOrganization"
 //for the sidebar, title, and form try using grid area
 //checkut form authentification 
 const projectFormStyles = makeStyles((theme) => ({
@@ -31,7 +32,7 @@ const projectFormStyles = makeStyles((theme) => ({
     marginLeft: "10%",
     marginRight: "10%",
     display: "grid",
-    gridTemplateColumns: "20% 80%",
+    gridTemplateColumns: "23% 77%",
     gridTemplateAreas: ` 'sideBar header'
                           'sideBar form' `,
              
@@ -81,7 +82,7 @@ export default function NewProjectForm() {
         {/**must wrapper the whole thing as a body? */}
         <body className = {classes.gridAlignment} >
           <Container className = {classes.sideBarContainer}>
-            <Box className = {classes.fakeSideBar}></Box>
+            <SideBar/>
           </Container>
               {/*<SideBar/>*/}
               

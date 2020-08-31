@@ -18,8 +18,9 @@ import PersonIcon from '@material-ui/icons/Person';
 const sideBarStyles = makeStyles((theme)  => ({
     sideBarContainer: {
         width: "100%",
-        height: "120vh",
-        paddingTop: "15%",
+        height: "100%",
+        //height: "120vh",
+        //paddingTop: "15%",
         alignItems: "center",
         backgroundColor: "#2b3340",
         color: theme.palette.text.secondary

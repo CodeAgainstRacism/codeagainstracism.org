@@ -39,7 +39,7 @@ export class UsersService {
 
   async findOne(id: number): Promise<User> {
     const user = await this.usersRepository.findOne(id, {
-      relations: ['ownedOrganization'],
+      relations: ['ownedOrganization', 'likedProjects'],
     });
 
     if (user === undefined) {

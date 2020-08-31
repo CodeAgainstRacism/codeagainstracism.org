@@ -4,12 +4,14 @@ import {Container} from "@material-ui/core";
 
 const sideBarStyles = makeStyles((theme)  => ({
     sideBarContainer: {
-        width: "17%",
-        height: "120vh",
+        paddingTop: "5%",
+        width: "100%",
+        height: "100vh",
         textAlign: "center",
         backgroundColor: "#323b4a",
         color: theme.palette.text.secondary
     },
+
 }));
 
 const sideBar = (props) => {

@@ -20,7 +20,7 @@ export default function SideBarOrganization(){
     return(
         <SideBar>
             <PersonIcon fontSize="large" />
-            <h3>Code Against Racism</h3>
+            <h2>Code Against Racism</h2>
             <List>
                 <Divider/>
                 <ListItem button

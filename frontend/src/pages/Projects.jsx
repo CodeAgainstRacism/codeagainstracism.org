@@ -12,6 +12,7 @@ import { Pagination } from '@material-ui/lab';
 import ProjectCard from '../components/ProjectCard';
 import axios from 'axios';
 
+import { BACKEND_URL } from '../config';
 
 const useStyles = makeStyles((theme) => ({
   contentStyle: {
@@ -71,7 +72,7 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [searchedCard, setSearchedCard] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 9;
+  const cardsPerPage = 12;
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
 
@@ -79,24 +80,12 @@ export default function Projects() {
     getData();
   }, []);
 
-  const getData = () => {
-    axios.get('http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects', {
+  const getData = () => {        
+    axios.get(`${BACKEND_URL}projects`, {
         params: {}
       })
       .then(function (response) {
-        if(response.status === 200){
-          const { data } = response;
-          const newCards = [];
-          data.forEach((card, index) => {
-            newCards[index] = {
-              id: card.id,
-              name: card.name,
-              description: card.description,
-              index: index,
-            };
-          });
-          setProjects(newCards);
-        }
+        setProjects(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -118,7 +107,7 @@ export default function Projects() {
 
   const getPagination = () => {
     return (
-      filteredList.length > 0 &&  // if no search results, hide pagination, could remove this line
+      filteredList.length > 0 &&
       <Pagination
         count={Math.ceil(filteredList.length / cardsPerPage)}
         page={currentPage}

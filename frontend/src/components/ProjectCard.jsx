@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     padding: theme.spacing(1, 6),
   },
+  descriptionStyle: {
+    textOverflow: "ellipsis",
+  }
 }));
 
 const ProjectCard = (props) => {
@@ -52,7 +55,7 @@ const ProjectCard = (props) => {
         <Typography gutterBottom variant="h5">
           {name}
         </Typography>
-        <Typography align="left">
+        <Typography className={classes.descriptionStyle} align="left">
           {trimmedDescription}
         </Typography>
       </CardContent>

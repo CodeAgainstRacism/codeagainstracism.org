@@ -31,18 +31,15 @@ const useStyles = makeStyles((theme) => ({
   },
   descriptionStyle: {
     textOverflow: "ellipsis",
+    height: theme.spacing(6),
+    overflow: "hidden",
+    whiteSpace: "nowrap"
   }
 }));
 
 const ProjectCard = (props) => {
   const classes = useStyles();
   const { name, description } = props;
-  const trimLength = 128;
-  let trimmedDescription = description;
-
-  if(trimmedDescription.length > trimLength){
-    trimmedDescription = description.substr(0, trimLength - 3) + "...";
-  }
 
   return (
     <Card className={classes.card}>
@@ -56,7 +53,7 @@ const ProjectCard = (props) => {
           {name}
         </Typography>
         <Typography className={classes.descriptionStyle} align="left">
-          {trimmedDescription}
+          {description}
         </Typography>
       </CardContent>
       <CardActions className={classes.flexBoxCenter}>

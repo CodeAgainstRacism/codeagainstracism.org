@@ -11,7 +11,6 @@ const sideBarStyles = makeStyles((theme)  => ({
         backgroundColor: "#323b4a",
         color: theme.palette.text.secondary
     },
-
 }));
 
 const sideBar = (props) => {

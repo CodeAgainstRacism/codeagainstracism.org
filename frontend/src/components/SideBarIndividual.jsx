@@ -13,6 +13,11 @@ import SideBar from './SideBar';
 
 //use styling hook here to align name and png next to each other
 //change links for after user type is merged so you dont have a merge conflict with app js
+const styles = makeStyles((theme) => ({
+    listItemText:{
+        fontSize: theme.spacing(1.95),
+    }
+}))
 
 export default function SideBarIndividual(){
     return(
@@ -29,7 +34,7 @@ export default function SideBarIndividual(){
                     <ListItemIcon>
                         <AccountBoxIcon color="secondary"/>
                     </ListItemIcon>
-                    <ListItemText primary = "Account Details" />
+                    <ListItemText classes={{primary:classes.listItemText}} primary = "Account Details" />
                 </ListItem>
                 <Divider/>
                 <ListItem button
@@ -38,7 +43,7 @@ export default function SideBarIndividual(){
                     <ListItemIcon>
                         <FolderIcon color="secondary" />
                     </ListItemIcon>
-                    <ListItemText primary = "Your Projects" />
+                    <ListItemText  classes={{primary:classes.listItemText}} primary = "Your Projects" />
                 </ListItem>
                 <Divider/>
             </List>

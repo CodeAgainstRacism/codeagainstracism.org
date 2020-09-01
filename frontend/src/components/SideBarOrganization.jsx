@@ -11,12 +11,21 @@ import CreateIcon from '@material-ui/icons/Create';
 import GroupIcon from '@material-ui/icons/Group';
 import PersonIcon from '@material-ui/icons/Person';
 import SideBar from './SideBar';
+import {
+    makeStyles,
+  } from "@material-ui/core";
 
 //use styling hook here to align name and png next to each other
 //change links for after user type is merged so you dont have a merge conflict with app js
 
+const styles = makeStyles((theme) => ({
+    listItemText:{
+        fontSize: theme.spacing(1.95),
+    }
+}))
 
-export default function SideBarOrganization(){
+export default function SideBarOrganization(props){
+    const classes = styles()
     return(
         <SideBar>
             <PersonIcon fontSize="large" />
@@ -29,7 +38,7 @@ export default function SideBarOrganization(){
                     <ListItemIcon>
                         <AccountBoxIcon color="secondary" />
                     </ListItemIcon>
-                    <ListItemText primary = "Account Details" />
+                    <ListItemText classes={{primary:classes.listItemText}} primary = "Account Details" />
                 </ListItem>
                 <Divider/>
                 <ListItem button
@@ -38,7 +47,7 @@ export default function SideBarOrganization(){
                     <ListItemIcon>
                         <CreateIcon color="secondary" />
                     </ListItemIcon>
-                    <ListItemText primary = "Create Project" />
+                    <ListItemText classes={{primary:classes.listItemText}} primary = "Create Project" />
                 </ListItem>
                 <Divider/>
                 <ListItem button
@@ -47,7 +56,7 @@ export default function SideBarOrganization(){
                     <ListItemIcon>
                         <FolderIcon color="secondary"/>
                     </ListItemIcon>
-                    <ListItemText primary = "Your Projects" />
+                    <ListItemText classes={{primary:classes.listItemText}} primary = "Your Projects" />
                 </ListItem>
                 <Divider/>
                 <ListItem button
@@ -56,7 +65,7 @@ export default function SideBarOrganization(){
                     <ListItemIcon>
                         <GroupIcon color="secondary"/>
                     </ListItemIcon>
-                    <ListItemText primary = "Your Teams" />
+                    <ListItemText classes={{primary:classes.listItemText}} primary = "Your Teams" />
                 </ListItem>  
                 <Divider/>
             </List>

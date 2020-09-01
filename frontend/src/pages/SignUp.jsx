@@ -76,7 +76,7 @@ const LoginStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp(props) {
+const SignUp = (props) => {
   const [newUser, setNewUser] = useState(undefined);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -105,6 +105,11 @@ export default function SignUp(props) {
     };
 
     console.log(signUpData);
+
+    props.onAuth("signup", signUpData).then(() => {
+      //redirect user to another page
+      console.log("LOGGED IN! YAY");
+    });
 
     // axios
     //   .post("" + PORT + "/users/register", signUpData)
@@ -277,7 +282,7 @@ export default function SignUp(props) {
       {/* End footer */}
     </React.Fragment>
   );
-}
+};
 
 const IndividualFields = (props) => {
   const { setFirstName, setLastName, firstName, lastName } = props;
@@ -347,3 +352,5 @@ const OrganizationFields = (props) => {
     </React.Fragment>
   );
 };
+
+export default SignUp;

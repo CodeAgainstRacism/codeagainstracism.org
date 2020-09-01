@@ -45,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     flex: 1,
     backgroundColor: theme.palette.common.white,
+    borderRadius: theme.spacing(0.5),
+    height: theme.spacing(5),
   },
   inputStyle: {
     display: 'flex',
@@ -53,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     width: '25%',
     backgroundColor: theme.palette.common.white,
+    borderRadius: theme.spacing(0.5),
+    height: theme.spacing(5),
   },
   iconStyle: {
     paddingLeft: theme.spacing(0.5),
@@ -80,7 +84,7 @@ export default function Projects() {
     getData();
   }, []);
 
-  const getData = () => {        
+  const getData = () => {
     axios.get(`${BACKEND_URL}projects`, {
         params: {}
       })

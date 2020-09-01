@@ -5,9 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Organization } from '../organizations/organization.entity';
+import { User } from '../users/user.entity';
 
 @Entity()
 export class Project {
@@ -55,6 +58,23 @@ export class Project {
   })
   organization: Organization;
 
+  @ApiProperty({
+    type: () => User,
+  })
+  @ManyToMany(
+    () => User,
+    (user: User) => user.likedProjects,
+  )
+  @JoinTable()
+  likers: User[];
+
+  /**
+   * Calculated field (value: likers.length)
+   */
+  @Column()
+  @ApiProperty({ example: 6 })
+  likeCount: number;
+
   constructor(
     id?: number,
     name?: string,
@@ -63,6 +83,7 @@ export class Project {
     endDate?: Date,
     isFeatured?: boolean,
     organization?: Organization,
+    likers?: User[],
   ) {
     this.id = id;
     this.name = name;
@@ -71,5 +92,7 @@ export class Project {
     this.endDate = endDate;
     this.isFeatured = isFeatured;
     this.organization = organization;
+    this.likers = likers;
+    this.likeCount = likers?.length ?? 0;
   }
 }

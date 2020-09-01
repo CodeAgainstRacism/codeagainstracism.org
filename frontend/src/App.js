@@ -10,13 +10,17 @@ import About from "./pages/About";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
 import AccountRecovery from "./pages/AccountRecovery";
-import UserTypePage from "./pages/UserType";
 import NotFoundPage from "./pages/NotFound";
 import NavBar from "./components/NavBar";
+
+import UserTypePage from "./pages/UserType";
 import AccountInfo from "./pages/AccountInfo";
 import YourProjects from "./pages/YourProjects";
 import YourTeams from "./pages/YourTeams";
 import NewProjectForm from "./pages/NewProjectForm";
+
+// import Footer from "./components/Footer";
+
 
 class App extends React.Component {
   render() {
@@ -32,7 +36,6 @@ class App extends React.Component {
               <Route exact path="/news" component={News} />
               <Route exact path="/faq" component={FAQ} />
               <Route exact path="/login" component={LogIn} />
-              <Route exact path="/userType" component={UserTypePage} />
               <Route path="/create_projects" component={NewProjectForm} exact={true} />
               <Route path="/account_details" component={AccountInfo} exact={true} />
               <Route path="/your_projects" component={YourProjects} exact={true} />

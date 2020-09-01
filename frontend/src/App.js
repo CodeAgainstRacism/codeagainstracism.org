@@ -3,10 +3,9 @@ import { Provider } from "react-redux";
 import { configureStore } from "./redux-store";
 import { BrowserRouter } from "react-router-dom";
 
+import "normalize.css/normalize.css";
 import NavBar from "./components/NavBar";
 import Main from "./containers/Main";
-import "normalize.css/normalize.css";
-import "./styles/styles.scss";
 
 const reduxStore = configureStore();
 

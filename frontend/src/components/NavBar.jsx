@@ -26,11 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundColor: theme.navbar.default,
+    background: theme.navbar.default,
     color: theme.palette.text.secondary,
   },
   toolbar: {
     display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
     flexWrap: "wrap",
   },
   toolbarRight: {
@@ -58,10 +60,10 @@ const NavBar = (props) => {
           <IconButton>
             <Link
               color="primary"
-              underline="none"
               variant="subtitle2"
               component={RouterLink}
               to="/"
+              underline="none"
             >
               Logo
             </Link>
@@ -117,7 +119,6 @@ const NavBar = (props) => {
           <Box className={classes.toolbarRight}>
             <Link
               variant="subtitle1"
-              variant="subtitle2"
               component={RouterLink}
               to="/login"
               color="inherit"
@@ -128,20 +129,14 @@ const NavBar = (props) => {
             </Link>
 
             <Button
-              href="#"
+              component={RouterLink}
+              to="/signup"
               color="secondary"
               variant="contained"
               className={classes.rightButton}
+              underline="none"
             >
-              <Link
-                variant="subtitle2"
-                underline="none"
-                component={RouterLink}
-                to="/userType"
-                color="textPrimary"
-              >
-                SIGN UP
-              </Link>
+              SIGN UP
             </Button>
           </Box>
         </Toolbar>

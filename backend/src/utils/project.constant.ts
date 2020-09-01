@@ -1,6 +1,7 @@
 import { Project } from '../projects/project.entity';
 import { ProjectDto } from '../projects/project.dto';
 import { Organization } from '../organizations/organization.entity';
+import { User } from '../users/user.entity';
 
 const mockProjectEntities = [
   new Project(
@@ -17,6 +18,7 @@ const mockProjectEntities = [
     'A simple cli to input and store your ideas directly with git and without a text editor',
     new Date('2020/06/05'),
     new Date('2020/06/15'),
+    false,
     new Organization(
       1,
       '34-5678901',
@@ -26,6 +28,7 @@ const mockProjectEntities = [
       'janedoe@email.com',
       'Jane',
       'Doe',
+      new User(1, 'John', 'Doe', 'johndoe@email.com'),
     ),
   ),
   new Project(

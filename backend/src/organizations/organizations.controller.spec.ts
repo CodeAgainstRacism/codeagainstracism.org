@@ -10,7 +10,7 @@ import { Project } from '../projects/project.entity';
 import {
   mockOrganizationEntities,
   newOrganizationDto,
-  updateOrganizationDtoWithoutPassword,
+  updateOrganizationDto,
 } from '../utils/organization.constant';
 import { mockProjectEntities } from '../utils/project.constant';
 
@@ -46,7 +46,6 @@ describe('Organization Controller', () => {
             create: jest
               .fn()
               .mockImplementation((organization: OrganizationDto) => {
-                delete organization.password;
                 return Promise.resolve({ id: 2, ...organization });
               }),
 
@@ -57,7 +56,6 @@ describe('Organization Controller', () => {
                   const organizationToUpdate = mockDatabase.find(
                     organization => organization.id === id,
                   );
-                  delete organizationData.password;
 
                   // like Object.assign, but for defined properties
                   for (const key of Object.keys(organizationData)) {
@@ -108,7 +106,6 @@ describe('Organization Controller', () => {
     it('should create an organization', () => {
       const beforeCount = mockDatabase.length;
       const expected = { ...newOrganizationDto };
-      delete expected.password;
       controller.create({ ...newOrganizationDto }).then(data => {
         expect(data).toEqual({
           id: beforeCount,
@@ -122,27 +119,27 @@ describe('Organization Controller', () => {
     it('should update an organization', async () => {
       const beforeUpdate = mockDatabase[0];
       const updatedOrganization = await controller.update('0', {
-        ...updateOrganizationDtoWithoutPassword,
+        ...updateOrganizationDto,
       });
       expect(beforeUpdate.id).toEqual(updatedOrganization.id);
-      expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
-      expect(updateOrganizationDtoWithoutPassword.name).toEqual(
+      expect(beforeUpdate.EIN).toEqual(updateOrganizationDto.EIN);
+      expect(updateOrganizationDto.name).toEqual(
         updatedOrganization.name,
       );
-      expect(beforeUpdate.description).toEqual(updatedOrganization.description);
-      expect(beforeUpdate.phoneNumber).toEqual(updatedOrganization.phoneNumber);
-      expect(updateOrganizationDtoWithoutPassword.email).toEqual(
+      expect(beforeUpdate.description).toEqual(updateOrganizationDto.description);
+      expect(beforeUpdate.phoneNumber).toEqual(updateOrganizationDto.phoneNumber);
+      expect(updateOrganizationDto.email).toEqual(
         updatedOrganization.email,
       );
       expect(beforeUpdate.contactFirstName).toEqual(
-        updatedOrganization.contactFirstName,
+        updateOrganizationDto.contactFirstName,
       );
       expect(beforeUpdate.contactLastName).toEqual(
-        updatedOrganization.contactLastName,
+        updateOrganizationDto.contactLastName,
       );
-      expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
-      expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
-      expect(beforeUpdate.EIN).toEqual(updatedOrganization.EIN);
+      expect(beforeUpdate.EIN).toEqual(updateOrganizationDto.EIN);
+      expect(beforeUpdate.EIN).toEqual(updateOrganizationDto.EIN);
+      expect(beforeUpdate.EIN).toEqual(updateOrganizationDto.EIN);
     });
   });
 

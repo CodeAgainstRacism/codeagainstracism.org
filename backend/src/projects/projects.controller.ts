@@ -11,12 +11,17 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ProjectDto } from './project.dto';
 import { Project } from './project.entity';
 import { ProjectsService } from './projects.service';
-import { Organization } from '../organizations/organization.entity';
+import { User } from '../users/user.entity';
 
 @ApiTags('projects')
 @Controller('projects')
@@ -25,7 +30,11 @@ export class ProjectsController {
 
   @Post()
   @ApiOperation({ summary: 'Creates a project' })
-  @ApiResponse({ status: 201 })
+  @ApiResponse({
+    status: 201,
+    description: 'Returns the created project',
+    type: Project,
+  })
   create(@Body() createProjectDto: ProjectDto): Promise<Project> {
     return this.projectsService.create(createProjectDto);
   }
@@ -34,24 +43,35 @@ export class ProjectsController {
   @ApiOperation({ summary: 'Fetches all projects' })
   @ApiResponse({
     status: 200,
-    description: 'An array of with the projects',
+    description: 'Returns an array of all the projects',
     type: [Project],
   })
   findAll(): Promise<Project[]> {
     return this.projectsService.findAll();
   }
 
+  @Get('/featured')
+  @ApiOperation({ summary: 'Fetches all featured projects' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns an array of all the featured projects',
+    type: [Project],
+  })
+  findFeatured(): Promise<Project[]> {
+    return this.projectsService.findFeatured(true);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Fetches a project' })
   @ApiResponse({
     status: 200,
-    description: 'The found project',
+    description: 'Return the project with the specified id',
     type: Project,
   })
-  @ApiResponse({ status: 200 })
   @ApiResponse({
     status: 404,
-    description: 'Project with id:${id} not found',
+    description:
+      'Error message saying that no project with the specified id has been found',
   })
   findOne(@Param('id') id: number): Promise<Project> {
     return this.projectsService.findOne(id);
@@ -61,28 +81,29 @@ export class ProjectsController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Updates a project' })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the updated project',
+    type: Project,
+  })
   @ApiResponse({
     status: 403,
     description:
-      "Forbidden: When an organization tries to delete a project they don't own",
+      "Error message saying forbidden. Happens when a user tries to delete a project they don't own",
   })
   @ApiResponse({
     status: 404,
-    description: 'Project with id:${id} not found',
+    description:
+      'Error message saying that no project with the specified id has been found',
   })
   async update(
-    @Req() req: { user: Organization },
+    @Req() req: { user: User },
     @Param('id') id: number,
     @Body() newProjectInfo: ProjectDto,
   ) {
     const project = await this.projectsService.findOne(id);
-    if (
-      project.organization === null ||
-      req['user'] === null ||
-      req['user'] === undefined ||
-      req['user'].id !== project.organization.id
-    ) {
+
+    if (req['user'].id !== project?.organization?.adminUser?.id) {
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
@@ -98,28 +119,27 @@ export class ProjectsController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Deletes a project' })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({
+    status: 200,
+    description: 'Deletion successful. Returns an empty response',
+  })
   @ApiResponse({
     status: 403,
     description:
-      "Forbidden: When an organization tries to delete a project they don't own",
+      "Forbidden: When a user tries to delete a project they don't own",
   })
   @ApiResponse({
     status: 404,
-    description: 'Project with id:${id} not found',
+    description:
+      'Error message saying that no project with the specified id has been found',
   })
   async remove(
-    @Req() req: { user: Organization },
+    @Req() req: { user: User },
     @Param('id') id: number,
   ): Promise<void> {
     const project = await this.projectsService.findOne(id);
 
-    if (
-      project.organization === null ||
-      req['user'] === null ||
-      req['user'] === undefined ||
-      req['user'].id !== project.organization.id
-    ) {
+    if (req['user'].id !== project?.organization?.adminUser?.id) {
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,

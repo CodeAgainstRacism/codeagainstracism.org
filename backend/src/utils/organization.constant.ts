@@ -1,5 +1,6 @@
 import { Organization } from '../organizations/organization.entity';
 import { OrganizationDto } from '../organizations/organization.dto';
+import { User } from '../users/user.entity';
 
 const mockOrganizationEntities = [
   new Organization(
@@ -11,6 +12,7 @@ const mockOrganizationEntities = [
     'johndoe@email.com',
     'John',
     'Doe',
+    new User(1, 'John', 'Doe', 'johndoe@email.com'),
   ),
   new Organization(
     1,
@@ -21,6 +23,7 @@ const mockOrganizationEntities = [
     'janedoe@email.com',
     'Jane',
     'Doe',
+    new User(2, 'Jane', 'Doe', 'janedoe@email.com'),
   ),
 ];
 
@@ -30,36 +33,20 @@ const newOrganizationDto: OrganizationDto = {
   description: 'The apple company',
   phoneNumber: '+001 (012) 012-0123',
   email: 'stevejobs@apple.com',
-  password: 'strongpassword',
   contactFirstName: 'Steve',
   contactLastName: 'Jobs',
+  adminUserId: 1,
 };
 
-const updateOrganizationDtoWithPassword: OrganizationDto = {
-  EIN: undefined,
-  name: undefined,
-  description: undefined,
-  phoneNumber: undefined,
-  email: undefined,
-  password: 'new password',
-  contactFirstName: 'Steve',
-  contactLastName: 'Jobs',
-};
-
-const updateOrganizationDtoWithoutPassword: OrganizationDto = {
-  EIN: undefined,
+const updateOrganizationDto: OrganizationDto = {
+  EIN: '00-0000000',
   name: 'new name',
-  description: undefined,
-  phoneNumber: undefined,
+  description: 'new description',
+  phoneNumber: '+001 (000) 000-0000',
   email: 'newemail@email.com',
-  password: undefined,
-  contactFirstName: undefined,
-  contactLastName: undefined,
+  contactFirstName: 'Steve',
+  contactLastName: 'Jobs',
+  adminUserId: 1,
 };
 
-export {
-  mockOrganizationEntities,
-  newOrganizationDto,
-  updateOrganizationDtoWithoutPassword,
-  updateOrganizationDtoWithPassword,
-};
+export { mockOrganizationEntities, newOrganizationDto, updateOrganizationDto };

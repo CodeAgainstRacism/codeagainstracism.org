@@ -26,17 +26,8 @@ export class ProjectsService {
     return this.projectsRepository.save(project);
   }
 
-  async findAll(): Promise<Project[]> {
-    const projects = await this.projectsRepository.find();
-
-    projects.forEach(function(project) {
-      // removes the password on the response
-      if (project.organization) {
-        delete project.organization.encryptedPassword;
-      }
-    });
-
-    return projects;
+  findAll(): Promise<Project[]> {
+    return this.projectsRepository.find();
   }
 
   async findOne(id: number): Promise<Project> {
@@ -52,11 +43,26 @@ export class ProjectsService {
       );
     }
 
-    if (project.organization) {
-      delete project.organization.encryptedPassword;
+    return project;
+  }
+
+  async findFeatured(isFeatured: boolean): Promise<Project[]> {
+    const projects = await this.projectsRepository.find({
+      where: { isFeatured },
+      select: ['id', 'description', 'startDate', 'endDate', 'organization', 'isFeatured', 'createdAt', 'updatedAt'],
+    });
+
+    if (projects === undefined) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `No featured projects found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
     }
 
-    return project;
+    return projects;
   }
 
   public async update(id: number, project: ProjectDto): Promise<Project> {

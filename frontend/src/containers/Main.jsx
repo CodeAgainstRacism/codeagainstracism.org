@@ -3,14 +3,15 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import LandingPage from "../pages/LandingPage";
-import SignUp from "../pages/SignUp";
-import LogIn from "../pages/LogIn";
 import Projects from "../pages/Projects";
 import News from "../pages/News";
 import FAQ from "../pages/FAQ";
 import About from "../pages/About";
-import NotFoundPage from "../pages/NotFound";
+import SignUp from "../pages/SignUp";
+import LogIn from "../pages/LogIn";
+import AccountRecovery from "../pages/AccountRecovery";
 import UserTypePage from "../pages/UserType";
+import NotFoundPage from "../pages/NotFound";
 
 const Main = (props) => {
   return (
@@ -21,19 +22,10 @@ const Main = (props) => {
         <Route exact path="/projects" component={Projects} />
         <Route exact path="/news" component={News} />
         <Route exact path="/faq" component={FAQ} />
-        <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={LogIn} />
-        <Route exact path="/userType" component={UserTypePage} />
-        <Route
-          exact
-          path="/signUp/Individual"
-          component={(props) => <SignUp individual {...props} />}
-        />
-        <Route
-          exact
-          path="/signUp/Organization"
-          render={(props) => <SignUp organization {...props} />}
-        />
+        <Route exact path="/signup" component={UserTypePage} />
+        <Route path="/signup/:type" render={(props) => <SignUp {...props} />} />
+        <Route exact path="/accountrecovery" component={AccountRecovery} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

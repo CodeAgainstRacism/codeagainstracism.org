@@ -49,7 +49,7 @@ export class ProjectsService {
   async findFeatured(isFeatured: boolean): Promise<Project[]> {
     const projects = await this.projectsRepository.find({
       where: { isFeatured },
-      select: ['id', 'description', 'startDate', 'endDate', 'organization', 'isFeatured', 'createdAt', 'updatedAt'],
+      select: ['id', 'description', 'startDate', 'endDate', 'isFeatured', 'isCompleted', 'organization', 'createdAt', 'updatedAt'],
     });
 
     if (projects === undefined) {

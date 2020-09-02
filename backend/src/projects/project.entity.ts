@@ -35,6 +35,10 @@ export class Project {
   @ApiProperty({ example: true })
   isFeatured: boolean;
 
+  @Column({ default: false })
+  @ApiProperty({ example: false })
+  isCompleted: boolean;
+
   @Column()
   @CreateDateColumn()
   @ApiProperty({ example: new Date('2020-07-10T13:08:16.364Z') })
@@ -67,6 +71,7 @@ export class Project {
     endDate?: Date,
     imageURL?: string,
     isFeatured?: boolean,
+    isCompleted?: boolean,
     organization?: Organization,
   ) {
     this.id = id;
@@ -76,6 +81,7 @@ export class Project {
     this.endDate = endDate;
     this.imageURL = imageURL;
     this.isFeatured = isFeatured;
+    this.isCompleted = isCompleted;
     this.organization = organization;
   }
 }

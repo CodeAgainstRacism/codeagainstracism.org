@@ -13,6 +13,7 @@ describe('Project entity', () => {
     expect(project.endDate).toBe(undefined);
     expect(project.imageURL).toBe(undefined);
     expect(project.isFeatured).toBe(undefined);
+    expect(project.isCompleted).toBe(undefined);
   });
 
   it('should make a project with some fields', () => {
@@ -31,6 +32,7 @@ describe('Project entity', () => {
     expect(project.endDate).toBe(undefined);
     expect(project.imageURL).toBe(undefined);
     expect(project.isFeatured).toBe(undefined);
+    expect(project.isCompleted).toBe(undefined);
   });
 
   it('should make a project with all fields', () => {
@@ -41,6 +43,7 @@ describe('Project entity', () => {
       new Date('2020/06/05'),
       new Date('2020/06/15'),
       'https://i.imgur.com/TTFCXdv.png',
+      false,
       false,
       new Organization(0),
     );
@@ -61,6 +64,7 @@ describe('Project entity', () => {
       'https://i.imgur.com/TTFCXdv.png',
     );
     expect(project.isFeatured).toBe(false);
+    expect(project.isCompleted).toBe(false);
     expect(project.organization.id).toBe(0);
   });
 });

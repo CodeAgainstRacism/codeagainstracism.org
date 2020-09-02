@@ -115,6 +115,31 @@ export class ProjectsController {
     return this.projectsService.update(id, newProjectInfo);
   }
 
+  @Post(':id/toggle-like')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Likes or unlikes a project' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the updated project',
+    type: Project,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. When the JWT is not provided or invalid',
+  })
+  @ApiResponse({
+    status: 404,
+    description:
+      'Error message saying that no project with the specified id has been found',
+  })
+  toggleLike(
+    @Req() req: { user: User },
+    @Param('id') id: number,
+  ): Promise<Project> {
+    return this.projectsService.toggleLike(id, req.user);
+  }
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()

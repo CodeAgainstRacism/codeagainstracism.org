@@ -20,6 +20,7 @@ const mockProjectEntities = [
     new Date('2020/06/15'),
     'https://i.imgur.com/TTFCXdv.png',
     false,
+    false,
     new Organization(
       1,
       '34-5678901',

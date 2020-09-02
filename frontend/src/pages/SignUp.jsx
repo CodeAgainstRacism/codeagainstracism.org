@@ -8,6 +8,7 @@ import {
   Typography,
   Button,
 } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import DiversityTeam from "../assets/create_a_team.png";
 
 const LoginStyles = makeStyles((theme) => ({
@@ -93,6 +94,12 @@ const SignUp = (props) => {
     props.match.params.type.toLowerCase() === "individual" ? true : false;
   const organization = !individual;
 
+  const { errors, history, removeError } = props;
+  // listen for any change in the route. If there is, call removeError to remove the error message. This is necessary when we switch between Login and Signup form to clear the error message
+  history.listen(() => {
+    removeError();
+  });
+
   async function handleIndividualSubmit(values) {
     setNewUser("test");
 
@@ -108,7 +115,7 @@ const SignUp = (props) => {
 
     props.onAuth("signup", signUpData).then(() => {
       //redirect user to another page
-      console.log("LOGGED IN! YAY");
+      console.log("SIGNED UP! YAY");
     });
 
     // axios
@@ -194,7 +201,20 @@ const SignUp = (props) => {
                 </Container>
                 <Container className={classes.formBody}>
                   {/* Display 3 Buttons for Google, Facebook, Github */}
+                  {/* Display error message from BE if neccessary */}
+
                   <Grid id="row" container spacing={1}>
+                    {errors.message && (
+                      <Grid item xs={12}>
+                        <Alert
+                          severity="error"
+                          variant="filled"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {errors.message}
+                        </Alert>
+                      </Grid>
+                    )}
                     {individual && (
                       <IndividualFields
                         firstName={firstName}

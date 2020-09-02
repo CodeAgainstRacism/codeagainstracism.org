@@ -2,6 +2,8 @@ import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { authUser } from "../redux-store/actions/auth";
+import { removeError } from "../redux-store/actions/errors";
+
 import LandingPage from "../pages/LandingPage";
 import Projects from "../pages/Projects";
 import News from "../pages/News";
@@ -14,7 +16,8 @@ import UserTypePage from "../pages/UserType";
 import NotFoundPage from "../pages/NotFound";
 
 const Main = (props) => {
-  const { authUser } = props;
+  const { authUser, errors, removeError } = props;
+
   return (
     <div>
       <Switch>
@@ -26,12 +29,26 @@ const Main = (props) => {
         <Route
           exact
           path="/login"
-          render={(props) => <LogIn onAuth={authUser} {...props} />}
+          render={(props) => (
+            <LogIn
+              onAuth={authUser}
+              errors={errors}
+              removeError={removeError}
+              {...props}
+            />
+          )}
         />
         <Route exact path="/signup" component={UserTypePage} />
         <Route
           path="/signup/:type"
-          render={(props) => <SignUp onAuth={authUser} {...props} />}
+          render={(props) => (
+            <SignUp
+              onAuth={authUser}
+              errors={errors}
+              removeError={removeError}
+              {...props}
+            />
+          )}
         />
         <Route exact path="/accountrecovery" component={AccountRecovery} />
         <Route component={NotFoundPage} />
@@ -43,7 +60,10 @@ const Main = (props) => {
 const mapStateToProps = (storeState) => {
   return {
     currentUser: storeState.currentUser,
+    errors: storeState.errors,
   };
 };
 
-export default withRouter(connect(mapStateToProps, { authUser })(Main));
+export default withRouter(
+  connect(mapStateToProps, { authUser, removeError })(Main)
+);

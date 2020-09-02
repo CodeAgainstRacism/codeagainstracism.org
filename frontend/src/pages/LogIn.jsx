@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   makeStyles,
@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import SignInButtons from "../components/SignInButtons";
+import { Alert } from "@material-ui/lab";
 import HandWave from "../assets/Hand waving.png";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -113,8 +114,45 @@ const LoginStyles = makeStyles((theme) => ({
 }));
 
 export default function LogIn(props) {
+  const [user, setUser] = useState({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { errors, history, removeError } = props;
+
   const classes = LoginStyles();
   const theme = useTheme();
+  // listen for any change in the route. If there is, call removeError to remove the error message. This is necessary when we switch between Login and Signup form to clear the error message
+  history.listen(() => {
+    removeError();
+  });
+
+  async function handleLogIn(values) {
+    const loginData = { email, password };
+
+    console.log("login data: ", loginData);
+
+    props.onAuth("login", loginData).then(() => {
+      //redirect user to another page
+      console.log("LOGGED IN! YAY");
+    });
+
+    // axios
+    //   .post("" + PORT + "/users/register", signUpData)
+    //   .then((response) => {
+    //     console.log(response);
+    //     authenticationService
+    //       .login(signUpData.username, signUpData.password)
+    //       .then(
+    //         (user) => {
+    //           history.push("/dashboard");
+    //         },
+    //         (error) => {
+    //           console.log(error);
+    //         }
+    //       );
+    //   });
+  }
+
   return (
     <React.Fragment>
       <main>
@@ -174,11 +212,34 @@ export default function LogIn(props) {
                   {/** Right Grid **/}
 
                   <Grid id="row" container spacing={1}>
+                    {/* Display error message from BE if neccessary */}
+                    {errors.message && (
+                      <Grid item xs={12}>
+                        <Alert
+                          severity="error"
+                          variant="filled"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {errors.message}
+                        </Alert>
+                      </Grid>
+                    )}
                     <Grid item xs={12}>
-                      <TextField label="Username" />
+                      <TextField
+                        label="Email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField type="password" label="Password" />
+                      <TextField
+                        type="password"
+                        label="Password"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
                     </Grid>
 
                     <Grid
@@ -204,6 +265,7 @@ export default function LogIn(props) {
                     fullWidth={true}
                     color="primary"
                     variant="contained"
+                    onClick={handleLogIn}
                   >
                     Login
                   </Button>

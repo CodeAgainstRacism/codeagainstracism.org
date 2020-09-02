@@ -10,5 +10,6 @@ export function configureStore() {
       window.devToolsExtension ? window.devToolsExtension() : (f) => f
     )
   );
+
   return store;
 }

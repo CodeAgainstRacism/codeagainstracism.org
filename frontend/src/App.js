@@ -10,6 +10,7 @@ import Main from "./containers/Main";
 const reduxStore = configureStore();
 
 class App extends React.Component {
+  // TODO: change this to functional component
   render() {
     return (
       <Provider store={reduxStore}>

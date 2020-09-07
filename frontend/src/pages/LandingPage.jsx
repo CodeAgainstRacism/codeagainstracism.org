@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   makeStyles,
   Box,
@@ -12,11 +12,7 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-
-import axios from 'axios';
-import Footer from "../components/Footer";
 import HeroImage from "../assets/Landing_Hero.svg";
-import ProjectCard from '../components/ProjectCard';
 
 const useStyles = makeStyles((theme) => ({
   flexBox: {
@@ -132,59 +128,7 @@ const cards = [1, 2, 3, 4, 5, 6];
 
 const LandingPage = (props) => {
   const classes = useStyles();
-  const [projectList, setProjectList] = useState([]);
-  const [featuredCard, setFeaturedCard] = useState([]);
-  const getProjectCards = projectCardObj => {
-    return (
-      <Grid item xs={12} sm={6} lg={4} key={projectCardObj.id}>
-        <ProjectCard {...projectCardObj} />
-      </Grid>
-    );
-  }
 
-  useEffect(()=>{
-    axios.get('http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects', {
-        params: {}
-      })
-      .then(function (response) {
-        if(response.status === 200) {
-          const { data } = response;
-          const newCards = [];
-          data.forEach((card, index) => {
-          newCards[index] = {
-              id: card.id,
-              name: card.name,
-              description: card.description,
-              index: index
-            };
-          });
-          setProjectList(newCards);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-  });
-
-  // useEffect(()=>{
-  //   axios.get('http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects/featured', {
-  //       params: {}
-  //     })
-  //     .then(function (response) {
-  //       const { data } = response;
-  //       const featuredCard = {
-  //         id: data.id,
-  //         name: data.name,
-  //         description: data.gdescription,
-  //         index: data
-  //       };
-  //       setFeaturedCard(featuredCard);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     })
-  // });
-  
   return (
     <React.Fragment>
       <CssBaseline />
@@ -267,7 +211,12 @@ const LandingPage = (props) => {
                       paragraph
                       className={classes.featuredParagraph}
                     >
-                      {featuredCard.description}
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ut, rem. Saepe nesciunt, cumque voluptate tenetur deserunt
+                      voluptatum numquam modi. Provident error nihil molestiae
+                      iusto dolorem qui repellat ducimus at ratione! Lorem ipsum
+                      dolor sit amet consectetur adipisicing elit. Ut, rem.
+                      Saepe nesciunt.
                     </Typography>
                     <CardActions className={classes.flexBoxCenter}>
                       <Button
@@ -287,7 +236,36 @@ const LandingPage = (props) => {
 
           {/* 6 projects */}
           <Grid container spacing={4}>
-            {projectList.slice(0, 6).map(projectCardObj => getProjectCards(projectCardObj))}
+            {cards.map((card) => (
+              <Grid item key={card} xs={12} sm={6} md={4}>
+                <Card className={classes.card}>
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image="https://source.unsplash.com/random"
+                    title="Image title"
+                  />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5">
+                      Title
+                    </Typography>
+                    <Typography align="left">
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Voluptate impedit magnam culpa
+                    </Typography>
+                  </CardContent>
+                  <CardActions className={classes.flexBoxCenter}>
+                    <Button
+                      size="medium"
+                      color="primary"
+                      className={classes.learnMoreButton}
+                      variant="contained"
+                    >
+                      Learn More
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
           <Grid container className={classes.moreProjects}>
             <Button size="large" color="secondary" variant="contained">

@@ -1,11 +1,12 @@
 import React from "react";
-import {makeStyles } from '@material-ui/core';
+import {makeStyles, Checkbox } from '@material-ui/core';
 import {Container,
         CssBaseline,
         Button,
         TextField,
         Grid,
-        Box} from '@material-ui/core';
+        Box,} from '@material-ui/core';
+//import { Checkbox } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import Footer from "../components/Footer";
 import SideBar from "../components/SideBarOrganization"
@@ -15,6 +16,7 @@ const projectFormStyles = makeStyles((theme) => ({
 
   root: {
     flexGrow: 1,
+    
   },
 
   fakeSideBar: {
@@ -24,39 +26,40 @@ const projectFormStyles = makeStyles((theme) => ({
   },
 
   gridText:{
-    textAlign: "left"
+    textAlign: "justify",
+    fontSize: theme.spacing(2.5),
   },
 
   
   gridAlignment: {
-    marginLeft: "10%",
-    marginRight: "10%",
+    //marginLeft: "5%",
+    //marginRight: "5%",
     display: "grid",
-    gridTemplateColumns: "23% 77%",
+    gridTemplateColumns: "20% 80%",
     gridTemplateAreas: ` 'sideBar header'
                           'sideBar form' `,
              
   },
 
   dividerBar: {
-    height: "1px",
-    background: "#808080",
+    height: "2px",
+    background: "#000000",
     flexGrow: 1,
   },
 
   headingContainer: {
     gridArea: "header",
-    //border: "1px solid #03fc17",
-    //boxSizing: "border-box",
-    textAlign: "left",
+    textAlign: "center",
+    paddingBottom: "2%",
+    paddingTop: "2%",
+    fontSize : theme.spacing(4.5),
+    width: "95%"
   },
 
   sideBarContainer: {
     gridArea: "sideBar",
-    //border: "1px solid #292929",
-    //boxSizing: "border-box",
     width: "100%",
-    //display: "inline"
+    //marginLeft: "100%"
   },
 
   rightContainer: {
@@ -64,95 +67,100 @@ const projectFormStyles = makeStyles((theme) => ({
   //contains the heading and the form 
     backgroundColor: "white",
     paddingTop: "5%",
-    paddingBottom: "5%"
-    //border: "1px solid #292929",
-    //boxSizing: "border-box",
-    //marginTop: "20px",
-    //marginBottom: "6 rem",
-    //marginRight: "200px"
+    paddingBottom: "5%",
+    width: "95%"
   },
 }))
 export default function NewProjectForm() { 
   const classes = projectFormStyles();
   
     return (
-
+      //if we're using a grid for the whole thing set direction to row?
       <React.Fragment>
         <CssBaseline />
+        
         {/**must wrapper the whole thing as a body? */}
-        <body className = {classes.gridAlignment} >
-          <Container className = {classes.sideBarContainer}>
-            <SideBar/>
-          </Container>
-              {/*<SideBar/>*/}
-              
-                {/*<div className={classes.root}>*/}
-
-          <Container disableGutters = {true} className = {classes.headingContainer}> 
-              <h1>Create A New Project</h1>
+        <Grid container spacing = {0} id = "row">
+          <Grid item xs = {2}>
+            <Box className = {classes.sideBarContainer}>
+              <SideBar/>
+            </Box>
+          </Grid>
+          <Grid item xs = {9}>
+          <Container className = {classes.headingContainer}> 
+              Create A New Project
               <Box className = {classes.dividerBar}></Box>
           </Container>
 
           <Container className = {classes.rightContainer}>
             <Grid container spacing={3} className = {classes.gridText}>
-            <Grid item xs = {12} sm = {12}>
-                <TextField placeholder = "Enter Your Project's Name"/>
+            <Grid item xs = {12} >
+                <TextField label = "Enter Your Project's Name"/>
             </Grid>
-            <Grid item xs = {12} sm = {12}>
+            <Grid item xs = {12} >
                 <TextField placeholder = "Tell us about your project! Be sure to include details of your organization, requirements for potential members, and any further suggestions" rows = "20" columns = "30" multiline = {true}/>
             </Grid>
-            <Grid item xs = {12} sm = {4}>
-                Due Date: 
+            <Grid  item  xs = {3} >
+                Start Date* 
             </Grid>
-            <Grid item xs = {12} sm = {8}>
+            <Grid item container xs = {3} display = "flex" justify = "space-evenly">
                 <TextField type = "date"/>
             </Grid>
-            <Grid item xs = {12} sm = {4}>
+            <Grid item container xs = {3} display = "flex" justify = "space-evenly" >
+                End Date* 
             </Grid>
-            <Grid item xs = {12} sm = {8}>
+            <Grid item container xs = {3} display = "flex" justify = "space-evenly"  >
+                <TextField type = "date"/>
+            </Grid>
+            <Grid item xs = {3} >
+                Cover Photo 
+            </Grid>
+            <Grid item container  xs = {9} justify = "flex-start"   >
                 <Button variant="contained" component="label" color = "primary"> 
                   Upload File
                   <input type="file" style={{ display: "none" }}/>
                 </Button>
             </Grid>
-            <Grid item xs = {12} sm = {12}>
+            <Grid item xs = {12} >
                 <Divider variant="fullwidth"/>
-                <h2>Contact Information</h2>
+                <p style={{fontSize: "30px"}}>Contact Information</p>
             </Grid>
-            <Grid item xs = {12} sm = {4}>
-                Name: 
+            {/* <Grid justify = "flex-end" item xs = {6} >
+                <Checkbox/> <label>Use Contact Information from account</label>
+            </Grid> */}
+            <Grid item xs = {3} >
+                Full name*
             </Grid>
-            <Grid item xs = {12} sm = {8}>
+            <Grid item xs = {9} >
                 <TextField/>
             </Grid>
-            <Grid item xs = {12} sm = {4}>
-                Phone(optional): 
+            <Grid item xs = {3} >
+                Phone number*
             </Grid>
-            <Grid item xs = {12} sm = {8}>
+            <Grid item xs = {9} >
                   <TextField/>              
             </Grid>
-            <Grid item xs = {12} sm = {4}>
-                Email:
+            <Grid item xs = {3} >
+                Email address*
             </Grid>
-            <Grid item xs = {12} sm = {8}>
+            <Grid item xs = {9}>
                 <TextField/>              
             </Grid>
-            <Grid item xs = {12} sm = {4}>
-                Primary organization:
+            <Grid item xs = {3} >
+                Organization*
             </Grid>
-            <Grid item xs = {12} sm = {8}>
+            <Grid item xs = {9} >
                 <TextField/> 
             </Grid>
             
-            <Grid item xs={12}
-                      display="flex"
-                      justify="flex-end">
+            <Grid item container xs={12} justify = "center">
                 <Button color ="primary" variant = "contained">Submit</Button>
             </Grid> 
           </Grid>
         </Container>
-      {/** </div> */}  
-        </body>  
+        </Grid>
+      </Grid>
+      
       </React.Fragment>
     );
   }

@@ -52,6 +52,12 @@ const theme = createMuiTheme({
       },
     },
 
+    MuiListItemText:{
+      primary:{
+          fontSize: "14.5px", 
+      }
+    },
+
     MuiInputLabel: {
       root: {
         color: "#adadad",

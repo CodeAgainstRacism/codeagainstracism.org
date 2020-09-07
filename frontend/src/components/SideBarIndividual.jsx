@@ -17,10 +17,12 @@ import SideBar from './SideBar';
 export default function SideBarIndividual(){
     return(
         <SideBar>
-            <Container>
-                <PersonIcon fontSize="large" />
-                <h3>John Doe</h3>
-            </Container>
+            <ListItem>
+                    <ListItemIcon>
+                        <PersonIcon fontSize="large" color = "secondary"/>
+                    </ListItemIcon>
+                    <h3>John Doe</h3>
+                </ListItem>
             <List>
                 <Divider/>
                 <ListItem button

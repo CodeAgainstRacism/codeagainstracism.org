@@ -18,9 +18,13 @@ import SideBar from './SideBar';
 export default function SideBarOrganization(props){
     return(
         <SideBar>
-            <PersonIcon fontSize="large" />
-            <h2>Code Against Racism</h2>
             <List>
+                <ListItem>
+                    <ListItemIcon>
+                        <PersonIcon fontSize="large" color = "secondary"/>
+                    </ListItemIcon>
+                    <h3>Code Against Racism</h3>
+                </ListItem>
                 <Divider/>
                 <ListItem button
                     component={RouterLink}

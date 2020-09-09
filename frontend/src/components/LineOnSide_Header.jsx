@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     alignText: "center",
     display: "inline",
     padding: theme.spacing(0, 5),
+    whiteSpace: "nowrap", 
   },
   line: {
     border: "none",

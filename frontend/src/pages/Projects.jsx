@@ -1,18 +1,16 @@
 import React, { Fragment, useEffect, useState} from 'react';
 import {
-  Box,
   Container,
   Grid,
   makeStyles,
-  Typography,
   InputBase,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Pagination } from '@material-ui/lab';
 import ProjectCard from '../components/ProjectCard';
 import axios from 'axios';
-
 import { BACKEND_URL } from '../config';
+import LineOnSideHeader from '../components/LineOnSideHeader';
 
 const useStyles = makeStyles((theme) => ({
   contentStyle: {
@@ -22,24 +20,16 @@ const useStyles = makeStyles((theme) => ({
   marginStyle: {
     marginTop: theme.spacing(3),
   },
-  dividerContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: theme.spacing(5),
-  },
   projectTitle: {
     alignText: 'center',
     display: 'inline',
     padding: theme.spacing(0, 5),
     whiteSpace: 'nowrap',
   },
-  line: {
-    border: 'none',
-    borderTop: `3px solid ${theme.palette.text.primary}`,
-    color: theme.palette.text.secondary,
-    overflow: 'visible',
-    textAlign: 'center',
-    width: '50%',
+  searchBarStyle: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing(3),
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -127,19 +117,13 @@ export default function Projects() {
       <Container maxWidth='lg' direction='column' className={classes.viewStyle}>
         <Grid container direction='column' className={classes.contentStyle}>
           <Grid item className={classes.marginStyle}>
-            <Box className={classes.dividerContainer}>
-              <hr className={classes.line}/>
-              <Typography
-                variant='h4'
-                align='center'
-                gutterBottom
-                className={classes.projectTitle}
+            <LineOnSideHeader
+              title="All Projects"
+              variant="h4"
+              className={classes.projectTitle}
               >
-                All Projects
-              </Typography>
-              <hr className={classes.line}/>
-            </Box>
-            <div className={classes.contentStyle}>
+            </LineOnSideHeader>
+            <div className={classes.searchBarStyle}>
               <div className={classes.inputStyle}>
                 <SearchIcon className={classes.iconStyle}/>
                 <InputBase

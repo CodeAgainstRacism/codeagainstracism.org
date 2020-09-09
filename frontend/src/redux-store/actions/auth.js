@@ -17,17 +17,13 @@ export function authUser(type, userData) {
     // use Promise to wait until the API call is finished
     return new Promise((resolve, reject) => {
       return apiCall("post", `${BACKEND_URL}/auth/${type}`, userData)
-        .then(
-          // data => {
-          ({ accessToken, ...user }) => {
-            localStorage.setItem("jwtToken", accessToken);
-            dispatch(setCurrentUser(user));
-            dispatch(removeError());
-            resolve();
-          }
-        )
+        .then(({ accessToken, ...user }) => {
+          localStorage.setItem("jwtToken", accessToken);
+          dispatch(setCurrentUser(user));
+          dispatch(removeError());
+          resolve();
+        })
         .catch((err) => {
-          console.log("Error auth user: ", err);
           dispatch(addError(err));
           reject();
         });

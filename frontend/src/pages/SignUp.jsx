@@ -100,7 +100,7 @@ const SignUp = (props) => {
     removeError();
   });
 
-  async function handleIndividualSubmit(values) {
+  async function handleIndividualSubmit() {
     setNewUser("test");
 
     const signUpData = {
@@ -135,6 +135,8 @@ const SignUp = (props) => {
     //   });
   }
 
+  // to create an organization account, send request to /user to create a user
+  // then send a request to /organization with user's id to create an organization
   const handleOrgSubmit = () => {
     setNewUser("test");
 
@@ -142,12 +144,20 @@ const SignUp = (props) => {
       organizationName,
       EIN,
       phoneNumber,
+      firstName,
+      lastName,
       email,
       password,
       description,
     };
 
     console.log(signUpData);
+    props.onAuth("signup", signUpData).then(() => {
+      // create an organization with user's id from the backend
+      // TODO: need to get user's id from response
+      //redirect user to another page
+      console.log("SIGNED UP! YAY");
+    });
   };
 
   return (
@@ -215,14 +225,7 @@ const SignUp = (props) => {
                         </Alert>
                       </Grid>
                     )}
-                    {individual && (
-                      <IndividualFields
-                        firstName={firstName}
-                        lastName={lastName}
-                        setFirstName={setFirstName}
-                        setLastName={setLastName}
-                      />
-                    )}
+
                     {organization && (
                       <OrganizationFields
                         setOrganizationName={setOrganizationName}
@@ -233,6 +236,14 @@ const SignUp = (props) => {
                         phoneNumber={phoneNumber}
                       />
                     )}
+
+                    <IndividualFields
+                      firstName={firstName}
+                      lastName={lastName}
+                      setFirstName={setFirstName}
+                      setLastName={setLastName}
+                    />
+
                     <Grid item xs={12}>
                       <TextField
                         required
@@ -363,7 +374,7 @@ const OrganizationFields = (props) => {
       <Grid item xs={12}>
         <TextField
           required
-          label="Phone Number"
+          label="Organization Phone Number"
           name="phoneNumber"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}

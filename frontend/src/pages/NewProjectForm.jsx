@@ -66,7 +66,7 @@ const projectFormStyles = makeStyles((theme) => ({
     gridArea: "form",
   //contains the heading and the form 
     backgroundColor: "white",
-    paddingTop: "5%",
+    paddingTop: "2%",
     paddingBottom: "5%",
     width: "95%"
   },
@@ -81,7 +81,7 @@ export default function NewProjectForm() {
         
         {/**must wrapper the whole thing as a body? */}
         <Grid container spacing = {0} id = "row">
-          <Grid item xs = {2}>
+          <Grid item xs = {2} container alignItems = "stretch">
             <Box className = {classes.sideBarContainer}>
               <SideBar/>
             </Box>
@@ -98,7 +98,22 @@ export default function NewProjectForm() {
                 <TextField label = "Enter Your Project's Name"/>
             </Grid>
             <Grid item xs = {12} >
-                <TextField placeholder = "Tell us about your project! Be sure to include details of your organization, requirements for potential members, and any further suggestions" rows = "20" columns = "30" multiline = {true}/>
+                <TextField placeholder = "Tell us about your project! Be sure to include details of your organization, requirements for potential members, and any further suggestions" rows = "10"  multiline = {true}/>
+            </Grid>
+            <Grid item display = "flex" justify = "space-evenly"xs = {12}>
+              Please check boxes to for which roles you are looking for 
+            </Grid>
+            <Grid item display = "flex" justify = "space-evenly"xs = {3}>
+              <Checkbox/> Front End
+            </Grid>
+            <Grid item display = "flex" justify = "space-evenly" xs = {3}>
+              <Checkbox/> Back End
+              </Grid>
+            <Grid item display = "flex" justify = "space-evenly" xs = {3}>
+              <Checkbox/> Project Manager
+              </Grid>
+            <Grid item display = "flex" justify = "space-evenly"xs = {3}>
+              <Checkbox/> Other
             </Grid>
             <Grid  item  xs = {3} >
                 Start Date* 

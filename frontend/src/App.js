@@ -13,6 +13,7 @@ import AccountRecovery from "./pages/AccountRecovery";
 import UserTypePage from "./pages/UserType";
 import NotFoundPage from "./pages/NotFound";
 import NewProjectForm from "./pages/NewProjectForm";
+import YourProjects from "./pages/YourProjects";
 import NavBar from "./components/NavBar";
 // import Footer from "./components/Footer";
 
@@ -31,6 +32,8 @@ class App extends React.Component {
               <Route exact path="/faq" component={FAQ} />
               <Route exact path="/login" component={LogIn} />
               <Route exact path="/newprojectform" component={NewProjectForm} />
+              <Route exact path="/yourprojects" component={YourProjects} />
+
               <Route
                 exact
                 path="/accountrecovery"

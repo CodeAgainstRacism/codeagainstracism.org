@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import HeroImage from "../assets/Landing_Hero.svg";
-import LineOnSide_Header from "../components/LineOnSide_Header";
+import LineOnSideHeader from "../components/LineOnSideHeader"; 
 
 const useStyles = makeStyles((theme) => ({
   flexBox: {
@@ -163,7 +163,7 @@ const LandingPage = (props) => {
         {/* End hero Box */}
         <Container className={classes.cardGrid} maxWidth="lg">
           <Box style={{ marginBottom: theme.spacing(5) }}>
-            <LineOnSide_Header title="PROJECTS" variant="h4" />
+            <LineOnSideHeader title="PROJECTS" variant="h4" />
           </Box>
           {/* Featured Project */}
           <Card className={classes.featuredContainer}>

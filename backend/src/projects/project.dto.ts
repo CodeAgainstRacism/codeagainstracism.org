@@ -34,6 +34,12 @@ export class ProjectDto {
   @ApiProperty({ example: '2020/07/16' })
   endDate: Date;
 
+  @IsOptional()
+  @MaxLength(300)
+  @IsString()
+  @ApiProperty({ example: 'https://i.imgur.com/TTFCXdv.png' })
+  imageURL: string;
+
   @ApiProperty({ example: 1 })
   organizationId: number;
 }

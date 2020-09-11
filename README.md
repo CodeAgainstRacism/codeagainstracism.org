@@ -1,7 +1,7 @@
 
 <h1 align="center">Code Against Racism</h1>
 <div align="center">
-  <img alt="ReDoc logo" src="https://i.imgur.com/TTFCXdv.png" width="400px" />
+  <img alt="ReDoc logo" src="https://i.imgur.com/4jS37dr.png" width="400px" />
 </div>  
 <br />
 <div align="center">

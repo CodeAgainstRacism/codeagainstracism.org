@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     alignText: "center",
     display: "inline",
     padding: theme.spacing(0, 5),
-    whiteSpace: "nowrap", 
+    whiteSpace: "nowrap",
   },
   line: {
     border: "none",
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LineOnSide_Header = (props) => {
+const LineOnSideHeader = (props) => {
   const { title, variant } = props;
   const classes = useStyles();
 
@@ -37,4 +37,4 @@ const LineOnSide_Header = (props) => {
   );
 };
 
-export default LineOnSide_Header;
+export default LineOnSideHeader;

@@ -22,14 +22,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   headerTextStyle: {
-    margin: theme.spacing(2, 0, 0, 0),
+    margin: theme.spacing(2, 0, 1, 0),
     fontWeight: "bold",
   },
   contentCenter: {
     display: "flex",
     justifyContent: "center",
     background: theme.palette.background.paper,
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(5),
     borderRadius: theme.spacing(3),
   },
   cardStyle: {
@@ -49,8 +49,7 @@ const useStyles = makeStyles((theme) => ({
     textAlgin: "center",
     letterSpacing: theme.spacing(0.5),
     width: theme.spacing(20),
-    margin: theme.spacing(2, 0),
-    padding: theme.spacing(1.5, 3),
+    margin: theme.spacing(0, 0, 2),
   },
   radioStyle: {
     "&$checked": {
@@ -62,8 +61,9 @@ const useStyles = makeStyles((theme) => ({
   },
   checked: {},
   image: {
-    height: "40vh",
-    objectFit: "contain",
+    height: "30vh",
+    objectFit: "fill",
+    maxHeight: "100%",
     maxWidth: "100%",
     marginBottom: theme.spacing(3),
   },
@@ -83,7 +83,7 @@ const UserTypePage = () => {
   };
 
   return (
-    <Container maxWidth="lg" direction="column">
+    <Container maxWidth="md" direction="column">
       <Grid container className={classes.contentCenter} spacing={3}>
         <Grid item xs={12}>
           <Typography
@@ -93,10 +93,10 @@ const UserTypePage = () => {
           >
             Welcome to Code Against Racism
           </Typography>
-          <Typography variant="h6" align="center">
+          <Typography variant="body1" align="center">
             We are so excited to see you join our teams of warriors!
           </Typography>
-          <Typography variant="body2" gutterBottom align="center">
+          <Typography variant="body1" gutterBottom align="center">
             Please choose one of these options
           </Typography>
         </Grid>
@@ -161,8 +161,8 @@ const UserTypePage = () => {
           component={RouterLink}
           to={
             selectedValue === "individual"
-              ? "/signup/Individual"
-              : "/signup/Organization"
+              ? "/signup/individual"
+              : "/signup/organization"
           }
         >
           Next

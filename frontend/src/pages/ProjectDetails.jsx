@@ -5,7 +5,7 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import LineOnSide_Header from '../components/LineOnSide_Header';
+import LineOnSideHeader from '../components/LineOnSideHeader';
 import axios from 'axios';
 import { BACKEND_URL } from '../config.js';
 
@@ -61,10 +61,10 @@ const ProjectDetails = (props) => {
       <main>
         <Container maxWidth='lg' className={classes.outerContainer}>
           <Grid className={classes.headerStyle}>
-            <LineOnSide_Header
+            <LineOnSideHeader
               title={projectDetails.name}
               variant={'h3'}>
-            </LineOnSide_Header>
+            </LineOnSideHeader>
           </Grid>
           <Grid className={classes.contentStyle}>
             {/* image component here */}

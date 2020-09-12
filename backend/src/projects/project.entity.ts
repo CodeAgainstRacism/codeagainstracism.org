@@ -56,7 +56,7 @@ export class Project {
   @ApiProperty({ example: new Date('2020-07-15T22:50:43.000Z') })
   updatedAt: Date;
 
-  @Column()
+  @Column({ default: null })
   @ApiProperty({ example: 'https://i.imgur.com/TTFCXdv.png' })
   imageURL: string;
 

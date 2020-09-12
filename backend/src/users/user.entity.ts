@@ -26,6 +26,10 @@ export class User {
   @Column()
   @ApiProperty({ example: 'Doe' })
   lastName: string;
+  
+  @Column()
+  @ApiProperty({ example: '+001 (012) 012-0123' })
+  phoneNumber: string;
 
   @Column({ unique: true })
   @ApiProperty({ example: 'email@email.com' })

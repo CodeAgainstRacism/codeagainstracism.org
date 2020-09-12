@@ -1,4 +1,4 @@
-import { IsEmail, IsString, MaxLength } from 'class-validator';
+import { IsEmail, IsString, MaxLength, IsMobilePhone } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserDto {
@@ -9,6 +9,10 @@ export class UserDto {
   @IsString()
   @ApiProperty({ example: 'Doe' })
   lastName: string;
+
+  @IsMobilePhone('en-US')
+  @ApiProperty({ example: '(718) 222-4041' })
+  phoneNumber: string;
 
   @IsEmail()
   @ApiProperty({ example: 'name@email.com' })

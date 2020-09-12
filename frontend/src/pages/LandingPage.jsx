@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { BACKEND_URL } from '../config';
 import {
   makeStyles,
   Box,
@@ -12,8 +13,12 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-import HeroImage from "../assets/Landing_Hero.svg";
+
+import axios from 'axios';
 import Footer from "../components/Footer";
+import HeroImage from "../assets/Landing_Hero.svg";
+import ProjectCard from '../components/ProjectCard';
+
 
 const useStyles = makeStyles((theme) => ({
   flexBox: {
@@ -26,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
+
+  /**** HERO *******/
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
+    marginTop: theme.spacing(2),
   },
-  /**** TITLE *******/
-
-  /***** PARAGRAPH */
   heroParagraph: {
     padding: theme.spacing(2, 0),
     color: theme.palette.text.primary,
@@ -47,13 +52,17 @@ const useStyles = makeStyles((theme) => ({
   heroLeftCTAButton: {
     backgroundColor: theme.heroCTAButton.left,
     color: theme.palette.text.secondary,
-    width: "14rem",
+    width: theme.spacing(28),
     padding: theme.spacing(2, 0),
+    fontWeight: "bold",
+    fontSize: "",
   },
   heroRightCTAButton: {
     backgroundColor: theme.heroCTAButton.right,
-    width: "14rem",
+    width: theme.spacing(28),
     padding: theme.spacing(2, 0),
+    fontWeight: "bold",
+    fontSize: "",
   },
 
   /* Projects Title */
@@ -102,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-    marginBottom: theme.spacing(8),
+    // marginBottom: theme.spacing(8),
   },
   card: {
     height: "100%",
@@ -125,6 +134,45 @@ const cards = [1, 2, 3, 4, 5, 6];
 
 const LandingPage = (props) => {
   const classes = useStyles();
+  const [projects, setProjects] = useState([]);
+  const [featuredCard, setFeaturedCard] = useState('');
+  const getProjectCards = projectCardObj => {
+    return (
+      <Grid item xs={12} sm={6} lg={4} key={projectCardObj.id}>
+        <ProjectCard {...projectCardObj} />
+      </Grid>
+    );
+  }
+
+  const getData = () => {
+    //axios.get(`${BACKEND_URL}projects`, {
+    axios.get(`http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects`, {
+      params: {}
+    })
+    .then(function (response) {
+      setProjects(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    axios.get(`http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects/featured`, {
+      params: {}
+    })
+    .then(function (response) {
+      let count = 0;
+      response.data.forEach((card, index) => {
+        count = count + 1;
+      });
+      setFeaturedCard((response.data)[Math.floor(Math.random() * count)]);
+    })
+    .catch(function (error) {
+       console.log(error);
+    })
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <React.Fragment>
@@ -153,16 +201,10 @@ const LandingPage = (props) => {
                   <Grid container spacing={7}>
                     <Grid item>
                       <Button
-                        size="large"
                         variant="contained"
                         className={classes.heroLeftCTAButton}
                       >
-                        <Typography
-                          variant="button"
-                          fontWeight="fontWeightBold"
-                        >
-                          Join A Project
-                        </Typography>
+                        Join A Project
                       </Button>
                     </Grid>
                     <Grid item>
@@ -207,19 +249,14 @@ const LandingPage = (props) => {
                       Featured
                     </Typography>
                     <Typography variant="h4" color="textPrimary" gutterBottom>
-                      Black Girls Code
+                      {featuredCard.description}
                     </Typography>
                     <Typography
                       variant="subtitle1"
                       paragraph
                       className={classes.featuredParagraph}
                     >
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut, rem. Saepe nesciunt, cumque voluptate tenetur deserunt
-                      voluptatum numquam modi. Provident error nihil molestiae
-                      iusto dolorem qui repellat ducimus at ratione! Lorem ipsum
-                      dolor sit amet consectetur adipisicing elit. Ut, rem.
-                      Saepe nesciunt.
+                      {featuredCard.description}
                     </Typography>
                     <CardActions className={classes.flexBoxCenter}>
                       <Button
@@ -239,36 +276,7 @@ const LandingPage = (props) => {
 
           {/* 6 projects */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5">
-                      Title
-                    </Typography>
-                    <Typography align="left">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Voluptate impedit magnam culpa
-                    </Typography>
-                  </CardContent>
-                  <CardActions className={classes.flexBoxCenter}>
-                    <Button
-                      size="medium"
-                      color="primary"
-                      className={classes.learnMoreButton}
-                      variant="contained"
-                    >
-                      Learn More
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+            {projects.slice(0, 6).map(projectCardObj => getProjectCards(projectCardObj))}
           </Grid>
           <Grid container className={classes.moreProjects}>
             <Button size="large" color="secondary" variant="contained">
@@ -279,9 +287,6 @@ const LandingPage = (props) => {
           {/* Insert Sponsors */}
         </Container>
       </main>
-      {/* Footer */}
-      <Footer />
-      {/* End footer */}
     </React.Fragment>
   );
 };

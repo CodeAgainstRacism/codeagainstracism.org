@@ -36,6 +36,13 @@ export class User {
   encryptedPassword: string;
 
   @Column()
+  @ApiProperty({
+    example:
+      '"John Doe" (for males) and "Jane Doe" (for females) are multiple-use names that are used when the true name of a person is unknown or is being intentionally concealed.',
+  })
+  description: string;
+
+  @Column()
   @CreateDateColumn()
   @ApiProperty({ example: new Date('2020-07-11T13:08:16.364Z') })
   createdAt: Date;

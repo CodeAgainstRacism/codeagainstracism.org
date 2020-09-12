@@ -12,6 +12,7 @@ const newUserDto: UserDto = {
   lastName: 'Jobs',
   email: 'stevejobs@email.com',
   password: 'imalive',
+  description: '',
 };
 
 const updateUserDto: UserDto = {
@@ -19,6 +20,7 @@ const updateUserDto: UserDto = {
   lastName: 'Gratton',
   email: 'bobgratton@email.com',
   password: 'rock&roll',
+  description: '',
 };
 
 export { mockUserEntities, newUserDto, updateUserDto };

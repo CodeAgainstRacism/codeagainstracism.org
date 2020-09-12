@@ -42,6 +42,10 @@ export class Project {
   @ApiProperty({ example: false })
   isCompleted: boolean;
 
+  @Column({ default: null })
+  @ApiProperty({ example: 'React.ts, apollo server(graphql), typeorm, any headless cms' })
+  qualificationsNeeded: string;
+
   @Column()
   @CreateDateColumn()
   @ApiProperty({ example: new Date('2020-07-10T13:08:16.364Z') })

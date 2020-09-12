@@ -40,6 +40,11 @@ export class ProjectDto {
   @ApiProperty({ example: 'https://i.imgur.com/TTFCXdv.png' })
   imageURL: string;
 
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ example: 'React.ts, apollo server(graphql), typeorm, any headless cms' })
+  qualificationsNeeded: string;
+
   @ApiProperty({ example: 1 })
   organizationId: number;
 }

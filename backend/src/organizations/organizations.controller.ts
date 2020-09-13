@@ -19,8 +19,15 @@ export class OrganizationsController {
 
   @Post()
   @ApiOperation({ summary: 'Creates an organization' })
-  @ApiResponse({ status: 201 })
-  @ApiResponse({ status: 409, description: 'Email already used' })
+  @ApiResponse({
+    status: 201,
+    description: 'Returns the created organization',
+    type: Organization,
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Error message saying that the email is already used',
+  })
   create(
     @Body() createOrganizationDto: OrganizationDto,
   ): Promise<Organization> {
@@ -31,7 +38,8 @@ export class OrganizationsController {
   @ApiOperation({ summary: 'Fetches all organizations' })
   @ApiResponse({
     status: 200,
-    description: 'An array of with the organizations',
+    description: 'Returns an array of all the organizations',
+    type: [Organization],
   })
   findAll(): Promise<Organization[]> {
     return this.organizationsService.findAll();
@@ -41,13 +49,13 @@ export class OrganizationsController {
   @ApiOperation({ summary: 'Fetches an organization' })
   @ApiResponse({
     status: 200,
-    description: 'The found organization',
+    description: 'Return the organization with the specified id',
     type: Organization,
   })
-  @ApiResponse({ status: 200 })
   @ApiResponse({
     status: 404,
-    description: 'Organization with id:${id} not found',
+    description:
+      'Error message saying that no organization with the specified id has been found',
   })
   findOne(@Param('id') id: string): Promise<Organization> {
     return this.organizationsService.findOne(Number(id));
@@ -55,10 +63,15 @@ export class OrganizationsController {
 
   @Put(':id')
   @ApiOperation({ summary: 'Updates an organization' })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the updated organization',
+    type: Organization,
+  })
   @ApiResponse({
     status: 404,
-    description: 'Organization with id:${id} not found',
+    description:
+      'Error message saying that no organization with the specified id has been found',
   })
   update(@Param('id') id: string, @Body() organization: OrganizationDto) {
     return this.organizationsService.update(Number(id), organization);
@@ -66,10 +79,14 @@ export class OrganizationsController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Deletes an organization' })
-  @ApiResponse({ status: 200 })
+  @ApiResponse({
+    status: 200,
+    description: 'Deletion successful. Returns an empty response',
+  })
   @ApiResponse({
     status: 404,
-    description: 'Organization with id:${id} not found',
+    description:
+      'Error message saying that no organization with the specified id has been found',
   })
   remove(@Param('id') id: string): Promise<void> {
     return this.organizationsService.remove(Number(id));

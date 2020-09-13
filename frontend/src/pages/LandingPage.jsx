@@ -19,7 +19,6 @@ import Footer from "../components/Footer";
 import HeroImage from "../assets/Landing_Hero.svg";
 import ProjectCard from '../components/ProjectCard';
 
-
 const useStyles = makeStyles((theme) => ({
   flexBox: {
     display: "flex",

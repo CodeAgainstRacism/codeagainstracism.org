@@ -6,10 +6,12 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { Organization } from '../organizations/organization.entity';
+import { Project } from '../projects/project.entity';
 
 @Entity()
 export class User {
@@ -35,21 +37,32 @@ export class User {
 
   @Column()
   @CreateDateColumn()
+  @ApiProperty({ example: new Date('2020-07-11T13:08:16.364Z') })
   createdAt: Date;
 
   @Column()
   @UpdateDateColumn()
+  @ApiProperty({ example: new Date('2020-07-12T22:50:43.000Z') })
   updatedAt: Date;
 
-  @ApiProperty({
-    type: () => Organization,
-  })
   @OneToOne(
     () => Organization,
     (organization: Organization) => organization.adminUser,
   )
   @JoinColumn()
+  @ApiProperty({
+    type: () => Organization,
+  })
   ownedOrganization: Organization;
+
+  @ApiProperty({
+    type: () => Project,
+  })
+  @ManyToMany(
+    () => Project,
+    (project: Project) => project.likers,
+  )
+  likedProjects: Project[];
 
   constructor(
     id?: number,

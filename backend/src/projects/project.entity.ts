@@ -5,9 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Organization } from '../organizations/organization.entity';
+import { User } from '../users/user.entity';
 
 @Entity()
 export class Project {
@@ -31,6 +34,14 @@ export class Project {
   @ApiProperty({ example: new Date('2038/01/19') })
   endDate: Date;
 
+  @Column({ default: false })
+  @ApiProperty({ example: true })
+  isFeatured: boolean;
+
+  @Column({ default: false })
+  @ApiProperty({ example: false })
+  isCompleted: boolean;
+
   @Column()
   @CreateDateColumn()
   @ApiProperty({ example: new Date('2020-07-10T13:08:16.364Z') })
@@ -40,6 +51,10 @@ export class Project {
   @UpdateDateColumn()
   @ApiProperty({ example: new Date('2020-07-15T22:50:43.000Z') })
   updatedAt: Date;
+
+  @Column()
+  @ApiProperty({ example: 'https://i.imgur.com/TTFCXdv.png' })
+  imageURL: string;
 
   @ManyToOne(
     () => Organization,
@@ -51,19 +66,45 @@ export class Project {
   })
   organization: Organization;
 
+  @ApiProperty({
+    type: () => User,
+  })
+  @ManyToMany(
+    () => User,
+    (user: User) => user.likedProjects,
+  )
+  @JoinTable()
+  likers: User[];
+
+  /**
+   * Calculated field (value: likers.length)
+   */
+  @Column()
+  @ApiProperty({ example: 6 })
+  likeCount: number;
+
   constructor(
     id?: number,
     name?: string,
     description?: string,
     startDate?: Date,
     endDate?: Date,
+    imageURL?: string,
+    isFeatured?: boolean,
+    isCompleted?: boolean,
     organization?: Organization,
+    likers?: User[],
   ) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.imageURL = imageURL;
+    this.isFeatured = isFeatured;
+    this.isCompleted = isCompleted;
     this.organization = organization;
+    this.likers = likers;
+    this.likeCount = likers?.length ?? 0;
   }
 }

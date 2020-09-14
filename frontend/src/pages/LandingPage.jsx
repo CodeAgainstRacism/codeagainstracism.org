@@ -145,8 +145,7 @@ const LandingPage = (props) => {
   }
 
   const getData = () => {
-    //axios.get(`${BACKEND_URL}projects`, {
-    axios.get(`http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects`, {
+    axios.get(`${BACKEND_URL}projects`, {
       params: {}
     })
     .then(function (response) {
@@ -155,7 +154,7 @@ const LandingPage = (props) => {
     .catch(function (error) {
       console.log(error);
     })
-    axios.get(`http://ec2-3-23-105-141.us-east-2.compute.amazonaws.com:4000/projects/featured`, {
+    axios.get(`${BACKEND_URL}projects/featured`, {
       params: {}
     })
     .then(function (response) {
@@ -249,7 +248,7 @@ const LandingPage = (props) => {
                       Featured
                     </Typography>
                     <Typography variant="h4" color="textPrimary" gutterBottom>
-                      {featuredCard.description}
+                      {featuredCard.name}
                     </Typography>
                     <Typography
                       variant="subtitle1"

@@ -28,31 +28,31 @@ const useStyles = makeStyles((theme) => ({
   textStyle: {
     whiteSpace: 'pre-wrap', // for new lines
     margin: theme.spacing(2),
+  },
+  noneTextStyle: {
+    fontStyle: 'italic'
   }
 }));
 
 const ProjectDetails = (props) => {
   const classes = useStyles();
-  const [projectDetails, setProjectDetails] = useState({});
-  const [isLoading, setLoading] = useState(true);
+  const [projectDetails, setProjectDetails] = useState();
+  const { id } = props.match.params;
 
   useEffect(() => {
     axios
-      .get(`${BACKEND_URL}projects/12`)
+      .get(`${BACKEND_URL}projects/${id}`)
       .then(({ data }) => {
+        console.log(data);
         setProjectDetails(data);
-        setLoading(false);
-        console.log(projectDetails);
       })
       .catch((err) => {
-        console.log(`Error in fetching data: ${err.response.data.error}`);
+        console.log(`Error in fetching data: ${err}`);
       });
-  }, []);
-
-  console.log(projectDetails);
+  }, [id]);
 
   // Wait until all data is fetched
-  if(isLoading){
+  if(projectDetails === undefined){
     return(null); // or return a loading image
   }
 
@@ -72,26 +72,39 @@ const ProjectDetails = (props) => {
               <Grid item>
                 <Typography className={classes.textStyle}>
                   Project Description: {'\n'}
-                  {projectDetails.description}
+                  { projectDetails.description !== null
+                      ? projectDetails.description
+                      : " "
+                  }
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography className={classes.textStyle}>
-                  Organization Name: {projectDetails.organization.name}
+                  Organization Name:
+                  { projectDetails.organization !== null
+                      ? " " + projectDetails.organization.name
+                      : " "
+                  }
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography className={classes.textStyle}>
                   Who Are We looking for: {'\n'}
-                  {/* Need value from backend */}
+                  {/* Need field from backend */}
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography className={classes.textStyle}>
                   Point of Contact: {'\n'}
-                  Name - {projectDetails.organization.contactFirstName + ' ' +
-                          projectDetails.organization.contactLastName + '\n'}
-                  Email - {projectDetails.organization.email}
+                  Name -  { projectDetails.organization !== null
+                            ? projectDetails.organization.contactFirstName + ' ' +
+                              projectDetails.organization.contactLastName + '\n'
+                            : " "
+                          }
+                  Email - { projectDetails.organization !== null
+                              ? projectDetails.organization.email
+                              : " "
+                          }
                 </Typography>
               </Grid>
             </Grid>

@@ -26,6 +26,10 @@ export class User {
   @Column()
   @ApiProperty({ example: 'Doe' })
   lastName: string;
+  
+  @Column()
+  @ApiProperty({ example: '+001 (012) 012-0123' })
+  phoneNumber: string;
 
   @Column({ unique: true })
   @ApiProperty({ example: 'email@email.com' })
@@ -34,6 +38,13 @@ export class User {
   @Column({ select: false })
   @Exclude({ toPlainOnly: true })
   encryptedPassword: string;
+
+  @Column()
+  @ApiProperty({
+    example:
+      '"John Doe" (for males) and "Jane Doe" (for females) are multiple-use names that are used when the true name of a person is unknown or is being intentionally concealed.',
+  })
+  description: string;
 
   @Column()
   @CreateDateColumn()

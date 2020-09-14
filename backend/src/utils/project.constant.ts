@@ -49,6 +49,7 @@ const newProjectDto: ProjectDto = {
   startDate: new Date('2004/01/01'),
   endDate: new Date('2004/01/01'),
   imageURL: 'https://i.imgur.com/TTFCXdv.png',
+  qualificationsNeeded: '',
   organizationId: null,
 };
 
@@ -58,6 +59,7 @@ const updateProjectDto: ProjectDto = {
   startDate: undefined,
   endDate: undefined,
   imageURL: 'https://i.imgur.com/TTFCXdv.png',
+  qualificationsNeeded: '',
   organizationId: null,
 };
 

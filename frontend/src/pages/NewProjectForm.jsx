@@ -1,44 +1,22 @@
 import React from "react";
-import {makeStyles, Checkbox } from '@material-ui/core';
 import {Container,
         CssBaseline,
         Button,
         TextField,
         Grid,
-        Box,} from '@material-ui/core';
-//import { Checkbox } from '@material-ui/core';
+        Box,
+        makeStyles} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import Footer from "../components/Footer";
 import SideBar from "../components/SideBarOrganization"
-//for the sidebar, title, and form try using grid area
-//checkut form authentification 
 const projectFormStyles = makeStyles((theme) => ({
 
   root: {
     flexGrow: 1,
-    
-  },
-
-  fakeSideBar: {
-    backgroundColor: "#c4c4c4",
-    width: "100%",
-    height: "100%"
   },
 
   gridText:{
     textAlign: "justify",
     fontSize: theme.spacing(2.5),
-  },
-
-  
-  gridAlignment: {
-    //marginLeft: "5%",
-    //marginRight: "5%",
-    display: "grid",
-    gridTemplateColumns: "20% 80%",
-    gridTemplateAreas: ` 'sideBar header'
-                          'sideBar form' `,
-             
   },
 
   dividerBar: {
@@ -48,7 +26,6 @@ const projectFormStyles = makeStyles((theme) => ({
   },
 
   headingContainer: {
-    gridArea: "header",
     textAlign: "center",
     paddingBottom: "2%",
     paddingTop: "2%",
@@ -56,15 +33,7 @@ const projectFormStyles = makeStyles((theme) => ({
     width: "95%"
   },
 
-  sideBarContainer: {
-    gridArea: "sideBar",
-    width: "100%",
-    //marginLeft: "100%"
-  },
-
   rightContainer: {
-    gridArea: "form",
-  //contains the heading and the form 
     backgroundColor: "white",
     paddingTop: "2%",
     paddingBottom: "5%",
@@ -75,16 +44,11 @@ export default function NewProjectForm() {
   const classes = projectFormStyles();
   
     return (
-      //if we're using a grid for the whole thing set direction to row?
       <React.Fragment>
         <CssBaseline />
-        
-        {/**must wrapper the whole thing as a body? */}
         <Grid container spacing = {0} id = "row">
           <Grid item xs = {2} container alignItems = "stretch">
-            <Box className = {classes.sideBarContainer}>
               <SideBar/>
-            </Box>
           </Grid>
           <Grid item xs = {9}>
           <Container className = {classes.headingContainer}> 
@@ -98,22 +62,11 @@ export default function NewProjectForm() {
                 <TextField label = "Enter Your Project's Name"/>
             </Grid>
             <Grid item xs = {12} >
-                <TextField placeholder = "Tell us about your project! Be sure to include details of your organization, requirements for potential members, and any further suggestions" rows = "10"  multiline = {true}/>
+                <TextField label = "Tell us about your project! " rows = "10"  multiline = {true}/>
             </Grid>
-            <Grid item display = "flex" justify = "space-evenly"xs = {12}>
-              Please check boxes to for which roles you are looking for 
-            </Grid>
-            <Grid item display = "flex" justify = "space-evenly"xs = {3}>
-              <Checkbox/> Front End
-            </Grid>
-            <Grid item display = "flex" justify = "space-evenly" xs = {3}>
-              <Checkbox/> Back End
-              </Grid>
-            <Grid item display = "flex" justify = "space-evenly" xs = {3}>
-              <Checkbox/> Project Manager
-              </Grid>
-            <Grid item display = "flex" justify = "space-evenly"xs = {3}>
-              <Checkbox/> Other
+           
+            <Grid item xs = {12} >
+             <TextField label = "Qualifications for potential team members" rows = "3" multiline = {true}/>
             </Grid>
             <Grid  item  xs = {3} >
                 Start Date* 
@@ -137,12 +90,9 @@ export default function NewProjectForm() {
                 </Button>
             </Grid>
             <Grid item xs = {12} >
-                <Divider variant="fullwidth"/>
-                <p style={{fontSize: "30px"}}>Contact Information</p>
+              <Divider variant="fullwidth"/>
+              <p style={{fontSize: "30px"}}>Contact Information</p>
             </Grid>
-            {/* <Grid justify = "flex-end" item xs = {6} >
-                <Checkbox/> <label>Use Contact Information from account</label>
-            </Grid> */}
             <Grid item xs = {3} >
                 Full name*
             </Grid>
@@ -167,7 +117,6 @@ export default function NewProjectForm() {
             <Grid item xs = {9} >
                 <TextField/> 
             </Grid>
-            
             <Grid item container xs={12} justify = "center">
                 <Button color ="primary" variant = "contained">Submit</Button>
             </Grid> 
@@ -175,7 +124,6 @@ export default function NewProjectForm() {
         </Container>
         </Grid>
       </Grid>
-      
       </React.Fragment>
     );
   }

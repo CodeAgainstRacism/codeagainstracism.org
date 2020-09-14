@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import {Container} from "@material-ui/core";
 import Divider from '@material-ui/core/Divider';

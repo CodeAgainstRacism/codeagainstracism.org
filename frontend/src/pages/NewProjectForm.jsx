@@ -1,5 +1,5 @@
 import React from "react";
-import {makeStyles, Checkbox } from '@material-ui/core';
+import {makeStyles} from '@material-ui/core';
 import {Container,
         CssBaseline,
         Button,
@@ -8,7 +8,6 @@ import {Container,
         Box,} from '@material-ui/core';
 //import { Checkbox } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import Footer from "../components/Footer";
 import SideBar from "../components/SideBarOrganization"
 //for the sidebar, title, and form try using grid area
 //checkut form authentification 

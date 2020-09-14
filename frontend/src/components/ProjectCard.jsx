@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Button,
@@ -9,7 +8,6 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-//replace form with project cards use map
 const useStyles = makeStyles((theme) => ({
   flexBoxCenter: {
     display: "flex",

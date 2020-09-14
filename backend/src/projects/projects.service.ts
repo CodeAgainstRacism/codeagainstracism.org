@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { ProjectDto } from './project.dto';
 import { Project } from './project.entity';
 import { OrganizationsService } from '../organizations/organizations.service';
+import { User } from '../users/user.entity';
 
 @Injectable()
 export class ProjectsService {
@@ -31,7 +32,9 @@ export class ProjectsService {
   }
 
   async findOne(id: number): Promise<Project> {
-    const project = await this.projectsRepository.findOne(id);
+    const project = await this.projectsRepository.findOne(id, {
+      relations: ['likers'],
+    });
 
     if (project === undefined) {
       throw new HttpException(
@@ -49,7 +52,17 @@ export class ProjectsService {
   async findFeatured(isFeatured: boolean): Promise<Project[]> {
     const projects = await this.projectsRepository.find({
       where: { isFeatured },
-      select: ['id', 'description', 'startDate', 'endDate', 'organization', 'isFeatured', 'createdAt', 'updatedAt'],
+      select: [
+        'id',
+        'description',
+        'startDate',
+        'endDate',
+        'isFeatured',
+        'isCompleted',
+        'organization',
+        'createdAt',
+        'updatedAt',
+      ],
     });
 
     if (projects === undefined) {
@@ -69,6 +82,23 @@ export class ProjectsService {
     await this.findOne(id); // checks if the project exists
     await this.projectsRepository.update(id, project);
     return this.projectsRepository.findOne(id);
+  }
+
+  async toggleLike(id: number, user: User): Promise<Project> {
+    const project = await this.findOne(id);
+
+    // update the likers array
+    const likerIndex = project.likers.findIndex(liker => liker.id === user.id);
+    if (likerIndex > -1) {
+      project.likers.splice(likerIndex, 1);
+    } else {
+      project.likers.push(user);
+    }
+
+    // update the like count
+    project.likeCount = project.likers.length;
+
+    return this.projectsRepository.save(project);
   }
 
   async remove(id: number): Promise<void> {

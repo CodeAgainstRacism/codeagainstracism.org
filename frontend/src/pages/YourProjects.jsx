@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +9,12 @@ import {Container,
         AppBar,
       Tabs,
     Tab} from '@material-ui/core';
+//imported mock data
+import { proData } from "../mock data/data";
+import { proDataCom } from "../mock data/data_complete";
+//backend connection stuff
+import axios from 'axios';
+import { BACKEND_URL } from '../config';
 import SideBar from "../components/SideBarOrganization";
 import ProjectCard from "../components/ProjectCard";
 const YourProjectsStyles = makeStyles((theme) => ({
@@ -48,7 +54,6 @@ const YourProjectsStyles = makeStyles((theme) => ({
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -78,18 +83,42 @@ function a11yProps(index) {
   };
 }
 
-
-
 export default function YourProjects () { 
+  //design tab stuff
   const classes = YourProjectsStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const cards = [1, 2, 3, 4, 5, 6];
   const cards2 = [1, 2, 3, 4, 5, 6];
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  //connect to backend stuff
+  const [projects, setProjects] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 6;
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    axios.get(`${BACKEND_URL}projects`, {
+        params: {}
+      })
+      .then(function (response) {
+        setProjects(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
+
+  const cardList = projects;
     return (
-      <React.Fragment>
+      <Fragment>
         <CssBaseline />
         <Grid container spacing = {0} id = "row">
           <Grid item xs = {2}>
@@ -108,25 +137,40 @@ export default function YourProjects () {
                 </Tabs>
               </AppBar>
               <TabPanel value={value} index={0}>
-              <Grid container spacing = {3} direction = "row">
-              {cards.map((card) => (
-              <Grid item key={ProjectCard} sm = {4}>
-                <ProjectCard/>
-              </Grid>))}
-              </Grid>
+                <Grid container spacing = {3} direction = "row">
+
+                {/**{cardList
+                .slice(indexOfFirstCard, indexOfLastCard)
+                .map(card => (
+                  <Grid item xs={12} sm={6} lg={4} key={card.id}>
+                    <ProjectCard {...card} />
+                  </Grid>
+                ))}**/}
+                
+                  {proData.map((data, key) => {
+                    return (
+                      <Grid item xs={12} sm={6} lg={4} key = {key}>
+                        <ProjectCard {...data}/> 
+                      </Grid>      
+                    );
+                  })}
+                </Grid>
               </TabPanel>
               <TabPanel value={value} index={1}>
               <Grid container spacing = {3} direction = "row">
-              {cards2.map((card) => (
-              <Grid item key={ProjectCard} sm = {4}>
-                <ProjectCard/>
-              </Grid>))}
+                {proDataCom.map((data, key) => {
+                      return (
+                        <Grid item xs={12} sm={6} lg={4} key = {key}>
+                          <ProjectCard {...data}/> 
+                        </Grid>      
+                      );
+                    })}
               </Grid>
               </TabPanel>
         </Container>
         </Grid>
       </Grid>
       
-      </React.Fragment>
+      </Fragment>
     );
   }

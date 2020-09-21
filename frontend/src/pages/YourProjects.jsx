@@ -87,8 +87,6 @@ export default function YourProjects () {
   //design tab stuff
   const classes = YourProjectsStyles();
   const [value, setValue] = useState(0);
-  const cards = [1, 2, 3, 4, 5, 6];
-  const cards2 = [1, 2, 3, 4, 5, 6];
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -105,7 +103,7 @@ export default function YourProjects () {
   }, []);
 
   const getData = () => {
-    axios.get(`${BACKEND_URL}projects`, {
+    axios.get(`${BACKEND_URL}projects/1`, {
         params: {}
       })
       .then(function (response) {
@@ -116,7 +114,9 @@ export default function YourProjects () {
       })
   };
 
-  const cardList = projects;
+  const cardList = proData; //projects
+  //make another cardlist for the complete data?
+
     return (
       <Fragment>
         <CssBaseline />
@@ -147,7 +147,7 @@ export default function YourProjects () {
                   </Grid>
                 ))}**/}
                 
-                  {proData.map((data, key) => {
+                  {cardList.map((data, key) => {
                     return (
                       <Grid item xs={12} sm={6} lg={4} key = {key}>
                         <ProjectCard {...data}/> 

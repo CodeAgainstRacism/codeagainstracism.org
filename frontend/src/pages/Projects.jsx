@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   searchBarStyle: {
     display: "flex",
     justifyContent: "center",
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(5),
   },
   input: {
     marginLeft: theme.spacing(1),

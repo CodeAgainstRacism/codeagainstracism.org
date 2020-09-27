@@ -23,7 +23,7 @@ export default function SideBarOrganization(props){
                     <ListItemIcon>
                         <PersonIcon fontSize="large" color = "secondary"/>
                     </ListItemIcon>
-                    <h3>Code Against Racism</h3>
+                    <h3>Welcome</h3>
                 </ListItem>
                 <Divider/>
                 <ListItem button

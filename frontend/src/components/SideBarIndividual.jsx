@@ -21,7 +21,7 @@ export default function SideBarIndividual(){
                     <ListItemIcon>
                         <PersonIcon fontSize="large" color = "secondary"/>
                     </ListItemIcon>
-                    <h3>John Doe</h3>
+                    <h3>Welcome</h3>
                 </ListItem>
             <List>
                 <Divider/>

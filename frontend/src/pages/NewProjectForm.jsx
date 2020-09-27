@@ -1,8 +1,7 @@
 
-import React, {Component} from "react";
+import React from "react";
 //CLASSES CANNOT USE STYLING HOOKS
 import {Container,
-        CssBaseline,
         Button,
         TextField,
         Grid,
@@ -40,7 +39,7 @@ const projectFormStyles = theme => ({
 
     rightContainer: {
       backgroundColor: "white",
-      paddingTop: "5%",
+      paddingTop: "3%",
       fontSize : theme.spacing(2.5),
       paddingBottom: "5%",
       width: "95%",
@@ -48,8 +47,6 @@ const projectFormStyles = theme => ({
   }
   )
   
-
-
 class NewProjectForm extends React.Component {
   //classes = projectFormStyles()
   constructor(props) {
@@ -71,17 +68,19 @@ class NewProjectForm extends React.Component {
     this.setState({
       [name]: value
     });
-
-  //   this.setState({
-  //     projectName: event.target.value,
-  //     description: event.target.value,
-  //     roles: event.target.value});
    }
 
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.projectName);
     alert('A name was submitted: ' + this.state.description);
     alert('A name was submitted: ' + this.state.roles);
+    alert('A name was submitted: ' + this.state.startDate);
+    alert('A name was submitted: ' + this.state.endDate);
+    alert('A name was submitted: ' + this.state.fullName);
+    alert('A name was submitted: ' + this.state.phone);
+    alert('A name was submitted: ' + this.state.email);
+    alert('A name was submitted: ' + this.state.organization);
+    
     event.preventDefault();
     const data = {
       projectName: this.state.projectName,
@@ -112,7 +111,7 @@ class NewProjectForm extends React.Component {
     const { classes } = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
-        <Grid container spacing = {0} direction={"row"}>
+        <Grid container spacing = {2} direction={"row"}>
              <Grid item xs = {2} container alignItems = "stretch">
                  <SideBar/>
              </Grid>
@@ -123,8 +122,8 @@ class NewProjectForm extends React.Component {
              </Container>
 
             <Container className = {classes.rightContainer}>
-              <Grid container spacing={3} className = {classes.gridText}></Grid>
-        <Grid item xs = {12} >
+              <Grid container spacing={2} className = {classes.gridText}>
+                <Grid item xs = {12} >
                   <TextField value = {this.state.projectName} onChange = {this.handleInputChange} name = "projectName" label = "Enter Your Project's Name"/>
               </Grid>
               <Grid item xs = {12} >
@@ -138,13 +137,13 @@ class NewProjectForm extends React.Component {
                   Start Date* 
               </Grid>
               <Grid item container xs = {3} display = "flex" justify = "space-evenly">
-                  <TextField name = "startDate" type = "date"/>
+                  <TextField value = {this.state.startDate} onChange = {this.handleInputChange} name = "startDate" type = "date"/>
               </Grid>
               <Grid item container xs = {3} display = "flex" justify = "space-evenly" >
                   End Date* 
               </Grid>
               <Grid item container xs = {3} display = "flex" justify = "space-evenly"  >
-                  <TextField name = "endDate" type = "date"/>
+                  <TextField value = {this.state.endDate} onChange = {this.handleInputChange} name = "endDate" type = "date"/>
               </Grid>
               <Grid item xs = {3} >
                   Cover Photo 
@@ -163,29 +162,30 @@ class NewProjectForm extends React.Component {
                   Full name*
               </Grid>
               <Grid item xs = {9} >
-                  <TextField name = "fullName"/>
+                  <TextField value = {this.state.name} onChange = {this.handleInputChange} name = "fullName"/>
               </Grid>
               <Grid item xs = {3} >
                   Phone number*
               </Grid>
               <Grid item xs = {9} >
-                    <TextField name = "phone"/>              
+                    <TextField value = {this.state.phone} onChange = {this.handleInputChange} name = "phone"/>              
               </Grid>
               <Grid item xs = {3} >
                   Email address*
               </Grid>
               <Grid item xs = {9}>
-                  <TextField name = "email"/>              
+                  <TextField value = {this.state.email} onChange = {this.handleInputChange}name = "email"/>              
               </Grid>
               <Grid item xs = {3} >
                   Organization*
               </Grid>
               <Grid item xs = {9} >
-                  <TextField name = "organization"/> 
+                  <TextField value = {this.state.organization} onChange = {this.handleInputChange} name = "organization"/> 
               </Grid>
               <Grid item container xs={12} justify = "center">
-                  <Button type = "submit" color ="primary" variant = "contained">Submit</Button>
+                  <Button size = "large" type = "submit" color ="primary" variant = "contained">Submit</Button>
               </Grid> 
+              </Grid>
           </Container>
           </Grid>
           </Grid>

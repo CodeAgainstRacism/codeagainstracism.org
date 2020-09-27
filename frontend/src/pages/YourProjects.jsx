@@ -84,38 +84,41 @@ function a11yProps(index) {
 }
 
 export default function YourProjects () { 
+  
+  //connect to backend stuff
+  const [projectsComplete, setProjectsComplete] = useState([]);
+  const [projectsIncomplete, setProjectsIncomplete] = useState([]);
+  
+  axios.get(`${BACKEND_URL}projects/incomplete`, {
+    params: {}
+  })
+  .then(function (response) {
+    setProjectsIncomplete(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  
+  //if use state is 1
+  axios.get(`${BACKEND_URL}projects/complete`, {
+    params: {}
+  })
+  .then(function (response) {
+    setProjectsComplete(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  const cardListIncomplete = projectsIncomplete;
+  const cardListComplete = projectsComplete;
+
   //design tab stuff
   const classes = YourProjectsStyles();
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setValue(newValue)
   };
-
-  //connect to backend stuff
-  const [projects, setProjects] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 6;
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = () => {
-    axios.get(`${BACKEND_URL}projects/1`, {
-        params: {}
-      })
-      .then(function (response) {
-        setProjects(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-  };
-
-  const cardList = proData; //projects
-  //make another cardlist for the complete data?
 
     return (
       <Fragment>
@@ -131,23 +134,14 @@ export default function YourProjects () {
           </Container>
           <Container disableGutters = {true} className = {classes.rightContainer}>
               <AppBar position = "static" style ={{boxShadow: "none"}}>
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                <Tabs value={value} onChange={handleChange} >
                   <Tab label="In Progress" {...a11yProps(0)} />
                   <Tab label="Completed" {...a11yProps(1)} />
                 </Tabs>
               </AppBar>
               <TabPanel value={value} index={0}>
                 <Grid container spacing = {3} direction = "row">
-
-                {/**{cardList
-                .slice(indexOfFirstCard, indexOfLastCard)
-                .map(card => (
-                  <Grid item xs={12} sm={6} lg={4} key={card.id}>
-                    <ProjectCard {...card} />
-                  </Grid>
-                ))}**/}
-                
-                  {cardList.map((data, key) => {
+                  {cardListIncomplete.map((data, key) => {
                     return (
                       <Grid item xs={12} sm={6} lg={4} key = {key}>
                         <ProjectCard {...data}/> 
@@ -158,13 +152,13 @@ export default function YourProjects () {
               </TabPanel>
               <TabPanel value={value} index={1}>
               <Grid container spacing = {3} direction = "row">
-                {proDataCom.map((data, key) => {
-                      return (
-                        <Grid item xs={12} sm={6} lg={4} key = {key}>
-                          <ProjectCard {...data}/> 
-                        </Grid>      
-                      );
-                    })}
+                    {cardListComplete.map((data, key) => {
+                    return (
+                      <Grid item xs={12} sm={6} lg={4} key = {key}>
+                        <ProjectCard {...data}/> 
+                      </Grid>      
+                    );
+                  })}
               </Grid>
               </TabPanel>
         </Container>

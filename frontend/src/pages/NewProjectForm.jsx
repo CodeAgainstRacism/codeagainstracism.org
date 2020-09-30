@@ -42,7 +42,7 @@ const projectFormStyles = theme => ({
       paddingTop: "3%",
       fontSize : theme.spacing(2.5),
       paddingBottom: "5%",
-      width: "95%",
+      width: "100%",
     },
   }
   )
@@ -117,16 +117,15 @@ class NewProjectForm extends React.Component {
     const { classes } = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
-        <Grid container spacing = {2} direction={"row"}>
-             <Grid item xs = {2} container alignItems = "stretch">
+        <Grid container direction={"row"}>
+             <Grid item xs = {3} container alignItems = "stretch">
                  <SideBar/>
              </Grid>
-             <Grid item xs = {9}>
+             <Grid item xs = {8}>
              <Container className = {classes.headingContainer}> 
                  Create A New Project
                  <Box className = {classes.dividerBar}></Box>
              </Container>
-
             <Container className = {classes.rightContainer}>
               <Grid container spacing={2} className = {classes.gridText}>
                 <Grid item xs = {12} >

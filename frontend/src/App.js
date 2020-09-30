@@ -29,6 +29,7 @@ class App extends React.Component {
       <BrowserRouter>
         <ScrollToTop>
           <div>
+            <NavBar />
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/about" component={About} />
@@ -52,28 +53,6 @@ class App extends React.Component {
               />
               <Route component={NotFoundPage} />
             </Switch>
-            <NavBar />
-            <div>
-              <Switch>
-                <Route exact path="/" component={LandingPage} />
-                <Route exact path="/about" component={About} />
-                <Route exact path="/projects" component={Projects} />
-                <Route exact path="/news" component={News} />
-                <Route exact path="/faq" component={FAQ} />
-                <Route exact path="/login" component={LogIn} />
-                <Route
-                  exact
-                  path="/accountrecovery"
-                  component={AccountRecovery}
-                />
-                <Route exact path="/signup" component={UserTypePage} />
-                <Route
-                  path="/signup/:type"
-                  render={(props) => <SignUp {...props} />}
-                />
-                <Route component={NotFoundPage} />
-              </Switch>
-            </div>
             {/* <Footer /> */}
           </div>
         </ScrollToTop>

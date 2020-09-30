@@ -1,7 +1,5 @@
 import React from "react";
-import { withRouter, Link as RouterLink } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
-import {Container} from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,47 +10,34 @@ import FolderIcon from '@material-ui/icons/Folder';
 import CreateIcon from '@material-ui/icons/Create';
 import GroupIcon from '@material-ui/icons/Group';
 import PersonIcon from '@material-ui/icons/Person';
+import SideBar from './SideBar';
 
 //use styling hook here to align name and png next to each other
 //change links for after user type is merged so you dont have a merge conflict with app js
-const sideBarStyles = makeStyles((theme)  => ({
-    sideBarContainer: {
-        width: "100%",
-        height: "100%",
-        //height: "120vh",
-        //paddingTop: "15%",
-        alignItems: "center",
-        backgroundColor: "#2b3340",
-        color: theme.palette.text.secondary
-    },
-}));
 
-
-export default function SideBar(){
-   const classes = sideBarStyles();
+export default function SideBarOrganization(props){
     return(
-
-        <Container disableGutters = {true} className = {classes.sideBarContainer}>
-            <Container>
-                {/*<img src = {"avatar.png"}/> */}
-                <PersonIcon fontSize="large" />
-                <h3>Code Against Racism</h3>
-            </Container>
+        <SideBar>
             <List>
-                <Divider/>
-                <ListItem button
-                    component={RouterLink}
-                    to="/about">
+                <ListItem>
                     <ListItemIcon>
-                        <AccountBoxIcon color="secondary" />
+                        <PersonIcon fontSize="large" color = "secondary"/>
                     </ListItemIcon>
-                    <ListItemText primary = "Account Details" />
-
+                    <h3>Welcome</h3>
                 </ListItem>
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/about">
+                    to="/account_details">
+                    <ListItemIcon>
+                        <AccountBoxIcon color="secondary" />
+                    </ListItemIcon>
+                    <ListItemText primary = "Account Details" />
+                </ListItem>
+                <Divider/>
+                <ListItem button
+                    component={RouterLink}
+                    to="/create_projects">
                     <ListItemIcon>
                         <CreateIcon color="secondary" />
                     </ListItemIcon>
@@ -61,7 +46,7 @@ export default function SideBar(){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/about">
+                    to="/your_projects">
                     <ListItemIcon>
                         <FolderIcon color="secondary"/>
                     </ListItemIcon>
@@ -70,7 +55,7 @@ export default function SideBar(){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/about">
+                    to="/your_teams">
                     <ListItemIcon>
                         <GroupIcon color="secondary"/>
                     </ListItemIcon>
@@ -78,6 +63,6 @@ export default function SideBar(){
                 </ListItem>  
                 <Divider/>
             </List>
-        </Container>
+        </SideBar>
     )
 }

@@ -9,9 +9,6 @@ import {Container,
         AppBar,
       Tabs,
     Tab} from '@material-ui/core';
-//imported mock data
-import { proData } from "../mock data/data";
-import { proDataCom } from "../mock data/data_complete";
 //backend connection stuff
 import axios from 'axios';
 import { BACKEND_URL } from '../config';

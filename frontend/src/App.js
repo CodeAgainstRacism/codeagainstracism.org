@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "normalize.css/normalize.css";
+import ScrollToTop from "./components/ScrollToTop";
 
 import LandingPage from "./pages/LandingPage";
 import Projects from "./pages/Projects";
@@ -20,32 +21,33 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
-          <NavBar />
+        <ScrollToTop>
           <div>
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route exact path="/about" component={About} />
-              <Route exact path="/projects" component={Projects} />
-              <Route exact path="/news" component={News} />
-              <Route exact path="/faq" component={FAQ} />
-              <Route exact path="/login" component={LogIn} />
-              <Route exact path="/newprojectform" component={NewProjectForm} />
-              <Route
-                exact
-                path="/accountrecovery"
-                component={AccountRecovery}
-              />
-              <Route exact path="/signup" component={UserTypePage} />
-              <Route
-                path="/signup/:type"
-                render={(props) => <SignUp {...props} />}
-              />
-              <Route component={NotFoundPage} />
-            </Switch>
+            <NavBar />
+            <div>
+              <Switch>
+                <Route exact path="/" component={LandingPage} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/projects" component={Projects} />
+                <Route exact path="/news" component={News} />
+                <Route exact path="/faq" component={FAQ} />
+                <Route exact path="/login" component={LogIn} />
+                <Route
+                  exact
+                  path="/accountrecovery"
+                  component={AccountRecovery}
+                />
+                <Route exact path="/signup" component={UserTypePage} />
+                <Route
+                  path="/signup/:type"
+                  render={(props) => <SignUp {...props} />}
+                />
+                <Route component={NotFoundPage} />
+              </Switch>
+            </div>
+            {/* <Footer /> */}
           </div>
-          {/* <Footer /> */}
-        </div>
+        </ScrollToTop>
       </BrowserRouter>
     );
   }

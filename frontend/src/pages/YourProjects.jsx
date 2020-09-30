@@ -124,10 +124,10 @@ export default function YourProjects () {
       <Fragment>
         <CssBaseline />
         <Grid container spacing = {0} id = "row">
-          <Grid item xs = {2}>
+          <Grid container item xs = {3} alignItems="stretch">
               <SideBar/>
           </Grid>
-          <Grid item xs = {9}>
+          <Grid item xs = {8}>
           <Container className = {classes.headingContainer}> 
               Your Projects
               <Box className = {classes.dividerBar}></Box>

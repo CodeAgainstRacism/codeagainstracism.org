@@ -9,6 +9,7 @@ const theme = createMuiTheme({
       main: "#F96D00", // accent buttons, orange
     },
     background: {
+      dark: "#323b4a", // dark grey of sidebar
       default: "#F2F2F2", // light gray in background
     },
     text: {
@@ -19,6 +20,9 @@ const theme = createMuiTheme({
   navbar: {
     default: "#222831",
     height: "5vh",
+  },
+  sidebar: {
+    color: "323b4a",
   },
   pageContent: {
     height: "90vh",

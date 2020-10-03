@@ -12,8 +12,8 @@ import {
 } from "@material-ui/core";
 
 //imported mock data
-import { proData } from "../mock data/data";
-import { proDataCom } from "../mock data/data_complete";
+import { mockDataIncomplete } from "../mock data/data";
+import { mockDataComplete } from "../mock data/data_complete";
 //backend connection stuff
 import axios from "axios";
 import { BACKEND_URL } from "../config";
@@ -123,8 +123,8 @@ export default function YourProjects() {
       console.log(error);
     });
 
-  const cardListIncomplete = projectsIncomplete;
-  const cardListComplete = projectsComplete;
+  const cardListIncomplete = mockDataIncomplete//projectsIncomplete;
+  const cardListComplete = mockDataComplete//projectsComplete;
 
   //design tab stuff
   const classes = YourProjectsStyles();

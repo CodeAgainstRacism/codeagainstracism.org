@@ -1,4 +1,4 @@
-export const proData = [
+export const mockDataIncomplete = [
   {
     name: "Yellow Watermelons",
     description: "Watermelon is yellow which is the color of the sun",

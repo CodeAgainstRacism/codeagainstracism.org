@@ -1,4 +1,4 @@
-export const proDataCom = [
+export const mockDataComplete = [
   {
     name: "SneepSnop",
     description: "Snoopy",

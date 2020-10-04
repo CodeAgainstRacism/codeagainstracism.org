@@ -23,6 +23,11 @@ const projectFormStyles = theme => ({
       fontSize: theme.spacing(2.5),
     },
 
+    rightGridContainer: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
+
     dividerBar: {
       height: "2px",
       background: "#000000",
@@ -30,19 +35,16 @@ const projectFormStyles = theme => ({
     },
 
     headingContainer: {
+      gridArea: "header",
       textAlign: "center",
       paddingBottom: "2%",
       paddingTop: "2%",
       fontSize : theme.spacing(4.5),
-      width: "95%"
     },
 
     rightContainer: {
-      backgroundColor: "white",
-      paddingTop: "3%",
-      fontSize : theme.spacing(2.5),
       paddingBottom: "5%",
-      width: "100%",
+      minHeight: "100vh",
     },
   }
   )
@@ -118,15 +120,17 @@ class NewProjectForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <Grid container direction={"row"}>
-             <Grid item xs = {3} container alignItems = "stretch">
+             <Grid item xs = {2} container alignItems = "stretch">
                  <SideBar/>
              </Grid>
-             <Grid item xs = {8}>
+             <Grid container item xs = {10} className={classes.rightGridContainer}>
+
              <Container className = {classes.headingContainer}> 
                  Create A New Project
                  <Box className = {classes.dividerBar}></Box>
              </Container>
             <Container className = {classes.rightContainer}>
+            <Container style={{ backgroundColor: "white" }}>
               <Grid container spacing={2} className = {classes.gridText}>
                 <Grid item xs = {12} >
                   <TextField value = {this.state.projectName} onChange = {this.handleInputChange} name = "projectName" label = "Enter Your Project's Name"/>
@@ -191,6 +195,7 @@ class NewProjectForm extends React.Component {
                   <Button size = "large" type = "submit" color ="primary" variant = "contained">Submit</Button>
               </Grid> 
               </Grid>
+              </Container>
           </Container>
           </Grid>
           </Grid>

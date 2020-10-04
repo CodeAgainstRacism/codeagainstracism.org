@@ -37,7 +37,7 @@ export default function SideBarOrganization(props){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/create_projects">
+                    to="/newprojectform">
                     <ListItemIcon>
                         <CreateIcon color="secondary" />
                     </ListItemIcon>
@@ -46,7 +46,7 @@ export default function SideBarOrganization(props){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/your_projects">
+                    to="/yourprojects">
                     <ListItemIcon>
                         <FolderIcon color="secondary"/>
                     </ListItemIcon>

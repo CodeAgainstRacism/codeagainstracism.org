@@ -22,7 +22,6 @@ import NewProjectForm from "./pages/NewProjectForm";
 
 // import Footer from "./components/Footer";
 
-
 class App extends React.Component {
   render() {
     return (
@@ -37,9 +36,21 @@ class App extends React.Component {
               <Route exact path="/news" component={News} />
               <Route exact path="/faq" component={FAQ} />
               <Route exact path="/login" component={LogIn} />
-              <Route path="/newProjectForm" component={NewProjectForm} exact={true} />
-              <Route path="/account_details" component={AccountInfo} exact={true} />
-              <Route path="/your_projects" component={YourProjects} exact={true} />
+              <Route
+                path="/newProjectForm"
+                component={NewProjectForm}
+                exact={true}
+              />
+              <Route
+                path="/account_details"
+                component={AccountInfo}
+                exact={true}
+              />
+              <Route
+                path="/yourprojects"
+                component={YourProjects}
+                exact={true}
+              />
               <Route path="/your_teams" component={YourTeams} exact={true} />
               <Route
                 exact

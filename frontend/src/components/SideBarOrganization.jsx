@@ -33,7 +33,7 @@ export default function SideBarOrganization(props) {
           <ListItemText primary="Account Details" />
         </ListItem>
         <Divider />
-        <ListItem button component={RouterLink} to="/create_projects">
+        <ListItem button component={RouterLink} to="/newprojectform">
           <ListItemIcon>
             <CreateIcon color="secondary" />
           </ListItemIcon>

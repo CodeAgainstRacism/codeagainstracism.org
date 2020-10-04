@@ -36,7 +36,7 @@ export default function SideBarIndividual(){
                 <Divider/>
                 <ListItem button
                     component={RouterLink}
-                    to="/your_projects">
+                    to="/yourprojects">
                     <ListItemIcon>
                         <FolderIcon color="secondary" />
                     </ListItemIcon>

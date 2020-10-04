@@ -39,7 +39,6 @@ const LoginStyles = makeStyles((theme) => ({
   imageContainer: {
     display: "flex",
     justifyContent: "center",
-    // TODO
     width: "350px",
     height: "350px",
   },

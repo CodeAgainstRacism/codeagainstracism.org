@@ -18,6 +18,7 @@ import { mockDataComplete } from "../mock data/data_complete";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import SideBar from "../components/SideBarOrganization";
+// import SideBar from "../components/SideBarIndividual";
 import ProjectCard from "../components/ProjectCard";
 
 const YourProjectsStyles = makeStyles((theme) => ({
@@ -123,8 +124,8 @@ export default function YourProjects() {
       console.log(error);
     });
 
-  const cardListIncomplete = mockDataIncomplete//projectsIncomplete;
-  const cardListComplete = mockDataComplete//projectsComplete;
+  const cardListIncomplete = mockDataIncomplete; //projectsIncomplete;
+  const cardListComplete = mockDataComplete; //projectsComplete;
 
   //design tab stuff
   const classes = YourProjectsStyles();

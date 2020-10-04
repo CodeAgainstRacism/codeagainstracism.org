@@ -37,7 +37,7 @@ class App extends React.Component {
               <Route exact path="/faq" component={FAQ} />
               <Route exact path="/login" component={LogIn} />
               <Route
-                path="/newProjectForm"
+                path="/project/new"
                 component={NewProjectForm}
                 exact={true}
               />
@@ -47,7 +47,7 @@ class App extends React.Component {
                 exact={true}
               />
               <Route
-                path="/yourprojects"
+                path="/your_projects"
                 component={YourProjects}
                 exact={true}
               />

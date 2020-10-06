@@ -19,10 +19,17 @@ const DescriptionStyles = makeStyles((theme) => ({
     //fontSize: theme.spacing(2),
     backgroundColor: "white",
     borderRadius: theme.spacing(0.5),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    boxShadow: theme.spacing(0.1, 0.1, "grey"),
+    // feel free to change!
   },
   marginStyle: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+  },
+  contentStyle: {
+    paddingTop: theme.spacing(1),
   }
 }));
 
@@ -33,7 +40,7 @@ export default function Description(props){
         <Container className={classes.headingContainer}>
           {props.type}
           <Box className={classes.dividerBar} />
-          <Typography>
+          <Typography className={classes.contentStyle}>
             Content of {props.type}
           </Typography>
         </Container>

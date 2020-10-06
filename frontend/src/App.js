@@ -16,6 +16,7 @@ import NavBar from "./components/NavBar";
 
 import UserTypePage from "./pages/UserType";
 import AccountInfo from "./pages/AccountInfo";
+import AccountDetailsOrganization from "./pages/AccountDetailsOrganization";
 import YourProjects from "./pages/YourProjects";
 import YourTeams from "./pages/YourTeams";
 import NewProjectForm from "./pages/NewProjectForm";
@@ -44,6 +45,11 @@ class App extends React.Component {
               <Route
                 path="/account_details"
                 component={AccountInfo}
+                exact={true}
+              />
+              <Route
+                path="/account_details_organization"
+                component={AccountDetailsOrganization}
                 exact={true}
               />
               <Route

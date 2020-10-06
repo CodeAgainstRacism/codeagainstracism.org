@@ -35,13 +35,14 @@ const DescriptionStyles = makeStyles((theme) => ({
 
 export default function Description(props){
     const classes = DescriptionStyles();
+    const {title, desc } = props;
     return(
       <Grid className={classes.marginStyle}>
         <Container className={classes.headingContainer}>
-          {props.type}
+          {title}
           <Box className={classes.dividerBar} />
           <Typography className={classes.contentStyle}>
-            Content of {props.type}
+            {desc}
           </Typography>
         </Container>
       </Grid>

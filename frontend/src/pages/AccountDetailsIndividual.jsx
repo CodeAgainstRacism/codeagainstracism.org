@@ -51,6 +51,9 @@ const AccountDetailsIndividual = (props) => {
             <Description type={"Name"} />
             <Description type={"Phone"} />
             <Description type={"Email"} />
+            <Description type={"Password"} />
+            <Description type={"Projects Committed"} />
+            <Description type={"Projects Completed"} />
           </Container>
         </Grid>
       </Grid>

@@ -50,7 +50,6 @@ const projectFormStyles = theme => ({
   )
   
 class NewProjectForm extends React.Component {
-  //classes = projectFormStyles()
   constructor(props) {
     super(props);
     this.state = {
@@ -130,17 +129,17 @@ class NewProjectForm extends React.Component {
                  <Box className = {classes.dividerBar}></Box>
              </Container>
             <Container className = {classes.rightContainer}>
-            <Container style={{ backgroundColor: "white" }}>
+            <Container style={{ backgroundColor: "white", paddingTop:"2%", paddingBottom: "2%" }}>
               <Grid container spacing={2} className = {classes.gridText}>
                 <Grid item xs = {12} >
                   <TextField value = {this.state.projectName} onChange = {this.handleInputChange} name = "projectName" label = "Enter Your Project's Name"/>
               </Grid>
               <Grid item xs = {12} >
-                  <TextField value = {this.state.description} onChange = {this.handleInputChange} name = "description" label = "Tell us about your project! " rows = "10"  multiline = {true}/>
+                  <TextField value = {this.state.description} onChange = {this.handleInputChange} name = "description" label = "Tell us about your project! " rows = "5"  multiline = {true}/>
               </Grid>
            
               <Grid item xs = {12} >
-               <TextField value = {this.state.roles} onChange = {this.handleInputChange}name = "roles" label = "Qualifications for potential team members" rows = "3" multiline = {true}/>
+               <TextField value = {this.state.roles} onChange = {this.handleInputChange}name = "roles" label = "Qualifications for potential team members" rows = "5" multiline = {true}/>
               </Grid>
               <Grid  item  xs = {3} >
                   Start Date* 
@@ -164,7 +163,7 @@ class NewProjectForm extends React.Component {
                   </Button>
               </Grid>
               <Grid item xs = {12} >
-                <Divider variant="fullwidth"/>
+                <Divider variant="fullWidth"/>
                 <p style={{fontSize: "30px"}}>Contact Information</p>
               </Grid>
               <Grid item xs = {3} >

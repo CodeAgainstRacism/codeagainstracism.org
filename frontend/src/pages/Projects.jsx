@@ -70,9 +70,14 @@ export default function Projects() {
   }, []);
 
   const getData = () => {
+    console.log(`${BACKEND_URL}projects`, {
+      params: {},
+      
+    })
     axios
       .get(`${BACKEND_URL}projects`, {
         params: {},
+        
       })
       .then(function (response) {
         setProjects(response.data);
@@ -80,6 +85,7 @@ export default function Projects() {
       .catch(function (error) {
         console.log(error);
       });
+      
   };
 
   const filteredList = projects.filter((card) =>

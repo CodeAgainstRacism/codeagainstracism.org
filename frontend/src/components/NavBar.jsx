@@ -96,22 +96,11 @@ const NavBar = (props) => {
                 <Link
                   variant="subtitle2"
                   component={RouterLink}
-                  to="/news"
+                  to="/contactus"
                   color="inherit"
                   underline="none"
                 >
-                  NEWS
-                </Link>
-              </ListItemText>
-              <ListItemText inset>
-                <Link
-                  variant="subtitle2"
-                  component={RouterLink}
-                  to="/faq"
-                  color="inherit"
-                  underline="none"
-                >
-                  FAQ
+                  CONTACT US
                 </Link>
               </ListItemText>
             </ListItem>

@@ -38,6 +38,14 @@ export class Project {
   @ApiProperty({ example: true })
   isFeatured: boolean;
 
+  @Column({ default: false })
+  @ApiProperty({ example: false })
+  isCompleted: boolean;
+
+  @Column({ default: null })
+  @ApiProperty({ example: 'React.ts, apollo server(graphql), typeorm, any headless cms' })
+  qualificationsNeeded: string;
+
   @Column()
   @CreateDateColumn()
   @ApiProperty({ example: new Date('2020-07-10T13:08:16.364Z') })
@@ -47,6 +55,10 @@ export class Project {
   @UpdateDateColumn()
   @ApiProperty({ example: new Date('2020-07-15T22:50:43.000Z') })
   updatedAt: Date;
+
+  @Column({ default: null })
+  @ApiProperty({ example: 'https://i.imgur.com/TTFCXdv.png' })
+  imageURL: string;
 
   @ManyToOne(
     () => Organization,
@@ -81,7 +93,9 @@ export class Project {
     description?: string,
     startDate?: Date,
     endDate?: Date,
+    imageURL?: string,
     isFeatured?: boolean,
+    isCompleted?: boolean,
     organization?: Organization,
     likers?: User[],
   ) {
@@ -90,7 +104,9 @@ export class Project {
     this.description = description;
     this.startDate = startDate;
     this.endDate = endDate;
+    this.imageURL = imageURL;
     this.isFeatured = isFeatured;
+    this.isCompleted = isCompleted;
     this.organization = organization;
     this.likers = likers;
     this.likeCount = likers?.length ?? 0;

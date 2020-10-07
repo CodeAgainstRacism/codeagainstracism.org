@@ -1,247 +1,210 @@
+
 import React from "react";
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import SideBar from "./VerticalNavBar";
+//CLASSES CANNOT USE STYLING HOOKS
 import {Container,
-        CssBaseline,
         Button,
         TextField,
-        Paper,
-        Grid,} from '@material-ui/core';
+        Grid,
+        Box,
+        withStyles} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import Footer from "../components/Footer";
+import SideBar from "../components/SideBarOrganization";
+import axios from 'axios';
+import { BACKEND_URL } from '../config';
 
-const StyledField = withStyles({
-  root: {
-    width: "350px",
-  },
-})(TextField);
+const projectFormStyles = theme => ({
 
-
-const projectFormStyles = makeStyles((theme) => ({
-  pageContainer: {
-    //height: "768px",
-    width: "1366px",
-    margin: "0 auto",
-    textAlign: "center",
-    background: "#f2f2f2",
-    overflow: "hidden",
-    maxWidth: "70vw", //TODO check if needed
-  },
-
-  innerContainer: {
-    //width: "1366px",
-    margin: "20 rem",
-    border: "1px solid #292929",
-    alignItems: "stretch",
-    boxSizing: "border-box",
-    background: "#f2f2f2",
-    overflow: "hidden", 
-    display: "flex",
-    justifyContent: "center",
-    
-    
-  },
-
-  headingContainer: {
-    border: "1px solid #292929",
-    boxSizing: "border-box",
-    textAlign: "left"
-  },
-
-  sideBarContainer: {
-    border: "1px solid #292929",
-    boxSizing: "border-box",
-    marginLeft: "200px",
-    display: "inline"
-  },
-
-  rightContainer: {
-  //contains the heading and the form 
-    backgroundColor: "white",
-    border: "1px solid #292929",
-    boxSizing: "border-box",
-    marginTop: "20px",
-    marginBottom: "6 rem",
-    marginLeft: "20px",
-    maxWidth: "650px",
-    //marginRight: "200px"
-  },
-
-  // formContainer: {
-  //   backgroundColor: "white",
-  //   border: "0.1rem solid black",
-  //   marginLeft: "10px",
-  //   textAlign: "left",
-  //   maxWidth: "650px",
-  //   paddingBottom: "3rem"
-  // },
-
-}))
-
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(1, 2), 
-    textAlign: 'left',
-    color: theme.palette.text.primary,
+    root: {
+      flexGrow: 1,
     },
 
-}));
+    gridText:{
+      textAlign: "justify",
+      fontSize: theme.spacing(2.5),
+    },
 
+    rightGridContainer: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
 
+    dividerBar: {
+      height: "2px",
+      background: "#000000",
+      flexGrow: 1,
+    },
 
-export default function NewProjectForm() {
-  const projectContainers = projectFormStyles();
-  const classes = useStyles();
+    headingContainer: {
+      gridArea: "header",
+      textAlign: "center",
+      paddingBottom: "2%",
+      paddingTop: "2%",
+      fontSize : theme.spacing(4.5),
+    },
+
+    rightContainer: {
+      paddingBottom: "5%",
+      minHeight: "100vh",
+    },
+  }
+  )
   
-    return (
+class NewProjectForm extends React.Component {
+  //classes = projectFormStyles()
+  constructor(props) {
+    super(props);
+    this.state = {
+      projectName: '',
+      description: '',
+      roles: '',
+      startDate: '',
+      endDate: '',
+      fullName: '',
+      phone: '',
+      email: '',
+      organization: ''};
 
-      <React.Fragment>
-      <CssBaseline />
-
-      <Container className = {projectContainers.pageContainer}>
-      <Container className={projectContainers.innerContainer}>
-        
-          <SideBar/>
-        
-        <Container disableGutters = {true} className= {projectContainers.rightContainer}>
-          <div className={classes.root}>
-          <Grid container spacing={0}>
-          <Container className = {projectContainers.headingContainer}>
-          
-          <Grid item xs={12}>
-          <Paper elevation = {0} className={classes.paper}>
-            <h1>Create A New Project</h1>
-            <Divider variant="fullwidth"/>
-          </Paper>
-          </Grid>
-          </Container>
-        
-          <Grid item xs = {12} sm = {12}>
-            <Paper elevation = {0} className={classes.paper}>
-              <TextField placeholder = "Enter Your Project's Name"/>
-            </Paper>
-          </Grid>
-
-          <Grid item xs = {12} sm = {12}>
-            <Paper elevation = {0} className={classes.paper}>
-              <TextField placeholder = "Tell us about your project! Be sure to include details of your organization, requirements for potential members, and any further suggestions" rows = "20" columns = "30" multiline = {true}/>
-            </Paper>
-          </Grid>
-          
-          
-          
-          <Grid item xs = {12} sm = {4}>
-            <Paper elevation = {0} className={classes.paper}> Due Date: </Paper>
-          </Grid>
-          <Grid item xs = {12} sm = {8}>
-            <Paper elevation = {0} className={classes.paper}>
-              <TextField type = "date"/>
-            </Paper>
-          </Grid>
-         
-          <Grid item xs = {12} sm = {4}>
-            <Paper elevation = {0} className={classes.paper}></Paper>
-            </Grid>
-
-
-          <Grid item xs = {12} sm = {8}>
-            <Paper elevation = {0} className={classes.paper}> 
-              <Button variant="contained" component="label" color = "primary"> 
-                Upload File
-                <input type="file" style={{ display: "none" }}/>
-              </Button>
-            </Paper>
-          </Grid>
-
-        
-            <Grid item xs = {12} sm = {12}>
-              <Paper elevation = {0} className={classes.paper}> 
-                <Divider variant="fullwidth"/>
-                <h2>Contact Information</h2>
-              </Paper>
-            </Grid>
-            
-            
-            
-            <Grid item xs = {12} sm = {4}>
-              <Paper elevation = {0} className={classes.paper}> 
-                Name: 
-              </Paper> 
-            </Grid>
-            <Grid item xs = {12} sm = {8}>
-              <Paper elevation = {0} className={classes.paper}> 
-                <TextField/>
-              </Paper> 
-            </Grid>
-            
-            
-            <Grid item xs = {12} sm = {4}>
-              <Paper elevation = {0} className={classes.paper}> 
-                Phone(optional): 
-              </Paper>
-            </Grid>
-
-           <Grid item xs = {12} sm = {8}>
-              <Paper elevation = {0} className={classes.paper}> 
-                <TextField/>              
-              </Paper>
-           </Grid>
-            
-            
-           <Grid item xs = {12} sm = {4}>
-              <Paper elevation = {0} className={classes.paper}> 
-                Email:
-              </Paper>
-            </Grid>
-
-
-            <Grid item xs = {12} sm = {8}>
-              <Paper elevation = {0} className={classes.paper}> 
-                <TextField/>              
-              </Paper>
-            </Grid>
-
-
-            <Grid item xs = {12} sm = {4}>
-              <Paper elevation = {0} className={classes.paper}> 
-                Primary organization:
-              </Paper>
-            </Grid>
-
-
-            <Grid item xs = {12} sm = {8}>
-              <Paper elevation = {0} className={classes.paper}>
-                <TextField/> 
-              </Paper>
-            </Grid>
-
-
-            <Grid item xs = {12} sm = {4}>
-              <Paper elevation = {0} className={classes.paper}></Paper>
-            </Grid>
-
-            <Grid item xs = {12} sm = {8}>
-            <Paper elevation = {0} className={classes.paper}>
-              <Button color ="primary" variant = "contained">Submit</Button>
-            </Paper>
-            </Grid>
-          
-        </Grid>
-        </div>
-        </Container>
-      </Container>
-      </Container>
-      {/* Footer */}
-      <Footer />
-      {/* End footer */}
-
-      </React.Fragment>
-    );
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
 
+    this.setState({
+      [name]: value
+    });
+   }
+
+  handleSubmit(event) {
+    alert('A projectname was submitted: ' + this.state.projectName);
+    alert('A description was submitted: ' + this.state.description);
+    alert('A roles was submitted: ' + this.state.roles);
+    alert('A startDate was submitted: ' + this.state.startDate);
+    alert('A endDate was submitted: ' + this.state.endDate);
+    alert('A fullName was submitted: ' + this.state.fullName);
+    alert('A phone was submitted: ' + this.state.phone);
+    alert('A email was submitted: ' + this.state.email);
+    alert('A organization was submitted: ' + this.state.organization);
+    
+    event.preventDefault();
+    const data = {
+      projectName: this.state.projectName,
+        description: this.state.description,
+        roles: this.state.roles,
+        startDate: this.state.startDate,
+        endDate: this.state.endDate,
+        fullName: this.state.fullName,
+        phone: this.state.phone,
+        email: this.state.email, 
+        organization: this.state.organization
+    }
+    axios.post(`${BACKEND_URL}projects`, {  //JSON curlies
+      // params needed if multiple sets of data like params:{data}
+     //  this is JSON data with name, contact info, description correspond to textfields
+      data
+    })
+    .then(function (response) {
+      console.log(data);  //logs on console when run
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
+
+  render() {
+   
+    const { classes } = this.props;
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <Grid container direction={"row"}>
+             <Grid item xs = {2} container alignItems = "stretch">
+                 <SideBar/>
+             </Grid>
+             <Grid container item xs = {10} className={classes.rightGridContainer}>
+
+             <Container className = {classes.headingContainer}> 
+                 Create A New Project
+                 <Box className = {classes.dividerBar}></Box>
+             </Container>
+            <Container className = {classes.rightContainer}>
+            <Container style={{ backgroundColor: "white" }}>
+              <Grid container spacing={2} className = {classes.gridText}>
+                <Grid item xs = {12} >
+                  <TextField value = {this.state.projectName} onChange = {this.handleInputChange} name = "projectName" label = "Enter Your Project's Name"/>
+              </Grid>
+              <Grid item xs = {12} >
+                  <TextField value = {this.state.description} onChange = {this.handleInputChange} name = "description" label = "Tell us about your project! " rows = "10"  multiline = {true}/>
+              </Grid>
+           
+              <Grid item xs = {12} >
+               <TextField value = {this.state.roles} onChange = {this.handleInputChange}name = "roles" label = "Qualifications for potential team members" rows = "3" multiline = {true}/>
+              </Grid>
+              <Grid  item  xs = {3} >
+                  Start Date* 
+              </Grid>
+              <Grid item container xs = {3} display = "flex" justify = "space-evenly">
+                  <TextField value = {this.state.startDate} onChange = {this.handleInputChange} name = "startDate" type = "date"/>
+              </Grid>
+              <Grid item container xs = {3} display = "flex" justify = "space-evenly" >
+                  End Date* 
+              </Grid>
+              <Grid item container xs = {3} display = "flex" justify = "space-evenly"  >
+                  <TextField value = {this.state.endDate} onChange = {this.handleInputChange} name = "endDate" type = "date"/>
+              </Grid>
+              <Grid item xs = {3} >
+                  Cover Photo 
+              </Grid>
+              <Grid item container  xs = {9} justify = "flex-start"   >
+                  <Button variant="contained" component="label" color = "primary"> 
+                    Upload File
+                    <input type="file" style={{ display: "none" }}/>
+                  </Button>
+              </Grid>
+              <Grid item xs = {12} >
+                <Divider variant="fullwidth"/>
+                <p style={{fontSize: "30px"}}>Contact Information</p>
+              </Grid>
+              <Grid item xs = {3} >
+                  Full name*
+              </Grid>
+              <Grid item xs = {9} >
+                  <TextField value = {this.state.name} onChange = {this.handleInputChange} name = "fullName"/>
+              </Grid>
+              <Grid item xs = {3} >
+                  Phone number*
+              </Grid>
+              <Grid item xs = {9} >
+                    <TextField value = {this.state.phone} onChange = {this.handleInputChange} name = "phone"/>              
+              </Grid>
+              <Grid item xs = {3} >
+                  Email address*
+              </Grid>
+              <Grid item xs = {9}>
+                  <TextField value = {this.state.email} onChange = {this.handleInputChange}name = "email"/>              
+              </Grid>
+              <Grid item xs = {3} >
+                  Organization*
+              </Grid>
+              <Grid item xs = {9} >
+                  <TextField value = {this.state.organization} onChange = {this.handleInputChange} name = "organization"/> 
+              </Grid>
+              <Grid item container xs={12} justify = "center">
+                  <Button size = "large" type = "submit" color ="primary" variant = "contained">Submit</Button>
+              </Grid> 
+              </Grid>
+              </Container>
+          </Container>
+          </Grid>
+          </Grid>
+      </form>
+      
+         
+    );
+  }
+}
+
+export default withStyles(projectFormStyles)(NewProjectForm);
 

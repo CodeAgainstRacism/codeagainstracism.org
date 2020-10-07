@@ -16,8 +16,10 @@ export function authUser(type, userData) {
   return (dispatch) => {
     // use Promise to wait until the API call is finished
     return new Promise((resolve, reject) => {
+      console.log(`${BACKEND_URL}/auth/${type}`);
       return apiCall("post", `${BACKEND_URL}/auth/${type}`, userData)
         .then(({ accessToken, ...user }) => {
+          console.log("Dispatching authUser")
           localStorage.setItem("jwtToken", accessToken);
           dispatch(setCurrentUser(user));
           dispatch(removeError());

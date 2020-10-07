@@ -132,7 +132,9 @@ describe('Project Controller', () => {
         description: 'A new description',
         startDate: undefined,
         endDate: undefined,
+        imageURL: undefined,
         organizationId: null,
+        qualificationsNeeded: null,
       };
 
       const beforeUpdate = mockDatabase[0];

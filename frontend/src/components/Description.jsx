@@ -16,11 +16,9 @@ const DescriptionStyles = makeStyles((theme) => ({
   headingContainer: {
     gridArea: "header",
     textAlign: "left",
-    //fontSize: theme.spacing(2),
     backgroundColor: "white",
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    // feel free to change!
   },
   contentStyle: {
     paddingTop: theme.spacing(1),
@@ -41,7 +39,7 @@ export default function Description(props){
           </Typography>
           <Box className={classes.dividerBar} />
           <Typography className={classes.contentStyle}>
-            Description
+            { desc ? desc : "Missing description" /* italicize later */}
           </Typography>
         </Container>
       </Grid>

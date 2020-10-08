@@ -48,7 +48,7 @@ class App extends React.Component {
                 exact={true}
               />
               <Route
-                path="/account_details_individual"
+                path="/account_details_individual/:id"
                 component={AccountDetailsIndividual}
                 exact={true}
               />

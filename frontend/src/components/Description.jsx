@@ -16,33 +16,30 @@ const DescriptionStyles = makeStyles((theme) => ({
   headingContainer: {
     gridArea: "header",
     textAlign: "left",
-    //fontSize: theme.spacing(2),
     backgroundColor: "white",
-    borderRadius: theme.spacing(0.5),
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    boxShadow: theme.spacing(0.1, 0.1, "grey"),
-    // feel free to change!
-  },
-  marginStyle: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
   },
   contentStyle: {
     paddingTop: theme.spacing(1),
+  },
+  titleStyle: {
+    fontSize: theme.spacing(3),
   }
 }));
 
 export default function Description(props){
     const classes = DescriptionStyles();
-    const {title, desc } = this.props;
+    const {title, desc } = props;
     return(
-      <Grid className={classes.marginStyle}>
+      <Grid>
         <Container className={classes.headingContainer}>
-          {title}
+          <Typography className={classes.titleStyle}>
+            {title}
+          </Typography>
           <Box className={classes.dividerBar} />
           <Typography className={classes.contentStyle}>
-            {desc}
+            { desc ? desc : "Missing description" /* italicize later */}  
           </Typography>
         </Container>
       </Grid>

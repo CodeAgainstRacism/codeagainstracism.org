@@ -1,11 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   Box,
   Container,
   Grid,
-  Typography,
   makeStyles,
 } from "@material-ui/core";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 import SideBar from "../components/SideBarIndividual";
 import Description from "../components/Description";
 
@@ -32,8 +33,29 @@ const AccountDetailsStyle = makeStyles((theme) => ({
   },
 }));
 
+
 const AccountDetailsIndividual = (props) => {
   const classes = AccountDetailsStyle();
+  const [accountDetails, setAccountDetails] = useState(0);
+  const { id } = props.match.params;  // id of the user, testing
+
+  useEffect(() => {
+    getDetails();
+  }, []);
+
+  const getDetails = () => {
+    axios
+      .get(`${BACKEND_URL}users/${id}`, {
+        params: {},
+      })
+      .then(function (response) {
+        console.log(response.data)
+        setAccountDetails(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   return (
     <Fragment>
@@ -47,13 +69,12 @@ const AccountDetailsIndividual = (props) => {
             <Box className={classes.dividerBar} />
           </Container>
           <Container className={classes.rightContainer}>
-            {/* For Testing */}
-            <Description type={"Name"} />
-            <Description type={"Phone"} />
-            <Description type={"Email"} />
-            <Description type={"Password"} />
-            <Description type={"Projects Committed"} />
-            <Description type={"Projects Completed"} />
+            <Description title={"Name"} desc={accountDetails.firstName + ' ' + accountDetails.lastName} />
+            <Description title={"Phone Number"} desc={accountDetails.phoneNumber} />
+            <Description title={"Email"} desc={accountDetails.email} />
+            <Description title={"Password"} />
+            <Description title={"Projects Committed"} />
+            <Description title={"Projects Completed"} />
           </Container>
         </Grid>
       </Grid>

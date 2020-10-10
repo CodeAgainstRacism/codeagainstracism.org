@@ -101,7 +101,7 @@ export default function YourProjects() {
   const [projectsIncomplete, setProjectsIncomplete] = useState([]);
 
   axios
-    .get(`${BACKEND_URL}projects/incomplete`, {
+    .get(`${BACKEND_URL}projects/featured`, {
       params: {},
     })
     .then(function (response) {
@@ -113,7 +113,7 @@ export default function YourProjects() {
 
   //if use state is 1
   axios
-    .get(`${BACKEND_URL}projects/complete`, {
+    .get(`${BACKEND_URL}projects`, {
       params: {},
     })
     .then(function (response) {
@@ -123,8 +123,8 @@ export default function YourProjects() {
       console.log(error);
     });
 
-  const cardListIncomplete = mockDataIncomplete//projectsIncomplete;
-  const cardListComplete = mockDataComplete//projectsComplete;
+  const cardListIncomplete = projectsIncomplete;
+  const cardListComplete = projectsComplete;
 
   //design tab stuff
   const classes = YourProjectsStyles();

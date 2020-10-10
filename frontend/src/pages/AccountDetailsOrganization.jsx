@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React,  { Fragment, useState, useEffect} from "react";
 import {
   makeStyles,
   Container,
@@ -9,15 +9,12 @@ import {
 import SideBar from "../components/SideBarOrganization";
 import Description from "../components/Description";
 
+import axios from "axios";
+import { BACKEND_URL } from "../config";
+
 const styles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-  },
-
-  card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "row",
   },
 
   dividerBar: {
@@ -48,30 +45,30 @@ const styles = makeStyles((theme) => ({
 const AccountDetailsOrganization = (props) => {
 const classes = styles();
 
-//example organization
-const orgSample = {
-    id:1,
-    EIN:"00-3456789",
-    name:"Apple",
-    description:"Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services. It is considered one of the Big Tech technology companies, alongside Amazon, Google, Microsoft, and Facebook.",
-    phoneNumber:"(718) 220-4041",
-    email:"apple@email.com",
-    contactFirstName:"Steve",
-    contactLastName:"Jobs",
-    createdAt:"2020-10-04T23:45:33.450Z",
-    updatedAt:"2020-10-04T23:45:33.450Z"
-}
-const {
-    id,
-    name,
-    EIN,
-    description,
-    phoneNumber,
-    email,
-    pw,
-    projectsCommit,
-    projectsComplete
-} = orgSample; //change to props
+const [orgDetails, setOrgDetails] = useState(0)
+const { id: org_id} = props.match.params;
+
+  useEffect(() => {
+    getDetails();
+  }, []);
+
+  const getDetails = () => {
+    axios
+      .get(`${BACKEND_URL}organizations/${org_id}`, {
+        params: {},
+      })
+      .then(function (response) {
+        console.log(response.data)
+        setOrgDetails(response.data);
+    
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  
+
+
   return (
     <Fragment>
       <Grid container id="row">
@@ -83,16 +80,18 @@ const {
             Account Details
             <Box className={classes.dividerBar} />
           </Container>
-
-          <Container className={classes.rightContainer}>
-            <Description title={"Organization Name:"} desc={name}/>
-            <Description title={"EIN:"} desc={EIN}/>
-            <Description title={"About:"} desc={description}/>
-            <Description title={"Phone:"} desc={phoneNumber}/>
-            <Description title={"Email:"} desc={email}/>
-            <Description title={"Password:"} desc={pw}/>
-            <Description title={"Projects Committed:"} desc={projectsCommit}/>
-            <Description title={"Projects Complete:"} desc={projectsComplete}/>
+          <Container style={{backgroundColor:"white", padding:"1em", textAlign:"right"}}>
+            <p onClick={() => {this.setState();}}>| Edit |</p>
+            <Container className={classes.rightContainer}>
+              <Description title={"Organization Name:"} desc={orgDetails.name}/>
+              <Description title={"EIN:"} desc={orgDetails.EIN}/>
+              <Description title={"About:"} desc={orgDetails.description}/>
+              <Description title={"Phone:"} desc={orgDetails.phoneNumber}/>
+              <Description title={"Email:"} desc={orgDetails.email}/>
+              <Description title={"Password:"} desc={orgDetails.pw}/>
+              <Description title={"Projects Committed:"} desc={orgDetails.projects? orgDetails.projects.length:"0"}/>
+              <Description title={"Projects Complete:"} desc={orgDetails.projects && orgDetails.projects.filter(p => p.isCompleted).length? orgDetails.projects.filter(p => p.isCompleted).length : "0"}/>
+            </Container>
           </Container>
         </Grid>
       </Grid>

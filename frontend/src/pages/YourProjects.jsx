@@ -101,7 +101,7 @@ export default function YourProjects() {
   const [projectsIncomplete, setProjectsIncomplete] = useState([]);
 
   axios
-    .get(`${BACKEND_URL}projects/featured`, {
+    .get(`${BACKEND_URL}projects`, {
       params: {},
     })
     .then(function (response) {
@@ -113,7 +113,7 @@ export default function YourProjects() {
 
   //if use state is 1
   axios
-    .get(`${BACKEND_URL}projects`, {
+    .get(`${BACKEND_URL}projects/featured`, {
       params: {},
     })
     .then(function (response) {

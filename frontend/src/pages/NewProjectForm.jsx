@@ -54,9 +54,9 @@ class NewProjectForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectName: '',
+      name: '',
       description: '',
-      roles: '',
+      qualifications: '',
       startDate: '',
       endDate: '',
       fullName: '',
@@ -79,24 +79,24 @@ class NewProjectForm extends React.Component {
    }
 
   handleSubmit(event) {
-    alert('A projectname was submitted: ' + this.state.projectName);
-    alert('A description was submitted: ' + this.state.description);
-    alert('A roles was submitted: ' + this.state.roles);
-    alert('A startDate was submitted: ' + this.state.startDate);
-    alert('A endDate was submitted: ' + this.state.endDate);
-    alert('A fullName was submitted: ' + this.state.fullName);
-    alert('A phone was submitted: ' + this.state.phone);
-    alert('A email was submitted: ' + this.state.email);
-    alert('A organization was submitted: ' + this.state.organization);
+    // alert('A projectname was submitted: ' + this.state.projectName);
+    // alert('A description was submitted: ' + this.state.description);
+    // alert('A roles was submitted: ' + this.state.roles);
+    // alert('A startDate was submitted: ' + this.state.startDate);
+    // alert('A endDate was submitted: ' + this.state.endDate);
+    // alert('A fullName was submitted: ' + this.state.fullName);
+    // alert('A phone was submitted: ' + this.state.phone);
+    // alert('A email was submitted: ' + this.state.email);
+    // alert('A organization was submitted: ' + this.state.organization);
     
     event.preventDefault();
     const data = {
-      projectName: this.state.projectName,
+        name: this.state.name, //name
         description: this.state.description,
-        roles: this.state.roles,
+        qualifications: this.state.qualifications,
         startDate: this.state.startDate,
         endDate: this.state.endDate,
-        fullName: this.state.fullName,
+        fullName: this.state.fullName, //this stuff is not on the route yet and below
         phone: this.state.phone,
         email: this.state.email, 
         organization: this.state.organization
@@ -133,14 +133,14 @@ class NewProjectForm extends React.Component {
             <Container style={{ backgroundColor: "white" }}>
               <Grid container spacing={2} className = {classes.gridText}>
                 <Grid item xs = {12} >
-                  <TextField value = {this.state.projectName} onChange = {this.handleInputChange} name = "projectName" label = "Enter Your Project's Name"/>
+                  <TextField value = {this.state.name} onChange = {this.handleInputChange} name = "name" label = "Enter Your Project's Name" type = "string"/>
               </Grid>
               <Grid item xs = {12} >
-                  <TextField value = {this.state.description} onChange = {this.handleInputChange} name = "description" label = "Tell us about your project! " rows = "10"  multiline = {true}/>
+                  <TextField value = {this.state.description} onChange = {this.handleInputChange} name = "description" label = "Tell us about your project! " type = "string" rows = "5"  multiline = {true}/>
               </Grid>
            
               <Grid item xs = {12} >
-               <TextField value = {this.state.roles} onChange = {this.handleInputChange}name = "roles" label = "Qualifications for potential team members" rows = "3" multiline = {true}/>
+               <TextField value = {this.state.qualifications} onChange = {this.handleInputChange}name = "qualifications" label = "Qualifications for potential team members" rows = "5" multiline = {true}/>
               </Grid>
               <Grid  item  xs = {3} >
                   Start Date* 
@@ -171,7 +171,7 @@ class NewProjectForm extends React.Component {
                   Full name*
               </Grid>
               <Grid item xs = {9} >
-                  <TextField value = {this.state.name} onChange = {this.handleInputChange} name = "fullName"/>
+                  <TextField value = {this.state.fullName} onChange = {this.handleInputChange} name = "fullName"/>
               </Grid>
               <Grid item xs = {3} >
                   Phone number*

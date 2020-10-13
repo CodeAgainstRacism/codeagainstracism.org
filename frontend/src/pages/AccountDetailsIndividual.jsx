@@ -10,6 +10,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 import SideBar from "../components/SideBarIndividual";
 import Description from "../components/Description";
+import EditButton from "../components/EditButton";
 
 const AccountDetailsStyle = makeStyles((theme) => ({
   dividerBar: {
@@ -39,6 +40,7 @@ const AccountDetailsStyle = makeStyles((theme) => ({
 const AccountDetailsIndividual = (props) => {
   const classes = AccountDetailsStyle();
   const [accountDetails, setAccountDetails] = useState(0);
+  const [editFields, setEditFields] = useState(0);
   const { id } = props.match.params;  // id of the user
 
   useEffect(() => {
@@ -84,12 +86,13 @@ const AccountDetailsIndividual = (props) => {
             <Box className={classes.dividerBar} />
           </Container>
           <Container className={classes.rightContainer}>
-            <Description title={"Name"} desc={accountDetails.firstName + ' ' + accountDetails.lastName} />
-            <Description title={"Phone Number"} desc={accountDetails.phoneNumber} />
-            <Description title={"Email"} desc={accountDetails.email} />
-            <Description title={"Password"} />
-            <Description title={"Projects Committed"} />
-            <Description title={"Projects Completed"} />
+            <Description title={"Name"} desc={accountDetails.firstName + ' ' + accountDetails.lastName} enableEdit= {editFields}/>
+            <Description title={"Phone Number"} desc={accountDetails.phoneNumber} enableEdit= {editFields}/>
+            <Description title={"Email"} desc={accountDetails.email} enableEdit= {editFields}/>
+            <Description title={"Password"} enableEdit= {editFields}/>
+            <Description title={"Projects Committed"} enableEdit= {editFields}/>
+            <Description title={"Projects Completed"} enableEdit= {editFields}/>
+            <EditButton enableEdit={editFields} setEditFields={setEditFields}/>
           </Container>
         </Grid>
       </Grid>

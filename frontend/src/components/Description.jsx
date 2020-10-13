@@ -5,6 +5,7 @@ import {
   Grid,
   Typography,
   makeStyles,
+  TextField,
 } from "@material-ui/core";
 
 const DescriptionStyles = makeStyles((theme) => ({
@@ -29,16 +30,16 @@ const DescriptionStyles = makeStyles((theme) => ({
 
 export default function Description(props){
     const classes = DescriptionStyles();
-    const {title, desc } = props;
+    const {id, title, desc, enableEdit } = props;
     return(
       <Grid className={classes.headingContainer}>
         <Typography className={classes.titleStyle}>
           { title }
         </Typography>
         <Box className={classes.dividerBar} />
-        <Typography className={classes.contentStyle}>
+        { !enableEdit? <Typography className={classes.contentStyle}>
           { desc ? desc : "Missing description" /* italicize later */}
-        </Typography>
+        </Typography>: <TextField id={id} style={{margin:".3em"}}/>}
       </Grid>
     )
 }

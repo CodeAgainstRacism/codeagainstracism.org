@@ -48,7 +48,6 @@ class App extends React.Component {
                 exact={true}
               />
               <Route
-                path="/account_details_organization"
                 path="/account_details_organization/:id"
                 component={AccountDetailsOrganization}
                 exact={true}

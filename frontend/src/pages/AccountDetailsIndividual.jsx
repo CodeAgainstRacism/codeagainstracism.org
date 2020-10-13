@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {
+  Button,
   Box,
   Container,
   Grid,
@@ -26,6 +27,7 @@ const AccountDetailsStyle = makeStyles((theme) => ({
   rightGridContainer: {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
+    backgroundColor: "white",
   },
   rightContainer: {
     paddingBottom: "5%",
@@ -37,7 +39,7 @@ const AccountDetailsStyle = makeStyles((theme) => ({
 const AccountDetailsIndividual = (props) => {
   const classes = AccountDetailsStyle();
   const [accountDetails, setAccountDetails] = useState(0);
-  const { id } = props.match.params;  // id of the user, testing
+  const { id } = props.match.params;  // id of the user
 
   useEffect(() => {
     getDetails();
@@ -57,6 +59,19 @@ const AccountDetailsIndividual = (props) => {
       });
   }
 
+  const changeDetail = (event) => {
+    axios
+      .post(`${BACKEND_URL}users/${id}`, {
+        email: event.target.value,
+      })
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   return (
     <Fragment>
       <Grid container>
@@ -65,7 +80,7 @@ const AccountDetailsIndividual = (props) => {
         </Grid>
         <Grid container item xs={10} className={classes.rightGridContainer}>
           <Container className={classes.headingContainer}>
-            Your Account
+            Account Details
             <Box className={classes.dividerBar} />
           </Container>
           <Container className={classes.rightContainer}>

@@ -9,6 +9,7 @@ import {
 
 import SideBar from "../components/SideBarOrganization";
 import Description from "../components/Description";
+import EditButton from "../components/EditButton";
 
 import axios from "axios";
 import { BACKEND_URL } from "../config";
@@ -88,25 +89,7 @@ useEffect(getDetails, []);
               <Description title={"Projects Committed:"} desc={orgDetails.projects? orgDetails.projects.length:"0"}/>
               <Description title={"Projects Complete:"} desc={orgDetails.projects && orgDetails.projects.filter(p => p.isCompleted).length? orgDetails.projects.filter(p => p.isCompleted).length : "0"}/>
             </Container>
-            <Grid container direction="row" justify="flex-end">
-            {editFields? <Button 
-                style={{margin: "1em 1em"}} 
-                variant="contained" 
-                color={"default"}
-                onClick={() => (setEditFields(false))}
-                hidden={!editFields}
-              >
-                  cancel
-              </Button>: ``}
-              <Button 
-                style={{margin: "1em 0"}} 
-                variant="contained" 
-                color={editFields? "secondary":"primary"}
-                onClick={() => (editFields? setEditFields(false): setEditFields(true))}
-              >
-                  {editFields? `save`:`edit`}
-              </Button>
-            </Grid>
+            <EditButton enableEdit={editFields} setEditFields={setEditFields}/>
           </Container>
           
         </Grid>

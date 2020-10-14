@@ -11,6 +11,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class OrganizationDto {
   @Length(10, 10)
+  @IsNotEmpty()
   @IsString()
   @ApiProperty({ example: '12-3456789' })
   EIN: string;

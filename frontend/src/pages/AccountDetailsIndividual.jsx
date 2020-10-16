@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {
-  Button,
   Box,
   Container,
   Grid,
@@ -40,7 +39,7 @@ const AccountDetailsStyle = makeStyles((theme) => ({
 const AccountDetailsIndividual = (props) => {
   const classes = AccountDetailsStyle();
   const [accountDetails, setAccountDetails] = useState(0);
-  const [newDetails, setNewFields] = useState(0); // state to store new details 
+  const [newFields, setNewFields] = useState(0); // state to store new details
   const [editFields, setEditFields] = useState(0);
   const { id } = props.match.params;  // id of the user
 
@@ -66,7 +65,12 @@ const AccountDetailsIndividual = (props) => {
   const changeDetail = (event) => {
     axios
       .post(`${BACKEND_URL}users/${id}`, {
-        // email: event.target.value,
+        // firstName: newFields.firstName
+        // lastName: newFields.lastName
+        // email: newFields.email
+        // password: newFields.password
+        // projectsCommitted: newFields.projectsCommitted
+        // projectsCompleted: newFields.projectsCompleted
       })
       .then(function (response) {
         console.log(response.data);
@@ -88,13 +92,13 @@ const AccountDetailsIndividual = (props) => {
             <Box className={classes.dividerBar} />
           </Container>
           <Container className={classes.rightContainer}>
-            <Description title={"First Name"} desc={accountDetails.firstName} enableEdit={editFields}/>
-            <Description title={"Last Name"} desc={accountDetails.lastName} enableEdit={editFields}/>
-            <Description title={"Phone Number"} desc={accountDetails.phoneNumber} enableEdit={editFields}/>
-            <Description title={"Email"} desc={accountDetails.email} enableEdit={editFields}/>
-            <Description title={"Password"} enableEdit={editFields}/>
-            <Description title={"Projects Committed"} enableEdit={editFields}/>
-            <Description title={"Projects Completed"} enableEdit={editFields}/>
+            <Description id={"firstName"} title={"First Name"} desc={accountDetails.firstName} enableEdit={editFields}/>
+            <Description id={"lastName"} title={"Last Name"} desc={accountDetails.lastName} enableEdit={editFields}/>
+            <Description id={"phoneNumer"} title={"Phone Number"} desc={accountDetails.phoneNumber} enableEdit={editFields}/>
+            <Description id={"email"} title={"Email"} desc={accountDetails.email} enableEdit={editFields}/>
+            <Description id={"password"} title={"Password"} enableEdit={editFields}/>
+            <Description id={"projectsCommitted"} title={"Projects Committed"} enableEdit={editFields}/>
+            <Description id={"projectsCompleted"} title={"Projects Completed"} enableEdit={editFields}/>
             <EditButton enableEdit={editFields} setEditFields={setEditFields}/>
           </Container>
         </Grid>

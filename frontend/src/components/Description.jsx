@@ -37,9 +37,12 @@ export default function Description(props){
           { title }
         </Typography>
         <Box className={classes.dividerBar} />
-        { !enableEdit? <Typography className={classes.contentStyle}>
-          { desc ? desc : "Missing description" /* italicize later */}
-        </Typography>: <TextField id={id} style={{margin:".3em"}}/>}
+        { !enableEdit ?
+          <Typography className={classes.contentStyle}>
+            { desc ? desc : "Missing description" /* italicize later */}
+          </Typography> :
+          <TextField id={id} style={{margin:".3em"}}/>
+        }
       </Grid>
     )
 }

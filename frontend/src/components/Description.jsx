@@ -30,16 +30,19 @@ const DescriptionStyles = makeStyles((theme) => ({
 
 export default function Description(props){
     const classes = DescriptionStyles();
-    const {id, title, desc, enableEdit } = props;
+    const { id, title, desc, enableEdit } = props;
     return(
       <Grid className={classes.headingContainer}>
         <Typography className={classes.titleStyle}>
           { title }
         </Typography>
         <Box className={classes.dividerBar} />
-        { !enableEdit? <Typography className={classes.contentStyle}>
-          { desc ? desc : "Missing description" /* italicize later */}
-        </Typography>: <TextField id={id} style={{margin:".3em"}}/>}
+        { !enableEdit ?
+          <Typography className={classes.contentStyle}>
+            { desc ? desc : "Missing description" /* italicize later */}
+          </Typography> :
+          <TextField id={id} defaultValue={desc} style={{margin:".3em"}}/>
+        }
       </Grid>
     )
 }

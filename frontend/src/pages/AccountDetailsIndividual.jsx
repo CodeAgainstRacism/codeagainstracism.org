@@ -40,6 +40,7 @@ const AccountDetailsStyle = makeStyles((theme) => ({
 const AccountDetailsIndividual = (props) => {
   const classes = AccountDetailsStyle();
   const [accountDetails, setAccountDetails] = useState(0);
+  const [newDetails, setNewFields] = useState(0); // state to store new details 
   const [editFields, setEditFields] = useState(0);
   const { id } = props.match.params;  // id of the user
 
@@ -61,10 +62,11 @@ const AccountDetailsIndividual = (props) => {
       });
   }
 
+  // idea: when save button is triggered, call this function
   const changeDetail = (event) => {
     axios
       .post(`${BACKEND_URL}users/${id}`, {
-        email: event.target.value,
+        // email: event.target.value,
       })
       .then(function (response) {
         console.log(response.data);
@@ -86,12 +88,13 @@ const AccountDetailsIndividual = (props) => {
             <Box className={classes.dividerBar} />
           </Container>
           <Container className={classes.rightContainer}>
-            <Description title={"Name"} desc={accountDetails.firstName + ' ' + accountDetails.lastName} enableEdit= {editFields}/>
-            <Description title={"Phone Number"} desc={accountDetails.phoneNumber} enableEdit= {editFields}/>
-            <Description title={"Email"} desc={accountDetails.email} enableEdit= {editFields}/>
-            <Description title={"Password"} enableEdit= {editFields}/>
-            <Description title={"Projects Committed"} enableEdit= {editFields}/>
-            <Description title={"Projects Completed"} enableEdit= {editFields}/>
+            <Description title={"First Name"} desc={accountDetails.firstName} enableEdit={editFields}/>
+            <Description title={"Last Name"} desc={accountDetails.lastName} enableEdit={editFields}/>
+            <Description title={"Phone Number"} desc={accountDetails.phoneNumber} enableEdit={editFields}/>
+            <Description title={"Email"} desc={accountDetails.email} enableEdit={editFields}/>
+            <Description title={"Password"} enableEdit={editFields}/>
+            <Description title={"Projects Committed"} enableEdit={editFields}/>
+            <Description title={"Projects Completed"} enableEdit={editFields}/>
             <EditButton enableEdit={editFields} setEditFields={setEditFields}/>
           </Container>
         </Grid>

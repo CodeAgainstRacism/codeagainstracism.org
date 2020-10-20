@@ -8,7 +8,7 @@ import {
 //& if you want to tweak things/fix, feel free too :]
 
 export default function EditButton(props){
-    const {enableEdit, setEditFields, sendPost } = props;
+    const {enableEdit, setEditFields, sendPut } = props;
     return(
       <Grid container direction="row" justify="flex-end">
         { enableEdit ?
@@ -26,7 +26,7 @@ export default function EditButton(props){
           style={{margin: "1em 0"}}
           variant="contained"
           color={ enableEdit ? "secondary" : "primary"}
-          onClick={() => (enableEdit ? sendPost() : setEditFields(true))}
+          onClick={() => (enableEdit ? sendPut() : setEditFields(true))}
         >
           { enableEdit ? `save`:`edit` }
         </Button>

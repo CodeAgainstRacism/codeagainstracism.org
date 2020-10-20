@@ -11,7 +11,6 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import SignInButtons from "../components/SignInButtons";
 import { Alert } from "@material-ui/lab";
 import HandWave from "../assets/Hand waving.png";
 import { Link as RouterLink } from "react-router-dom";
@@ -68,7 +67,7 @@ const LoginStyles = makeStyles((theme) => ({
     border: "1px solid #292929",
     boxSizing: "border-box",
     overflow: "auto",
-    borderRadius: "7px",
+    borderRadius: "7px 7px 0px 0px",
     transform: "matrix(1, 0, 0, 1, 0, 0)",
   },
   formHeaderBackground: {
@@ -81,9 +80,11 @@ const LoginStyles = makeStyles((theme) => ({
   },
   formBody: {
     fontSize: theme.spacing(1.5),
-    width: "100%",
+    // width: "100%",
+    minWidth: "350px",
+    minHeight: "350px",
     overflow: "auto",
-    padding: theme.spacing(2, 6, 0, 6),
+    padding: theme.spacing(0, 6),
   },
   formFooter: {
     width: "100%",
@@ -92,6 +93,7 @@ const LoginStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-evenly",
     background: "white",
+    border: "1px solid #292929",
     borderRadius: "0px 0px 7px 7px",
   },
 
@@ -199,102 +201,99 @@ export default function LogIn(props) {
                     Log In
                   </Typography>
                 </Grid>
-                <Container className={classes.formBody}>
-                  {/**Github Icon Button */}
-                  <SignInButtons action="Sign In" />
-
-                  <Divider
-                    dividerContainer={classes.dividerContainer}
-                    dividerBar={classes.dividerBar}
-                    theme={theme}
-                  />
-
+                <Grid item container className={classes.formBody} spacing={1} direction="column"
+                  justify="center"
+                >
                   {/** Right Grid **/}
 
-                  <Grid id="row" container spacing={1}>
-                    {/* Display error message from BE if neccessary */}
-                    {errors.message && (
-                      <Grid item xs={12}>
-                        <Alert
-                          severity="error"
-                          variant="filled"
-                          style={{ fontWeight: "bold" }}
-                        >
-                          {errors.message}
-                        </Alert>
-                      </Grid>
-                    )}
+                  {/* <Grid id="row" container > */}
+                  {/* Display error message from BE if neccessary */}
+                  {errors.message && (
                     <Grid item xs={12}>
-                      <TextField
-                        label="Email"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        type="password"
-                        label="Password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </Grid>
-
-                    <Grid
-                      item
-                      container
-                      xs={12}
-                      display="flex"
-                      justify="flex-end"
-                    >
-                      <Link
-                        component={RouterLink}
-                        to="/accountrecovery"
-                        color="inherit"
-                        underline="none"
+                      <Alert
+                        severity="error"
+                        variant="filled"
+                        style={{ fontWeight: "bold" }}
                       >
-                        Forgot your password?
-                      </Link>
+                        {errors.message}
+                      </Alert>
                     </Grid>
+                  )}
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      type="password"
+                      label="Password"
+                      name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </Grid>
 
-                  <Button
-                    className={classes.actionButton}
-                    fullWidth={true}
-                    color="primary"
-                    variant="contained"
-                    onClick={handleLogIn}
+                  <Grid
+                    item
+                    container
+                    xs={12}
+                    display="flex"
+                    justify="flex-end"
                   >
-                    Login
-                  </Button>
+                    <Link
+                      component={RouterLink}
+                      to="/accountrecovery"
+                      color="inherit"
+                      underline="none"
+                    >
+                      <Typography variant="body2" >Forgot your password?</Typography>
+                    </Link>
+                  </Grid>
 
-                  {/**Divider with text "or" in between */}
-                  <Divider
-                    dividerContainer={classes.dividerContainer}
-                    dividerBar={classes.dividerBar}
-                    theme={theme}
-                  />
-                </Container>
-                <Container className={classes.formFooter}>
-                  <Button
-                    component={RouterLink}
-                    to="/signup"
-                    fullWidth={true}
-                    color="secondary"
-                    variant="outlined"
-                    className={classes.actionButton}
-                  >
-                    Create an Account
+                  <Grid item xs={12}>
+                    <Button
+                      className={classes.actionButton}
+                      fullWidth={true}
+                      color="primary"
+                      variant="contained"
+                      onClick={handleLogIn}
+                    >
+                      Login
                   </Button>
-                </Container>
+                  </Grid>
+                  {/**Divider with text "or" in between */}
+
+                  <Grid item xs={12}>
+                    <Divider
+                      dividerContainer={classes.dividerContainer}
+                      dividerBar={classes.dividerBar}
+                      theme={theme}
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
+              <Container className={classes.formFooter}>
+                <Button
+                  component={RouterLink}
+                  to="/signup"
+                  fullWidth={true}
+                  color="secondary"
+                  variant="outlined"
+                  className={classes.actionButton}
+                >
+                  Create an Account
+                  </Button>
+              </Container>
             </Grid>
           </Grid>
+
         </Container>
       </main>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 

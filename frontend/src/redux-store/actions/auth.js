@@ -18,14 +18,17 @@ export function authUser(type, userData) {
     return new Promise((resolve, reject) => {
       console.log(`${BACKEND_URL}/auth/${type}`);
       return apiCall("post", `${BACKEND_URL}/auth/${type}`, userData)
-        .then(({ accessToken, ...user }) => {
+        .then((response) => {
+          // .then(({ accessToken, ...user }) => {
+          console.log(response)
           console.log("Dispatching authUser")
-          localStorage.setItem("jwtToken", accessToken);
-          dispatch(setCurrentUser(user));
+          localStorage.setItem("jwtToken", response.accessToken);
+          dispatch(setCurrentUser(response.user));
           dispatch(removeError());
           resolve();
         })
         .catch((err) => {
+          console.log("Error", err)
           dispatch(addError(err));
           reject();
         });

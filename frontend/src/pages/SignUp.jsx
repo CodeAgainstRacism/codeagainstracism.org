@@ -107,6 +107,7 @@ const SignUp = (props) => {
       firstName,
       lastName,
       email,
+      phoneNumber,
       password,
       description,
     };
@@ -151,7 +152,6 @@ const SignUp = (props) => {
       description,
     };
 
-    console.log(signUpData);
     props.onAuth("signup", signUpData).then(() => {
       // create an organization with user's id from the backend
       // TODO: need to get user's id from response
@@ -210,7 +210,6 @@ const SignUp = (props) => {
                   </Typography>
                 </Container>
                 <Container className={classes.formBody}>
-                  {/* Display 3 Buttons for Google, Facebook, Github */}
                   {/* Display error message from BE if neccessary */}
 
                   <Grid id="row" container spacing={1}>
@@ -233,7 +232,6 @@ const SignUp = (props) => {
                         setPhoneNumber={setPhoneNumber}
                         organizationName={organizationName}
                         EIN={EIN}
-                        phoneNumber={phoneNumber}
                       />
                     )}
 
@@ -243,6 +241,17 @@ const SignUp = (props) => {
                       setFirstName={setFirstName}
                       setLastName={setLastName}
                     />
+
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        label="Phone Number"
+                        name="phoneNumber"
+                        value={phoneNumber}
+                        placeholder="E.g: xxx xxx xxxx"
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                    </Grid>
 
                     <Grid item xs={12}>
                       <TextField
@@ -346,10 +355,8 @@ const OrganizationFields = (props) => {
   const {
     setOrganizationName,
     setEIN,
-    setPhoneNumber,
     organizationName,
-    EIN,
-    phoneNumber,
+    EIN
   } = props;
   return (
     <React.Fragment>
@@ -369,15 +376,6 @@ const OrganizationFields = (props) => {
           name="EIN"
           value={EIN}
           onChange={(e) => setEIN(e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          required
-          label="Organization Phone Number"
-          name="phoneNumber"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
         />
       </Grid>
     </React.Fragment>

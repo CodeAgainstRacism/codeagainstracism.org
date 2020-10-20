@@ -41,6 +41,7 @@ const styles = makeStyles((theme) => ({
   rightContainer: {
     paddingBottom: "5%",
     minHeight: "100vh",
+    backgroundColor:"white"
   },
 }));
 
@@ -49,6 +50,19 @@ const classes = styles();
 
 const [orgDetails, setOrgDetails] = useState(0)
 const [editFields, setEditFields ] = useState(0)
+const [fieldValues, setFieldValues] = useState([{
+  EIN: "",
+  name: "",
+  description: "",
+  phoneNumber: "",
+  email: ""
+}])
+
+const updateValues = (id,value) => {
+  setFieldValues([{...fieldValues[0], [id]: value}])
+  console.log(fieldValues[0])
+}
+
 const { id: org_id} = props.match.params;
 const getDetails = () => {
   axios
@@ -64,7 +78,37 @@ const getDetails = () => {
       console.log(error);
     });
 }
+ 
+const postEdits = (data) => {
+  const { EIN, name, description, phoneNumber, email} = data
+    axios
+      .put(`${BACKEND_URL}organizations/${org_id}`,
+        {
+          "EIN": EIN != "" ? EIN : orgDetails.EIN,
+          "name": name != "" ? name : orgDetails.name,
+          "description": description != ""? description : orgDetails.description,
+          "phoneNumber": phoneNumber !="" ? phoneNumber : orgDetails.phoneNumber,
+          "email": email != "" ? email : orgDetails.email,
+          "contactFirstName": orgDetails.contactFirstName,
+          "contactLastName": orgDetails.contactLastName,
+          "adminUserId": 2
+          
+        })
+        .then( response => {
+          window.location.reload();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      
   
+}
+
+const sendPost = () => {
+  setEditFields(false)
+  postEdits(fieldValues[0]);
+}
+
 useEffect(getDetails, []);
 
     return (
@@ -79,17 +123,16 @@ useEffect(getDetails, []);
             <Box className={classes.dividerBar} />
           </Container>
             <Container className={classes.rightContainer}>
-            <Container style={{backgroundColor:"white", textAlign:"right"}}>
-              <Description id="name" title={"Organization Name:"} desc={orgDetails.name} enableEdit= {editFields}/>
-              <Description id="EIN" title={"EIN:"} desc={orgDetails.EIN} enableEdit= {editFields}/>
-              <Description id="description" title={"About:"} desc={orgDetails.description} enableEdit= {editFields}/>
-              <Description id="phoneNumber" title={"Phone:"} desc={orgDetails.phoneNumber} enableEdit= {editFields}/>
-              <Description id="email" title={"Email:"} desc={orgDetails.email} enableEdit= {editFields}/>
-              <Description id="pw" title={"Password:"} desc={orgDetails.pw} enableEdit= {editFields}/>
+              <Description id="name" title={"Organization Name:"} desc={orgDetails.name} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="EIN" title={"EIN:"} desc={orgDetails.EIN} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="description" title={"About:"} desc={orgDetails.description} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="phoneNumber" title={"Phone:"} desc={orgDetails.phoneNumber} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="email" title={"Email:"} desc={orgDetails.email} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="pw" title={"Password:"} desc={orgDetails.pw} enableEdit= {editFields} handleChange={updateValues}/>
               <Description title={"Projects Committed:"} desc={orgDetails.projects? orgDetails.projects.length:"0"}/>
-              <Description title={"Projects Complete:"} desc={orgDetails.projects && orgDetails.projects.filter(p => p.isCompleted).length? orgDetails.projects.filter(p => p.isCompleted).length : "0"}/>
-            </Container>
-            <EditButton enableEdit={editFields} setEditFields={setEditFields}/>
+              <Description title={"Projects Complete:"} desc={orgDetails.projects && orgDetails.projects.filter(p => p.isCompleted).length? orgDetails.projects.filter(p => p.isCompleted).length : "0" } updateValues={updateValues}/>
+  
+            <EditButton enableEdit={editFields} setEditFields={setEditFields} sendPost={sendPost}/>
           </Container>
           
         </Grid>

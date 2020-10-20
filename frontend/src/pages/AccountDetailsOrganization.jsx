@@ -79,7 +79,7 @@ const getDetails = () => {
     });
 }
  
-const postEdits = (data) => {
+const putEdits = (data) => {
   const { EIN, name, description, phoneNumber, email} = data
     axios
       .put(`${BACKEND_URL}organizations/${org_id}`,
@@ -91,7 +91,7 @@ const postEdits = (data) => {
           "email": email != "" ? email : orgDetails.email,
           "contactFirstName": orgDetails.contactFirstName,
           "contactLastName": orgDetails.contactLastName,
-          "adminUserId": 2
+          "adminUserId": 2 //only 2 because i looked at the design doc and still don't know what this value is.. just left the default value here
           
         })
         .then( response => {
@@ -104,9 +104,9 @@ const postEdits = (data) => {
   
 }
 
-const sendPost = () => {
+const sendPut = () => {
   setEditFields(false)
-  postEdits(fieldValues[0]);
+  putEdits(fieldValues[0]);
 }
 
 useEffect(getDetails, []);
@@ -132,7 +132,7 @@ useEffect(getDetails, []);
               <Description title={"Projects Committed:"} desc={orgDetails.projects? orgDetails.projects.length:"0"}/>
               <Description title={"Projects Complete:"} desc={orgDetails.projects && orgDetails.projects.filter(p => p.isCompleted).length? orgDetails.projects.filter(p => p.isCompleted).length : "0" } updateValues={updateValues}/>
   
-            <EditButton enableEdit={editFields} setEditFields={setEditFields} sendPost={sendPost}/>
+            <EditButton enableEdit={editFields} setEditFields={setEditFields} sendPut={sendPut}/>
           </Container>
           
         </Grid>

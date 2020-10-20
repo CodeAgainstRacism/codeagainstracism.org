@@ -80,7 +80,6 @@ const LoginStyles = makeStyles((theme) => ({
   },
   formBody: {
     fontSize: theme.spacing(1.5),
-    // width: "100%",
     minWidth: "350px",
     minHeight: "350px",
     overflow: "auto",
@@ -116,7 +115,6 @@ const LoginStyles = makeStyles((theme) => ({
 }));
 
 export default function LogIn(props) {
-  const [user, setUser] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { errors, history, removeError } = props;
@@ -221,6 +219,8 @@ export default function LogIn(props) {
                   )}
                   <Grid item xs={12}>
                     <TextField
+                      type="email"
+                      id="email"
                       label="Email"
                       name="email"
                       value={email}
@@ -230,6 +230,7 @@ export default function LogIn(props) {
                   <Grid item xs={12}>
                     <TextField
                       type="password"
+                      id="password"
                       label="Password"
                       name="password"
                       value={password}

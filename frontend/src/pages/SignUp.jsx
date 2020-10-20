@@ -78,7 +78,6 @@ const LoginStyles = makeStyles((theme) => ({
 }));
 
 const SignUp = (props) => {
-  const [newUser, setNewUser] = useState(undefined);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -101,7 +100,6 @@ const SignUp = (props) => {
   });
 
   async function handleIndividualSubmit() {
-    setNewUser("test");
 
     const signUpData = {
       firstName,
@@ -139,8 +137,6 @@ const SignUp = (props) => {
   // to create an organization account, send request to /user to create a user
   // then send a request to /organization with user's id to create an organization
   const handleOrgSubmit = () => {
-    setNewUser("test");
-
     const signUpData = {
       organizationName,
       EIN,
@@ -246,6 +242,7 @@ const SignUp = (props) => {
                       <TextField
                         required
                         label="Phone Number"
+                        id="phoneNumber"
                         name="phoneNumber"
                         value={phoneNumber}
                         placeholder="E.g: xxx xxx xxxx"
@@ -256,6 +253,8 @@ const SignUp = (props) => {
                     <Grid item xs={12}>
                       <TextField
                         required
+                        type="email"
+                        id="email"
                         label="Email"
                         name="email"
                         value={email}
@@ -265,6 +264,7 @@ const SignUp = (props) => {
                     <Grid item xs={12}>
                       <TextField
                         required
+                        id="password"
                         type="password"
                         label="Password"
                         name="password"
@@ -332,6 +332,7 @@ const IndividualFields = (props) => {
       <Grid item xs={12}>
         <TextField
           required
+          id="firstName"
           label="First Name"
           name="firstName"
           value={firstName}
@@ -341,6 +342,7 @@ const IndividualFields = (props) => {
       <Grid item xs={12}>
         <TextField
           required
+          id="lastName"
           label="Last Name"
           name="lastName"
           value={lastName}

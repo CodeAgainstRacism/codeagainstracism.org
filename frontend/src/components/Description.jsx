@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Box,
   Grid,
@@ -29,17 +29,7 @@ const DescriptionStyles = makeStyles((theme) => ({
 
 export default function Description(props){
     const classes = DescriptionStyles();
-    const { id, title, desc, enableEdit } = props;
-    const [newFields, setNewFields] = useState(0); // propagate this state up? and make a post request
-
-    const handleChangeDetail = (event) => {
-      setNewFields(event.target.value);
-    }
-
-    // just for testing because useState is an async function
-    useEffect(() => {
-      console.log(newFields);
-    }, [newFields])
+    const { id, title, desc, enableEdit, getChange } = props;
 
     return(
       <Grid className={classes.headingContainer}>
@@ -51,7 +41,7 @@ export default function Description(props){
           <Typography className={classes.contentStyle}>
             { desc ? desc : "Missing description" /* italicize later */}
           </Typography> :
-          <TextField id={id} defaultValue={desc} onChange={handleChangeDetail} style={{margin:".3em"}}/>
+          <TextField id={id} defaultValue={desc} onChange={getChange} style={{margin:".3em"}}/>
         }
       </Grid>
     )

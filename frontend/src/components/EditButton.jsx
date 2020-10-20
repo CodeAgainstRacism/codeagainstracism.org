@@ -8,7 +8,16 @@ import {
 //& if you want to tweak things/fix, feel free too :]
 
 export default function EditButton(props){
-    const {enableEdit, setEditFields } = props;
+    const {enableEdit, setEditFields, handleSave, handleCancel } = props;
+    const save = () => {
+      setEditFields(false);
+      handleSave();
+    }
+    const cancel = () => {
+      setEditFields(false);
+      handleCancel();
+    }
+
     return(
       <Grid container direction="row" justify="flex-end">
         { enableEdit ?
@@ -16,20 +25,32 @@ export default function EditButton(props){
             style={{margin: "1em 1em"}}
             variant="contained"
             color={"default"}
-            onClick={() => (setEditFields(false))}
+            onClick={cancel}
             hidden={!enableEdit}
           >
             cancel
-          </Button> : ``
+          </Button> :
+          ``
         }
-        <Button
-          style={{margin: "1em 0"}}
-          variant="contained"
-          color={ enableEdit ? "secondary" : "primary"}
-          onClick={() => (enableEdit ? setEditFields(false) : setEditFields(true))}
-        >
-          { enableEdit ? `save`:`edit` }
-        </Button>
+        {
+          enableEdit ?
+          <Button
+            style={{margin: "1em 0"}}
+            variant="contained"
+            color={"secondary"}
+            onClick={save}
+          >
+            save
+          </Button> :
+          <Button
+            style={{margin: "1em 0"}}
+            variant="contained"
+            color={"primary"}
+            onClick={() => { setEditFields(true) }}
+          >
+            edit
+          </Button>
+        }
       </Grid>
     )
 }

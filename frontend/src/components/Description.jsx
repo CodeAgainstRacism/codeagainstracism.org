@@ -29,8 +29,7 @@ const DescriptionStyles = makeStyles((theme) => ({
 
 export default function Description(props){
     const classes = DescriptionStyles();
-    const { id, title, desc, enableEdit, getChange } = props;
-
+    const { id, title, desc, enableEdit, handleChange} = props;
     return(
       <Grid className={classes.headingContainer}>
         <Typography className={classes.titleStyle}>
@@ -41,7 +40,13 @@ export default function Description(props){
           <Typography className={classes.contentStyle}>
             { desc ? desc : "Missing description" /* italicize later */}
           </Typography> :
-          <TextField id={id} defaultValue={desc} onChange={getChange} style={{margin:".3em"}}/>
+          <TextField
+            id={id}
+            multiline = {id==='description'}
+            defaultValue={desc}
+            style={{margin:".3em"}}
+            onChange={(e) => { handleChange(id, e.target.value) }}
+          />
         }
       </Grid>
     )

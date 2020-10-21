@@ -39,14 +39,13 @@ const AccountDetailsStyle = makeStyles((theme) => ({
 const AccountDetailsIndividual = (props) => {
   const classes = AccountDetailsStyle();
   const [accountDetails, setAccountDetails] = useState(0);
-  const [newFields, setNewFields] = useState({
-    'firstName': '',
-    'lastName': '',
-    'phoneNumber': '',
-    'email': '',
-  }); // state to store new details
-  const [saveFields, setSaveFields] = useState(false);
   const [editFields, setEditFields] = useState(0);
+  const [fieldValues, setFieldValues] = useState([{
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+  }]);
   const { id } = props.match.params;  // id of the user
 
   useEffect(() => {
@@ -67,61 +66,33 @@ const AccountDetailsIndividual = (props) => {
       });
   }
 
-  // Delete later
-  useEffect(() => {
-    console.log(newFields);
-  }, [newFields])
-
-  // Set changes to the state
-  const getChange = (event) => {
-    setNewFields({
-      ...newFields,
-      [event.target.id]: event.target.value
-    });
-  }
-
-  // delete later
-  useEffect(() => {
-    console.log(saveFields);
-  }, [saveFields])
-
-  // Handle save passed to edit button
-  // Make put requst by calling change detail function
-  // Set save state back to false after put request
-  // Might not even need a save state, will check later
-  const handleSave = (event) => {
-    setSaveFields(true);
-    console.log(newFields);
-    console.log("Making put request");
-    changeDetail();       // make put request
-    // handleCancel();    // clear newFields state, may not sync, may cause bugs so i'm leave it out for now
-    setSaveFields(false); // set save back to false
-  }
-
-  // Handle chancel passed to edit button
-  const handleCancel = () => {
-    setNewFields({
-      'firstName': '',
-      'lastName': '',
-      'phoneNumber': '',
-      'email': '',
-    });
-  }
-
-  const changeDetail = () => {
+  const putEdits = (data) => {
+    const { firstName, lastName, phoneNumber, email} = data
     axios
-      .put(`${BACKEND_URL}users/${id}`, {
-        firstName: newFields.firstName,
-        lastName: newFields.lastName,
-        phoneNumber: newFields.phoneNumber,
-        email: newFields.email
-      })
-      .then(function (response) {
+      .put(`${BACKEND_URL}users/${id}`,
+        {
+          "firstName": firstName !== "" ? firstName : accountDetails.firstName,
+          "lastName": lastName !== "" ? lastName : accountDetails.lastName,
+          "phoneNumber": phoneNumber !== "" ? phoneNumber : accountDetails.phoneNumber,
+          "email": email !== "" ? email : accountDetails.email,
+        })
+      .then(response => {
+        window.location.reload();
         console.log(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
+  }
+
+  const updateValues = ( id, value ) => {
+    setFieldValues([{...fieldValues[0], [id]: value}]);
+    console.log(fieldValues[0]);
+  }
+
+  const sendPut = () => {
+    setEditFields(false);
+    putEdits(fieldValues[0]);
   }
 
   return (
@@ -136,14 +107,14 @@ const AccountDetailsIndividual = (props) => {
             <Box className={classes.dividerBar} />
           </Container>
           <Container className={classes.rightContainer}>
-            <Description id={"firstName"} title={"First Name"} desc={accountDetails.firstName} enableEdit={editFields} getChange={getChange}/>
-            <Description id={"lastName"} title={"Last Name"} desc={accountDetails.lastName} enableEdit={editFields} getChange={getChange}/>
-            <Description id={"phoneNumer"} title={"Phone Number"} desc={accountDetails.phoneNumber} enableEdit={editFields} getChange={getChange}/>
-            <Description id={"email"} title={"Email"} desc={accountDetails.email} enableEdit={editFields} getChange={getChange}/>
+            <Description id={"firstName"} title={"First Name"} desc={accountDetails.firstName} enableEdit={editFields} handleChange={updateValues}/>
+            <Description id={"lastName"} title={"Last Name"} desc={accountDetails.lastName} enableEdit={editFields} handleChange={updateValues}/>
+            <Description id={"phoneNumer"} title={"Phone Number"} desc={accountDetails.phoneNumber} enableEdit={editFields} handleChange={updateValues}/>
+            <Description id={"email"} title={"Email"} desc={accountDetails.email} enableEdit={editFields} handleChange={updateValues}/>
             <Description id={"password"} title={"Password"} enableEdit={editFields}/>
             <Description id={"projectsCommitted"} title={"Projects Committed"} enableEdit={editFields}/>
             <Description id={"projectsCompleted"} title={"Projects Completed"} enableEdit={editFields}/>
-            <EditButton enableEdit={editFields} setEditFields={setEditFields} handleSave={handleSave} handleCancel={handleCancel}/>
+            <EditButton enableEdit={editFields} setEditFields={setEditFields} sendPut={sendPut}/>
           </Container>
         </Grid>
       </Grid>

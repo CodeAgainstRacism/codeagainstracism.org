@@ -44,6 +44,7 @@ const AccountDetailsIndividual = (props) => {
     firstName: '',
     lastName: '',
     phoneNumber: '',
+    description: '',
     email: '',
   }]);
   const { id } = props.match.params;  // id of the user
@@ -54,7 +55,7 @@ const AccountDetailsIndividual = (props) => {
 
   const getDetails = () => {
     axios
-      .get(`${BACKEND_URL}users/${id}`, {
+      .get(`${BACKEND_URL}/users/${id}`, {
         params: {},
       })
       .then(function (response) {
@@ -67,12 +68,13 @@ const AccountDetailsIndividual = (props) => {
   }
 
   const putEdits = (data) => {
-    const { firstName, lastName, phoneNumber, email} = data
+    const { firstName, lastName, description, phoneNumber, email} = data
     axios
-      .put(`${BACKEND_URL}users/${id}`,
+      .put(`${BACKEND_URL}/users/${id}`,
         {
           "firstName": firstName !== "" ? firstName : accountDetails.firstName,
           "lastName": lastName !== "" ? lastName : accountDetails.lastName,
+          "description": description !== "" ? description : accountDetails.description,
           "phoneNumber": phoneNumber !== "" ? phoneNumber : accountDetails.phoneNumber,
           "email": email !== "" ? email : accountDetails.email,
         })
@@ -109,7 +111,8 @@ const AccountDetailsIndividual = (props) => {
           <Container className={classes.rightContainer}>
             <Description id={"firstName"} title={"First Name"} desc={accountDetails.firstName} enableEdit={editFields} handleChange={updateValues}/>
             <Description id={"lastName"} title={"Last Name"} desc={accountDetails.lastName} enableEdit={editFields} handleChange={updateValues}/>
-            <Description id={"phoneNumer"} title={"Phone Number"} desc={accountDetails.phoneNumber} enableEdit={editFields} handleChange={updateValues}/>
+            <Description id={"description"} title={"Description"} desc={accountDetails.description} enableEdit={editFields} handleChange={updateValues}/>
+            <Description id={"phoneNumber"} title={"Phone Number"} desc={accountDetails.phoneNumber} enableEdit={editFields} handleChange={updateValues}/>
             <Description id={"email"} title={"Email"} desc={accountDetails.email} enableEdit={editFields} handleChange={updateValues}/>
             <Description id={"password"} title={"Password"} enableEdit={editFields}/>
             <Description id={"projectsCommitted"} title={"Projects Committed"} enableEdit={editFields}/>

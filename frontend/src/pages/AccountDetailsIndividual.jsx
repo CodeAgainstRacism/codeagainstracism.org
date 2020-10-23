@@ -59,7 +59,6 @@ const AccountDetailsIndividual = (props) => {
         params: {},
       })
       .then(function (response) {
-        console.log(response.data)
         setAccountDetails(response.data);
       })
       .catch(function (error) {

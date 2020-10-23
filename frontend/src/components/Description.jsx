@@ -38,7 +38,12 @@ export default function Description(props){
         <Box className={classes.dividerBar} />
         { !enableEdit ?
           <Typography className={classes.contentStyle}>
-            { desc ? desc : "Missing description" /* italicize later */}
+            { desc ?
+              desc :
+              <Typography style={{fontStyle:"italic"}}>
+                Missing description
+              </Typography>
+            }
           </Typography> :
           <TextField
             id={id}

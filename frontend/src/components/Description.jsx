@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Box,
-  Container,
   Grid,
   Typography,
   makeStyles,
@@ -30,7 +29,7 @@ const DescriptionStyles = makeStyles((theme) => ({
 
 export default function Description(props){
     const classes = DescriptionStyles();
-    const { id, title, desc, enableEdit } = props;
+    const { id, title, desc, enableEdit, handleChange} = props;
     return(
       <Grid className={classes.headingContainer}>
         <Typography className={classes.titleStyle}>
@@ -39,9 +38,20 @@ export default function Description(props){
         <Box className={classes.dividerBar} />
         { !enableEdit ?
           <Typography className={classes.contentStyle}>
-            { desc ? desc : "Missing description" /* italicize later */}
+            { desc ?
+              desc :
+              <Typography style={{fontStyle:"italic"}}>
+                Missing description
+              </Typography>
+            }
           </Typography> :
-          <TextField id={id} defaultValue={desc} style={{margin:".3em"}}/>
+          <TextField
+            id={id}
+            multiline = {id==='description'}
+            defaultValue={desc}
+            style={{margin:".3em"}}
+            onChange={(e) => { handleChange(id, e.target.value) }}
+          />
         }
       </Grid>
     )

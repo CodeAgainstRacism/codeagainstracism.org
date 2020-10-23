@@ -35,7 +35,6 @@ const AccountDetailsStyle = makeStyles((theme) => ({
   },
 }));
 
-
 const AccountDetailsIndividual = (props) => {
   const classes = AccountDetailsStyle();
   const [accountDetails, setAccountDetails] = useState(0);

@@ -40,7 +40,7 @@ export default function Description(props){
           <Typography className={classes.contentStyle}>
             { desc ?
               desc :
-              <Typography style={{fontStyle:"italic"}}>
+              <Typography component={'span'} style={{fontStyle:"italic"}}>
                 Missing description
               </Typography>
             }
@@ -50,7 +50,7 @@ export default function Description(props){
             multiline = {id==='description'}
             defaultValue={desc}
             style={{margin:".3em"}}
-            onChange={(e)=>{handleChange(id,e.target.value)}}
+            onChange={(e)=>{handleChange(id, e.target.value)}}
           />
         }
       </Grid>

@@ -32,20 +32,21 @@ const useStyles = makeStyles((theme) => ({
   descriptionStyle: {
     textOverflow: "ellipsis",
     height: theme.spacing(6),
-    overflow: "hidden",
-    whiteSpace: "nowrap"
-  }
+    overflowY: "auto",
+    display: "inline-block",
+    whiteSpace: "pre-line",
+  },
 }));
 
 const ProjectCard = (props) => {
   const classes = useStyles();
-  const { name, description } = props;
+  const { name, description, imageURL } = props;
 
   return (
     <Card className={classes.card}>
       <CardMedia
         className={classes.cardMedia}
-        image="https://source.unsplash.com/random"
+        image={imageURL}
         title="Image title"
       />
       <CardContent className={classes.cardContent}>
@@ -53,7 +54,10 @@ const ProjectCard = (props) => {
           {name}
         </Typography>
         <Typography className={classes.descriptionStyle} align="left">
-          {description}
+          {/* Only show 80 characters in the description. The rest is ... */}
+          {description.length <= 80
+            ? description
+            : description.slice(0, 80) + "..."}
         </Typography>
       </CardContent>
       <CardActions className={classes.flexBoxCenter}>

@@ -132,6 +132,7 @@ describe('Project Controller', () => {
         description: 'A new description',
         startDate: undefined,
         endDate: undefined,
+        imageURL: undefined,
         organizationId: null,
       };
 

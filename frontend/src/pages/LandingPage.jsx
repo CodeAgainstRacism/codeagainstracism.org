@@ -144,7 +144,7 @@ const LandingPage = (props) => {
         params: {},
       })
       .then(function (response) {
-        // Sort by highest likeCount. If projects have the same likeCount, sort by alphabet
+        // Sort by highest likeCount. If projects have the same likeCount, sort alphabetically
         response.data.sort((a, b) =>
           a.likeCount > b.likeCount ? 1 : a.name > b.name ? 1 : -1
         );

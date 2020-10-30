@@ -124,7 +124,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6];
 
 const LandingPage = (props) => {
   const classes = useStyles();

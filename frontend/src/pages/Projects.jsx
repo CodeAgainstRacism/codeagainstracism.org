@@ -71,7 +71,7 @@ export default function Projects() {
 
   const getData = () => {
     axios
-      .get(`${BACKEND_URL}projects`, {
+      .get(`${BACKEND_URL}/projects`, {
         params: {},
       })
       .then(function (response) {

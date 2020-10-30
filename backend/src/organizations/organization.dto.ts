@@ -50,5 +50,6 @@ export class OrganizationDto {
   contactLastName: string;
 
   @IsNumber()
+  @ApiProperty({ example: 1 })
   adminUserId: number;
 }

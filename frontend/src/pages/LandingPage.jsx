@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { BACKEND_URL } from "../config";
 import {
   makeStyles,
   Box,
@@ -12,8 +13,11 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-import HeroImage from "../assets/Landing_Hero.svg";
+
+import axios from "axios";
 import Footer from "../components/Footer";
+import HeroImage from "../assets/Landing_Hero.svg";
+import ProjectCard from "../components/ProjectCard";
 
 const useStyles = makeStyles((theme) => ({
   flexBox: {
@@ -26,13 +30,13 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
+
+  /**** HERO *******/
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
+    marginTop: theme.spacing(2),
   },
-  /**** TITLE *******/
-
-  /***** PARAGRAPH */
   heroParagraph: {
     padding: theme.spacing(2, 0),
     color: theme.palette.text.primary,
@@ -47,13 +51,15 @@ const useStyles = makeStyles((theme) => ({
   heroLeftCTAButton: {
     backgroundColor: theme.heroCTAButton.left,
     color: theme.palette.text.secondary,
-    width: "14rem",
+    width: theme.spacing(28),
     padding: theme.spacing(2, 0),
+    fontWeight: "bold",
   },
   heroRightCTAButton: {
     backgroundColor: theme.heroCTAButton.right,
-    width: "14rem",
+    width: theme.spacing(28),
     padding: theme.spacing(2, 0),
+    fontWeight: "bold",
   },
 
   /* Projects Title */
@@ -87,12 +93,10 @@ const useStyles = makeStyles((theme) => ({
   },
   featuredParagraph: {
     margin: theme.spacing(1, 0),
+    minHeight: "10rem",
   },
   featuredImage: {
-    height: "100%",
-    objectFit: "cover",
-    maxWidth: "100%",
-    maxHeight: "100%",
+    paddingTop: "56.25%", // 16:9
   },
   learnMoreButton: {
     justifyContent: "center",
@@ -102,7 +106,6 @@ const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-    marginBottom: theme.spacing(8),
   },
   card: {
     height: "100%",
@@ -125,6 +128,38 @@ const cards = [1, 2, 3, 4, 5, 6];
 
 const LandingPage = (props) => {
   const classes = useStyles();
+  const [projects, setProjects] = useState([]);
+  const [featuredCard, setFeaturedCard] = useState("");
+  const getProjectCards = (projectCardObj) => {
+    return (
+      <Grid item xs={12} sm={6} lg={4} key={projectCardObj.id}>
+        <ProjectCard {...projectCardObj} />
+      </Grid>
+    );
+  };
+
+  const getData = () => {
+    axios
+      .get(`${BACKEND_URL}/projects`, {
+        params: {},
+      })
+      .then(function (response) {
+        // Sort by highest likeCount. If projects have the same likeCount, sort alphabetically
+        response.data.sort((a, b) =>
+          a.likeCount > b.likeCount ? 1 : a.name > b.name ? 1 : -1
+        );
+        setProjects(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    // need to fetch Featured Project from the backend
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <React.Fragment>
@@ -153,16 +188,10 @@ const LandingPage = (props) => {
                   <Grid container spacing={7}>
                     <Grid item>
                       <Button
-                        size="large"
                         variant="contained"
                         className={classes.heroLeftCTAButton}
                       >
-                        <Typography
-                          variant="button"
-                          fontWeight="fontWeightBold"
-                        >
-                          Join A Project
-                        </Typography>
+                        Join A Project
                       </Button>
                     </Grid>
                     <Grid item>
@@ -196,30 +225,24 @@ const LandingPage = (props) => {
               <Grid item xs={6}>
                 <CardMedia
                   className={classes.featuredImage}
-                  image="https://source.unsplash.com/random"
                   title="Image title"
                 />
               </Grid>
               <Grid item xs={6}>
                 <div className={classes.cardDetails}>
                   <CardContent>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h5" gutterBottom align="center">
                       Featured
                     </Typography>
                     <Typography variant="h4" color="textPrimary" gutterBottom>
-                      Black Girls Code
+                      {featuredCard.name}
                     </Typography>
                     <Typography
                       variant="subtitle1"
                       paragraph
                       className={classes.featuredParagraph}
                     >
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut, rem. Saepe nesciunt, cumque voluptate tenetur deserunt
-                      voluptatum numquam modi. Provident error nihil molestiae
-                      iusto dolorem qui repellat ducimus at ratione! Lorem ipsum
-                      dolor sit amet consectetur adipisicing elit. Ut, rem.
-                      Saepe nesciunt.
+                      {featuredCard.description}
                     </Typography>
                     <CardActions className={classes.flexBoxCenter}>
                       <Button
@@ -237,38 +260,11 @@ const LandingPage = (props) => {
             </Grid>
           </Card>
 
-          {/* 6 projects */}
+          {/* Display 6 projects with the highest likeCount*/}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5">
-                      Title
-                    </Typography>
-                    <Typography align="left">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Voluptate impedit magnam culpa
-                    </Typography>
-                  </CardContent>
-                  <CardActions className={classes.flexBoxCenter}>
-                    <Button
-                      size="medium"
-                      color="primary"
-                      className={classes.learnMoreButton}
-                      variant="contained"
-                    >
-                      Learn More
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+            {projects
+              .slice(0, 6)
+              .map((projectCardObj) => getProjectCards(projectCardObj))}
           </Grid>
           <Grid container className={classes.moreProjects}>
             <Button size="large" color="secondary" variant="contained">
@@ -279,9 +275,6 @@ const LandingPage = (props) => {
           {/* Insert Sponsors */}
         </Container>
       </main>
-      {/* Footer */}
-      <Footer />
-      {/* End footer */}
     </React.Fragment>
   );
 };

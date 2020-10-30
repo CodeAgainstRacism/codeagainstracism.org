@@ -189,6 +189,8 @@ const LandingPage = (props) => {
                       <Button
                         variant="contained"
                         className={classes.heroLeftCTAButton}
+                        component={RouterLink}
+                        to="/signup/individual"
                       >
                         Join A Project
                       </Button>
@@ -197,6 +199,8 @@ const LandingPage = (props) => {
                       <Button
                         variant="contained"
                         className={classes.heroRightCTAButton}
+                        component={RouterLink}
+                        to="/signup/organization"
                       >
                         Create A Project
                       </Button>
@@ -266,7 +270,13 @@ const LandingPage = (props) => {
               .map((projectCardObj) => getProjectCards(projectCardObj))}
           </Grid>
           <Grid container className={classes.moreProjects}>
-            <Button size="large" color="secondary" variant="contained">
+            <Button
+              component={RouterLink}
+              to="/projects"
+              size="large"
+              color="secondary"
+              variant="contained"
+            >
               More Projects
             </Button>
           </Grid>
@@ -278,4 +288,4 @@ const LandingPage = (props) => {
   );
 };
 
-export default LandingPage;
+export default withRouter(LandingPage);

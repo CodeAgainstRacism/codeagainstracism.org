@@ -10,15 +10,19 @@ const mockUserEntities = [
 const newUserDto: UserDto = {
   firstName: 'Steve',
   lastName: 'Jobs',
+  phoneNumber: '+001 (012) 012-0123',
   email: 'stevejobs@email.com',
   password: 'imalive',
+  description: '',
 };
 
 const updateUserDto: UserDto = {
   firstName: 'Bob',
   lastName: 'Gratton',
+  phoneNumber: '+001 (012) 012-0123',
   email: 'bobgratton@email.com',
   password: 'rock&roll',
+  description: '',
 };
 
 export { mockUserEntities, newUserDto, updateUserDto };

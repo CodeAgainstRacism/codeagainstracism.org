@@ -8,7 +8,6 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-
 const useStyles = makeStyles((theme) => ({
   flexBoxCenter: {
     display: "flex",

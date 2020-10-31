@@ -32,7 +32,6 @@ const styles = makeStyles((theme) => ({
 
   headingContainer: {
     gridArea: "header",
-    textAlign: "center",
     paddingBottom: "2%",
     paddingTop: "2%",
     fontSize: theme.spacing(4.5),
@@ -123,14 +122,14 @@ useEffect(getDetails, []);
             <Box className={classes.dividerBar} />
           </Container>
             <Container className={classes.rightContainer}>
-              <Description id="name" title={"Organization Name:"} desc={orgDetails.name} enableEdit= {editFields} handleChange={updateValues}/>
-              <Description id="EIN" title={"EIN:"} desc={orgDetails.EIN} enableEdit= {editFields} handleChange={updateValues}/>
-              <Description id="description" title={"About:"} desc={orgDetails.description} enableEdit= {editFields} handleChange={updateValues}/>
-              <Description id="phoneNumber" title={"Phone:"} desc={orgDetails.phoneNumber} enableEdit= {editFields} handleChange={updateValues}/>
-              <Description id="email" title={"Email:"} desc={orgDetails.email} enableEdit= {editFields} handleChange={updateValues}/>
-              <Description id="pw" title={"Password:"} desc={orgDetails.pw} enableEdit= {editFields} handleChange={updateValues}/>
-              <Description title={"Projects Committed:"} desc={orgDetails.projects? orgDetails.projects.length:"0"}/>
-              <Description title={"Projects Complete:"} desc={orgDetails.projects && orgDetails.projects.filter(p => p.isCompleted).length? orgDetails.projects.filter(p => p.isCompleted).length : "0" } updateValues={updateValues}/>
+              <Description id="name" title={"Organization Name"} desc={orgDetails.name} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="EIN" title={"EIN"} desc={orgDetails.EIN} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="description" title={"About"} desc={orgDetails.description} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="phoneNumber" title={"Phone"} desc={orgDetails.phoneNumber} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="email" title={"Email"} desc={orgDetails.email} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description id="pw" title={"Password"} desc={orgDetails.pw} enableEdit= {editFields} handleChange={updateValues}/>
+              <Description title={"Projects Committed"} desc={orgDetails.projects? orgDetails.projects.length:"0"}/>
+              <Description title={"Projects Complete"} desc={orgDetails.projects && orgDetails.projects.filter(p => p.isCompleted).length? orgDetails.projects.filter(p => p.isCompleted).length : "0" } updateValues={updateValues}/>
   
             <EditButton enableEdit={editFields} setEditFields={setEditFields} sendPut={sendPut}/>
           </Container>

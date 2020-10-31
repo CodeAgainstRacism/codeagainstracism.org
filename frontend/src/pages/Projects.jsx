@@ -75,7 +75,7 @@ export default function Projects() {
       
     })
     axios
-      .get(`${BACKEND_URL}projects`, {
+      .get(`${BACKEND_URL}/projects`, {
         params: {},
         
       })

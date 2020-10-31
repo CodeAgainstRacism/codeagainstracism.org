@@ -36,7 +36,6 @@ const LoginStyles = makeStyles((theme) => ({
   dividerContainer: {
     display: "flex",
     alignItems: "center",
-    color: "#808080",
     width: "100%",
     padding: theme.spacing(1, 0),
   },
@@ -59,8 +58,8 @@ const LoginStyles = makeStyles((theme) => ({
   imageContainer: {
     display: "flex",
     justifyContent: "center",
-    width: "350px",
-    height: "350px",
+    width: "300px",
+    height: "300px",
   },
   formContainer: {
     width: "100%",
@@ -79,11 +78,11 @@ const LoginStyles = makeStyles((theme) => ({
     borderRadius: "7px 7px 0px 0px",
   },
   formBody: {
-    fontSize: theme.spacing(1.5),
+    ontSize: theme.spacing(1.5),
     minWidth: "350px",
     minHeight: "350px",
     overflow: "auto",
-    padding: theme.spacing(0, 6),
+    padding: theme.spacing(6, 6),
   },
   formFooter: {
     width: "100%",
@@ -199,7 +198,12 @@ export default function LogIn(props) {
                     Log In
                   </Typography>
                 </Grid>
-                <Grid item container className={classes.formBody} spacing={1} direction="column"
+                <Grid
+                  item
+                  container
+                  className={classes.formBody}
+                  spacing={1}
+                  direction="column"
                   justify="center"
                 >
                   {/** Right Grid **/}
@@ -251,7 +255,9 @@ export default function LogIn(props) {
                       color="inherit"
                       underline="none"
                     >
-                      <Typography variant="body2" >Forgot your password?</Typography>
+                      <Typography variant="body2">
+                        Forgot your password?
+                      </Typography>
                     </Link>
                   </Grid>
 
@@ -264,10 +270,9 @@ export default function LogIn(props) {
                       onClick={handleLogIn}
                     >
                       Login
-                  </Button>
+                    </Button>
                   </Grid>
                   {/**Divider with text "or" in between */}
-
                   <Grid item xs={12}>
                     <Divider
                       dividerContainer={classes.dividerContainer}
@@ -275,34 +280,38 @@ export default function LogIn(props) {
                       theme={theme}
                     />
                   </Grid>
+
+                  <Grid item xs={12}>
+                    <Button
+                      component={RouterLink}
+                      to="/signup"
+                      fullWidth={true}
+                      color="secondary"
+                      variant="contained"
+                      className={classes.actionButton}
+                    >
+                      Create an Account
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
-              <Container className={classes.formFooter}>
-                <Button
-                  component={RouterLink}
-                  to="/signup"
-                  fullWidth={true}
-                  color="secondary"
-                  variant="outlined"
-                  className={classes.actionButton}
-                >
-                  Create an Account
-                  </Button>
-              </Container>
             </Grid>
           </Grid>
-
         </Container>
       </main>
-    </React.Fragment >
+    </React.Fragment>
   );
 }
 
 const Divider = (props) => {
+  const { theme } = props;
+
   return (
     <Box className={props.dividerContainer}>
       <Box className={props.dividerBar} />
-      <Typography variant="subtitle2">or</Typography>
+      <Typography variant="subtitle2" style={{ padding: theme.spacing(0, 1) }}>
+        or
+      </Typography>
       <Box className={props.dividerBar} />
     </Box>
   );

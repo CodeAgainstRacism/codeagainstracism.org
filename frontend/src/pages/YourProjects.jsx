@@ -101,7 +101,7 @@ export default function YourProjects() {
   const [projectsIncomplete, setProjectsIncomplete] = useState([]);
 
   axios
-    .get(`${BACKEND_URL}projects/incomplete`, {
+    .get(`${BACKEND_URL}projects/incomplete`, { // /projects/incomplete
       params: {},
     })
     .then(function (response) {

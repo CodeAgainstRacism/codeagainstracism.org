@@ -9,6 +9,8 @@ import {
   Button,
 } from "@material-ui/core";
 import DiversityTeam from "../assets/create_a_team.png";
+import { Formik } from "formik";
+import * as Yup from 'yup';
 
 const LoginStyles = makeStyles((theme) => ({
   root: {
@@ -78,9 +80,189 @@ const LoginStyles = makeStyles((theme) => ({
 
 export default function AuthForm(props) {
   const classes = LoginStyles();
-  const individual =
-    props.match.params.type.toLowerCase() === "individual" ? true : false;
+  const individual = props.match.params.type.toLowerCase() === "individual" ? true : false;
   const organization = !individual;
+
+  const IndividualFields = (props) => {
+    return (
+      <React.Fragment>
+        <Formik
+          initialValues={{
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            reEnterPassword: '',
+            aboutYou: '',
+          }}
+          validationSchema={Yup.object({
+            firstName: Yup.string()
+              .max(20, 'Must be 20 characters or less')
+              .min(2, 'Must be 2 characters or more')
+              .required('Required*'),
+            lastName: Yup.string()
+              .max(20, 'Must be 20 characters or less') // placeholder
+              .min(2, 'Must be 2 characters or more')
+              .required('Required*'),
+            email: Yup.string()
+              .email('Invalid email address')
+              .required('Required*'),
+            password: Yup.string()
+              .min(8, 'Password must contain at least 8 characters')
+              .required('Required*'),
+            reEnterPassword: Yup.string()
+              .oneOf([Yup.ref('password')], 'Password does not match')
+              .required('Required*')
+          })}
+          onSubmit = {(values) => {
+            console.log(values);
+          }}
+        >
+          {formik => (
+            <form onSubmit={formik.handleSubmit}>
+              <Grid id="row" container spacing={1}>
+                <Grid item xs={12}>
+                  <TextField required label="First Name" {...formik.getFieldProps('firstName')} />
+                </Grid>
+                {formik.touched.firstName && formik.errors
+                  ? (<div> {formik.errors.firstName} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField required label="Last Name" {...formik.getFieldProps('lastName')}/>
+                </Grid>
+                {formik.touched.lastName && formik.errors
+                  ? (<div> {formik.errors.lastName} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField required label="Email" {...formik.getFieldProps('email')} />
+                </Grid>
+                {formik.touched.email && formik.errors
+                  ? (<div> {formik.errors.email} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField required type="password" label="Password" {...formik.getFieldProps('password')}/>
+                </Grid>
+                {formik.touched.password && formik.errors
+                  ? (<div> {formik.errors.password} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField required type="password" label="Re-enter Password" {...formik.getFieldProps('reEnterPassword')}
+                  />
+                </Grid>
+                {formik.touched.reEnterPassword && formik.errors
+                  ? (<div> {formik.errors.reEnterPassword} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField type="string" label={"About you"} multiline rows={4} />
+                </Grid>
+              </Grid>
+            </form>
+          )}
+        </Formik>
+      </React.Fragment>
+    );
+  };
+
+  const OrganizationFields = (props) => {
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+    return (
+      <React.Fragment>
+        <Formik
+          initialValues={{
+            organizationName: '',
+            ein: '',
+            phoneNumber: '',
+            email: '',
+            password: '',
+            reEnterPassword: '',
+            aboutOrg: '',
+          }}
+          validationSchema={Yup.object({
+            organizationName: Yup.string()
+              .max(20, 'Must be 20 characters or less')
+              .min(5, 'Must be 5 characters or more')
+              .required('Required*'),
+            ein: Yup.number()
+              .lessThan(9, 'Must be 8 digits') // placeholder
+              .moreThan(7, 'Must be 8 digits') // FIXME 
+              .required('Required*'),
+            phoneNumber: Yup.string().matches(phoneRegExp, 'Invalid Phone number'),
+            email: Yup.string()
+              .email('Invalid email address')
+              .required('Required*'),
+            password: Yup.string()
+              .min(8, 'Password must contain at least 8 characters')
+              .required('Required*'),
+            reEnterPassword: Yup.string()
+              .oneOf([Yup.ref('password')], 'Password does not match')
+              .required('Required*')
+          })}
+          onSubmit={(values) => {
+            console.log(values);
+          }}
+        >
+          {formik => (
+            <form onSubmit={formik.handleSubmit}>
+              <Grid id="row" container spacing={1}>
+                <Grid item xs={12}>
+                  <TextField required label="Organization Name" {...formik.getFieldProps('organizationName')}/>
+                </Grid>
+                {formik.touched.organizationName && formik.errors
+                  ? (<div> {formik.errors.organizationName} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField required label="EIN (Employee Identification Number)" {...formik.getFieldProps('ein')}/>
+                </Grid>
+                {formik.touched.ein && formik.errors
+                  ? (<div> {formik.errors.ein} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField required label="Phone Number" {...formik.getFieldProps('phoneNumber')}/>
+                </Grid>
+                {formik.touched.phoneNumber && formik.errors
+                  ? (<div> {formik.errors.phoneNumber} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField required label="Email" {...formik.getFieldProps('email')}/>
+                </Grid>
+                {formik.touched.email && formik.errors
+                  ? (<div> {formik.errors.email} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField required type="password" label="Password" {...formik.getFieldProps('password')} />
+                </Grid>
+                {formik.touched.password && formik.errors
+                  ? (<div> {formik.errors.password} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField required type="password" label="Re-enter Password" {...formik.getFieldProps('reEnterPassword')}/>
+                </Grid>
+                {formik.touched.reEnterPassword && formik.errors
+                  ? (<div> {formik.errors.reEnterPassword} </div>)
+                  : null}
+
+                <Grid item xs={12}>
+                  <TextField type="string" label={"What does your organization do?"} multiline rows={4} />
+                </Grid>
+              </Grid>
+            </form>
+          )}
+        </Formik>
+      </React.Fragment>
+    );
+  };
+
 
   return (
     <React.Fragment>
@@ -132,38 +314,8 @@ export default function AuthForm(props) {
                   </Typography>
                 </Container>
                 <Container className={classes.formBody}>
-                  {/* Display 3 Buttons for Google, Facebook, Github */}
-                  <Grid id="row" container spacing={1}>
-                    {individual && <IndividualFields />}
-                    {organization && <OrganizationFields />}
-                    <Grid item xs={12}>
-                      <TextField required label="Email" />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField required type="password" label="Password" />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        type="password"
-                        label="Re-enter Password"
-                      />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <TextField
-                        type="string"
-                        label={
-                          organization
-                            ? "What does your organization do?"
-                            : "About you"
-                        }
-                        multiline
-                        rows={4}
-                      />
-                    </Grid>
-                  </Grid>
+                  {individual && <IndividualFields />}
+                  {organization && <OrganizationFields />}
                 </Container>
 
                 <Container className={classes.formFooter}>
@@ -180,32 +332,3 @@ export default function AuthForm(props) {
     </React.Fragment>
   );
 }
-
-const IndividualFields = (props) => {
-  return (
-    <React.Fragment>
-      <Grid item xs={12}>
-        <TextField required label="First Name" />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField required label="Last Name" />
-      </Grid>
-    </React.Fragment>
-  );
-};
-
-const OrganizationFields = (props) => {
-  return (
-    <React.Fragment>
-      <Grid item xs={12}>
-        <TextField required label="Organization Name" />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField required label="EIN (Employee Identification Number)" />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField required label="Phone Number" />
-      </Grid>
-    </React.Fragment>
-  );
-};

@@ -12,15 +12,24 @@ export function apiCall(method, path, data) {
           switch (err.response.status) {
             case 400:
               console.error("Warning! 400 should never be received; All forms must be correct before signup request is posted.");
-              if (err.response.data.message.includes("phoneNumber must be a phone number")) {
+              if (err.response.data.message.includes("EIN")) {
+                // EIN
+                return reject("Please enter a valid EIN.");
+              } else if (err.response.data.message.includes("phoneNumber")) {
                 // phoneNumber
                 return reject("Please enter a valid phone number.");
-              } else if (err.response.data.message.includes("email must be an email")) {
+              } else if (err.response.data.message.includes("email")) {
                 // email
                 return reject("Please check your email and try again.");
-              } else if (err.response.data.message.includes("password should not be empty")) {
-                // email
+              } else if (err.response.data.message.includes("contact")) {
+                // contactFirstName, contactLastName
+                return reject("Please enter your name.");
+              } else if (err.response.data.message.includes("password")) {
+                // password
                 return reject("Please check your password and try again.");
+              } else if (err.response.data.message.includes("name")) {
+                // name
+                return reject("Please enter the name of the project.");
               }
               // All other 400 errors
               console.error("Unspecified error encountered");

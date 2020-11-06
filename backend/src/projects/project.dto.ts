@@ -1,4 +1,5 @@
 import {
+  IsMobilePhone,
   IsNotEmpty,
   IsString,
   IsDate,
@@ -43,7 +44,17 @@ export class ProjectDto {
   @IsOptional()
   @IsString()
   @ApiProperty({ example: 'React.ts, apollo server(graphql), typeorm, any headless cms' })
-  qualificationsNeeded: string;
+  qualifications: string;
+
+  @IsOptional()
+  @IsMobilePhone('en-US')
+  @ApiProperty({ example: '(718) 222-4041' })
+  optionalPhoneNumber: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ example: 'contact@email.com' })
+  optionalEmail: string;
 
   @ApiProperty({ example: 1 })
   organizationId: number;

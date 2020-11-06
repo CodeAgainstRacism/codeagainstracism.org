@@ -44,7 +44,15 @@ export class Project {
 
   @Column({ default: null })
   @ApiProperty({ example: 'React.ts, apollo server(graphql), typeorm, any headless cms' })
-  qualificationsNeeded: string;
+  qualifications: string;
+
+  @Column({ default: null })
+  @ApiProperty({ example: '(718) 222-4041' })
+  optionalPhoneNumber: string;
+
+  @Column({ default: null })
+  @ApiProperty({ example: 'contact@email.com' })
+  optionalEmail: string;
 
   @Column()
   @CreateDateColumn()

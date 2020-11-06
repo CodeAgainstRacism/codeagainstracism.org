@@ -2,6 +2,7 @@ import { IsEmail, IsString, MaxLength, IsMobilePhone, IsNotEmpty } from 'class-v
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserDto {
+  @IsNotEmpty()
   @IsString()
   @ApiProperty({ example: 'Jane' })
   firstName: string;

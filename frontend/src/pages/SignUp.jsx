@@ -77,7 +77,8 @@ const LoginStyles = makeStyles((theme) => ({
     borderRadius: "0px 0px 7px 7px",
   },
   errMsgStyle: {
-    color: "red", // may want to use theme palette idk
+    marginLeft: theme.spacing(0.5),
+    color: "#D8000C", // may want to move this value to theme.js, idk
   }
 }));
 
@@ -118,6 +119,7 @@ export default function AuthForm(props) {
               .required('Required*')
           })}
           onSubmit = {(values) => {
+            // TODO: connect to backend so we can submit a new acc
             console.log(values);
           }}
         >
@@ -128,28 +130,28 @@ export default function AuthForm(props) {
                   <TextField required label="First Name" {...formik.getFieldProps('firstName')} />
                 </Grid>
                 {formik.touched.firstName && formik.errors
-                  ? (<Grid item> {formik.errors.firstName} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.firstName} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
                   <TextField required label="Last Name" {...formik.getFieldProps('lastName')}/>
                 </Grid>
                 {formik.touched.lastName && formik.errors
-                  ? (<Grid item> {formik.errors.lastName} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.lastName} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
                   <TextField required label="Email" {...formik.getFieldProps('email')} />
                 </Grid>
                 {formik.touched.email && formik.errors
-                  ? (<Grid item> {formik.errors.email} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.email} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
                   <TextField required type="password" label="Password" {...formik.getFieldProps('password')}/>
                 </Grid>
                 {formik.touched.password && formik.errors
-                  ? (<Grid item> {formik.errors.password} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.password} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
@@ -157,7 +159,7 @@ export default function AuthForm(props) {
                   />
                 </Grid>
                 {formik.touched.reEnterPassword && formik.errors
-                  ? (<Grid item> {formik.errors.reEnterPassword} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.reEnterPassword} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
@@ -191,9 +193,10 @@ export default function AuthForm(props) {
               .max(20, 'Must be 20 characters or less')
               .min(5, 'Must be 5 characters or more')
               .required('Required*'),
-            ein: Yup.number()           
-              .lessThan(9, 'Must be 8 digits') // placeholder
-              .moreThan(7, 'Must be 8 digits') // FIXME
+            ein: Yup.number()
+              .lessThan(9999999, 'Invalid EIN: Must be between 0 and 99999999') // placeholder
+              .moreThan(0, 'Invalid EIN: Must be between 0 and 99999999') // FIXME
+              .typeError('Invalid EIN: Must be a number')
               .required('Required*'),
             phoneNumber: Yup.string()
               .matches(phoneRegExp, 'Invalid Phone number')
@@ -209,6 +212,7 @@ export default function AuthForm(props) {
               .required('Required*')
           })}
           onSubmit={(values) => {
+            // TODO: connect to backend so we can submit a new acc
             console.log(values);
           }}
         >
@@ -219,42 +223,42 @@ export default function AuthForm(props) {
                   <TextField required label="Organization Name" {...formik.getFieldProps('organizationName')}/>
                 </Grid>
                 {formik.touched.organizationName && formik.errors
-                  ? (<Grid item> {formik.errors.organizationName} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.organizationName} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
                   <TextField required label="EIN (Employee Identification Number)" {...formik.getFieldProps('ein')}/>
                 </Grid>
                 {formik.touched.ein && formik.errors
-                  ? (<Grid item> {formik.errors.ein} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.ein} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
                   <TextField required label="Phone Number" {...formik.getFieldProps('phoneNumber')}/>
                 </Grid>
                 {formik.touched.phoneNumber && formik.errors
-                  ? (<Grid item> {formik.errors.phoneNumber} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.phoneNumber} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
                   <TextField required label="Email" {...formik.getFieldProps('email')}/>
                 </Grid>
                 {formik.touched.email && formik.errors
-                  ? (<Grid item> {formik.errors.email} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.email} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
                   <TextField required type="password" label="Password" {...formik.getFieldProps('password')} />
                 </Grid>
                 {formik.touched.password && formik.errors
-                  ? (<Grid item> {formik.errors.password} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.password} </Grid>)
                   : null}
 
                 <Grid item xs={12}>
                   <TextField required type="password" label="Re-enter Password" {...formik.getFieldProps('reEnterPassword')}/>
                 </Grid>
                 {formik.touched.reEnterPassword && formik.errors
-                  ? (<Grid item> {formik.errors.reEnterPassword} </Grid>)
+                  ? (<Grid item className={classes.errMsgStyle}> {formik.errors.reEnterPassword} </Grid>)
                   : null}
 
                 <Grid item xs={12}>

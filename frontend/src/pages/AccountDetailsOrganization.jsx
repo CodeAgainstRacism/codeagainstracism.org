@@ -28,6 +28,7 @@ const styles = makeStyles((theme) => ({
   rightGridContainer: {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
+    backgroundColor:"white",
   },
 
   headingContainer: {

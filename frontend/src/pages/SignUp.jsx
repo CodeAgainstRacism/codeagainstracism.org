@@ -103,13 +103,13 @@ export default function AuthForm(props) {
             firstName: Yup.string()
               .max(20, 'Must be 20 characters or less')
               .min(2, 'Must be 2 characters or more')
-              .test('alphabets', 'Name must only contain alphabets', (value) => {
+              .test('alphabets', 'First name must only contain alphabets', (value) => {
                 return /^[A-Za-z]+$/.test(value);})
               .required('Required*'),
             lastName: Yup.string()
               .max(20, 'Must be 20 characters or less') // placeholder
               .min(2, 'Must be 2 characters or more')
-              .test('alphabets', 'Name must only contain alphabets', (value) => {
+              .test('alphabets', 'Last name must only contain alphabets', (value) => {
                 return /^[A-Za-z]+$/.test(value);})
               .required('Required*'),
             email: Yup.string()
@@ -205,8 +205,9 @@ export default function AuthForm(props) {
               .min(5, 'Must be 5 characters or more')
               .required('Required*'),
             ein: Yup.number()
-              .lessThan(999999999, 'Invalid EIN: Must be 9 digits long') // placeholder
-              .moreThan(0, 'Invalid EIN: Must be 9 digits long') // FIXME
+              .lessThan(999999999, 'Invalid EIN: Must be 9 digits long') 
+              .moreThan(0, 'Invalid EIN: Must be 9 digits long')
+              .test('len', 'Invalid EIN: Must be 9 digits long', val => val.toString().length === 9)
               .typeError('Invalid EIN: Must be a number')
               .required('Required*'),
             phoneNumber: Yup.string()

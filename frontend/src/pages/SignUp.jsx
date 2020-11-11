@@ -129,6 +129,7 @@ export default function AuthForm(props) {
         >
           {formik => (
             <form onSubmit={formik.handleSubmit}>
+              <Container className={classes.formBody}>
               <Grid id="row" container spacing={1}>
                 <Grid item xs={12}>
                   <TextField required label="First Name" {...formik.getFieldProps('firstName')} />
@@ -170,6 +171,12 @@ export default function AuthForm(props) {
                   <TextField type="string" label={"About you"} multiline rows={4} />
                 </Grid>
               </Grid>
+              </Container>
+              <Container className={classes.formFooter}>
+                <Button type="submit" fullWidth={true} color="primary" variant="contained">
+                  Create an Account
+                </Button>
+              </Container>
             </form>
           )}
         </Formik>
@@ -222,6 +229,7 @@ export default function AuthForm(props) {
         >
           {formik => (
             <form onSubmit={formik.handleSubmit}>
+              <Container className={classes.formBody}>
               <Grid id="row" container spacing={1}>
                 <Grid item xs={12}>
                   <TextField required label="Organization Name" {...formik.getFieldProps('organizationName')}/>
@@ -269,6 +277,12 @@ export default function AuthForm(props) {
                   <TextField type="string" label={"What does your organization do?"} multiline rows={4} />
                 </Grid>
               </Grid>
+              </Container>
+              <Container className={classes.formFooter}>
+                <Button type="submit" fullWidth={true} color="primary" variant="contained">
+                  Create an Account
+                </Button>
+              </Container>
             </form>
           )}
         </Formik>
@@ -326,16 +340,8 @@ export default function AuthForm(props) {
                     Sign up
                   </Typography>
                 </Container>
-                <Container className={classes.formBody}>
-                  {individual && <IndividualFields />}
-                  {organization && <OrganizationFields />}
-                </Container>
-
-                <Container className={classes.formFooter}>
-                  <Button fullWidth={true} color="primary" variant="contained">
-                    Create an Account
-                  </Button>
-                </Container>
+                {individual && <IndividualFields />}
+                {organization && <OrganizationFields />}
               </Container>
             </Grid>
           </Grid>

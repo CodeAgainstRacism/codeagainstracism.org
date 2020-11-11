@@ -103,10 +103,14 @@ export default function AuthForm(props) {
             firstName: Yup.string()
               .max(20, 'Must be 20 characters or less')
               .min(2, 'Must be 2 characters or more')
+              .test('alphabets', 'Name must only contain alphabets', (value) => {
+                return /^[A-Za-z]+$/.test(value);})
               .required('Required*'),
             lastName: Yup.string()
               .max(20, 'Must be 20 characters or less') // placeholder
               .min(2, 'Must be 2 characters or more')
+              .test('alphabets', 'Name must only contain alphabets', (value) => {
+                return /^[A-Za-z]+$/.test(value);})
               .required('Required*'),
             email: Yup.string()
               .email('Invalid email address')
@@ -194,8 +198,8 @@ export default function AuthForm(props) {
               .min(5, 'Must be 5 characters or more')
               .required('Required*'),
             ein: Yup.number()
-              .lessThan(9999999, 'Invalid EIN: Must be between 0 and 99999999') // placeholder
-              .moreThan(0, 'Invalid EIN: Must be between 0 and 99999999') // FIXME
+              .lessThan(999999999, 'Invalid EIN: Must be 9 digits long') // placeholder
+              .moreThan(0, 'Invalid EIN: Must be 9 digits long') // FIXME
               .typeError('Invalid EIN: Must be a number')
               .required('Required*'),
             phoneNumber: Yup.string()

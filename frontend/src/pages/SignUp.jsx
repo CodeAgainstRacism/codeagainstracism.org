@@ -205,10 +205,10 @@ export default function AuthForm(props) {
               .min(5, 'Must be 5 characters or more')
               .required('Required*'),
             ein: Yup.number()
-              .lessThan(999999999, 'Invalid EIN: Must be 9 digits long') 
+              .lessThan(999999999, 'Invalid EIN: Must be 9 digits long')
               .moreThan(0, 'Invalid EIN: Must be 9 digits long')
               .test('len', 'Invalid EIN: Must be 9 digits long', val => val.toString().length === 9)
-              .typeError('Invalid EIN: Must be a number')
+              .typeError('Invalid EIN: Must be 9 digits long')
               .required('Required*'),
             phoneNumber: Yup.string()
               .matches(phoneRegExp, 'Invalid Phone number')

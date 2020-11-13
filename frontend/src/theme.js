@@ -39,7 +39,6 @@ const theme = createMuiTheme({
     MuiLink: {
       root: {
         cursor: "pointer",
-        // fontWeight: "bold",
       },
     },
 

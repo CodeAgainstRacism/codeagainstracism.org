@@ -35,7 +35,7 @@ export class AuthController {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-  ) {}
+  ) { }
 
   @Post('login')
   @ApiOperation({ summary: 'Logs in as a user' })
@@ -54,7 +54,7 @@ export class AuthController {
 
     if (!user) {
       throw new HttpException(
-        `Unauthorized access. The email and password combination do not match or do not exist.`,
+        `Unauthorized access. The email and password combination do not match or do not exist`,
         HttpStatus.UNAUTHORIZED,
       );
     }

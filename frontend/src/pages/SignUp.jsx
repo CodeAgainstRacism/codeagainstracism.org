@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   Box,
@@ -8,6 +8,7 @@ import {
   Typography,
   Button,
 } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import DiversityTeam from "../assets/create_a_team.png";
 
 const LoginStyles = makeStyles((theme) => ({
@@ -76,11 +77,84 @@ const LoginStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AuthForm(props) {
+const SignUp = (props) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [reEnteredPassword, setReEnteredPassword] = useState("");
+  const [organizationName, setOrganizationName] = useState("");
+  const [EIN, setEIN] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [description, setDescription] = useState("");
+
   const classes = LoginStyles();
   const individual =
     props.match.params.type.toLowerCase() === "individual" ? true : false;
   const organization = !individual;
+
+  const { errors, history, removeError } = props;
+  // listen for any change in the route. If there is, call removeError to remove the error message. This is necessary when we switch between Login and Signup form to clear the error message
+  history.listen(() => {
+    removeError();
+  });
+
+  async function handleIndividualSubmit() {
+
+    const signUpData = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      password,
+      description,
+    };
+
+    console.log(signUpData);
+
+    props.onAuth("signup", signUpData).then(() => {
+      //redirect user to another page
+      console.log("SIGNED UP! YAY");
+    });
+
+    // axios
+    //   .post("" + PORT + "/users/register", signUpData)
+    //   .then((response) => {
+    //     console.log(response);
+    //     authenticationService
+    //       .login(signUpData.username, signUpData.password)
+    //       .then(
+    //         (user) => {
+    //           history.push("/dashboard");
+    //         },
+    //         (error) => {
+    //           console.log(error);
+    //         }
+    //       );
+    //   });
+  }
+
+  // to create an organization account, send request to /user to create a user
+  // then send a request to /organization with user's id to create an organization
+  const handleOrgSubmit = () => {
+    const signUpData = {
+      organizationName,
+      EIN,
+      phoneNumber,
+      firstName,
+      lastName,
+      email,
+      password,
+      description,
+    };
+
+    props.onAuth("signup", signUpData).then(() => {
+      // create an organization with user's id from the backend
+      // TODO: need to get user's id from response
+      //redirect user to another page
+      console.log("SIGNED UP! YAY");
+    });
+  };
 
   return (
     <React.Fragment>
@@ -132,15 +206,71 @@ export default function AuthForm(props) {
                   </Typography>
                 </Container>
                 <Container className={classes.formBody}>
-                  {/* Display 3 Buttons for Google, Facebook, Github */}
+                  {/* Display error message from BE if neccessary */}
+
                   <Grid id="row" container spacing={1}>
-                    {individual && <IndividualFields />}
-                    {organization && <OrganizationFields />}
+                    {errors.message && (
+                      <Grid item xs={12}>
+                        <Alert
+                          severity="error"
+                          variant="filled"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {errors.message}
+                        </Alert>
+                      </Grid>
+                    )}
+
+                    {organization && (
+                      <OrganizationFields
+                        setOrganizationName={setOrganizationName}
+                        setEIN={setEIN}
+                        setPhoneNumber={setPhoneNumber}
+                        organizationName={organizationName}
+                        EIN={EIN}
+                      />
+                    )}
+
+                    <IndividualFields
+                      firstName={firstName}
+                      lastName={lastName}
+                      setFirstName={setFirstName}
+                      setLastName={setLastName}
+                    />
+
                     <Grid item xs={12}>
-                      <TextField required label="Email" />
+                      <TextField
+                        required
+                        label="Phone Number"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        value={phoneNumber}
+                        placeholder="E.g: xxx xxx xxxx"
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        type="email"
+                        id="email"
+                        label="Email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField required type="password" label="Password" />
+                      <TextField
+                        required
+                        id="password"
+                        type="password"
+                        label="Password"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
                     </Grid>
 
                     <Grid item xs={12}>
@@ -148,6 +278,9 @@ export default function AuthForm(props) {
                         required
                         type="password"
                         label="Re-enter Password"
+                        name="reEnteredPassword"
+                        value={reEnteredPassword}
+                        onChange={(e) => setReEnteredPassword(e.target.value)}
                       />
                     </Grid>
 
@@ -161,13 +294,23 @@ export default function AuthForm(props) {
                         }
                         multiline
                         rows={4}
+                        name="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                       />
                     </Grid>
                   </Grid>
                 </Container>
 
                 <Container className={classes.formFooter}>
-                  <Button fullWidth={true} color="primary" variant="contained">
+                  <Button
+                    fullWidth={true}
+                    color="primary"
+                    variant="contained"
+                    onClick={
+                      individual ? handleIndividualSubmit : handleOrgSubmit
+                    }
+                  >
                     Create an Account
                   </Button>
                 </Container>
@@ -179,33 +322,66 @@ export default function AuthForm(props) {
       {/* End footer */}
     </React.Fragment>
   );
-}
+};
 
 const IndividualFields = (props) => {
+  const { setFirstName, setLastName, firstName, lastName } = props;
+
   return (
     <React.Fragment>
       <Grid item xs={12}>
-        <TextField required label="First Name" />
+        <TextField
+          required
+          id="firstName"
+          label="First Name"
+          name="firstName"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
       </Grid>
       <Grid item xs={12}>
-        <TextField required label="Last Name" />
+        <TextField
+          required
+          id="lastName"
+          label="Last Name"
+          name="lastName"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
       </Grid>
     </React.Fragment>
   );
 };
 
 const OrganizationFields = (props) => {
+  const {
+    setOrganizationName,
+    setEIN,
+    organizationName,
+    EIN
+  } = props;
   return (
     <React.Fragment>
       <Grid item xs={12}>
-        <TextField required label="Organization Name" />
+        <TextField
+          required
+          label="Organization Name"
+          name="organizationName"
+          value={organizationName}
+          onChange={(e) => setOrganizationName(e.target.value)}
+        />
       </Grid>
       <Grid item xs={12}>
-        <TextField required label="EIN (Employee Identification Number)" />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField required label="Phone Number" />
+        <TextField
+          required
+          label="EIN (Employee Identification Number)"
+          name="EIN"
+          value={EIN}
+          onChange={(e) => setEIN(e.target.value)}
+        />
       </Grid>
     </React.Fragment>
   );
 };
+
+export default SignUp;

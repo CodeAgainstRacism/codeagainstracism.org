@@ -20,6 +20,16 @@ npm run start
 npm run test
 ```
 
+1. To test Sign up and Login
+
+- `cd frontend`
+
+- Run the UI with `$ npm start`
+
+- Run the Backend with `cd backend && npm run start`
+
+- Fill out and submit the Sign Up or Log In page. Check the local storage with `localStorage` to see the JWT is stored there.
+
 ### Build the app
 
 ```bash

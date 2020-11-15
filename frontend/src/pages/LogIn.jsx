@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import {
   makeStyles,
   useTheme,
@@ -10,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import SignInButtons from "../components/SignInButtons";
+import { Alert } from "@material-ui/lab";
 import HandWave from "../assets/Hand waving.png";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -35,7 +36,6 @@ const LoginStyles = makeStyles((theme) => ({
   dividerContainer: {
     display: "flex",
     alignItems: "center",
-    color: "#808080",
     width: "100%",
     padding: theme.spacing(1, 0),
   },
@@ -58,15 +58,15 @@ const LoginStyles = makeStyles((theme) => ({
   imageContainer: {
     display: "flex",
     justifyContent: "center",
-    width: "350px",
-    height: "350px",
+    width: "300px",
+    height: "300px",
   },
   formContainer: {
     width: "100%",
     border: "1px solid #292929",
     boxSizing: "border-box",
     overflow: "auto",
-    borderRadius: "7px",
+    borderRadius: "7px 7px 0px 0px",
     transform: "matrix(1, 0, 0, 1, 0, 0)",
   },
   formHeaderBackground: {
@@ -78,10 +78,11 @@ const LoginStyles = makeStyles((theme) => ({
     borderRadius: "7px 7px 0px 0px",
   },
   formBody: {
-    fontSize: theme.spacing(1.5),
-    width: "100%",
+    ontSize: theme.spacing(1.5),
+    minWidth: "350px",
+    minHeight: "350px",
     overflow: "auto",
-    padding: theme.spacing(2, 6, 0, 6),
+    padding: theme.spacing(6, 6),
   },
   formFooter: {
     width: "100%",
@@ -90,6 +91,7 @@ const LoginStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-evenly",
     background: "white",
+    border: "1px solid #292929",
     borderRadius: "0px 0px 7px 7px",
   },
 
@@ -112,8 +114,44 @@ const LoginStyles = makeStyles((theme) => ({
 }));
 
 export default function LogIn(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { errors, history, removeError } = props;
+
   const classes = LoginStyles();
   const theme = useTheme();
+  // listen for any change in the route. If there is, call removeError to remove the error message. This is necessary when we switch between Login and Signup form to clear the error message
+  history.listen(() => {
+    removeError();
+  });
+
+  async function handleLogIn(values) {
+    const loginData = { email, password };
+
+    console.log("login data: ", loginData);
+
+    props.onAuth("login", loginData).then(() => {
+      //redirect user to another page
+      console.log("LOGGED IN! YAY");
+    });
+
+    // axios
+    //   .post("" + PORT + "/users/register", signUpData)
+    //   .then((response) => {
+    //     console.log(response);
+    //     authenticationService
+    //       .login(signUpData.username, signUpData.password)
+    //       .then(
+    //         (user) => {
+    //           history.push("/dashboard");
+    //         },
+    //         (error) => {
+    //           console.log(error);
+    //         }
+    //       );
+    //   });
+  }
+
   return (
     <React.Fragment>
       <main>
@@ -160,72 +198,102 @@ export default function LogIn(props) {
                     Log In
                   </Typography>
                 </Grid>
-                <Container className={classes.formBody}>
-                  {/**Github Icon Button */}
-                  <SignInButtons action="Sign In" />
-
-                  <Divider
-                    dividerContainer={classes.dividerContainer}
-                    dividerBar={classes.dividerBar}
-                    theme={theme}
-                  />
-
+                <Grid
+                  item
+                  container
+                  className={classes.formBody}
+                  spacing={1}
+                  direction="column"
+                  justify="center"
+                >
                   {/** Right Grid **/}
 
-                  <Grid id="row" container spacing={1}>
+                  {/* <Grid id="row" container > */}
+                  {/* Display error message from BE if neccessary */}
+                  {errors.message && (
                     <Grid item xs={12}>
-                      <TextField label="Username" />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField type="password" label="Password" />
-                    </Grid>
-
-                    <Grid
-                      item
-                      container
-                      xs={12}
-                      display="flex"
-                      justify="flex-end"
-                    >
-                      <Link
-                        component={RouterLink}
-                        to="/accountrecovery"
-                        color="inherit"
-                        underline="none"
+                      <Alert
+                        severity="error"
+                        variant="filled"
+                        style={{ fontWeight: "bold" }}
                       >
-                        Forgot your password?
-                      </Link>
+                        {errors.message}
+                      </Alert>
                     </Grid>
+                  )}
+                  <Grid item xs={12}>
+                    <TextField
+                      type="email"
+                      id="email"
+                      label="Email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      type="password"
+                      id="password"
+                      label="Password"
+                      name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </Grid>
 
-                  <Button
-                    className={classes.actionButton}
-                    fullWidth={true}
-                    color="primary"
-                    variant="contained"
+                  <Grid
+                    item
+                    container
+                    xs={12}
+                    display="flex"
+                    justify="flex-end"
                   >
-                    Login
-                  </Button>
+                    <Link
+                      component={RouterLink}
+                      to="/accountrecovery"
+                      color="inherit"
+                      underline="none"
+                    >
+                      <Typography variant="body2">
+                        Forgot your password?
+                      </Typography>
+                    </Link>
+                  </Grid>
 
+                  <Grid item xs={12}>
+                    <Button
+                      className={classes.actionButton}
+                      fullWidth={true}
+                      color="primary"
+                      variant="contained"
+                      onClick={handleLogIn}
+                    >
+                      Login
+                    </Button>
+                  </Grid>
                   {/**Divider with text "or" in between */}
-                  <Divider
-                    dividerContainer={classes.dividerContainer}
-                    dividerBar={classes.dividerBar}
-                    theme={theme}
-                  />
-                </Container>
-                <Container className={classes.formFooter}>
-                  <Button
-                    component={RouterLink}
-                    to="/signup"
-                    fullWidth={true}
-                    color="secondary"
-                    variant="outlined"
-                    className={classes.actionButton}
-                  >
-                    Create an Account
-                  </Button>
-                </Container>
+                  <Grid item xs={12}>
+                    <Divider
+                      dividerContainer={classes.dividerContainer}
+                      dividerBar={classes.dividerBar}
+                      theme={theme}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Button
+                      component={RouterLink}
+                      to="/signup"
+                      fullWidth={true}
+                      color="secondary"
+                      variant="contained"
+                      className={classes.actionButton}
+                    >
+                      Create an Account
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -236,10 +304,14 @@ export default function LogIn(props) {
 }
 
 const Divider = (props) => {
+  const { theme } = props;
+
   return (
     <Box className={props.dividerContainer}>
       <Box className={props.dividerBar} />
-      <Typography variant="subtitle2">or</Typography>
+      <Typography variant="subtitle2" style={{ padding: theme.spacing(0, 1) }}>
+        or
+      </Typography>
       <Box className={props.dividerBar} />
     </Box>
   );

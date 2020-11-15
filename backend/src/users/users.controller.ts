@@ -18,7 +18,7 @@ import { UsersService } from './users.service';
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
   @ApiOperation({ summary: 'Creates a user' })
@@ -27,6 +27,7 @@ export class UsersController {
     description: 'Returns the created user',
     type: User,
   })
+
   @ApiResponse({
     status: 409,
     description: 'Error message saying that the email is already used',

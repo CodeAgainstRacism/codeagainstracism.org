@@ -1,5 +1,7 @@
 import React from "react";
+import { compose } from "redux";
 import { withRouter, Link as RouterLink } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   makeStyles,
   AppBar,
@@ -94,7 +96,7 @@ const NavBar = (props) => {
                 <Link
                   variant="subtitle2"
                   component={RouterLink}
-                  to="/news"
+                  to="/contactus"
                   color="inherit"
                   underline="none"
                 >
@@ -132,4 +134,10 @@ const NavBar = (props) => {
   );
 };
 
-export default withRouter(NavBar);
+const mapStateToProps = (storeState) => {
+  return {
+    currentUser: storeState.currentUser,
+  };
+};
+
+export default compose(withRouter, connect(mapStateToProps))(NavBar);

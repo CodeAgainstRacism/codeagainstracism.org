@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { withRouter, Link as RouterLink } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 import {
   makeStyles,
@@ -123,7 +124,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(7),
   },
 }));
-
 
 const LandingPage = (props) => {
   const classes = useStyles();

@@ -7,5 +7,4 @@ const JSONParser = bodyParser.json();
 
 // Write your CRUD routes here 
 
-
 module.exports = router;

@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "firebase": "^8.1.1",
     "httpie": "^1.1.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.6"
   }
 }

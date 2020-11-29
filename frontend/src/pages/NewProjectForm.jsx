@@ -75,9 +75,8 @@ class NewProjectForm extends React.Component {
       endDate: '',
       firstName: '',
       lastName: '',
-      phone: '',
-      email: '',
-      organization: '',
+      optionalPhoneNumber: '',
+      optionalEmail: '',
       cb: false};
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -121,9 +120,9 @@ class NewProjectForm extends React.Component {
         //organization should not be on there, full name split into first and last
         firstName: '',
         lastName: '',
-        phone: '',
-        email: '',
-        //organization: '',
+        optionalPhoneNumber: '',
+        optionalEmail: '',
+        
          
        });
     }
@@ -144,12 +143,12 @@ class NewProjectForm extends React.Component {
     const data = {
         name: this.state.name, 
         description: this.state.description,
-       // qualifications: this.state.qualifications, //not in route yet
+       qualifications: this.state.qualifications, //not in route yet
         startDate: this.state.startDate,
         endDate: this.state.endDate,
         // fullName: this.state.fullName, //this stuff is not on the route yet and below
-        // phone: this.state.phone,
-        // email: this.state.email, 
+        optionalPhoneNumber: this.state.phone,
+         optionalEmail: this.state.email, 
         // organization: this.state.organization
          //contact info use a checkbox that can use get requestto get info from the user and fil it out
          //change file to textfield where user uploads a url of their image
@@ -252,13 +251,13 @@ class NewProjectForm extends React.Component {
                   Phone number*
               </Grid>
               <Grid item xs = {9} >
-                    <TextField value = {this.state.phone} onChange = {this.handleInputChange} name = "phone"/>              
+                    <TextField value = {this.state.phone} onChange = {this.handleInputChange} name = "optionalPhoneNumber"/>              
               </Grid>
               <Grid item xs = {3} >
                   Email address*
               </Grid>
               <Grid item xs = {9}>
-                  <TextField value = {this.state.email} onChange = {this.handleInputChange}name = "email"/>              
+                  <TextField value = {this.state.email} onChange = {this.handleInputChange}name = "optionalEmail"/>              
               </Grid>
               
               <Grid item container xs={12} justify = "center">

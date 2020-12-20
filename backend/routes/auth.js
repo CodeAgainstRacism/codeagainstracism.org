@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 
 const JSONParser = bodyParser.json();
 
-/* 
-  Log users in. 
-    If succeed, respond with uid and status 200. 
+/*
+  Log users in.
+    If succeed, respond with uid and status 200.
     If fail, respond with status 200, errorCode and errorMessage
   To test this route on POSTMAN, Choose Body -> raw + JSON -> localhost:5000/api/auth/signin
   To test this with HTTPie, http POST localhost:5000/api/auth/login username=xxx password=xxx email=xxx@gmail.com
@@ -30,7 +30,7 @@ router.post('/login', JSONParser, (req, res) => {
 
 /*
   Sign up with email and password,
-    If succeed, respond with uid and status 200. 
+    If succeed, respond with uid and status 200.
     If fail, respond with status 200, errorCode and errorMessage
  To test this route on POSTMAN, Choose Body -> raw + JSON -> localhost:5000/api/auth/signup username=xxx password=xxx email=xxx@gmail.com
  To test this with HTTPie, http POST localhost:5000/api/auth/signup username=xxx password=xxx email=xxx@gmail.com
@@ -41,7 +41,7 @@ router.post('/signup', JSONParser, (req, res) => {
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then(function (userRecord) {
+    .then(function (u serRecord) {
       const { uid } = userRecord.user;
       firebase
         .database()

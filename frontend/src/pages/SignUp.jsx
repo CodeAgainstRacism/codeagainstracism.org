@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import {
   makeStyles,
   Box,
@@ -99,7 +100,7 @@ const SignUp = (props) => {
     removeError();
   });
 
-  async function handleIndividualSubmit() {
+  function handleIndividualSubmit() {
 
     const signUpData = {
       firstName,
@@ -110,28 +111,15 @@ const SignUp = (props) => {
       description,
     };
 
-    console.log(signUpData);
-
-    props.onAuth("signup", signUpData).then(() => {
-      //redirect user to another page
-      console.log("SIGNED UP! YAY");
-    });
-
-    // axios
-    //   .post("" + PORT + "/users/register", signUpData)
-    //   .then((response) => {
-    //     console.log(response);
-    //     authenticationService
-    //       .login(signUpData.username, signUpData.password)
-    //       .then(
-    //         (user) => {
-    //           history.push("/dashboard");
-    //         },
-    //         (error) => {
-    //           console.log(error);
-    //         }
-    //       );
-    //   });
+    props.onAuth("signup", signUpData)
+      .then(() => {
+        //redirect user to another page
+        // onAuth returns a promise. When the promise is resolve, then() is run
+        props.history.push("/yourprojects");
+      })
+      .catch(() => {
+        return;
+      });
   }
 
   // to create an organization account, send request to /user to create a user
@@ -148,12 +136,16 @@ const SignUp = (props) => {
       description,
     };
 
-    props.onAuth("signup", signUpData).then(() => {
-      // create an organization with user's id from the backend
-      // TODO: need to get user's id from response
-      //redirect user to another page
-      console.log("SIGNED UP! YAY");
-    });
+    props.onAuth("signup", signUpData)
+      .then(() => {
+        //redirect user to another page
+        // onAuth returns a promise. When the promise is resolve, then() is run
+        // props.history.push("/yourprojects");
+        return <Redirect to='/yourprojects' />
+      })
+      .catch(() => {
+        return;
+      });
   };
 
   return (

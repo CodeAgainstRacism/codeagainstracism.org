@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Redirect } from "react-router-dom";
 import {
   makeStyles,
   useTheme,
@@ -127,30 +127,18 @@ export default function LogIn(props) {
 
   async function handleLogIn(values) {
     const loginData = { email, password };
-
-    console.log("login data: ", loginData);
-
-    props.onAuth("login", loginData).then(() => {
-      //redirect user to another page
-      console.log("LOGGED IN! YAY");
-    });
-
-    // axios
-    //   .post("" + PORT + "/users/register", signUpData)
-    //   .then((response) => {
-    //     console.log(response);
-    //     authenticationService
-    //       .login(signUpData.username, signUpData.password)
-    //       .then(
-    //         (user) => {
-    //           history.push("/dashboard");
-    //         },
-    //         (error) => {
-    //           console.log(error);
-    //         }
-    //       );
-    //   });
-  }
+    // onAuth returns a promise. When the promise is resolve, then() is run
+    props
+      .onAuth("login", loginData)
+      .then(() => {
+        //redirect user to their homepage 
+        console.log("Redirecting Now!")
+        props.history.push("/yourprojects");
+      })
+      .catch(() => {
+        return;
+      });
+  };
 
   return (
     <React.Fragment>

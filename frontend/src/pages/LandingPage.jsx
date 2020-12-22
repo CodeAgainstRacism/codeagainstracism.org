@@ -129,6 +129,7 @@ const LandingPage = (props) => {
   const classes = useStyles();
   const [projects, setProjects] = useState([]);
   const [featuredCard, setFeaturedCard] = useState("");
+
   const getProjectCards = (projectCardObj) => {
     return (
       <Grid item xs={12} sm={6} lg={4} key={projectCardObj.id}>
@@ -159,6 +160,7 @@ const LandingPage = (props) => {
   useEffect(() => {
     getData();
   }, []);
+
 
   return (
     <React.Fragment>

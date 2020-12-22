@@ -9,7 +9,6 @@ import {
   AppBar,
   Tabs,
   Tab,
-  Typography,
 } from "@material-ui/core";
 
 //imported mock data
@@ -76,7 +75,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>

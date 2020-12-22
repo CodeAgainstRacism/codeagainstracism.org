@@ -120,9 +120,7 @@ const NavBar = (props) => {
 };
 
 const PublicRoutes = () => {
-  const classes = useStyles();
   return (
-
     <Fragment>
       <List>
         <ListItem component="div">
@@ -174,4 +172,4 @@ const mapStateToProps = (storeState) => {
   };
 };
 
-export default compose(withRouter, connect(mapStateToProps, logout))(NavBar);
+export default compose(withRouter, connect(mapStateToProps, { logout }))(NavBar);

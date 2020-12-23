@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Button, Container, Grid, makeStyles, Typography, TextField } from "@material-ui/core";
+import { Button, Box, Container, Grid, makeStyles, Typography, TextField } from "@material-ui/core";
 import LineOnSideHeader from "../components/LineOnSideHeader";
 import { Formik } from "formik";
 import * as Yup from 'yup';
@@ -86,7 +86,7 @@ export default function AccountRecovery() {
                 align="center"
                 className={classes.formContainer}
               >
-                <Container className={classes.whiteGap} />
+                <Box className={classes.whiteGap} />
                 <Container className={classes.formBody}>
                   <Grid>
                     <Typography className={classNames(classes.formTextSpacing, classes.boldStyle)}>
@@ -141,7 +141,7 @@ export default function AccountRecovery() {
                     </Formik>
                   </Grid>
                 </Container>
-                <Container className={classes.whiteGap} />
+                <Box className={classes.whiteGap} />
               </Container>
             </Grid>
             <Grid item xs={2} />

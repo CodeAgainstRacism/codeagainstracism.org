@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     padding: theme.spacing(2, 6, 2, 6),
   },
-  formFooter: {
+  whiteGap: {
     width: "100%",
     padding: theme.spacing(2, 6, 2, 6),
     display: "flex",
@@ -55,9 +55,10 @@ const useStyles = makeStyles((theme) => ({
   errMsgStyle: {
     margin: theme.spacing(1),
     color: "#D8000C",
+    fontSize: "1rem",
   },
   viewStyle: {
-    minHeight: "100vh",
+    maxHeight: "100vh",
   }
 }));
 
@@ -85,7 +86,7 @@ export default function AccountRecovery() {
                 align="center"
                 className={classes.formContainer}
               >
-                <Container className={classes.formFooter} />
+                <Container className={classes.whiteGap} />
                 <Container className={classes.formBody}>
                   <Grid>
                     <Typography className={classNames(classes.formTextSpacing, classes.boldStyle)}>
@@ -98,7 +99,7 @@ export default function AccountRecovery() {
                       on how to recover your account.
                     </Typography>
 
-                    <hr className={classes.lineStyle}/>
+                    <hr className={classes.lineStyle} />
 
                     <Typography className={classes.formTextSpacing}>
                       Enter your email:
@@ -113,7 +114,7 @@ export default function AccountRecovery() {
                           .email('Invalid email address')
                           .required('Required*'),
                       })}
-                      onSubmit = {(values) => {
+                      onSubmit={(values) => {
                         // submit function
                       }}
                     >
@@ -130,7 +131,7 @@ export default function AccountRecovery() {
                           <Button
                             color="primary"
                             variant="contained"
-                            type="submit"                            
+                            type="submit"
                             className={classes.formTextSpacing}
                           >
                             Enter
@@ -140,9 +141,9 @@ export default function AccountRecovery() {
                     </Formik>
                   </Grid>
                 </Container>
-                <Container className={classes.formFooter} />
+                <Container className={classes.whiteGap} />
               </Container>
-              </Grid>
+            </Grid>
             <Grid item xs={2} />
           </Grid>
         </Grid>

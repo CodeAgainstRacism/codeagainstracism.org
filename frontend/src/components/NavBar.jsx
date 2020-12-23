@@ -48,6 +48,12 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = (props) => {
   const classes = useStyles();
 
+  const logoutAction = (event) => {
+    console.log("Logout Action")
+    event.preventDefault();
+    props.logout();    // the logout we imported from store/action/auth.js, and passed into <Navbar /> by mapStateToProps() underneath
+  }
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -102,7 +108,7 @@ const NavBar = (props) => {
                 <Button
                   component={RouterLink}
                   to="/"
-                  onClick={logout}
+                  onClick={(event) => logoutAction(event)}
                   color="secondary"
                   variant="contained"
                   className={classes.rightButton}

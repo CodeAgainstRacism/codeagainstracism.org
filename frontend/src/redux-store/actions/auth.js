@@ -45,7 +45,10 @@ export function authUser(type, userData) {
 // log user out
 // Use thunk here
 export function logout() {
+  console.log("outside logout()")
+
   return (dispatch) => {
+    console.log("inside logout()")
     localStorage.clear();
     setAuthorizationToken(false); // remove jwt from axios's default
     dispatch(setCurrentUser({})); // set currentUser to be an empty object

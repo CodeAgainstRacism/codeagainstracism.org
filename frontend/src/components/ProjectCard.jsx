@@ -8,6 +8,8 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   flexBoxCenter: {
     display: "flex",
@@ -39,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ProjectCard = (props) => {
   const classes = useStyles();
-  const { name, description, imageURL } = props;
+  const { id, name, description, imageURL } = props;
+
 
   return (
     <Card className={classes.card}>
@@ -65,6 +68,8 @@ const ProjectCard = (props) => {
           color="primary"
           className={classes.learnMoreButton}
           variant="contained"
+          component={RouterLink}
+          to={`projects/${id}`}
         >
           Learn More
         </Button>

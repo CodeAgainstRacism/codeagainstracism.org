@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "none",
     width: "100%",
   },
+  cardContent: {
+    height: "50vh",
+  },
   buttonStyle: {
     color: "white",
     backgroundColor: "black",
@@ -62,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
     objectFit: "fill",
     maxHeight: "100%",
     maxWidth: "100%",
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -99,12 +103,11 @@ const UserTypePage = () => {
 
         <Grid item xs={5}>
           <CardActionArea className={classes.cardStyle} onClick={handleJoin}>
-            <CardContent>
+            <CardContent className={classes.cardContent}>
               <CardMedia
                 className={classes.image}
                 title="Blogging"
                 image={Blogging}
-                style={{ marginBottom: theme.spacing(3) }}
               />
               <Typography variant="h6" align="center">
                 I want to join an existing team
@@ -126,7 +129,7 @@ const UserTypePage = () => {
         <Grid item xs={1}></Grid>
         <Grid item xs={5}>
           <CardActionArea className={classes.cardStyle} onClick={handleCreate}>
-            <CardContent>
+            <CardContent className={classes.cardContent}>
               <CardMedia
                 className={classes.image}
                 title="Planning"

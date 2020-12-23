@@ -3,6 +3,7 @@ import { withRouter, Link as RouterLink } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 import {
   makeStyles,
+  useTheme,
   Box,
   Button,
   Card,
@@ -14,10 +15,10 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-
 import axios from "axios";
 import Footer from "../components/Footer";
 import HeroImage from "../assets/Landing_Hero.svg";
+import LineOnSideHeader from "../components/LineOnSideHeader";
 import ProjectCard from "../components/ProjectCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,26 +62,6 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(28),
     padding: theme.spacing(2, 0),
     fontWeight: "bold",
-  },
-
-  /* Projects Title */
-  dividerContainer: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: theme.spacing(5),
-  },
-  projectTitle: {
-    alignText: "center",
-    display: "inline",
-    padding: theme.spacing(0, 5),
-  },
-  line: {
-    border: "none",
-    borderTop: `3px solid ${theme.palette.text.primary}`,
-    color: theme.palette.text.secondary,
-    overflow: "visible",
-    textAlign: "center",
-    width: "50%",
   },
 
   /* Feature Project */
@@ -127,6 +108,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LandingPage = (props) => {
   const classes = useStyles();
+  const theme = useTheme();
   const [projects, setProjects] = useState([]);
   const [featuredCard, setFeaturedCard] = useState("");
   const getProjectCards = (projectCardObj) => {
@@ -214,14 +196,9 @@ const LandingPage = (props) => {
         </Container>
         {/* End hero Box */}
         <Container className={classes.cardGrid} maxWidth="lg">
-          <Box className={classes.dividerContainer}>
-            <hr className={classes.line} />
-            <Typography variant="h4" className={classes.projectTitle}>
-              PROJECTS
-            </Typography>
-            <hr className={classes.line} />
+          <Box style={{ marginBottom: theme.spacing(5) }}>
+            <LineOnSideHeader title="PROJECTS" variant="h4" />
           </Box>
-
           {/* Featured Project */}
           <Card className={classes.featuredContainer}>
             <Grid container spacing={3}>

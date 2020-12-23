@@ -14,7 +14,6 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-
 import axios from "axios";
 import Footer from "../components/Footer";
 import HeroImage from "../assets/Landing_Hero.svg";

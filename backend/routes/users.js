@@ -24,8 +24,10 @@ router.get('/user/:id', (req, res) => {
 });
 
 // Update User
-router.post('/user/:id', (req, res) => {
-  const { uid, firstName, lastName, email, phoneNumber, description } = req.params.uid;
+router.patch('/user/:id', (req, res) => {
+  const uid  = req.params.uid;
+  const { firstName, lastName, email, phoneNumber, description } = req.params.body;
+
   const updates = {
     firstName: firstName,
     lastName: lastName,
@@ -41,7 +43,7 @@ router.post('/user/:id', (req, res) => {
       .ref('users/' + uid)
       .update(updates)
       .then(() => {
-        res.json({ uid })
+        res.json({ status: 200, message: 'Updated user ' + uid })
       })
       .catch((error) => {
         res.json({
@@ -53,15 +55,14 @@ router.post('/user/:id', (req, res) => {
 });
 
 // Delete User
-router.post('/user/:id', (req, res) => {
+router.delete('/user/:id', (req, res) => {
   const uid = req.params.uid;  // check later if this is correct
   firebase
     .database()
     .ref('users/' + uid)
-    .child()
     .remove()    // not sure
     .then(() => {
-      res.json({ uid })
+      res.json({ status: 200, message: 'Deleted user ' + uid })
     })
     .catch((error) => {
       res.json({

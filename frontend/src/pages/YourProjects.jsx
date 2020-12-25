@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   makeStyles,
@@ -8,7 +9,6 @@ import {
   AppBar,
   Tabs,
   Tab,
-  Typography,
 } from "@material-ui/core";
 
 //imported mock data
@@ -75,7 +75,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -95,11 +95,27 @@ function a11yProps(index) {
   };
 }
 
-export default function YourProjects() {
+const YourProjects = (props) => {
   //connect to backend stuff
   const [projectsComplete, setProjectsComplete] = useState([]);
   const [projectsIncomplete, setProjectsIncomplete] = useState([]);
 
+  //design tab stuff
+  const classes = YourProjectsStyles();
+  const [value, setValue] = useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const { currentUser } = props;
+
+  // if user doesn't have authorization to see this page, redirect them to homepage
+  if (!currentUser.isAuthenticated) {
+    // props.history.push("/");
+    return <Redirect to="/" />
+  }
+
+  // useEffect 
   axios
     .get(`${BACKEND_URL}projects/incomplete`, {
       params: {},
@@ -111,7 +127,7 @@ export default function YourProjects() {
       console.log(error);
     });
 
-  //if use state is 1
+  // if use state is 1
   axios
     .get(`${BACKEND_URL}projects/complete`, {
       params: {},
@@ -126,12 +142,6 @@ export default function YourProjects() {
   const cardListIncomplete = mockDataIncomplete//projectsIncomplete;
   const cardListComplete = mockDataComplete//projectsComplete;
 
-  //design tab stuff
-  const classes = YourProjectsStyles();
-  const [value, setValue] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <Fragment>
@@ -187,3 +197,5 @@ export default function YourProjects() {
     </Fragment>
   );
 }
+
+export default YourProjects;

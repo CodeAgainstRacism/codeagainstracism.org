@@ -24,12 +24,13 @@ import YourTeams from "../pages/YourTeams";
 import NewProjectForm from "../pages/NewProjectForm";
 
 const Main = (props) => {
-  const { authUser, errors, removeError } = props;
+  const { authUser, errors, removeError, currentUser } = props;
 
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={LandingPage} />
+        {/* <Route exact path="/" component={LandingPage} /> */}
+        <Route exact path="/" render={(props) => <LandingPage currentUser={currentUser} {...props} />} />
         <Route exact path="/about" component={About} />
         <Route exact path="/projects" component={Projects} />
         <Route exact path="/projects/:id" component={ProjectDetails} />
@@ -46,11 +47,10 @@ const Main = (props) => {
           exact={true}
         />
         <Route
-          path="/yourprojects"
-          component={YourProjects}
-          exact={true}
+          exact path="/yourprojects"
+          render={(props) => <YourProjects currentUser={currentUser} {...props} />}
         />
-        <Route path="/your_teams" component={YourTeams} exact={true} />
+        <Route path="/yourteams" component={YourTeams} exact={true} />
         <Route
           exact
           path="/accountrecovery"

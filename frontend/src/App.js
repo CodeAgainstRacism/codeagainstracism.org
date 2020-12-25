@@ -6,9 +6,10 @@ import jwtDecode from "jwt-decode"; // decode the jwt's payload to object
 import { BrowserRouter } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 
-import "normalize.css/normalize.css";
 import NavBar from "./components/NavBar";
 import Main from "./containers/Main";
+
+import "normalize.css/normalize.css";
 
 const reduxStore = configureStore();
 

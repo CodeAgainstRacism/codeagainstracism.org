@@ -8,6 +8,7 @@ import "normalize.css/normalize.css";
 
 import LandingPage from "../pages/LandingPage";
 import Projects from "../pages/Projects";
+import ProjectDetails from "../pages/ProjectDetails";
 import ContactUs from "../pages/ContactUs";
 import FAQ from "../pages/FAQ";
 import About from "../pages/About";
@@ -32,6 +33,7 @@ const Main = (props) => {
         <Route exact path="/" render={(props) => <LandingPage currentUser={currentUser} {...props} />} />
         <Route exact path="/about" component={About} />
         <Route exact path="/projects" component={Projects} />
+        <Route exact path="/projects/:id" component={ProjectDetails} />
         <Route exact path="/contactus" component={ContactUs} />
         <Route exact path="/faq" component={FAQ} />
         <Route

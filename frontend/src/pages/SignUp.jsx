@@ -267,7 +267,7 @@ const SignUp = (props) => {
                         required
                         type="password"
                         label="Re-enter Password"
-                        name="reEnteredPassword"
+                        name="reEnteredPassword"                                                
                         onChange={(e) => setReEnteredPassword(e.target.value)}
                       />
                     </Grid>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 import {
   makeStyles,
   Box,
@@ -100,7 +99,7 @@ const SignUp = (props) => {
     removeError();
   });
 
-  function handleIndividualSubmit() {
+  async function handleIndividualSubmit() {
 
     const signUpData = {
       firstName,
@@ -111,16 +110,17 @@ const SignUp = (props) => {
       description,
     };
 
-    props.onAuth("signup", signUpData)
-      .then(() => {
-        //redirect user to another page
-        // onAuth returns a promise. When the promise is resolve, then() is run
-        props.history.push("/yourprojects");
-      })
+    console.log(signUpData);
+
+    props.onAuth("signup", signUpData).then(() => {
+      //redirect user to another page
+      props.history.push("/yourprojects");
+    })
       .catch(() => {
         return;
       });
   }
+
 
   // to create an organization account, send request to /user to create a user
   // then send a request to /organization with user's id to create an organization
@@ -136,17 +136,14 @@ const SignUp = (props) => {
       description,
     };
 
-    props.onAuth("signup", signUpData)
-      .then(() => {
-        //redirect user to another page
-        // onAuth returns a promise. When the promise is resolve, then() is run
-        // props.history.push("/yourprojects");
-        return <Redirect to='/yourprojects' />
-      })
+    props.onAuth("signup", signUpData).then(() => {
+      //redirect user to another page
+      props.history.push("/yourprojects");
+    })
       .catch(() => {
         return;
       });
-  };
+  }
 
   return (
     <React.Fragment>
@@ -271,7 +268,6 @@ const SignUp = (props) => {
                         type="password"
                         label="Re-enter Password"
                         name="reEnteredPassword"
-                        value={reEnteredPassword}
                         onChange={(e) => setReEnteredPassword(e.target.value)}
                       />
                     </Grid>

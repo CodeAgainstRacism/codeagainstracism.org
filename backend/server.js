@@ -4,10 +4,12 @@ const logger = require("morgan");
 const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
+const cors = require("cors");
 
 //Middleware
 app.use(bodyParser.json());
 app.use(logger("dev"));
+app.use(cors());
 
 // Import Routes
 const authRoutes = require("./routes/auth");

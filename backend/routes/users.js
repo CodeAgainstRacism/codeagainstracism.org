@@ -2,30 +2,31 @@ const express = require('express');
 const router = express.Router();
 const firebase = require('../config/firebase');
 const bodyParser = require('body-parser');
+const { compile } = require('morgan');
 
 const JSONParser = bodyParser.json();
 
 // Read User
-router.get('/user/:id', (req, res) => {
-  const uid = req.params.uid;
+router.get('/:uid', (req, res) => {
+  const id = req.params.id;
   firebase
     .database()
-    .ref('users/' + uid)
+    .ref('users/' + id)
     .once('value')
     .then((data) => {
       if(data.val() != null){
         let val = Object(data.val());
         res.json(val);
       } else {
-        res.send('User doesn\'t exist');
+        res.json({ error: 'User doesn\'t exist' });
       }
     })
     .catch((error) => res.json({ error: error.message }));
 });
 
 // Update User
-router.patch('/user/:id', (req, res) => {
-  const uid  = req.params.uid;
+router.patch('/:uid', (req, res) => {
+  const id  = req.params.id;
   const { firstName, lastName, email, phoneNumber, description } = req.params.body;
 
   const updates = {
@@ -34,13 +35,13 @@ router.patch('/user/:id', (req, res) => {
     email: email,
     phoneNumber: phoneNumber,
     description: description,
-    updatedAt: serverTimestamp();
+    updatedAt: serverTimestamp(),
   }
 
   return (
     firebase
       .database()
-      .ref('users/' + uid)
+      .ref('users/' + id)
       .update(updates)
       .then(() => {
         res.json({ status: 200, message: 'Updated user ' + uid })
@@ -50,16 +51,16 @@ router.patch('/user/:id', (req, res) => {
           code: error.code,
           error: error.message
         })
-      });
+      })
   );
 });
 
 // Delete User
-router.delete('/user/:id', (req, res) => {
-  const uid = req.params.uid;  // check later if this is correct
+router.delete('/:uid', (req, res) => {
+  const id = req.params.id;  // check later if this is correct
   firebase
     .database()
-    .ref('users/' + uid)
+    .ref('users/' + id)
     .remove()    // not sure
     .then(() => {
       res.json({ status: 200, message: 'Deleted user ' + uid })

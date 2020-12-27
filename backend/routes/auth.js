@@ -41,7 +41,7 @@ router.post('/signup', JSONParser, (req, res) => {
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then(function (u serRecord) {
+    .then(function (userRecord) {
       const { uid } = userRecord.user;
       firebase
         .database()

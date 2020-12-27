@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -18,6 +18,7 @@ import { mockDataComplete } from "../mock data/data_complete";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import SideBar from "../components/SideBarOrganization";
+// import SideBar from "../components/SideBarIndividual";
 import ProjectCard from "../components/ProjectCard";
 
 const YourProjectsStyles = makeStyles((theme) => ({
@@ -96,7 +97,23 @@ function a11yProps(index) {
 }
 
 const YourProjects = (props) => {
-  //connect to backend stuff
+
+  //Fetch complete and ongoing projects from backend
+  useEffect(() => {
+    axios
+      .get(`${BACKEND_URL}/projects`, {
+        params: {},
+      })
+      .then(function (response) {
+        setProjectsIncomplete(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }, []);
+
+
   const [projectsComplete, setProjectsComplete] = useState([]);
   const [projectsIncomplete, setProjectsIncomplete] = useState([]);
 
@@ -111,37 +128,14 @@ const YourProjects = (props) => {
 
   // if user doesn't have authorization to see this page, redirect them to homepage
   if (!currentUser.isAuthenticated) {
-    // props.history.push("/");
     return <Redirect to="/" />
   }
 
-  // useEffect 
-  axios
-    .get(`${BACKEND_URL}projects/incomplete`, {
-      params: {},
-    })
-    .then(function (response) {
-      setProjectsIncomplete(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
 
-  // if use state is 1
-  axios
-    .get(`${BACKEND_URL}projects/complete`, {
-      params: {},
-    })
-    .then(function (response) {
-      setProjectsComplete(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
 
-  const cardListIncomplete = mockDataIncomplete//projectsIncomplete;
-  const cardListComplete = mockDataComplete//projectsComplete;
 
+  const cardListIncomplete = mockDataIncomplete; //projectsIncomplete;
+  const cardListComplete = mockDataComplete; //projectsComplete;
 
   return (
     <Fragment>

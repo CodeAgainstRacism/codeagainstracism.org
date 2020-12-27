@@ -93,7 +93,6 @@ const LoginStyles = makeStyles((theme) => ({
     border: "1px solid #292929",
     borderRadius: "0px 0px 7px 7px",
   },
-
   loginContainer: {
     width: "100%",
     border: "1px solid #292929",
@@ -103,7 +102,6 @@ const LoginStyles = makeStyles((theme) => ({
     borderRadius: "7px 7px 7px 7px",
     transform: "matrix(1, 0, 0, 1, 0, 0)",
   },
-
   /*icon button spacing*/
   actionButton: {
     margin: theme.spacing(1, 0, 0),

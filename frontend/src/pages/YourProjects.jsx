@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   makeStyles,
@@ -8,7 +9,6 @@ import {
   AppBar,
   Tabs,
   Tab,
-  Typography,
 } from "@material-ui/core";
 
 //imported mock data
@@ -76,7 +76,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -96,38 +96,26 @@ function a11yProps(index) {
   };
 }
 
-export default function YourProjects() {
-  //connect to backend stuff
+const YourProjects = (props) => {
+
+  //Fetch complete and ongoing projects from backend
+  useEffect(() => {
+    axios
+      .get(`${BACKEND_URL}/projects`, {
+        params: {},
+      })
+      .then(function (response) {
+        setProjectsIncomplete(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }, []);
+
+
   const [projectsComplete, setProjectsComplete] = useState([]);
   const [projectsIncomplete, setProjectsIncomplete] = useState([]);
-
-  axios
-    .get(`${BACKEND_URL}projects`, {
-      params: {},
-    })
-    .then(function (response) {
-      setProjectsIncomplete(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  //if use state is 1
-  axios
-    .get(`${BACKEND_URL}projects/featured`, {
-      params: {},
-    })
-    .then(function (response) {
-      setProjectsComplete(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  // const cardListIncomplete = mockDataIncomplete; //projectsIncomplete;
-  // const cardListComplete = mockDataComplete; //projectsComplete;
-  const cardListIncomplete = projectsIncomplete;
-  const cardListComplete = projectsComplete;
 
   //design tab stuff
   const classes = YourProjectsStyles();
@@ -135,6 +123,19 @@ export default function YourProjects() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const { currentUser } = props;
+
+  // if user doesn't have authorization to see this page, redirect them to homepage
+  if (!currentUser.isAuthenticated) {
+    return <Redirect to="/" />
+  }
+
+
+
+
+  const cardListIncomplete = mockDataIncomplete; //projectsIncomplete;
+  const cardListComplete = mockDataComplete; //projectsComplete;
 
   return (
     <Fragment>
@@ -190,3 +191,5 @@ export default function YourProjects() {
     </Fragment>
   );
 }
+
+export default YourProjects;

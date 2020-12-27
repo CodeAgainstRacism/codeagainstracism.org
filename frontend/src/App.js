@@ -1,75 +1,46 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import "normalize.css/normalize.css";
+import { Provider } from "react-redux";
+import { configureStore } from "./redux-store";
+import { setAuthorizationToken, setCurrentUser } from "./redux-store/actions/auth";
+import jwtDecode from "jwt-decode"; // decode the jwt's payload to object
+import { BrowserRouter } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 
-import LandingPage from "./pages/LandingPage";
-import Projects from "./pages/Projects";
-import News from "./pages/News";
-import FAQ from "./pages/FAQ";
-import About from "./pages/About";
-import LogIn from "./pages/LogIn";
-import SignUp from "./pages/SignUp";
-import AccountRecovery from "./pages/AccountRecovery";
-import NotFoundPage from "./pages/NotFound";
 import NavBar from "./components/NavBar";
+import Main from "./containers/Main";
 
-import UserTypePage from "./pages/UserType";
-import AccountInfo from "./pages/AccountInfo";
-import YourProjects from "./pages/YourProjects";
-import YourTeams from "./pages/YourTeams";
-import NewProjectForm from "./pages/NewProjectForm";
+import "normalize.css/normalize.css";
 
-// import Footer from "./components/Footer";
+const reduxStore = configureStore();
 
-class App extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <ScrollToTop>
-          <div>
-            <NavBar />
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route exact path="/about" component={About} />
-              <Route exact path="/projects" component={Projects} />
-              <Route exact path="/news" component={News} />
-              <Route exact path="/faq" component={FAQ} />
-              <Route exact path="/login" component={LogIn} />
-              <Route
-                path="/project/new"
-                component={NewProjectForm}
-                exact={true}
-              />
-              <Route
-                path="/account_details"
-                component={AccountInfo}
-                exact={true}
-              />
-              <Route
-                path="/your_projects"
-                component={YourProjects}
-                exact={true}
-              />
-              <Route path="/your_teams" component={YourTeams} exact={true} />
-              <Route
-                exact
-                path="/accountrecovery"
-                component={AccountRecovery}
-              />
-              <Route exact path="/signup" component={UserTypePage} />
-              <Route
-                path="/signup/:type"
-                render={(props) => <SignUp {...props} />}
-              />
-              <Route component={NotFoundPage} />
-            </Switch>
-            {/* <Footer /> */}
-          </div>
-        </ScrollToTop>
-      </BrowserRouter>
-    );
+// this code runs when page loads/reloads
+if (localStorage.jwtToken) {
+  // add jwtToken to all future Axios request
+  setAuthorizationToken(localStorage.jwtToken);
+  // prevent someone from manually tampering with the key of jwtToken in localStorage.
+  try {
+    // if we got the right token
+    reduxStore.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+    console.log(jwtDecode(localStorage.jwtToken));      // this one has password in it
+  } catch (e) {
+    // if tampering is detected, forcefully log users out before they can send the request
+    reduxStore.dispatch(setCurrentUser({}));
   }
 }
+
+
+const App = (props) => (
+  // TODO: change this to functional component
+  <Provider store={reduxStore}>
+    <BrowserRouter>
+      <ScrollToTop>
+        <div>
+          <NavBar />
+          <Main />
+        </div>
+      </ScrollToTop>
+    </BrowserRouter>
+  </Provider>
+);
 
 export default App;

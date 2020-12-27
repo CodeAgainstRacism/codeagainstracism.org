@@ -6,7 +6,7 @@ const sideBarStyles = makeStyles((theme) => ({
   sideBarContainer: {
     paddingTop: "5%",
     width: "100%",
-    height: "100%",
+    minHeight: "93vh",
     textAlign: "center",
     backgroundColor: "#323b4a",
     color: theme.palette.text.secondary,

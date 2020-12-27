@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   marginStyle: {
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(3),
   },
   projectTitle: {
     alignText: "center",
@@ -71,7 +71,7 @@ export default function Projects() {
 
   const getData = () => {
     axios
-      .get(`${BACKEND_URL}projects`, {
+      .get(`${BACKEND_URL}/projects`, {
         params: {},
       })
       .then(function (response) {

@@ -1,0 +1,4 @@
+DATABASE_URL=mysql://root:mySQL123@localhost:3306/data1
+NODE_ENV = dev
+JWT_SECRET_KEY = Imgoingtocry
+JWT_EXPIRATION_TIME = 10d

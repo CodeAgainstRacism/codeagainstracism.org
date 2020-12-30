@@ -7,7 +7,7 @@ const { compile } = require('morgan');
 const JSONParser = bodyParser.json();
 
 // Read User
-router.get('/:uid', (req, res) => {
+router.get('/:id', (req, res) => {
   const id = req.params.id;
   firebase
     .database()
@@ -25,24 +25,23 @@ router.get('/:uid', (req, res) => {
 });
 
 // Update User
-router.patch('/:uid', (req, res) => {
+router.patch('/:id', (req, res) => {
   const id  = req.params.id;
-  const { firstName, lastName, email, phoneNumber, description } = req.params.body;
-
-  const updates = {
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    phoneNumber: phoneNumber,
-    description: description,
-    updatedAt: serverTimestamp(),
-  }
+  const { firstName, lastName, email, phoneNumber, description } = req.body;
+  const { serverTimestamp } = firebase.firestore.FieldValue;
 
   return (
     firebase
       .database()
       .ref('users/' + id)
-      .update(updates)
+      .update({
+        firstName: firstName || null,
+        lastName: lastName || null,
+        email: email || null,
+        phoneNumber: phoneNumber || null,
+        description: description || null,
+        updatedAt: serverTimestamp(),     // weird response on postman 
+      })
       .then(() => {
         res.json({ status: 200, message: 'Updated user ' + uid })
       })
@@ -56,12 +55,12 @@ router.patch('/:uid', (req, res) => {
 });
 
 // Delete User
-router.delete('/:uid', (req, res) => {
+router.delete('/:id', (req, res) => {
   const id = req.params.id;  // check later if this is correct
   firebase
     .database()
     .ref('users/' + id)
-    .remove()    // not sure
+    .remove()
     .then(() => {
       res.json({ status: 200, message: 'Deleted user ' + uid })
     })

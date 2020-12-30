@@ -35,8 +35,8 @@ router.post('/login', JSONParser, (req, res) => {
  To test this route on POSTMAN, Choose Body -> raw + JSON -> localhost:5000/api/auth/signup username=xxx password=xxx email=xxx@gmail.com
  To test this with HTTPie, http POST localhost:5000/api/auth/signup username=xxx password=xxx email=xxx@gmail.com
 */
-router.post('/signup', JSONParser, (req, res) => {
-  const { email, username, password } = req.body;
+router.post('/signup/organizations', JSONParser, (req, res) => {
+  const { email, username, orgName, password, phoneNumber, firstName,lastName, EIN,description} = req.body;
 
   firebase
     .auth()
@@ -45,11 +45,19 @@ router.post('/signup', JSONParser, (req, res) => {
       const { uid } = userRecord.user;
       firebase
         .database()
-        .ref('users/' + uid)
+        .ref('users/organizations/' + uid)
         .set({
           id: uid,
+          phoneNumber,
           email,
+          orgName,
+          firstName,
+          lastName,
           username,
+          EIN,
+          description,
+          teams: [],
+          projects: []
         });
       res.json(uid);
     })
@@ -61,10 +69,41 @@ router.post('/signup', JSONParser, (req, res) => {
     });
 });
 
+router.post('/signup/individuals', JSONParser, (req, res) => {
+  const { email, username, password, firstName,lastName, description}  = req.body;
+
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(function (userRecord) {
+      const { uid } = userRecord.user;
+      firebase
+        .database()
+        .ref('users/individuals/' + uid)
+        .set({
+          id: uid,
+          email,
+          firstName,
+          lastName,
+          username,
+          description,
+          teams: [],
+          projects: []
+        });
+      res.json(uid);
+    })
+    .catch((error) => {
+      res.json({
+        code: error.code,
+        message: error.message,
+      });
+    });
+});
 /*
   Get user's information by uid
   To test this with HTTPie, http GET localhost:5000/api/auth/xxxxxxxxxx
 */
+/*
 router.get('/:uid', (req, res) => {
   const uid = req.params.uid;
   firebase
@@ -81,5 +120,5 @@ router.get('/:uid', (req, res) => {
     })
     .catch((err) => res.json({ err: err.message }));
 });
-
+*/
 module.exports = router;

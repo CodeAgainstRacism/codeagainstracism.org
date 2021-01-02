@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const JSONParser = bodyParser.json();
 
+
 // const PROJECT = (id, projName, description, qualifications, startDate, endDate, imageURL,
 //                   isFeatured, isCompleted, likeCount, createdAt, updatedAt) => {
   // const PROJECT = (id, projName) => {
@@ -35,16 +36,12 @@ const JSONParser = bodyParser.json();
 //router.post('/projects', JSONParser, (req, res) => {
 // /api/projects, JSONParser, (req, res)
 //was originally req, res
-  router.post('/', JSONParser, (res, req) => {
+  router.post('/', JSONParser, (req, res) => {
     //postman names must match exactly req body and firebase fields must match as well
-    //const { projName, description, qualifications, startDate, endDate, imageURL, isFeatured, isCompleted, likeCount, createdAt, updatedAt } = req.body;
-    const {projName} = req.body;
+    const {projName, description, qualifications, startDate, endDate, imageURL, isFeatured, isCompleted, likeCount, createdAt, updatedAt} = req.body;
     const id = firebase.database().ref('projects/').push().key; //getting key, creating the directory for the key(?)
 
-    
-
-    //, description, qualifications, startDate, endDate, imageURL, isFeatured, isCompleted, likeCount, createdAt, updatedAt
-    firebase.database().ref('projects/' + id).set({ id, projName}
+    firebase.database().ref('projects/' + id).set({id, projName , description, qualifications, startDate, endDate, imageURL, isFeatured, isCompleted, likeCount, createdAt, updatedAt}
      ).then( () => {
     res.json({id})
     

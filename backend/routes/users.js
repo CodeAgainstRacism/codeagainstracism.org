@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
         let val = Object(data.val());
         res.json(val);
       } else {
-        res.json({ error: 'User doesn\'t exist' });
+        res.json({ error: 'User ' + id + 'doesn\'t exist' });
       }
     })
     .catch((error) => res.json({ error: error.message }));
@@ -26,24 +26,24 @@ router.get('/:id', (req, res) => {
 
 // Update User
 router.patch('/:id', (req, res) => {
-  const id  = req.params.id;
+  const id = req.params.id;
   const { firstName, lastName, email, phoneNumber, description } = req.body;
-  const { serverTimestamp } = firebase.firestore.FieldValue;
+  const serverTimestamp = firebase.database.ServerValue.TIMESTAMP;
 
   return (
     firebase
       .database()
       .ref('users/' + id)
       .update({
-        firstName: firstName || null,
-        lastName: lastName || null,
-        email: email || null,
-        phoneNumber: phoneNumber || null,
-        description: description || null,
-        updatedAt: serverTimestamp(),     // weird response on postman 
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        description,
+        updatedAt: serverTimestamp,
       })
       .then(() => {
-        res.json({ status: 200, message: 'Updated user ' + uid })
+        res.json({ status: 200, message: 'Updated user ' + id })
       })
       .catch((error) => {
         res.json({
@@ -56,13 +56,13 @@ router.patch('/:id', (req, res) => {
 
 // Delete User
 router.delete('/:id', (req, res) => {
-  const id = req.params.id;  // check later if this is correct
+  const id = req.params.id;
   firebase
     .database()
     .ref('users/' + id)
     .remove()
     .then(() => {
-      res.json({ status: 200, message: 'Deleted user ' + uid })
+      res.json({ status: 200, message: 'Deleted user ' + id })
     })
     .catch((error) => {
       res.json({

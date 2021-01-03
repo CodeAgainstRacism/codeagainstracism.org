@@ -1,5 +1,17 @@
 import axios from "axios";
 
+// Send the JWT token so the server knows we're logged in (from services/api.js)
+export function setTokenHeader(token) {
+  if (token) {
+    // when user logs in, attach their token to all future request
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    // when user logs out
+    delete axios.defaults.headers.common["Authorization"];
+  }
+}
+
+// Make Post request to login or signup users
 export function apiCall(method, path, data) {
   return new Promise((resolve, reject) => {
     return axios[method](path, data)
@@ -48,8 +60,8 @@ export function apiCall(method, path, data) {
               return reject("Request timed out. Please try again.");
 
             case 409:
-                return reject("This email address is already in use.");
-                
+              return reject("This email address is already in use.");
+
             case 500:
               return reject("Internal Server Error. Please try again later.");
 

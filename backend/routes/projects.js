@@ -5,43 +5,28 @@ const bodyParser = require('body-parser');
 
 const JSONParser = bodyParser.json();
 
-
-// const PROJECT = (id, projName, description, qualifications, startDate, endDate, imageURL,
-//                   isFeatured, isCompleted, likeCount, createdAt, updatedAt) => {
-  // const PROJECT = (id, projName) => {
-  //                   return{
-  //                     id,
-  //                     projName
-                      // description,
-                      // qualifications,
-                      // startDate,
-                      // endDate,
-                      // imageURL,
-                      // isFeatured,
-                      // isCompleted,
-                      // likeCount,
-                      // createdAt,
-                      // updatedAt
-                      // orgID:
-                      // [],
-                      // team:
-                      // []
-                    //}
-                 // }
-
 // Write your CRUD routes here 
 //make sure to use /api/projects referring to the server.js file
 
 //post
-//router.post('/projects', JSONParser, (req, res) => {
-// /api/projects, JSONParser, (req, res)
-//was originally req, res
   router.post('/', JSONParser, (req, res) => {
     //postman names must match exactly req body and firebase fields must match as well
     const {projName, description, qualifications, startDate, endDate, imageURL, isFeatured, isCompleted, likeCount, createdAt, updatedAt} = req.body;
     const id = firebase.database().ref('projects/').push().key; //getting key, creating the directory for the key(?)
 
-    firebase.database().ref('projects/' + id).set({id, projName , description, qualifications, startDate, endDate, imageURL, isFeatured, isCompleted, likeCount, createdAt, updatedAt}
+    firebase.database().ref('projects/' + id).set({
+      id, 
+      projName , 
+      description, 
+      qualifications, 
+      startDate, 
+      endDate, 
+      imageURL, 
+      isFeatured, 
+      isCompleted, 
+      likeCount, 
+      createdAt, 
+      updatedAt}
      ).then( () => {
     res.json({id})
     
@@ -56,7 +41,6 @@ const JSONParser = bodyParser.json();
 //get
 // /api/projects
 router.get('/:id', (req, res) => {
-  //const { projname, desc, qual, sdate, edate, image, feat, comp, like, cat, uat } = req.body;
   const id = req.params.id;
 
   firebase.database().ref('projects/' + id)
@@ -109,23 +93,25 @@ router.get('/', (req, res) => {
 });
 });
 
-
 //update
 router.patch('/:id', (req, res) => {
 const {id} = req.params; //the certain project getting updated
 const {projName, description, qualifications, startDate, endDate, imageURL, isFeatured, isCompleted, likeCount} = req.body; //the things that are being sent over
 firebase.database().ref('projects/' + id)
   .update({
-    projName: projName || null, //it updates projectname to "something"
-    description: description || null,
-    qualifications: qualifications || null,
-    startDate: startDate || null,
-    endDate: endDate || null,
-    imageURL: imageURL || null,
-    isFeatured: isFeatured || null,
-    isCompleted: isCompleted || null,
-    likeCount: likeCount || null,
+    //take out the nulls
+    projName: projName , 
+    description: description ,
+    qualifications: qualifications ,
+    startDate: startDate ,
+    endDate: endDate ,
+    imageURL: imageURL ,
+    isFeatured: isFeatured ,
+    isCompleted: isCompleted ,
+    likeCount: likeCount ,
     //this one kinda wonky
+    //firebase.database.ServerValue.TIMESTAMP
+    //not using firestore
     updatedAt: firebase.firestore.FieldValue.serverTimestamp() //|| null
   })
   .then(() => 
@@ -144,9 +130,6 @@ router.delete('/:id', (req, res) => {
         res.json({ status: 200, message: 'Successfully deleted project'})
     )
     .catch((err) => res.json({error: err.message}));
-
 });
-
-
 
 module.exports = router;

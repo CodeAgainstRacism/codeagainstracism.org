@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
   makeStyles,
   useTheme,
@@ -94,7 +93,6 @@ const LoginStyles = makeStyles((theme) => ({
     border: "1px solid #292929",
     borderRadius: "0px 0px 7px 7px",
   },
-
   loginContainer: {
     width: "100%",
     border: "1px solid #292929",
@@ -104,7 +102,6 @@ const LoginStyles = makeStyles((theme) => ({
     borderRadius: "7px 7px 7px 7px",
     transform: "matrix(1, 0, 0, 1, 0, 0)",
   },
-
   /*icon button spacing*/
   actionButton: {
     margin: theme.spacing(1, 0, 0),
@@ -127,30 +124,18 @@ export default function LogIn(props) {
 
   async function handleLogIn(values) {
     const loginData = { email, password };
-
-    console.log("login data: ", loginData);
-
-    props.onAuth("login", loginData).then(() => {
-      //redirect user to another page
-      console.log("LOGGED IN! YAY");
-    });
-
-    // axios
-    //   .post("" + PORT + "/users/register", signUpData)
-    //   .then((response) => {
-    //     console.log(response);
-    //     authenticationService
-    //       .login(signUpData.username, signUpData.password)
-    //       .then(
-    //         (user) => {
-    //           history.push("/dashboard");
-    //         },
-    //         (error) => {
-    //           console.log(error);
-    //         }
-    //       );
-    //   });
-  }
+    // onAuth returns a promise. When the promise is resolve, then() is run
+    props
+      .onAuth("login", loginData)
+      .then(() => {
+        //redirect user to their homepage 
+        console.log("Redirecting Now!")
+        props.history.push("/yourprojects");
+      })
+      .catch(() => {
+        return;
+      });
+  };
 
   return (
     <React.Fragment>

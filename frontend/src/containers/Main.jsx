@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { authUser } from "../redux-store/actions/auth";
@@ -24,33 +24,40 @@ import YourTeams from "../pages/YourTeams";
 import NewProjectForm from "../pages/NewProjectForm";
 
 const Main = (props) => {
-  const { authUser, errors, removeError } = props;
+  const { authUser, errors, removeError, currentUser } = props;
 
   return (
-    <div>
+    <Fragment>
       <Switch>
-        <Route exact path="/" component={LandingPage} />
+        {/* <Route exact path="/" component={LandingPage} /> */}
+        <Route exact path="/" render={(props) => <LandingPage currentUser={currentUser} {...props} />} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/projects" component={Projects} />
+        <Route
+          path="/projects/new"
+          render={(props) => (
+            <NewProjectForm
+              onAuth={authUser}
+              errors={errors}
+              removeError={removeError}
+              {...props}
+            />
+          )}
+        />
+        <Route path="/projects" component={Projects} />
         <Route exact path="/projects/:id" component={ProjectDetails} />
         <Route exact path="/contactus" component={ContactUs} />
         <Route exact path="/faq" component={FAQ} />
-        <Route
-          path="/newProjectForm"
-          component={NewProjectForm}
-          exact={true}
-        />
+
         <Route
           path="/account_details"
           component={AccountInfo}
           exact={true}
         />
         <Route
-          path="/yourprojects"
-          component={YourProjects}
-          exact={true}
+          exact path="/yourprojects"
+          render={(props) => <YourProjects currentUser={currentUser} {...props} />}
         />
-        <Route path="/your_teams" component={YourTeams} exact={true} />
+        <Route path="/yourteams" component={YourTeams} exact={true} />
         <Route
           exact
           path="/accountrecovery"
@@ -81,9 +88,9 @@ const Main = (props) => {
           )}
         />
         <Route exact path="/accountrecovery" component={AccountRecovery} />
-        <Route component={NotFoundPage} />
+        <Route render={() => (<NotFoundPage currentUser={currentUser} />)} />
       </Switch>
-    </div>
+    </Fragment>
   );
 };
 

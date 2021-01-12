@@ -10,27 +10,28 @@ const nameMax = 40;
 const usernameMax = 40;
 
 // POST is for testing only
-router.post('/', JSONParser, (req, res) => {
-  const uid = firebase.database().ref('users/organizations').push().key; //getting key
-  const { EIN, orgName, description, email, firstName, lastName, phoneNumber, username } = req.body;
 
-  firebase.database().ref('users/organizations/' + uid).set({
-    id: uid,
-    EIN,
-    orgName,
-    description,
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    username
-  }).then(() => {
-    res.json({ uid })
-  }).catch((error) => res.json({
-    status: error.code,
-    message: error.message,
-  }));
-});
+// router.post('/', JSONParser, (req, res) => {
+//   const uid = firebase.database().ref('users/organizations').push().key; //getting key
+//   const { EIN, orgName, description, email, firstName, lastName, phoneNumber, username } = req.body;
+
+//   firebase.database().ref('users/organizations/' + uid).set({
+//     id: uid,
+//     EIN,
+//     orgName,
+//     description,
+//     email,
+//     firstName,
+//     lastName,
+//     phoneNumber,
+//     username
+//   }).then(() => {
+//     res.json({ uid })
+//   }).catch((error) => res.json({
+//     status: error.code,
+//     message: error.message,
+//   }));
+// });
 
 router.get('/:uid', (req, res) => {
   const { uid } = req.params;
@@ -79,7 +80,7 @@ router.patch('/:uid', (req, res) => {
     } else if (typeof (username) != 'string' || username.length > usernameMax) {
       res.json({ status: 400, message: `Username must be a string with less than ${usernameMax} characters.` })
     } else {
-      res.json({ status: 200, message: 'Successfully updated' })
+      res.json({ status: 200, message: 'Successfully updated', id: uid, EIN, orgName, description, email, firstName, lastName, phoneNumber, username })
     }
   }).catch((error) => res.json({
     status: error.code,

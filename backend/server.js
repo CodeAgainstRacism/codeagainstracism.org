@@ -14,12 +14,14 @@ const authRoutes = require("./routes/auth");
 const organizationsRoutes = require("./routes/organizations");
 const projectsRoutes = require("./routes/projects");
 const usersRoutes = require("./routes/users");
+const teamsRoutes = require("./routes/teams");
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/organizations", organizationsRoutes);
 app.use("/api/projects", projectsRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/teams", teamsRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Sever running on port ${PORT}...`));

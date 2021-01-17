@@ -1,27 +1,24 @@
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 //CLASSES CANNOT USE STYLING HOOKS
-import {
-  Container,
-  Button,
-  TextField,
-  Grid,
-  Box,
-  withStyles
-} from '@material-ui/core';
+import {Container,
+        Button,
+        TextField,
+        Grid,
+        Box,
+        makeStyles} from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Divider from '@material-ui/core/Divider';
 import SideBar from "../components/SideBarOrganization";
 import axios from 'axios';
-import { BACKEND_URL } from '../config';
+import { BACKEND_URL, BUCKET_ID, BUCKET_NAME, BUCKET_KEY, BUCKET_REGION, DIR_NAME } from '../config';
+import S3 from 'react-aws-s3';
 
-const projectFormStyles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-
-  gridText: {
-    textAlign: "justify",
-    fontSize: theme.spacing(2.5),
-  },
+const projectFormStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
 
   rightGridContainer: {
     paddingLeft: theme.spacing(3),
@@ -47,98 +44,68 @@ const projectFormStyles = theme => ({
     paddingBottom: "5%",
     // minHeight: "100vh",
   },
+  contactlabelbox:{
+    fontSize: theme.spacing(3.5)
+  },
+  yellowCheck:{
+    color: "#FFC43D",
+    '&$checked':
+    {color: "#FFC43D",}
+  },
 }
-)
+))
 
-class NewProjectForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      description: '',
-      qualifications: '',
-      startDate: '',
-      endDate: '',
-    };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-   
-  }
-
-  handleChange = (event) =>{
     
-    this.setState({ 
-      [event.target.name]: event.target.checked 
-     });
-
-     if(this.state.cb === false){
-
-      axios.get(`${BACKEND_URL}/users/2`, 
-      {
-        params: {}
-      }
-      )
-    .then( (response) => {
-      console.log(response.data);  //logs on console when run
-      
-     
-      this.setState({ firstName: response.data.firstName,
-         lastName: response.data.lastName,
-        phone: response.data.phoneNumber,
-        email: response.data.email,
-       // organization: response.data.ownedOrganization.name,
-                        });
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
   
-    }
 
-    else{
-      this.setState({ 
-        //organization should not be on there, full name split into first and last
-        firstName: '',
-        lastName: '',
-        optionalPhoneNumber: '',
-        optionalEmail: '',
-        
-         
-       });
-    }
-}
+const NewProjectForm= (props) => {
 
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value
-    });
+  const classes = projectFormStyles();
+  const { id: org_id} = props.match.params
+
+  //state hooks
+  const [projectDetails, setProjectDetails] = useState([{
+    "name": "",
+    "description": "",
+    "startDate": null,
+    "endDate": null,
+    "organizationId": null,
+  }])
+  const fileSrc = useRef();
+  
+
+
+  const updateProject = (id, value) => {
+    setProjectDetails([{...projectDetails[0], [id]: value}]);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const data = {
-      projectName: this.state.projectName, //name
-      description: this.state.description,
-      qualifications: this.state.qualifications,
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
+  const uploadImage = event => {
+    event.preventDefault()
+    console.log(fileSrc.current)
+    const bucketInfo = {
+      bucketName: BUCKET_NAME,
+      dirName: DIR_NAME,
+      region: BUCKET_REGION,
+      accessKeyId: BUCKET_ID,
+      secretAccessKey: BUCKET_KEY,    
     }
+    let image = fileSrc.current.files[0];
+    let imageName = fileSrc.current.files[0].name.split('.')[0]
 
-    console.log(data)
-
-    axios.post(`${BACKEND_URL}/projects`, {  //JSON curlies
-      // params needed if multiple sets of data like params:{data}
-      //  this is JSON data with name, contact info, description correspond to textfields
-      data
+    console.log(image)
+    console.log(imageName)
+    const S3Client = new S3(bucketInfo)
+    S3Client.uploadFile(image, imageName).then(data => {
+      console.log(data);
+      if(data.status === 204){
+        console.log('success')
+      }
+      else{
+        console.log('fail')
+      }
     })
       .then(function (response) {
-        console.log(data);  //logs on console when run
+        console.log(response);  //logs on console when run
       })
       .catch(function (error) {
         console.log("Error when submitting new project", error);
@@ -146,14 +113,99 @@ class NewProjectForm extends React.Component {
 
   }
 
-  render() {
-
-    const { classes } = this.props;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <Grid container direction={"row"}>
-          <Grid container item xs={2} alignItems="stretch">
-            <SideBar />
+             <Grid item xs = {2} container alignItems = "stretch">
+                 <SideBar/>
+             </Grid>
+             <Grid container item xs = {10} className={classes.rightGridContainer}>
+
+             <Container className = {classes.headingContainer}> 
+                 Create A New Project
+                 <Box className = {classes.dividerBar}></Box>
+             </Container>
+            <Container className = {classes.rightContainer}>
+            <Container style={{ backgroundColor: "white", paddingTop:"2%", paddingBottom: "2%" }}>
+              <Grid container spacing={2} className = {classes.gridText}>
+                <Grid item xs = {12} >
+                  <TextField value = "" onChange = {(e)=>{updateProject(e.target.getAttribute("id"), e.target.value)}} id = "name" label = "Enter Your Project's Name" type = "string"/>
+              </Grid>
+              <Grid item xs = {12} >
+                  <TextField value = "" onChange = {(e)=>{updateProject(e.target.getAttribute("id"), e.target.value)}} name = "description" label = "Tell us about your project! " type = "string" rows = "5"  multiline = {true}/>
+              </Grid>
+           
+              <Grid item xs = {12} >
+               <TextField value = "" onChange = {(e)=>{updateProject(e.target.getAttribute("id"), e.target.value)}} name = "qualifications" label = "Qualifications for potential team members" rows = "5" multiline = {true}/>
+              </Grid>
+              <Grid  item  xs = {3} >
+                  Start Date* 
+              </Grid>
+              <Grid item container xs = {3} display = "flex" justify = "space-evenly">
+                  <TextField value = "" onChange = {(e)=>{updateProject(e.target.getAttribute("id"), e.target.value)}} name = "startDate" type = "date"/>
+              </Grid>
+              <Grid item container xs = {3} display = "flex" justify = "space-evenly" >
+                  End Date* 
+              </Grid>
+              <Grid item container xs = {3} display = "flex" justify = "space-evenly"  >
+                  <TextField value = "" onChange = {(e)=>{updateProject(e.target.getAttribute("id"), e.target.value)}} name = "endDate" type = "date"/>
+              </Grid>
+              <Grid item xs = {3} >
+                  Cover Photo 
+              </Grid>
+              <Grid item container  xs = {9} justify = "flex-start"   >
+                <input type="file" ref={fileSrc}/>
+              </Grid>
+
+
+              <Grid item xs = {12} >
+              <Divider variant="fullWidth"/>
+              </Grid>
+
+              <Grid item container xs = {6} className = {classes.contactlabelbox} justify = "flex-start">
+                
+                Contact Information
+              </Grid>
+              <Grid item container xs = {6} justify = "flex-end">
+              <FormControlLabel
+                  control={<input type="checkbox" className={classes.yellowCheck}  onChange={() => {}} name="cb" checked={false}/> }
+                label="Use information from account"
+               />
+                
+              </Grid>
+              <Grid item xs = {3} >
+                  First name*
+              </Grid>
+              <Grid item xs = {9} >
+                  <TextField value = "" onChange = {()=>{}} name = "firstName"/>
+              </Grid>
+
+              <Grid item xs = {3} >
+                  Last name*
+              </Grid>
+              <Grid item xs = {9} >
+                  <TextField value = "" onChange = {()=>{}} name = "lastName"/>
+              </Grid>
+
+              <Grid item xs = {3} >
+                  Phone number*
+              </Grid>
+              <Grid item xs = {9} >
+                    <TextField value = "" onChange = {()=>{}} name = "optionalPhoneNumber"/>              
+              </Grid>
+              <Grid item xs = {3} >
+                  Email address*
+              </Grid>
+              <Grid item xs = {9}>
+                  <TextField value = "" onChange = {()=>{}}name = "optionalEmail"/>              
+              </Grid>
+              
+              <Grid item container xs={12} justify = "center">
+                  <Button size = "large" type = "submit" color ="primary" variant = "contained" onClick={uploadImage}>Submit</Button>
+              </Grid> 
+              </Grid>
+              </Container>
+          </Container>
           </Grid>
           <Grid container item xs={10} className={classes.rightGridContainer}>
 
@@ -209,7 +261,6 @@ class NewProjectForm extends React.Component {
 
 
     );
-  }
 }
   
-export default withStyles(projectFormStyles)(NewProjectForm);
+export default NewProjectForm;

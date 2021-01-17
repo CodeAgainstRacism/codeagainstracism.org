@@ -1,5 +1,10 @@
 module.exports = {
-  BACKEND_URL: process.env.REACT_APP_BACKEND_URL || "http://localhost:4000/"
+  BACKEND_URL: process.env.REACT_APP_BACKEND_URL || "http://localhost:4000/",
+  BUCKET_ID: process.env.REACT_APP_BUCKET_ID,
+  BUCKET_KEY: process.env.REACT_APP_BUCKET_KEY,
+  BUCKET_NAME: process.env.REACT_APP_BUCKET_NAME,
+  BUCKET_REGION: process.env.REACT_APP_REGION,
+  DIR_NAME: process.env.REACT_APP_DIR_NAME,
   
   //REMEMBER TO CHANGE IT BACK BEFORE YOU MAKE ANY TYPES OF PUSHES
 };

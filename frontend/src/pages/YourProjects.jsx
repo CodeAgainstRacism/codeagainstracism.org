@@ -9,6 +9,7 @@ import {
   AppBar,
   Tabs,
   Tab,
+  Typography,
 } from "@material-ui/core";
 
 //imported mock data
@@ -163,6 +164,9 @@ const YourProjects = (props) => {
 
             <Container style={{ backgroundColor: "white" }}>
               <TabPanel value={value} index={0}>
+                <Typography variant="h4" gutterBottom={true}>
+                  In Progress
+                </Typography>
                 <Grid container spacing={3} direction="row">
                   {cardListIncomplete.map((data, key) => {
                     return (
@@ -174,6 +178,9 @@ const YourProjects = (props) => {
                 </Grid>
               </TabPanel>
               <TabPanel value={value} index={1}>
+                <Typography variant="h4" gutterBottom={true}>
+                  Completed
+                </Typography>
                 <Grid container spacing={3} direction="row">
                   {cardListComplete.map((data, key) => {
                     return (

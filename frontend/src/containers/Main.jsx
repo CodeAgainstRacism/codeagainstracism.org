@@ -36,6 +36,7 @@ const Main = (props) => {
           path="/projects/new"
           render={(props) => (
             <NewProjectForm
+            currentUser={currentUser}
               onAuth={authUser}
               errors={errors}
               removeError={removeError}

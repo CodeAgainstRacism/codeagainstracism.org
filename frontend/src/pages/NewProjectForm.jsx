@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
+import { Redirect } from "react-router-dom";
 //CLASSES CANNOT USE STYLING HOOKS
 import {Container,
         Button,
@@ -113,6 +114,11 @@ const NewProjectForm= (props) => {
 
   }
 
+  // const { currentUser } = props;
+  //   // if user doesn't have authorization to see this page, redirect them to homepage
+  //   if (!currentUser.isAuthenticated) {
+  //     return <Redirect to="/" />
+  //   }
     return (
       <form>
         <Grid container direction={"row"}>
@@ -206,55 +212,6 @@ const NewProjectForm= (props) => {
               </Grid>
               </Container>
           </Container>
-          </Grid>
-          <Grid container item xs={10} className={classes.rightGridContainer}>
-
-            <Container className={classes.headingContainer}>
-              Create A New Project
-                 <Box className={classes.dividerBar}></Box>
-            </Container>
-            <Container className={classes.rightContainer}>
-              <Container style={{ backgroundColor: "white" }}>
-                <Grid container spacing={2} className={classes.gridText}>
-                  <Grid item xs={12} >
-                    <TextField value={this.state.projectName} onChange={this.handleInputChange} name="projectName" label="Enter Your Project's Name (Limit: 50 characters)" type="string" />
-                  </Grid>
-                  <Grid item xs={12} >
-                    <TextField value={this.state.description} onChange={this.handleInputChange} name="description" label="Tell us about your project! " type="string" rows="5" multiline={true} />
-                  </Grid>
-
-                  <Grid item xs={12} >
-                    <TextField value={this.state.qualifications} onChange={this.handleInputChange} name="qualifications" label="Qualifications for potential team members" rows="5" multiline={true} />
-                  </Grid>
-                  <Grid item xs={3} >
-                    Start Date*
-              </Grid>
-                  <Grid item container xs={3} display="flex" justify="space-evenly">
-                    <TextField value={this.state.startDate} onChange={this.handleInputChange} name="startDate" type="date" />
-                  </Grid>
-                  <Grid item container xs={3} display="flex" justify="space-evenly" >
-                    End Date*
-              </Grid>
-                  <Grid item container xs={3} display="flex" justify="space-evenly"  >
-                    <TextField value={this.state.endDate} onChange={this.handleInputChange} name="endDate" type="date" />
-                  </Grid>
-                  <Grid item xs={3} >
-                    Cover Photo
-              </Grid>
-                  <Grid item container xs={9} justify="flex-start"   >
-                    <Button variant="contained" component="label" color="primary">
-                      Upload File
-                    <input type="file" style={{ display: "none" }} />
-                    </Button>
-                  </Grid>
-                  <Grid item xs={12} >
-                  </Grid>
-                  <Grid item container xs={12} justify="center">
-                    <Button size="large" type="submit" color="primary" variant="contained">Submit</Button>
-                  </Grid>
-                </Grid>
-              </Container>
-            </Container>
           </Grid>
         </Grid>
       </form>
